@@ -4,17 +4,41 @@
 
 ---
 
+## Pilares de diseño (Frontend Well-Architected)
+
+La guía está organizada alrededor de **7 pilares de calidad**, inspirados en el Well-Architected Framework de AWS, el Cloud Adoption Framework de Azure y el Architecture Framework de GCP — adaptados a desarrollo frontend.
+
+| Pilar | Pregunta clave | Dónde se profundiza |
+|-------|---------------|---------------------|
+| **Usabilidad** | ¿El usuario puede completar su tarea sin frustrarse? | Etapa 4 |
+| **Resiliencia** | ¿Qué pasa cuando algo falla? | Etapa 6 |
+| **Rendimiento** | ¿La aplicación responde en menos de 200ms? | Etapa 5 |
+| **Seguridad** | ¿Los datos del usuario están protegidos? | Etapa 6 |
+| **Accesibilidad** | ¿Todas las personas pueden usar la aplicación? | Etapas 1, 4 |
+| **Mantenibilidad** | ¿Puedo cambiar este código en 6 meses sin romper todo? | Etapas 2, 7, 8 |
+| **Observabilidad** | ¿Puedo saber qué pasa cuando algo sale mal en producción? | Etapas 6, 7 |
+
+Los pilares se introducen en la **lectura 00 de la Etapa 1** como marco mental. Cada etapa posterior profundiza en pilares específicos. Al crear actividades, siempre indiquen **qué pilares ejercita la actividad**.
+
+Lectura de referencia: `guide/stage-1-foundations/lecturas/00-pilares-de-diseno.md`
+
+---
+
 ## Principios transversales
 
 Estos temas NO son exclusivos de una etapa — se introducen temprano y se profundizan progresivamente:
 
 | Tema | Se introduce en | Se profundiza en | Principios clave |
 |------|----------------|------------------|-----------------|
+| **Pilares de diseño** | Etapa 1 (lectura 00 — los 7 pilares) | Todas las etapas | Usabilidad, Resiliencia, Rendimiento, Seguridad, Accesibilidad, Mantenibilidad, Observabilidad |
 | **Testing** | Etapa 1 (1.6b — testing básico con Vitest) | Etapa 7 (component testing, E2E, CI) | FIRST (Fast, Isolated, Repeatable, Self-validating, Timely) + AAA (Arrange-Act-Assert) |
 | **Accesibilidad** | Etapa 1 (1.7 — auditoría con teclado) | Etapa 4 (contraste, motion) + Etapa 7 (a11y en CI) | Semantic HTML first, WCAG, prefers-reduced-motion |
 | **TypeScript** | Etapa 1 (1.6 — transformador) | Etapa 2+ (props tipados, APIs) | strict: true, cero any, interfaces para contratos |
 
-Cuando crees actividades para cualquier etapa, verifica si se puede incluir una referencia natural a estos temas transversales. Por ejemplo, si la actividad pide crear una función de utilidad, menciona que debería tener un test.
+Cuando crees actividades para cualquier etapa:
+- Indica **qué pilares de diseño** ejercita la actividad
+- Verifica si se puede incluir una referencia natural a testing, accesibilidad o TypeScript
+- Las preguntas de los pilares ("¿Qué pasa cuando falla?") pueden usarse como criterios de aceptación
 
 ---
 

@@ -17,6 +17,7 @@ Guía para desarrolladores frontend: 8 etapas progresivas, 3 niveles (🟢 Esenc
 - **Angular**: Usar Angular 19+ (standalone, signals, `@if`/`@for`, `input()`/`output()`). No usar APIs legacy (`@Input`, `NgModule`, `*ngIf`, `*ngFor`)
 - **Mockups**: Solo para resultados visuales. Deben mostrar exactamente lo que el estudiante obtendrá, no diseños refinados
 - **Anti-patterns**: Siempre cubrir el camino negativo — cómo las cosas fallan, no solo cómo funcionan
+- **Pilares de diseño**: La guía usa 7 pilares (Usabilidad, Resiliencia, Rendimiento, Seguridad, Accesibilidad, Mantenibilidad, Observabilidad). Cada actividad debe indicar qué pilares ejercita. Referencia: `guide/stage-1-foundations/lecturas/00-pilares-de-diseno.md`
 
 ## Estructura del proyecto
 

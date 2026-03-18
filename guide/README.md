@@ -55,7 +55,7 @@ Cada actividad está marcada con un nivel. Un principiante solo necesita complet
 ### [Etapa 1: Fundamentos](./stage-1-foundations/)
 > La plataforma antes del framework.
 
-**Qué aprenderás:** HTML semántico, CSS (box model, Flexbox, Grid), JavaScript ES2020+, TypeScript, accesibilidad y entorno de desarrollo.
+**Qué aprenderás:** Los [7 pilares de diseño](./stage-1-foundations/lecturas/00-pilares-de-diseno.md) (Usabilidad, Resiliencia, Rendimiento, Seguridad, Accesibilidad, Mantenibilidad, Observabilidad), HTML semántico, CSS (box model, Flexbox, Grid), JavaScript ES2020+, TypeScript, testing básico (FIRST + AAA), accesibilidad y entorno de desarrollo.
 
 **Por qué importa:** Todo framework se compila a HTML, CSS y JavaScript. Si no entiendes la plataforma, lucharás contra el framework en lugar de usarlo.
 

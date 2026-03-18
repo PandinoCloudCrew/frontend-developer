@@ -8,6 +8,8 @@
 
 **Por qué esta etapa importa:** Todo framework (Angular, React, Vue) se compila a HTML, CSS y JavaScript. Si no entiendes lo que pasa en esa capa, vas a luchar contra el framework en lugar de usarlo. Los desarrolladores que se saltan los fundamentos terminan copiando código sin entender por qué funciona — y no saben qué hacer cuando falla.
 
+> **Lectura recomendada antes de empezar:** [Pilares de Diseño para Aplicaciones Frontend](./lecturas/00-pilares-de-diseno.md) — los 7 principios de calidad (Usabilidad, Resiliencia, Rendimiento, Seguridad, Accesibilidad, Mantenibilidad, Observabilidad) que guían toda la guía.
+
 ---
 
 ## Progreso
@@ -264,6 +266,7 @@
 
 | Archivo | Contenido |
 |---------|-----------|
+| [00-pilares-de-diseno.md](./lecturas/00-pilares-de-diseno.md) | **Los 7 pilares de calidad**: Usabilidad, Resiliencia, Rendimiento, Seguridad, Accesibilidad, Mantenibilidad, Observabilidad |
 | [01-html-semantico.md](./lecturas/01-html-semantico.md) | HTML semántico, estructura del documento, elementos semánticos y el DOM |
 | [02-formularios-nativos.md](./lecturas/02-formularios-nativos.md) | Formularios HTML, validación nativa, fieldset y legend |
 | [03-css-box-model.md](./lecturas/03-css-box-model.md) | CSS box model, border-box, stacking context y z-index |
