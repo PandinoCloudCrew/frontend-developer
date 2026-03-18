@@ -28,9 +28,9 @@ Cada actividad está marcada con un nivel. Un principiante solo necesita complet
 
 | Ruta | Actividades | Horas | Qué incluye |
 |------|:-----------:|:-----:|-------------|
-| **Principiante** (solo 🟢) | 32 | ~27h | Todo lo necesario para ser productivo como desarrollador frontend |
-| **Profesional** (🟢 + 🟡) | 52 | ~44h | Calidad de código, patrones avanzados, testing profesional y arquitectura |
-| **Senior/Lead** (🟢 + 🟡 + 🔴) | 69 | ~58h | Arquitectura a escala, decisiones técnicas de equipo, métricas reales y validación exhaustiva |
+| **Principiante** (solo 🟢) | 35 | ~29h | Todo lo necesario para ser productivo como desarrollador frontend |
+| **Profesional** (🟢 + 🟡) | 55 | ~46h | Calidad de código, patrones avanzados, testing profesional y arquitectura |
+| **Senior/Lead** (🟢 + 🟡 + 🔴) | 72 | ~60h | Arquitectura a escala, decisiones técnicas de equipo, métricas reales y validación exhaustiva |
 
 ---
 
@@ -38,7 +38,7 @@ Cada actividad está marcada con un nivel. Un principiante solo necesita complet
 
 | Etapa | 🟢 Esencial | 🟡 Recomendado | 🔴 Avanzado | Ir |
 |-------|:-----------:|:-------------:|:-----------:|:--:|
-| 1 - Fundamentos | 0/8 | 0/2 | 0/3 | [→](./stage-1-foundations/) |
+| 1 - Fundamentos | 0/10 | 0/2 | 0/3 | [→](./stage-1-foundations/) |
 | 2 - Componentes | 0/5 | 0/2 | 0/2 | [→](./stage-2-component-architecture/) |
 | 3 - Estado y Datos | 0/5 | 0/2 | 0/2 | [→](./stage-3-state-and-data/) |
 | 4 - Usabilidad y Diseño | 0/4 | 0/3 | 0/2 | [→](./stage-4-usability-and-design/) |
@@ -46,7 +46,7 @@ Cada actividad está marcada con un nivel. Un principiante solo necesita complet
 | 6 - Seguridad y Resiliencia | 0/4 | 0/2 | 0/1 | [→](./stage-6-security-and-resilience/) |
 | 7 - Testing y Calidad | 0/3 | 0/3 | 0/2 | [→](./stage-7-testing-and-quality/) |
 | 8 - Arquitectura a Escala | 0/1 | 0/4 | 0/3 | [→](./stage-8-architecture-at-scale/) |
-| **Total** | **0/33** | **0/20** | **0/17** | |
+| **Total** | **0/35** | **0/20** | **0/17** | |
 
 ---
 

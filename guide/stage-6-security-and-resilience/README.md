@@ -172,6 +172,7 @@
 | [04-error-boundaries-y-degradacion.md](./lecturas/04-error-boundaries-y-degradacion.md) | Error boundaries, degradación elegante, los 4 estados de error |
 | [05-optimistic-updates-y-retry.md](./lecturas/05-optimistic-updates-y-retry.md) | Optimistic updates, rollback, retry con exponential backoff |
 | [06-anti-patterns-de-seguridad.md](./lecturas/06-anti-patterns-de-seguridad.md) | Anti-patterns de seguridad: secretos en bundle, eval, localStorage para tokens |
+| [07-seguridad-avanzada-frontend.md](./lecturas/07-seguridad-avanzada-frontend.md) | Seguridad avanzada: MFA, protección de datos, sanitización de input, supply chain, principios de diseño seguro |
 
 ### Material de Angular
 

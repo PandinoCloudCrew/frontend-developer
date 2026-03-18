@@ -88,7 +88,7 @@
 **Lectura:**
 - [Virtualización](./lecturas/04-virtualizacion.md) (~5 min)
 
-**Práctica:** Usar `@tanstack/virtual` o `react-window` para renderizar 10,000 elementos sin jank (~40 min)
+**Práctica:** Usar `@angular/cdk/scrolling` (CDK Virtual Scroll) o `@tanstack/virtual` para renderizar 10,000 elementos sin jank (~40 min)
 
 **Validación:** DevTools Performance -> scroll rápido -> frame rate > 55fps (~10 min)
 
@@ -111,13 +111,13 @@
 **Angular:**
 - [Rendimiento en Angular](./angular/01-rendimiento-en-angular.md) (secciones OnPush y Signals, ~10 min)
 
-**Práctica:** Identificar un re-render costoso con React Profiler. Aplicar `React.memo`/`useMemo`. Luego demostrar cómo un inline object rompe la memoización silenciosamente (~30 min)
+**Práctica:** Identificar re-renders costosos con Angular DevTools. Aplicar `OnPush` change detection y `computed()` signals. Demostrar cuándo un signal derivado evita cálculos innecesarios (~30 min)
 
 **Validación:** Documentar qué se midió como costoso antes de memoizar (~5 min)
 
 **Criterios de aceptación:**
 - [ ] Cada memoización tiene una justificación medida
-- [ ] Se demuestra cómo un inline object rompe `React.memo`
+- [ ] Se demuestra cuándo `OnPush` + signals evita re-renders innecesarios
 - [ ] "Podría ser lento" NO es justificación aceptable
 
 ---
@@ -170,8 +170,8 @@
 | [01-core-web-vitals-y-rail.md](./lecturas/01-core-web-vitals-y-rail.md) | Core Web Vitals (LCP, CLS, INP), modelo RAIL, Lighthouse |
 | [02-lazy-loading-y-code-splitting.md](./lecturas/02-lazy-loading-y-code-splitting.md) | Lazy loading, code splitting por ruta, dynamic imports |
 | [03-bundle-optimization.md](./lecturas/03-bundle-optimization.md) | Análisis de bundle, tree shaking, optimización de dependencias |
-| [04-virtualizacion.md](./lecturas/04-virtualizacion.md) | Virtualización de listas largas con TanStack Virtual / react-window |
-| [05-memoizacion.md](./lecturas/05-memoizacion.md) | Memoización: React.memo, useMemo, useCallback, cuándo usar y cuándo no |
+| [04-virtualizacion.md](./lecturas/04-virtualizacion.md) | Virtualización de listas largas con CDK Virtual Scroll / TanStack Virtual |
+| [05-memoizacion.md](./lecturas/05-memoizacion.md) | Memoización: `computed()` signals, `OnPush`, cuándo optimizar y cuándo no |
 | [06-anti-patterns-de-rendimiento.md](./lecturas/06-anti-patterns-de-rendimiento.md) | Anti-patterns de rendimiento, RUM vs sintético, scripts de terceros |
 
 ### Material de Angular
