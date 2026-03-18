@@ -18,6 +18,54 @@ Los tests NO existen para alcanzar métricas de coverage. Un test suite con 100%
 
 ---
 
+## Los Principios FIRST
+
+Antes de escribir un solo test, entiende las 5 propiedades que todo buen test debe tener. FIRST es el acrónimo que las resume:
+
+| Letra | Principio | Qué significa | Qué pasa si lo violas |
+|:-----:|-----------|---------------|----------------------|
+| **F** | **Fast** | Los tests deben ejecutarse en milisegundos, no segundos. Un test suite lento no se ejecuta frecuentemente. | Los developers dejan de correr los tests localmente y solo los ejecutan en CI, perdiendo el feedback rápido. |
+| **I** | **Isolated** | Cada test es independiente. No depende de otros tests, ni de estado compartido, ni del orden de ejecución. | Un test pasa solo, pero falla cuando se ejecuta con otros. O peor: un test pasa siempre, pero oculta que otro dejó estado sucio. |
+| **R** | **Repeatable** | El mismo test produce el mismo resultado cada vez, en cualquier máquina, en cualquier orden. Sin dependencias de hora, red, base de datos ni filesystem. | Tests "flaky" — pasan 9 de 10 veces. El equipo aprende a ignorarlos y se pierde confianza en todo el test suite. |
+| **S** | **Self-validating** | El test produce un resultado binario: pasa o falla. No requiere que un humano revise logs o compare output visual. | "El test pasó pero mira el log para verificar que los datos son correctos" — eso no es un test, es una tarea manual disfrazada. |
+| **T** | **Timely** | Los tests se escriben junto con el código (o antes, en TDD), no como una tarea posterior que "haremos después". | "Después" nunca llega. El código se envía sin tests, se acumula deuda técnica, y refactorizar se vuelve riesgoso. |
+
+### FIRST en la práctica
+
+```typescript
+// ✅ FIRST compliant
+test('calculates 20% discount for orders over $100', () => {
+  // Fast — pure function, no I/O, runs in <1ms
+  // Isolated — creates its own data, no shared state
+  // Repeatable — same input always produces same output
+  // Self-validating — expect() gives pass/fail
+  // Timely — written alongside calculateDiscount()
+
+  const result = calculateDiscount(120);
+  expect(result).toBe(96);
+});
+
+// ❌ Viola FIRST
+test('processes order', async () => {
+  // NOT Fast — hits a real database
+  // NOT Isolated — depends on database state from previous tests
+  // NOT Repeatable — fails if the network is slow
+  // NOT Self-validating — logs the result for manual review
+
+  const order = await createOrder(realDatabase, realPaymentGateway);
+  console.log('Order created:', order); // manual verification needed
+});
+```
+
+### Relación entre FIRST y AAA
+
+FIRST describe las **propiedades** que un test debe tener. AAA describe la **estructura** que un test debe seguir. Son complementarios:
+- Un test con estructura AAA perfecta pero que tarda 30 segundos viola **Fast**
+- Un test rápido y aislado pero sin assertions claras viola **Self-validating**
+- Usa FIRST como checklist de calidad, AAA como plantilla de estructura
+
+---
+
 ## El Patrón Arrange-Act-Assert
 
 Cada test debería tener exactamente tres fases, claramente separadas:

@@ -4,6 +4,20 @@
 
 ---
 
+## Principios transversales
+
+Estos temas NO son exclusivos de una etapa — se introducen temprano y se profundizan progresivamente:
+
+| Tema | Se introduce en | Se profundiza en | Principios clave |
+|------|----------------|------------------|-----------------|
+| **Testing** | Etapa 1 (1.6b — testing básico con Vitest) | Etapa 7 (component testing, E2E, CI) | FIRST (Fast, Isolated, Repeatable, Self-validating, Timely) + AAA (Arrange-Act-Assert) |
+| **Accesibilidad** | Etapa 1 (1.7 — auditoría con teclado) | Etapa 4 (contraste, motion) + Etapa 7 (a11y en CI) | Semantic HTML first, WCAG, prefers-reduced-motion |
+| **TypeScript** | Etapa 1 (1.6 — transformador) | Etapa 2+ (props tipados, APIs) | strict: true, cero any, interfaces para contratos |
+
+Cuando crees actividades para cualquier etapa, verifica si se puede incluir una referencia natural a estos temas transversales. Por ejemplo, si la actividad pide crear una función de utilidad, menciona que debería tener un test.
+
+---
+
 ## Audiencia
 
 El estudiante es una persona con **poca experiencia en desarrollo**. No asumas que sabe:

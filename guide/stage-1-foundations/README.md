@@ -12,7 +12,7 @@
 
 ## Progreso
 
-**Esenciales:** 0/9 | **Recomendadas:** 0/2 | **Avanzadas:** 0/3
+**Esenciales:** 0/10 | **Recomendadas:** 0/2 | **Avanzadas:** 0/3
 
 ---
 
@@ -27,6 +27,7 @@
 | 1.4 | [Construir layouts con CSS Grid](#14--construir-layouts-con-css-grid) | ~60 min | ☐ |
 | 1.5 | [JavaScript moderno: módulos, destructuring y async/await](#15--javascript-moderno) | ~55 min | ☐ |
 | 1.6 | [Escribir un transformador de datos en TypeScript](#16--escribir-un-transformador-de-datos-en-typescript) | ~60 min | ☐ |
+| 1.6b | [Escribir tus primeros tests unitarios](#16b--escribir-tus-primeros-tests-unitarios) | ~50 min | ☐ |
 | 1.7 | [Auditar accesibilidad con teclado](#17--auditar-accesibilidad-con-teclado) | ~50 min | ☐ |
 | 1.8 | [Interactividad con el DOM](#18--interactividad-con-el-dom) | ~55 min | ☐ |
 
@@ -147,6 +148,20 @@
 
 ---
 
+### 1.6b — Escribir tus primeros tests unitarios
+
+**Por qué:** Has escrito un transformador de datos que funciona — ¿pero cómo lo sabes? Lo verificaste manualmente. Cuando tu proyecto tenga 50 funciones, verificar todo a mano es imposible. Los tests automatizan esa verificación: los escribes una vez y los ejecutas cada vez que cambias algo. Si un test falla, sabes exactamente qué se rompió.
+
+| | |
+|---|---|
+| **Requiere** | Actividad 1.6 completada (proyecto TypeScript con funciones de transformación) |
+| **Aprenderás** | Instalar Vitest, los principios FIRST (Fast, Isolated, Repeatable, Self-validating, Timely), el patrón AAA (Arrange-Act-Assert), testear casos límite |
+| **Al completar** | Tu transformador tiene 4+ tests que pasan en menos de 1 segundo. Sabes que si rompes algo, un test te avisa |
+
+[→ Ir a la actividad](./actividades/1.6b-testing-basico.md)
+
+---
+
 ### 1.7 — Auditar accesibilidad con teclado
 
 **Por qué:** El 15% de la población mundial tiene alguna discapacidad. Si tu página no se puede navegar con teclado, estás excluyendo a millones de personas. Además, es un requisito legal en la UE (European Accessibility Act, vigente desde junio 2025). Y sorpresa: los elementos semánticos de la Actividad 1.1 te dan accesibilidad gratis.
@@ -259,6 +274,7 @@
 | [08-typescript-basico.md](./lecturas/08-typescript-basico.md) | TypeScript básico: interfaces, tipos, strict mode, generics |
 | [09-accesibilidad-fundamentos.md](./lecturas/09-accesibilidad-fundamentos.md) | Accesibilidad: navegación por teclado, ARIA, WCAG |
 | [10-entorno-de-desarrollo.md](./lecturas/10-entorno-de-desarrollo.md) | Entorno de desarrollo: linters, DevTools, herramientas DX |
+| [11-testing-basico.md](./lecturas/11-testing-basico.md) | Testing básico: Vitest, principios FIRST, patrón AAA, tu primer test |
 
 ---
 
