@@ -256,7 +256,7 @@ export class DialogComponent {}
 
 ## Errores Comunes
 
-- **Olvidar `()` al leer signals en el template.** `{{ name }}` no funciona si `name` es un `input()`. Debe ser `{{ name() }}`.
+- **Olvidar `()` al leer signals en el template.** la interpolación `name` no funciona si `name` es un `input()`. Debe ser la interpolación `name()`.
 - **Olvidar `track` en `@for`.** Angular 17+ requiere `track` obligatorio. Sin él, obtienes un error de compilación.
 - **Importar componentes viejos con `declarations` en vez de `imports`.** Con standalone components, todo va en `imports`. `declarations` es parte del viejo sistema de `NgModule`.
 - **Poner lógica de negocio en el componente.** Los componentes deben ser presentacionales. Extrae la lógica a servicios o funciones puras.

@@ -100,6 +100,10 @@ pnpm-debug.log*
 # Los mockups se versionan como referencia visual para los estudiantes
 # Se regeneran desde archivos .pen si es necesario
 
+# === VitePress ===
+guide/.vitepress/dist/
+guide/.vitepress/cache/
+
 # === Archivos temporales ===
 *.tmp
 *.bak

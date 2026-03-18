@@ -221,7 +221,7 @@ export class CartService {
 
 ## Errores Comunes
 
-- **Olvidar `()` al leer un signal.** `{{ count }}` muestra el objeto signal, no el valor. Siempre usa `{{ count() }}`.
+- **Olvidar `()` al leer un signal.** la interpolación `count` muestra el objeto signal, no el valor. Siempre usa la interpolación `count()`.
 - **Modificar signals dentro de `effect()` sin `allowSignalWrites`.** Angular lo prohíbe por defecto para evitar loops infinitos. Usa `computed()` para valores derivados.
 - **Crear un signal global cuando debería ser local.** Si solo un componente usa un valor, mantén el signal en el componente. No todo necesita ser un servicio.
 - **Usar signals para estado del servidor.** Los datos de API tienen su propio lifecycle (loading, error, caching). Usa `httpResource` o `rxResource` para data fetching, no signals manuales.

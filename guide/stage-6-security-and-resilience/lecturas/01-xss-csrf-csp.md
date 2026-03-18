@@ -10,7 +10,7 @@ Las tres vulnerabilidades de seguridad web mas comunes en el frontend son Cross-
 
 ### Auto-escaping del Framework
 
-React, Vue, Angular y Svelte escapan automáticamente los datos renderizados en templates/JSX. Esta es tu primera linea de defensa. Cuando renderizas `{userInput}` en JSX o `{{ userInput }}` en un template de Vue, el framework convierte caracteres especiales como `<`, `>` y `"` en entidades HTML inofensivas.
+React, Vue, Angular y Svelte escapan automáticamente los datos renderizados en templates/JSX. Esta es tu primera linea de defensa. Cuando renderizas `{userInput}` en JSX o la interpolación del input del usuario en un template de Vue, el framework convierte caracteres especiales como `<`, `>` y `"` en entidades HTML inofensivas.
 
 ### APIs Peligrosas a Evitar
 
