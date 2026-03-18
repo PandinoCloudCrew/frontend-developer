@@ -27,14 +27,108 @@ El estudiante es una persona con **poca experiencia en desarrollo**. No asumas q
 
 ---
 
+## Navegación
+
+El estudiante navega documentos markdown que pueden ser largos. Sin navegación clara, se pierde. Estas reglas aplican a **todos** los documentos (actividades, lecturas, READMEs).
+
+### Regla general
+
+Cada documento debe permitir al estudiante responder estas preguntas en menos de 3 segundos:
+1. **¿Dónde estoy?** → Título claro con número de actividad/etapa
+2. **¿Cómo vuelvo?** → Link visible al índice de la etapa
+3. **¿Qué sigue?** → Link a la siguiente actividad/sección
+
+### Links de navegación obligatorios
+
+**Inicio del documento:**
+```markdown
+[← Volver a Etapa N](../README.md)
+```
+
+**Final del documento:**
+```markdown
+---
+[← Actividad anterior](./X.Z-nombre.md) | [Siguiente →](./X.W-nombre.md)
+```
+
+**En lecturas largas (>150 líneas):** Agregar una tabla de contenido al inicio con anchors:
+```markdown
+## Contenido
+- [Subtema 1](#subtema-1)
+- [Subtema 2](#subtema-2)
+- [Anti-patterns](#anti-patterns)
+```
+
+### Anchors en secciones largas
+
+Si una sección de práctica tiene más de 6 pasos, agregar un mini-índice al inicio:
+```markdown
+## Práctica paso a paso
+
+> **Pasos:** [1. Crear carpeta](#paso-1) · [2. Escribir esqueleto](#paso-2) · [3. Header](#paso-3) · [4. Nav](#paso-4) · [5. Main](#paso-5) · [6. Aside y footer](#paso-6)
+```
+
+Cada paso debe ser un heading linkeable:
+```markdown
+### Paso 1 — Crear la carpeta y el archivo {#paso-1}
+```
+
+### Breadcrumb en READMEs de etapa
+
+Los READMEs de etapa deben incluir un breadcrumb al inicio:
+```markdown
+[Inicio](../README.md) > Etapa 1: Fundamentos
+```
+
+---
+
+## Bloques de código HTML
+
+### El problema
+
+Cuando el estudiante ve un archivo `.md` en GitHub o en VS Code con preview, los bloques marcados como ` ```html ` se **renderizan como HTML real** en lugar de mostrar el código fuente. El estudiante ve el resultado visual en vez del código que debe copiar. Esto es confuso y hace imposible seguir los pasos.
+
+### La solución
+
+**NUNCA** uses ` ```html ` para bloques de código que el estudiante debe copiar. Usa ` ```text ` o simplemente ` ``` ` (sin lenguaje) y agrega un comentario indicando que es HTML:
+
+**Mal** (se renderiza como HTML en preview):
+````
+```html
+<header>
+  <h1>Mi Nombre</h1>
+</header>
+```
+````
+
+**Bien** (se muestra como código copiable):
+````
+```text
+<!-- HTML: agrega esto dentro de <body> -->
+<header>
+  <h1>Mi Nombre</h1>
+</header>
+```
+````
+
+### Cuándo SÍ usar ```html
+
+Solo cuando el bloque es un **ejemplo ilustrativo** en una lectura que NO necesita ser copiado. Si el estudiante debe copiar o escribir el código, usar ` ```text `.
+
+### Para otros lenguajes
+
+TypeScript, CSS y JavaScript no tienen este problema — ` ```typescript `, ` ```css ` y ` ```javascript ` se muestran correctamente como código en preview. Solo HTML se renderiza.
+
+---
+
 ## Estructura de una actividad
 
 Cada actividad es un archivo markdown independiente en `actividades/`. Debe seguir esta estructura exacta:
 
-```markdown
+````markdown
 # 🟢 Actividad X.Y — Nombre accionable de la actividad
 
-[← Volver a Etapa N](../README.md)
+[Inicio](../../README.md) > [Etapa N](../README.md) > Actividad X.Y
 
 - [ ] Completada
 
@@ -55,15 +149,25 @@ Qué necesita el estudiante antes de iniciar esta actividad:
 
 ## Práctica paso a paso
 
-**Paso 1 — Título del paso**
+> **Pasos:** [1. Título](#paso-1--título) · [2. Título](#paso-2--título) · [3. Título](#paso-3--título)
+
+### Paso 1 — Título del paso
 
 1. Instrucción específica con ruta exacta o comando exacto
 2. Instrucción siguiente
-3. ...
 
-> 💡 **Nota:** Explicación breve de por qué se hace esto (opcional, solo si no es obvio)
+Bloques de código HTML usar ```text (NO ```html):
 
-**Paso 2 — Título del paso**
+```text
+<!-- HTML: agrega esto dentro de <body> -->
+<header>
+  <h1>Mi Nombre</h1>
+</header>
+```
+
+> 💡 **Nota:** Explicación breve de por qué se hace esto (opcional)
+
+### Paso 2 — Título del paso
 
 1. Instrucción...
 2. ...
@@ -84,8 +188,7 @@ Descripción en texto de qué debe ver el estudiante al terminar. Si hay mockup:
 
 ![Resultado esperado](../mockups/X.Y-nombre.png)
 
-*(Solo incluir mockup para actividades que producen un resultado visual en el navegador.
-Actividades de código, configuración o auditoría NO necesitan mockup.)*
+*(Solo incluir mockup para actividades con resultado visual en el navegador.)*
 
 **Criterios de aceptación:**
 - [ ] Criterio verificable 1
@@ -95,7 +198,7 @@ Actividades de código, configuración o auditoría NO necesitan mockup.)*
 ---
 
 [← Actividad anterior](./X.Z-nombre.md) | [Siguiente →](./X.W-nombre.md)
-```
+````
 
 ---
 
@@ -197,7 +300,14 @@ Las lecturas están en `lecturas/`. Cada una cubre un solo tema y se introduce c
 ```markdown
 # Título del Tema
 
+[← Volver a Etapa N](../README.md)
+
 Introducción de 2-3 oraciones: qué es, para qué sirve, por qué importa.
+
+## Contenido *(solo si >150 líneas)*
+- [Subtema 1](#subtema-1)
+- [Subtema 2](#subtema-2)
+- [Anti-patterns](#anti-patterns)
 
 ---
 
@@ -218,6 +328,10 @@ Explicación con ejemplos de código.
 - Bullet 1
 - Bullet 2
 - Bullet 3
+
+---
+
+[← Volver a Etapa N](../README.md)
 ```
 
 ### Reglas de longitud
@@ -274,6 +388,8 @@ Cada etapa tiene un `README.md` que es un **índice conciso** (~60-80 líneas), 
 
 ```markdown
 # Etapa N: Nombre
+
+[Inicio](../README.md) > Etapa N
 
 > Descripción de una línea.
 
@@ -336,13 +452,38 @@ Cada etapa tiene un `README.md` que es un **índice conciso** (~60-80 líneas), 
 
 ## Checklist antes de publicar una actividad
 
+### Estructura
 - [ ] Sigue la estructura exacta de este documento
+- [ ] Tiene breadcrumb al inicio: `[Inicio] > [Etapa N] > Actividad X.Y`
+- [ ] Tiene navegación al final: `← Anterior | Siguiente →`
+- [ ] Si tiene más de 6 pasos, tiene mini-índice de pasos con anchors
+
+### Contenido
 - [ ] "Antes de empezar" lista actividades previas requeridas
 - [ ] Cada paso de la práctica es ejecutable sin ambigüedad
 - [ ] Los comandos incluyen la ruta o contexto donde ejecutarse
 - [ ] Los bloques de código son completos y copiables
 - [ ] "Qué puede salir mal" tiene 2-4 errores reales de principiantes
 - [ ] Los criterios de aceptación son binarios y verificables
+
+### Código HTML
+- [ ] Los bloques de HTML que el estudiante debe copiar usan ` ```text `, NO ` ```html `
+- [ ] Los bloques incluyen un comentario indicando qué son: `<!-- HTML: agrega esto dentro de <body> -->`
+
+### Visual
 - [ ] Si hay mockup, muestra lo que el estudiante realmente obtendrá
-- [ ] Los links a lecturas y angular usan rutas relativas correctas (`../lecturas/`, `../angular/`)
+- [ ] Si NO hay mockup, el "Resultado esperado" describe en texto qué debe verse
+
+### Links
+- [ ] Los links a lecturas usan `../lecturas/` (ruta relativa correcta)
+- [ ] Los links a angular usan `../angular/` (ruta relativa correcta)
 - [ ] La navegación ← Anterior | Siguiente → apunta a los archivos correctos
+
+## Checklist antes de publicar una lectura
+
+- [ ] Tiene entre 50-300 líneas
+- [ ] Cubre un solo tema
+- [ ] Si supera 150 líneas, tiene tabla de contenido con anchors
+- [ ] Incluye al menos un anti-pattern
+- [ ] Termina con "Puntos clave" (3-5 bullets)
+- [ ] Los ejemplos de HTML usan ` ```text ` si el estudiante debe copiarlos
