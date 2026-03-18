@@ -155,6 +155,20 @@
 
 ---
 
+### 8.9 — Implementar almacenamiento offline con IndexedDB
+
+**Por qué:** Las aplicaciones complejas necesitan más que `localStorage`. IndexedDB permite almacenar cientos de MB de datos estructurados con índices y transacciones — suficiente para que tu app funcione offline con datos reales, no solo preferences.
+
+| | |
+|---|---|
+| **Requiere** | Actividad 8.1 completada, familiaridad con servicios Angular |
+| **Aprenderás** | Usar `idb` para IndexedDB, crear un servicio Angular con signals que envuelve IndexedDB, CRUD completo, verificar quotas de almacenamiento, implementar cache layer con fallback a IndexedDB |
+| **Al completar** | Servicio de almacenamiento con IndexedDB funcional, CRUD con signals reactivos, quota verificada, cache layer que funciona sin API |
+
+[→ Ir a la actividad](./actividades/8.9-almacenamiento-browser.md)
+
+---
+
 ## Material de lectura
 
 | Archivo | Contenido |

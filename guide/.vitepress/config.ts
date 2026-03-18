@@ -388,6 +388,8 @@ export default defineConfig({
           items: [
             { text: '6.5 CSRF y CSP', link: '/stage-6-security-and-resilience/actividades/6.5-csrf-csp' },
             { text: '6.6 Optimistic + retry', link: '/stage-6-security-and-resilience/actividades/6.6-optimistic-retry' },
+            { text: '6.8 OIDC Login', link: '/stage-6-security-and-resilience/actividades/6.8-oidc-login' },
+            { text: '6.9 RBAC', link: '/stage-6-security-and-resilience/actividades/6.9-rbac' },
           ],
         },
         {
@@ -395,6 +397,8 @@ export default defineConfig({
           collapsed: true,
           items: [
             { text: '6.7 Validación integral', link: '/stage-6-security-and-resilience/actividades/6.7-validacion-integral' },
+            { text: '6.10 App offline-tolerant', link: '/stage-6-security-and-resilience/actividades/6.10-resiliencia-offline' },
+            { text: '6.11 Protección canal', link: '/stage-6-security-and-resilience/actividades/6.11-proteccion-canal' },
           ],
         },
         {
@@ -508,6 +512,7 @@ export default defineConfig({
             { text: '8.6 Vite y build', link: '/stage-8-architecture-at-scale/actividades/8.6-vite-build' },
             { text: '8.7 Monorepos y micro-frontends', link: '/stage-8-architecture-at-scale/actividades/8.7-monorepos-microfrontends' },
             { text: '8.8 Validación integral', link: '/stage-8-architecture-at-scale/actividades/8.8-validacion-integral' },
+            { text: '8.9 Almacenamiento browser', link: '/stage-8-architecture-at-scale/actividades/8.9-almacenamiento-browser' },
           ],
         },
         {

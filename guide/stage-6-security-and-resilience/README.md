@@ -14,7 +14,7 @@
 
 ## Progreso
 
-**Esenciales:** 0/4 | **Recomendadas:** 0/2 | **Avanzadas:** 0/1
+**Esenciales:** 0/4 | **Recomendadas:** 0/4 | **Avanzadas:** 0/3
 
 ---
 
@@ -33,12 +33,16 @@
 |:-:|-----------|---------|:--------:|:------:|
 | 6.5 | [CSRF/CSP](#65--configurar-csp-y-proteccion-csrf) | Seguridad | ~45 min | ☐ |
 | 6.6 | [Optimistic/retry](#66--optimistic-updates-con-rollback-y-retry-con-backoff) | Resiliencia | ~55 min | ☐ |
+| 6.8 | [OIDC Login](#68--implementar-login-con-oidc) | Seguridad | ~55 min | ☐ |
+| 6.9 | [RBAC](#69--implementar-rbac-en-la-interfaz) | Seguridad, Usabilidad | ~55 min | ☐ |
 
 ## Actividades Avanzadas 🔴
 
 | # | Actividad | Pilares | Duracion | Estado |
 |:-:|-----------|---------|:--------:|:------:|
 | 6.7 | [Validacion integral](#67--validacion-integral-de-etapa-6) | Todos | ~55 min | ☐ |
+| 6.10 | [App offline-tolerant](#610--construir-una-app-offline-tolerant) | Resiliencia | ~60 min | ☐ |
+| 6.11 | [Protección canal](#611--configurar-proteccion-del-canal-y-payload) | Seguridad | ~55 min | ☐ |
 
 ---
 
@@ -139,6 +143,62 @@
 | **Al completar** | Todos los criterios de aceptacion de la etapa pasan |
 
 [→ Ir a la actividad](./actividades/6.7-validacion-integral.md)
+
+---
+
+### 6.8 — Implementar login con OIDC
+
+**Por qué:** OAuth te da autorización pero no identidad. OIDC (OpenID Connect) es el estándar de la industria que agrega autenticación sobre OAuth — te dice QUIÉN es el usuario, no solo QUÉ puede hacer. Auth0, Azure AD, Google y Keycloak lo implementan. Si trabajas en una empresa, vas a usar OIDC.
+
+| | |
+|---|---|
+| **Requiere** | Actividad 6.3 completada (entiende OAuth + PKCE) |
+| **Aprenderás** | Configurar `angular-auth-oidc-client`, entender ID Token vs Access Token, inspeccionar claims, implementar silent renew y logout |
+| **Al completar** | Login con OIDC funcional, ID Token con claims visibles, silent renew automático, logout limpia sesión |
+
+[→ Ir a la actividad](./actividades/6.8-oidc-login.md)
+
+---
+
+### 6.9 — Implementar RBAC en la interfaz
+
+**Por qué:** Un usuario no debería ver botones que no puede usar ni acceder a rutas que no le corresponden. RBAC (Role-Based Access Control) en frontend es UX — mostrar solo lo relevante. Pero la seguridad real está en el servidor: ocultar un botón no impide que alguien haga la petición directamente.
+
+| | |
+|---|---|
+| **Requiere** | Actividad 6.8 completada (OIDC con roles en claims) |
+| **Aprenderás** | Crear PermissionService con signals, guards por rol, renderizado condicional con `@if`, rutas admin lazy-loaded, demostrar que ocultar ≠ proteger |
+| **Al completar** | UI muestra solo lo que el rol permite, rutas protegidas por guard, demostrado que el servidor rechaza peticiones no autorizadas independientemente |
+
+[→ Ir a la actividad](./actividades/6.9-rbac.md)
+
+---
+
+### 6.10 — Construir una app offline-tolerant
+
+**Por qué:** El 53% del tráfico web es móvil. Conexiones inestables en el metro, aviones, zonas rurales. Una app que muestra pantalla en blanco sin red no es profesional. Service Workers y offline queues hacen que tu app siga funcionando — mostrando datos cacheados y encolando acciones para sincronizar después.
+
+| | |
+|---|---|
+| **Requiere** | Actividades 6.1-6.7 completadas |
+| **Aprenderás** | Configurar `@angular/pwa`, caching strategies (cache-first, network-first), offline queue con IndexedDB, detectar estado de red, sincronizar al reconectar |
+| **Al completar** | La app funciona en modo offline (DevTools), muestra datos cacheados, encola acciones y las sincroniza al reconectar |
+
+[→ Ir a la actividad](./actividades/6.10-resiliencia-offline.md)
+
+---
+
+### 6.11 — Configurar protección del canal y payload
+
+**Por qué:** TLS encripta el canal, pero ¿verificas que tus headers HSTS están configurados? ¿Tus scripts externos tienen SRI? ¿Podrías firmar requests para prevenir tampering? Estos son controles de seguridad que la mayoría de developers ignora hasta que hay un incidente.
+
+| | |
+|---|---|
+| **Requiere** | Actividades 6.1-6.7 completadas |
+| **Aprenderás** | Verificar HSTS, agregar SRI a scripts externos, implementar request signing con HMAC, usar Web Crypto API para encrypt/decrypt |
+| **Al completar** | HSTS verificado, SRI en scripts externos, interceptor de firma de requests funcional, demo de encrypt/decrypt con Web Crypto API |
+
+[→ Ir a la actividad](./actividades/6.11-proteccion-canal.md)
 
 ---
 

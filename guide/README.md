@@ -29,8 +29,8 @@ Cada actividad está marcada con un nivel. Un principiante solo necesita complet
 | Ruta | Actividades | Horas | Qué incluye |
 |------|:-----------:|:-----:|-------------|
 | **Principiante** (solo 🟢) | 35 | ~29h | Todo lo necesario para ser productivo como desarrollador frontend |
-| **Profesional** (🟢 + 🟡) | 55 | ~46h | Calidad de código, patrones avanzados, testing profesional y arquitectura |
-| **Senior/Lead** (🟢 + 🟡 + 🔴) | 72 | ~60h | Arquitectura a escala, decisiones técnicas de equipo, métricas reales y validación exhaustiva |
+| **Profesional** (🟢 + 🟡) | 57 | ~48h | Calidad de código, patrones avanzados, testing profesional y arquitectura |
+| **Senior/Lead** (🟢 + 🟡 + 🔴) | 76 | ~64h | Arquitectura a escala, decisiones técnicas de equipo, métricas reales y validación exhaustiva |
 
 ---
 
@@ -43,10 +43,10 @@ Cada actividad está marcada con un nivel. Un principiante solo necesita complet
 | 3 - Estado y Datos | 0/5 | 0/2 | 0/2 | [→](./stage-3-state-and-data/) |
 | 4 - Usabilidad y Diseño | 0/4 | 0/3 | 0/2 | [→](./stage-4-usability-and-design/) |
 | 5 - Rendimiento | 0/3 | 0/2 | 0/2 | [→](./stage-5-performance/) |
-| 6 - Seguridad y Resiliencia | 0/4 | 0/2 | 0/1 | [→](./stage-6-security-and-resilience/) |
+| 6 - Seguridad y Resiliencia | 0/4 | 0/4 | 0/3 | [→](./stage-6-security-and-resilience/) |
 | 7 - Testing y Calidad | 0/3 | 0/3 | 0/2 | [→](./stage-7-testing-and-quality/) |
-| 8 - Arquitectura a Escala | 0/1 | 0/4 | 0/3 | [→](./stage-8-architecture-at-scale/) |
-| **Total** | **0/35** | **0/20** | **0/17** | |
+| 8 - Arquitectura a Escala | 0/1 | 0/4 | 0/4 | [→](./stage-8-architecture-at-scale/) |
+| **Total** | **0/35** | **0/22** | **0/19** | |
 
 ---
 
