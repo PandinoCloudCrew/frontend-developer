@@ -34,6 +34,7 @@ Estos temas NO son exclusivos de una etapa — se introducen temprano y se profu
 | **Testing** | Etapa 1 (1.6b — testing básico con Vitest) | Etapa 7 (component testing, E2E, CI) | FIRST (Fast, Isolated, Repeatable, Self-validating, Timely) + AAA (Arrange-Act-Assert) |
 | **Accesibilidad** | Etapa 1 (1.7 — auditoría con teclado) | Etapa 4 (contraste, motion) + Etapa 7 (a11y en CI) | Semantic HTML first, WCAG, prefers-reduced-motion |
 | **TypeScript** | Etapa 1 (1.6 — transformador) | Etapa 2+ (props tipados, APIs) | strict: true, cero any, interfaces para contratos |
+| **Seguridad** | Etapa 1 (validación de input básica) | Etapa 6 (XSS, CSRF, auth, MFA, supply chain, design principles) | Defense in Depth, Fail Secure, Least Privilege, input sanitization, MFA |
 
 Cuando crees actividades para cualquier etapa:
 - Indica **qué pilares de diseño** ejercita la actividad
