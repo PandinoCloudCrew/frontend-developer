@@ -80,7 +80,7 @@ Envia menos JavaScript. Cada byte de JS tiene un costo desproporcionado:
 
 - Astro no envia JavaScript por defecto.
 - Qwik usa resumability para JavaScript inicial cercano a cero.
-- React Compiler reduce los re-renders automáticamente, resultando en menos JavaScript de actualizacion.
+- Angular signals y `OnPush` change detection reducen los re-renders automaticamente, resultando en menos JavaScript de actualizacion.
 - Tree-shaking mediante bundlers modernos elimina código muerto.
 
 ---

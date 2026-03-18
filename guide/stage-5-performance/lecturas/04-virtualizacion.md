@@ -22,11 +22,8 @@ Esto reduce dramaticamente los nodos del DOM: de potencialmente miles a solo dec
 
 | Biblioteca | Ecosistema | Notas |
 |-----------|-----------|-------|
-| `@tanstack/virtual` | React, Vue, Solid, Svelte | La solución mas moderna y agnositca de framework |
-| `react-window` | React | Liviana, API simple, de Brian Vaughn |
-| `react-virtualized` | React | Mas features pero mas pesada que react-window |
-| Vue Virtual Scroller | Vue | Solución nativa del ecosistema Vue |
-| Angular CDK Virtual Scroll | Angular | Parte del Component Dev Kit oficial de Angular |
+| Angular CDK Virtual Scroll (`@angular/cdk/scrolling`) | Angular | Parte del Component Dev Kit oficial de Angular. La solucion idiomatica. |
+| `@tanstack/virtual` | Angular, React, Vue, Solid, Svelte | Solucion moderna y agnostica de framework |
 
 ---
 

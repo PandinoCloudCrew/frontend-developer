@@ -16,21 +16,32 @@ La division basada en rutas es la linea base. Todos los meta-frameworks (Next.js
 
 Para componentes pesados que no son necesarios en la carga inicial:
 
-- **React:** `React.lazy()` con `<Suspense>` para mostrar un fallback durante la carga.
+- **Angular:** `@defer` para lazy loading declarativo de componentes, o `loadComponent` en rutas para lazy loading a nivel de ruta.
 - **Vue:** `defineAsyncComponent()` para cargar componentes bajo demanda.
-- **Angular:** Modulos lazy-loaded para funcionalidades completas.
 
-```jsx
-// React: lazy loading a heavy component
-const ChartDashboard = React.lazy(() => import('./ChartDashboard'));
+```typescript
+// Angular: lazy loading declarativo con @defer
+@Component({
+  template: `
+    @defer (on viewport) {
+      <app-chart-dashboard />
+    } @placeholder {
+      <app-chart-skeleton />
+    } @loading (minimum 200ms) {
+      <app-spinner />
+    }
+  `,
+})
+export class AppComponent {}
 
-function App() {
-  return (
-    <Suspense fallback={<ChartSkeleton />}>
-      <ChartDashboard />
-    </Suspense>
-  );
-}
+// Angular: lazy loading a nivel de ruta
+export const routes: Routes = [
+  {
+    path: 'dashboard',
+    loadComponent: () => import('./chart-dashboard.component')
+      .then(m => m.ChartDashboardComponent),
+  },
+];
 ```
 
 ### Lazy Loading de Imagenes

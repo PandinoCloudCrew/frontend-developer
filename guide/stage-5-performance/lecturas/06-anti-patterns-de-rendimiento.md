@@ -6,15 +6,15 @@ Los anti-patterns de rendimiento son errores recurrentes que degradan la velocid
 
 ## 1. Optimización Prematura
 
-Pasar horas optimizando una ruta de render que representa el 1% del tiempo total de renderizado mientras se ignora el 60% no optimizado es esfuerzo desperdiciado. Primero haz profiling con DevTools del navegador, React Profiler o herramientas especificas del framework. Optimiza el cuello de botella medido, no el sospechado.
+Pasar horas optimizando una ruta de render que representa el 1% del tiempo total de renderizado mientras se ignora el 60% no optimizado es esfuerzo desperdiciado. Primero haz profiling con DevTools del navegador o Angular DevTools. Optimiza el cuello de botella medido, no el sospechado.
 
 **Regla:** Memorizar cada componente, dividir cada ruta y virtualizar cada lista sin perfilar primero desperdicia tiempo de desarrollo en no-cuellos de botella. Perfila antes de optimizar.
 
 ---
 
-## 2. `React.memo()` en Todas Partes con Memoizacion Rota
+## 2. `OnPush` en Todas Partes con Inputs Inestables
 
-Envolver cada componente en `React.memo()` mientras se pasan objetos inline (`style={{ color: 'red' }}`), funciones inline (`onClick={() => ...}`) o arrays nuevos como props anula silenciosamente la memoizacion en cada render. El componente se re-renderiza de todas formas, pero ahora con la sobrecarga anadida de una comparacion superficial. Estabiliza las referencias antes de memoizar.
+Marcar cada componente con `ChangeDetectionStrategy.OnPush` mientras se pasan objetos nuevos en cada ciclo de change detection (metodos en el template que retornan objetos nuevos, arrays creados inline) anula silenciosamente la optimizacion. El componente se re-renderiza de todas formas, pero ahora con la sobrecarga anadida de la comparacion de referencia. Estabiliza las referencias con `computed()` signals antes de usar `OnPush`.
 
 ---
 
@@ -71,9 +71,9 @@ Analytics, widgets de chat, A/B testing, scripts de anuncios y embeds sociales a
 
 ---
 
-## 10. React Compiler como Solución Magica
+## 10. Confiar en el Framework como Solucion Magica
 
-El compilador optimiza el rendimiento de renderizado auto-memorizando, pero no puede arreglar jerarquias de componentes fundamentalmente defectuosas, re-renders innecesarios causados por mal uso de context o data fetching en rutas de renderizado. Perfila primero, corrige los problemas de arquitectura, y luego deja que el compilador optimice lo que queda.
+Las optimizaciones automaticas del framework (signals, `OnPush`, zoneless change detection) mejoran el rendimiento de renderizado, pero no pueden arreglar jerarquias de componentes fundamentalmente defectuosas, subscripciones innecesarias o data fetching en rutas de renderizado criticas. Perfila primero, corrige los problemas de arquitectura, y luego deja que las optimizaciones del framework hagan su trabajo.
 
 ---
 
@@ -86,7 +86,7 @@ Un usuario hace clic en un enlace, el chunk lazy carga, y nada pasa visualmente 
 ## Como Detectar Problemas de Rendimiento
 
 1. **Chrome DevTools Performance tab:** Graba una sesion de uso y analiza los long tasks, layout shifts y tiempos de renderizado.
-2. **React DevTools Profiler:** Identifica componentes que se re-renderizan excesivamente.
+2. **Angular DevTools:** Identifica componentes que se re-renderizan excesivamente y analiza el arbol de change detection.
 3. **Lighthouse:** Como linea base para detectar problemas obvios (NO como metrica definitiva).
 4. **web-vitals library:** Mide Core Web Vitals en produccion con datos de usuarios reales.
 5. **Bundle analyzer:** Inspecciona que esta en tu bundle y cuanto pesa cada dependencia.

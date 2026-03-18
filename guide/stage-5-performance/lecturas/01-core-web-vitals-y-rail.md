@@ -97,7 +97,7 @@ Mide los desplazamientos inesperados del layout durante la vida de la página. U
 
 - Envia menos JavaScript. Astro no envia nada por defecto. Qwik usa resumability.
 - Tree-shaking mediante bundlers modernos elimina código muerto.
-- React Compiler reduce los re-renders automáticamente.
+- Angular signals y `OnPush` change detection reducen los re-renders automaticamente.
 
 ---
 

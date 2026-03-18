@@ -1,8 +1,14 @@
 # Etapa 5: Rendimiento
 
+[Inicio](../README.md) > Etapa 5
+
 > Enviar rápido, mantener rápido. Cada milisegundo cuenta.
 
 **Prerrequisitos:** Etapa 4 completada.
+
+**Por que esta etapa importa:** Un sitio puede tener la mejor arquitectura y el diseño mas pulido, pero si tarda 5 segundos en cargar o el scroll se siente lento, los usuarios se van. El rendimiento no es un bonus — es una funcionalidad. Entender Core Web Vitals, lazy loading, bundle optimization y memoizacion te permite diagnosticar cuellos de botella reales con datos, no con suposiciones, y aplicar las correcciones que realmente importan. Los desarrolladores que optimizan "por si acaso" desperdician esfuerzo; los que miden primero y optimizan despues entregan experiencias rápidas de verdad.
+
+> **Pilares de diseño que se profundizan en esta etapa:** [Rendimiento](../stage-1-foundations/lecturas/00-pilares-de-diseno.md) (Core Web Vitals, lazy loading, bundle optimization, memoizacion), [Observabilidad](../stage-1-foundations/lecturas/00-pilares-de-diseno.md) (medicion real vs sintetica, profiling con Angular DevTools).
 
 ---
 
@@ -12,156 +18,131 @@
 
 ---
 
-## Actividades Esenciales
+## Actividades Esenciales 🟢
 
-### 🟢 Actividad 5.1 — Entender Core Web Vitals y corregir problemas de rendimiento
+| # | Actividad | Pilares | Duracion | Estado |
+|:-:|-----------|---------|:--------:|:------:|
+| 5.1 | [Core Web Vitals](#51--entender-core-web-vitals-y-corregir-problemas-de-rendimiento) | Rendimiento, Observabilidad | ~55 min | ☐ |
+| 5.2 | [Lazy loading y code splitting](#52--implementar-lazy-loading-y-code-splitting) | Rendimiento | ~55 min | ☐ |
+| 5.3 | [Bundle optimization](#53--analizar-y-reducir-el-bundle) | Rendimiento | ~55 min | ☐ |
 
-- [ ] Completada
+## Actividades Recomendadas 🟡
 
-**Duración:** ~55 min
+| # | Actividad | Pilares | Duracion | Estado |
+|:-:|-----------|---------|:--------:|:------:|
+| 5.4 | [Virtualizacion](#54--construir-una-lista-virtualizada-de-10000-elementos) | Rendimiento | ~55 min | ☐ |
+| 5.5 | [Memoizacion](#55--memoizacion-cuando-si-y-cuando-no) | Rendimiento | ~50 min | ☐ |
 
-**Lectura:**
-- [Core Web Vitals y RAIL](./lecturas/01-core-web-vitals-y-rail.md) (~15 min)
+## Actividades Avanzadas 🔴
 
-**Práctica:** Ejecutar Lighthouse en una app lenta. Documentar hallazgos, priorizar por impacto, corregir los 3 principales (LCP, CLS, bundle size) (~35 min)
-
-**Validación:** Lighthouse Performance >= 90 en móvil (~5 min)
-
-**Criterios de aceptación:**
-- [ ] Lighthouse Performance >= 90
-- [ ] LCP < 2.5s en Slow 4G
-- [ ] CLS = 0 (sin layout shifts)
-
----
-
-### 🟢 Actividad 5.2 — Implementar lazy loading y code splitting
-
-- [ ] Completada
-
-**Duración:** ~55 min
-
-**Lectura:**
-- [Lazy Loading y Code Splitting](./lecturas/02-lazy-loading-y-code-splitting.md) (~10 min)
-
-**Angular:**
-- [Rendimiento en Angular](./angular/01-rendimiento-en-angular.md) (~10 min)
-
-**Práctica:** Agregar code splitting por ruta. Agregar `loading="lazy"` a imágenes below-the-fold. Asegurar que la imagen hero tiene `fetchpriority="high"` y NO `loading="lazy"` (~35 min)
-
-**Validación:** Verificar chunks separados en build; inspeccionar hero en DevTools (~10 min)
-
-**Criterios de aceptación:**
-- [ ] Cada ruta tiene su propio chunk JS
-- [ ] La imagen hero NO tiene `loading="lazy"`
-- [ ] La imagen hero tiene `fetchpriority="high"`
+| # | Actividad | Pilares | Duracion | Estado |
+|:-:|-----------|---------|:--------:|:------:|
+| 5.6 | [Medicion real vs sintetica](#56--medir-rendimiento-real-vs-sintetico) | Rendimiento, Observabilidad | ~50 min | ☐ |
+| 5.7 | [Validacion integral](#57--validacion-integral-de-etapa-5) | Todos | ~55 min | ☐ |
 
 ---
 
-### 🟢 Actividad 5.3 — Analizar y reducir el bundle
+## Detalle de actividades
 
-- [ ] Completada
+### 5.1 — Entender Core Web Vitals y corregir problemas de rendimiento
 
-**Duración:** ~55 min
+**Por que:** LCP, CLS e INP son las metricas que Google usa para evaluar la experiencia real de los usuarios. Si no sabes medirlas ni corregirlas, no puedes saber si tu aplicación es rápida o solo lo parece en tu maquina de desarrollo. Este ejercicio te obliga a diagnosticar y corregir problemas reales con Lighthouse.
 
-**Lectura:**
-- [Bundle Optimization](./lecturas/03-bundle-optimization.md) (~5 min)
+| | |
+|---|---|
+| **Requiere** | Etapa 4 completada, proyecto Angular funcionando |
+| **Aprenderas** | Ejecutar Lighthouse, interpretar LCP/CLS/INP, priorizar correcciones por impacto, aplicar `fetchpriority="high"` y eliminar layout shifts |
+| **Al completar** | Lighthouse Performance >= 90 en movil, LCP < 2.5s en Slow 4G, CLS = 0 |
 
-**Práctica:** Ejecutar bundle analyzer. Identificar las 3 dependencias más grandes. Implementar al menos una reducción (tree shaking, reemplazo de librería, eliminación de import innecesario) (~40 min)
-
-**Validación:** Comparar tamaño antes vs después — al menos 20% menos (~10 min)
-
-**Criterios de aceptación:**
-- [ ] Bundle reducido al menos 20%
-- [ ] Se identifican las 3 dependencias más grandes
-- [ ] Al menos una optimización implementada
+[→ Ir a la actividad](./actividades/5.1-core-web-vitals.md)
 
 ---
 
-## Actividades Recomendadas
+### 5.2 — Implementar lazy loading y code splitting
 
-### 🟡 Actividad 5.4 — Construir una lista virtualizada de 10,000 elementos
+**Por que:** Enviar todo el JavaScript de golpe penaliza la carga inicial. Code splitting por ruta y lazy loading de imagenes son las optimizaciones de mayor impacto con menor esfuerzo. En Angular, las rutas lazy-loaded con `loadComponent` y `@defer` son la forma idiomatica de dividir el bundle.
 
-- [ ] Completada
+| | |
+|---|---|
+| **Requiere** | Actividad 5.1 completada |
+| **Aprenderas** | Code splitting por ruta con `loadComponent`, `@defer` para componentes pesados, `loading="lazy"` para imagenes below-the-fold, `fetchpriority="high"` para la imagen hero |
+| **Al completar** | Cada ruta tiene su propio chunk JS, la imagen hero no tiene `loading="lazy"` y tiene `fetchpriority="high"` |
 
-**Duración:** ~55 min
-
-**Lectura:**
-- [Virtualización](./lecturas/04-virtualizacion.md) (~5 min)
-
-**Práctica:** Usar `@angular/cdk/scrolling` (CDK Virtual Scroll) o `@tanstack/virtual` para renderizar 10,000 elementos sin jank (~40 min)
-
-**Validación:** DevTools Performance -> scroll rápido -> frame rate > 55fps (~10 min)
-
-**Criterios de aceptación:**
-- [ ] Scroll a 60fps con 10,000 elementos
-- [ ] Ningún frame mayor a 16ms
-- [ ] Solo los elementos visibles se renderizan en el DOM
+[→ Ir a la actividad](./actividades/5.2-lazy-loading.md)
 
 ---
 
-### 🟡 Actividad 5.5 — Memoización: cuándo sí y cuándo NO
+### 5.3 — Analizar y reducir el bundle
 
-- [ ] Completada
+**Por que:** Un bundle inflado con dependencias innecesarias o tree shaking roto es una de las causas mas comunes de carga lenta. Ejecutar un bundle analyzer y actuar sobre los hallazgos es una habilidad que se usa en todo proyecto profesional.
 
-**Duración:** ~50 min
+| | |
+|---|---|
+| **Requiere** | Actividad 5.2 completada |
+| **Aprenderas** | Ejecutar bundle analyzer, identificar dependencias pesadas, aplicar tree shaking, reemplazar librerias pesadas por alternativas ligeras |
+| **Al completar** | Bundle reducido al menos 20%, con las 3 dependencias mas grandes identificadas y al menos una optimizacion implementada |
 
-**Lectura:**
-- [Memoización](./lecturas/05-memoizacion.md) (~15 min)
-
-**Angular:**
-- [Rendimiento en Angular](./angular/01-rendimiento-en-angular.md) (secciones OnPush y Signals, ~10 min)
-
-**Práctica:** Identificar re-renders costosos con Angular DevTools. Aplicar `OnPush` change detection y `computed()` signals. Demostrar cuándo un signal derivado evita cálculos innecesarios (~30 min)
-
-**Validación:** Documentar qué se midió como costoso antes de memoizar (~5 min)
-
-**Criterios de aceptación:**
-- [ ] Cada memoización tiene una justificación medida
-- [ ] Se demuestra cuándo `OnPush` + signals evita re-renders innecesarios
-- [ ] "Podría ser lento" NO es justificación aceptable
+[→ Ir a la actividad](./actividades/5.3-bundle-optimization.md)
 
 ---
 
-## Actividades Avanzadas
+### 5.4 — Construir una lista virtualizada de 10,000 elementos
 
-### 🔴 Actividad 5.6 — Medir rendimiento real vs sintético
+**Por que:** Renderizar miles de elementos en el DOM destruye el rendimiento de scroll y consume memoria. La virtualizacion renderiza solo los elementos visibles, y `@angular/cdk/scrolling` (CDK Virtual Scroll) es la solucion idiomatica en Angular. Saber cuando y como virtualizar es esencial para cualquier interfaz con listas largas.
 
-- [ ] Completada
+| | |
+|---|---|
+| **Requiere** | Actividades 5.1-5.3 completadas |
+| **Aprenderas** | Usar `@angular/cdk/scrolling` para virtualizar listas, medir frame rate con DevTools Performance, entender los compromisos de accesibilidad |
+| **Al completar** | Scroll a 60fps con 10,000 elementos, ningun frame mayor a 16ms, solo los elementos visibles en el DOM |
 
-**Duración:** ~50 min
-
-**Lectura:**
-- [Anti-patterns de Rendimiento](./lecturas/06-anti-patterns-de-rendimiento.md) (~10 min)
-
-**Práctica:** Comparar Lighthouse (sintético) vs `web-vitals` library (real). Auditar impacto de scripts de terceros con DevTools. Documentar diferencias (~30 min)
-
-**Validación:** El análisis identifica al menos una discrepancia sintético vs real (~10 min)
-
-**Criterios de aceptación:**
-- [ ] Se instala y configura `web-vitals` para métricas reales
-- [ ] Se identifican scripts de terceros y su impacto
-- [ ] Se documenta al menos una diferencia Lighthouse vs RUM
+[→ Ir a la actividad](./actividades/5.4-virtualizacion.md)
 
 ---
 
-### 🔴 Actividad 5.7 — Validación integral de Etapa 5
+### 5.5 — Memoizacion: cuando si y cuando NO
 
-- [ ] Completada
+**Por que:** La memoizacion mal aplicada es peor que no memoizar — anade overhead sin beneficio. En Angular, `OnPush` change detection y `computed()` signals son las herramientas idiomaticas para evitar re-renders innecesarios. Este ejercicio te ensena a medir primero con Angular DevTools y optimizar solo lo que realmente importa.
 
-**Duración:** ~55 min
+| | |
+|---|---|
+| **Requiere** | Actividades 5.1-5.3 completadas |
+| **Aprenderas** | Identificar re-renders costosos con Angular DevTools, aplicar `OnPush` change detection, usar `computed()` signals para valores derivados, justificar cada optimizacion con datos |
+| **Al completar** | Cada memoizacion tiene una justificacion medida, se demuestra cuando `OnPush` + signals evita re-renders innecesarios |
 
-**Lectura:** Revisar los criterios de aceptación de toda la etapa (~5 min)
-
-**Práctica:** Verificar todos los criterios 5.1-5.6 (~40 min)
-
-**Validación:** Los criterios pasan (~10 min)
-
-**Criterios de aceptación:**
-- [ ] Todos los criterios 5.1-5.6 se cumplen
+[→ Ir a la actividad](./actividades/5.5-memoizacion.md)
 
 ---
 
-## Material de lectura en esta etapa
+### 5.6 — Medir rendimiento real vs sintetico
+
+**Por que:** Una puntuacion de Lighthouse de 100 en tu maquina no dice nada sobre usuarios reales en telefonos lentos. Comparar metricas sinteticas con Real User Monitoring (RUM) y auditar scripts de terceros te da la imagen completa del rendimiento en produccion.
+
+| | |
+|---|---|
+| **Requiere** | Actividades 5.1-5.5 completadas |
+| **Aprenderas** | Configurar `web-vitals` para RUM, comparar Lighthouse vs datos reales, auditar impacto de scripts de terceros con DevTools, documentar discrepancias |
+| **Al completar** | `web-vitals` configurado, scripts de terceros auditados, al menos una discrepancia sintetico vs real documentada |
+
+[→ Ir a la actividad](./actividades/5.6-medicion-real.md)
+
+---
+
+### 5.7 — Validacion integral de Etapa 5
+
+**Por que:** Antes de avanzar a la Etapa 6, necesitas confirmar que dominas rendimiento. Esta actividad es tu "code review" propio: verificas todos los criterios de aceptacion de la etapa y cierras brechas.
+
+| | |
+|---|---|
+| **Requiere** | Todas las actividades esenciales (5.1-5.3) completadas |
+| **Aprenderas** | Ejecutar la validacion completa, interpretar resultados, corregir fallos restantes |
+| **Al completar** | Todos los criterios de aceptacion de la etapa pasan |
+
+[→ Ir a la actividad](./actividades/5.7-validacion-integral.md)
+
+---
+
+## Material de lectura
 
 ### Lecturas generales
 
