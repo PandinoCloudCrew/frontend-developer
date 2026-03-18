@@ -97,11 +97,8 @@ pnpm-debug.log*
 !.env.template
 
 # === Mockups exportados ===
-# Se regeneran desde archivos .pen
-guide/*/mockups/*.png
-guide/*/mockups/*.jpg
-guide/*/mockups/*.webp
-guide/*/mockups/*.pdf
+# Los mockups se versionan como referencia visual para los estudiantes
+# Se regeneran desde archivos .pen si es necesario
 
 # === Archivos temporales ===
 *.tmp
