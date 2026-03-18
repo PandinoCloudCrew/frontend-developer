@@ -20,6 +20,19 @@ export default defineConfig({
   srcExclude: ['**/MOCKUPS-PENDIENTES.md', '**/LINEAMIENTOS.md'],
   ignoreDeadLinks: true,
 
+  // Map README.md files to index.html for proper directory routing
+  rewrites: {
+    'README.md': 'index.md',
+    'stage-1-foundations/README.md': 'stage-1-foundations/index.md',
+    'stage-2-component-architecture/README.md': 'stage-2-component-architecture/index.md',
+    'stage-3-state-and-data/README.md': 'stage-3-state-and-data/index.md',
+    'stage-4-usability-and-design/README.md': 'stage-4-usability-and-design/index.md',
+    'stage-5-performance/README.md': 'stage-5-performance/index.md',
+    'stage-6-security-and-resilience/README.md': 'stage-6-security-and-resilience/index.md',
+    'stage-7-testing-and-quality/README.md': 'stage-7-testing-and-quality/index.md',
+    'stage-8-architecture-at-scale/README.md': 'stage-8-architecture-at-scale/index.md',
+  },
+
   markdown: {
     defaultHighlightLang: 'text',
   },
