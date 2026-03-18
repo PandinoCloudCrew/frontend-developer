@@ -6,20 +6,20 @@ Atomic Design es una metodologia creada por Brad Frost para organizar componente
 
 ## Los Cinco Niveles
 
-| Nivel | Descripcion | Ejemplos |
+| Nivel | Descripción | Ejemplos |
 |-------|-------------|----------|
 | **Atoms** | Bloques de construccion basicos de UI | Button, Input, Icon, Label |
 | **Molecules** | Grupos de atoms funcionando juntos | Barra de busqueda (input + button), Campo de formulario (label + input + error) |
-| **Organisms** | Secciones de UI complejas compuestas de molecules | Barra de navegacion, Cuadricula de tarjetas de producto, Formulario de registro |
-| **Templates** | Layouts a nivel de pagina sin datos reales | Layout de dashboard, Layout de pagina de articulo |
+| **Organisms** | Secciones de UI complejas compuestas de molecules | Barra de navegación, Cuadricula de tarjetas de producto, Formulario de registro |
+| **Templates** | Layouts a nivel de página sin datos reales | Layout de dashboard, Layout de página de articulo |
 | **Pages** | Templates poblados con contenido real | Dashboard real con datos en vivo |
 
 ## Perspectiva 2025
 
 - Para **proyectos centrados en UI con poca complejidad de negocio**, Atomic Design funciona bien como metodologia organizativa.
-- Para **aplicaciones complejas con logica de negocio significativa**, metodologias como **Feature-Sliced Design** o **Modular Architecture** son mas adecuadas porque organizan por dominio de negocio en lugar de solo por granularidad de UI.
+- Para **aplicaciones complejas con lógica de negocio significativa**, metodologias como **Feature-Sliced Design** o **Modular Architecture** son mas adecuadas porque organizan por dominio de negocio en lugar de solo por granularidad de UI.
 - Atomic Design y Compound Components son complementarios — Atomic Design proporciona estructura y jerarquia, mientras que Compound Components mejoran la flexibilidad.
-- Muchos equipos usan un enfoque hibrido: Atomic Design para el design system/biblioteca de componentes compartida, organizacion basada en features para el codigo de la aplicacion.
+- Muchos equipos usan un enfoque hibrido: Atomic Design para el design system/biblioteca de componentes compartida, organizacion basada en features para el código de la aplicación.
 
 ## Errores Comunes
 
@@ -29,5 +29,5 @@ Atomic Design es una metodologia creada por Brad Frost para organizar componente
 
 - Atomic Design organiza componentes en cinco niveles: atoms, molecules, organisms, templates y pages.
 - Funciona mejor para design systems y bibliotecas de componentes compartidas.
-- Para aplicaciones con logica de negocio compleja, complementalo con organizacion basada en features o dominios.
+- Para aplicaciones con lógica de negocio compleja, complementalo con organizacion basada en features o dominios.
 - Usalo como modelo mental flexible, no como taxonomia rigida que genere debates improductivos.

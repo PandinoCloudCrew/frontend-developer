@@ -1,8 +1,14 @@
 # Etapa 2: Arquitectura de Componentes
 
-> Pensar en componentes — el bloque de construcción universal de los frontends modernos.
+[Inicio](../README.md) > Etapa 2
+
+> Pensar en componentes — el bloque de construccion universal de los frontends modernos.
 
 **Prerrequisitos:** Etapa 1 completada.
+
+**Por que esta etapa importa:** Los componentes son la abstraccion fundamental de todo framework moderno (Angular, React, Vue, Svelte). Entender como descomponer una UI, disenar APIs de props, aplicar SOLID y componer componentes determina si tu código escala o se convierte en una marana de archivos de 500 lineas que nadie quiere tocar. Los desarrolladores que se saltan estos principios terminan refactorizando todo despues — o peor, construyendo sobre una base fragil.
+
+> **Pilares de diseño que se profundizan en esta etapa:** [Mantenibilidad](../stage-1-foundations/lecturas/00-pilares-de-diseno.md) (componentes con una sola responsabilidad, extensibles via composicion), [Accesibilidad](../stage-1-foundations/lecturas/00-pilares-de-diseno.md) (navegación por teclado en compound components, roles ARIA).
 
 ---
 
@@ -12,221 +18,179 @@
 
 ---
 
-## Actividades Esenciales
+## Actividades Esenciales 🟢
 
-### 🟢 Actividad 2.0 — Configurar tu primer proyecto Angular
+| # | Actividad | Duracion | Estado |
+|:-:|-----------|:--------:|:------:|
+| 2.0 | [Configurar tu primer proyecto Angular](#20--configurar-tu-primer-proyecto-angular) | ~45 min | ☐ |
+| 2.1 | [Descomponer una UI en componentes](#21--descomponer-una-ui-en-componentes) | ~55 min | ☐ |
+| 2.2 | [Construir una biblioteca de componentes de 3 niveles](#22--construir-una-biblioteca-de-componentes-de-3-niveles) | ~55 min | ☐ |
+| 2.3 | [Aplicar SRP y refactorizar un componente dios](#23--aplicar-srp-y-refactorizar-un-componente-dios) | ~60 min | ☐ |
+| 2.4 | [Construir un Compound Component (Tabs)](#24--construir-un-compound-component-tabs) | ~60 min | ☐ |
 
-- [ ] Completada
+## Actividades Recomendadas 🟡
 
-**Duración:** ~45 min
+| # | Actividad | Duracion | Estado |
+|:-:|-----------|:--------:|:------:|
+| 2.5 | [Aplicar OCP, LSP e ISP a componentes existentes](#25--aplicar-ocp-lsp-e-isp-a-componentes-existentes) | ~50 min | ☐ |
+| 2.6 | [Separacion de responsabilidades con servicios y signals](#26--separacion-de-responsabilidades-con-servicios-y-signals) | ~50 min | ☐ |
 
-**Lectura:**
-- [Setup Angular](./angular/00-setup-angular.md) (~15 min)
-- [Componentes en Angular](./angular/01-componentes-en-angular.md) (~15 min)
+## Actividades Avanzadas 🔴
 
-**Práctica:** Crear un nuevo proyecto Angular con `ng new`. Explorar la estructura del proyecto. Crear un componente standalone que muestre "Hola Mundo" con un input para el nombre del usuario. Ejecutar con `ng serve` y verificar hot reload (~15 min)
-
-**Validación:** El proyecto compila y se ejecuta; el componente es standalone; hot reload funciona
-
-**Criterios de aceptación:**
-- [ ] `ng new` ejecutado exitosamente
-- [ ] Un componente standalone creado y funcionando
-- [ ] `ng serve` ejecuta sin errores
-- [ ] Cambiar texto en el template se refleja automáticamente en el navegador
-
----
-
-### 🟢 Actividad 2.1 — Entender qué es un componente y descomponer una UI
-
-- [ ] Completada
-
-**Duración:** ~55 min
-
-**Lectura:**
-- [¿Qué es un Componente?](./lecturas/01-que-es-un-componente.md) (~15 min)
-
-**Angular:**
-- [Setup Angular](./angular/00-setup-angular.md) (~5 min, repaso)
-- [Componentes en Angular](./angular/01-componentes-en-angular.md) (~10 min)
-
-**Práctica:** Dado un mockup de una página de producto, documentar cada componente (nombre, props, children, responsabilidad). Dibujar el árbol de componentes con al menos 3 niveles (~35 min)
-
-**Validación:** Verificar al menos 3 niveles; ningún componente con más de 10 props (~5 min)
-
-**Criterios de aceptación:**
-- [ ] El árbol tiene al menos 3 niveles (atom/molecule/organism)
-- [ ] Cada componente se describe como función Input->Output
-- [ ] Ningún componente tiene más de una responsabilidad
+| # | Actividad | Duracion | Estado |
+|:-:|-----------|:--------:|:------:|
+| 2.7 | [Atomic Design y cuando NO usarlo](#27--atomic-design-y-cuando-no-usarlo) | ~45 min | ☐ |
+| 2.8 | [Validación integral de Etapa 2](#28--validación-integral-de-etapa-2) | ~55 min | ☐ |
 
 ---
 
-### 🟢 Actividad 2.2 — Diseñar APIs de componentes y construir una biblioteca de 3 niveles
+## Detalle de actividades
 
-- [ ] Completada
+### 2.0 — Configurar tu primer proyecto Angular
 
-**Duración:** ~55 min
+**Por que:** Sin un proyecto Angular funcionando, no puedes practicar nada de esta etapa. Este paso te da la base sobre la que construiras todo: CLI instalado, estructura de proyecto clara, hot reload funcionando.
 
-**Lectura:**
-- [API de Componentes](./lecturas/02-api-de-componentes.md) (~15 min)
+| | |
+|---|---|
+| **Requiere** | Etapa 1 completada (Node.js, npm, VS Code, TypeScript básico) |
+| **Aprenderas** | Instalar Angular CLI, crear un proyecto con `ng new`, entender la estructura de archivos, crear un componente standalone, ejecutar `ng serve` con hot reload |
+| **Al completar** | Tienes un proyecto Angular funcionando con un componente que muestra "Hola Mundo" y responde a cambios en tiempo real |
 
-**Angular:**
-- [API de Componentes en Angular](./angular/02-api-de-componentes-angular.md) (~10 min)
-
-**Práctica:** Definir interfaces TypeScript para Button (atom), SearchBar (molecule) y ProductCard (organism). Implementar los 3 con props tipados, defaults razonables y composición (Button dentro de SearchBar dentro de ProductCard) (~35 min)
-
-**Validación:** TypeScript compila; los componentes componen sin conflictos (~5 min)
-
-**Criterios de aceptación:**
-- [ ] Cada componente tiene interfaz TypeScript para sus props
-- [ ] Button funciona dentro de SearchBar, SearchBar dentro de ProductCard
-- [ ] Ninguno excede 150 líneas
-- [ ] Ningún componente hace fetch de datos directamente
+[→ Ir a la actividad](./actividades/2.0-setup-angular.md)
 
 ---
 
-### 🟢 Actividad 2.3 — Aplicar SRP y refactorizar un componente dios
+### 2.1 — Descomponer una UI en componentes
 
-- [ ] Completada
+**Por que:** Antes de escribir código, necesitas aprender a *ver* una interfaz como un arbol de componentes. Si no sabes descomponer una UI, terminaras con componentes gigantes que mezclan todo. "Pensar en componentes" es la habilidad #1 de todo developer frontend moderno.
 
-**Duración:** ~60 min
+| | |
+|---|---|
+| **Requiere** | Actividad 2.0 completada (proyecto Angular funcionando) |
+| **Aprenderas** | Identificar componentes en un mockup, documentar sus props y responsabilidades, dibujar el arbol de componentes, aplicar el modelo mental Input → Output |
+| **Al completar** | Tienes un documento con el arbol de componentes de una página de producto, donde cada componente tiene nombre, props y una sola responsabilidad |
 
-**Lectura:**
-- [SOLID en Componentes](./lecturas/03-solid-en-componentes.md) (~10 min)
-
-**Práctica:** Dado un componente de 400 líneas que hace fetch, filtrado, ordenamiento, paginación y renderizado — refactorizarlo en componentes + hooks separados, cada uno con una sola responsabilidad (~40 min)
-
-**Validación:** `wc -l`; `grep "fetch|axios" src/components/`; output idéntico al original (~10 min)
-
-**Criterios de aceptación:**
-- [ ] Ningún componente excede 150 líneas
-- [ ] `grep "fetch|axios"` en components/ devuelve cero
-- [ ] Cada hook extraído es testeable de forma aislada
-- [ ] La salida refactorizada es idéntica a la original
+[→ Ir a la actividad](./actividades/2.1-descomponer-ui.md)
 
 ---
 
-### 🟢 Actividad 2.4 — Construir un Compound Component (Tabs)
+### 2.2 — Construir una biblioteca de componentes de 3 niveles
 
-- [ ] Completada
+**Por que:** Identificar componentes en papel es el primer paso. Ahora necesitas construirlos con props tipados, defaults razonables y composicion real. Un Button dentro de un SearchBar, un SearchBar dentro de un ProductCard — así es como funciona la composicion en produccion.
 
-**Duración:** ~60 min
+| | |
+|---|---|
+| **Requiere** | Actividad 2.1 completada (descomposicion de UI documentada) |
+| **Aprenderas** | Definir interfaces TypeScript para props, usar `input()` y `output()` en Angular, componer componentes dentro de otros, disenar APIs con defaults razonables |
+| **Al completar** | Tienes 3 componentes Angular (Button, SearchBar, ProductCard) que componen entre si, con props tipados y TypeScript compilando sin errores |
 
-**Lectura:**
-- [Compound Components y Patrones](./lecturas/04-compound-components-y-patrones.md) (~10 min)
-
-**Práctica:** Construir `<Tabs>`, `<TabList>`, `<Tab>` y `<TabPanel>` que comparten estado implícitamente vía context. Navegación con flechas de teclado (~40 min)
-
-**Validación:** Reordenar Tab/TabPanel, verificar que sigue funcionando; probar flechas de teclado (~10 min)
-
-**Criterios de aceptación:**
-- [ ] Las flechas Izquierda/Derecha cambian el tab activo
-- [ ] Los children pueden reordenarse sin romperse
-- [ ] El foco visible está presente en el tab activo
+[→ Ir a la actividad](./actividades/2.2-biblioteca-componentes.md)
 
 ---
 
-## Actividades Recomendadas
+### 2.3 — Aplicar SRP y refactorizar un componente dios
 
-### 🟡 Actividad 2.5 — Aplicar OCP, LSP e ISP a componentes existentes
+**Por que:** En proyectos reales, los componentes crecen hasta convertirse en monstruos de 400+ lineas que hacen fetch, filtran, ordenan, paginan y renderizan en un mismo archivo. Un cambio en la lógica de filtrado puede romper el renderizado. SRP te enseña a separar responsabilidades para que cada pieza pueda cambiar independientemente.
 
-- [ ] Completada
+| | |
+|---|---|
+| **Requiere** | Actividad 2.2 completada (experiencia construyendo componentes) |
+| **Aprenderas** | Identificar violaciones de SRP, extraer lógica a servicios Angular, separar componentes de presentacion de lógica, refactorizar sin romper funcionalidad |
+| **Al completar** | Has refactorizado un componente monolitico en multiples componentes y servicios, cada uno con una sola responsabilidad, y la salida es identica a la original |
 
-**Duración:** ~50 min
-
-**Lectura:**
-- [SOLID en Componentes](./lecturas/03-solid-en-componentes.md) (secciones OCP/LSP/ISP, ~15 min)
-
-**Práctica:** Revisar los componentes construidos contra cada principio SOLID. Documentar una violación y corregirla. Crear una variante de componente que sea sustituible (LSP) (~30 min)
-
-**Validación:** Reemplazar un componente base por su variante sin romper nada (~5 min)
-
-**Criterios de aceptación:**
-- [ ] Los componentes son extensibles vía composición (OCP)
-- [ ] Las variantes son sustituibles sin romper funcionalidad (LSP)
-- [ ] Ningún componente tiene más de 10 props (ISP)
+[→ Ir a la actividad](./actividades/2.3-srp-refactorizar.md)
 
 ---
 
-### 🟡 Actividad 2.6 — Separación de responsabilidades con hooks/composables
+### 2.4 — Construir un Compound Component (Tabs)
 
-- [ ] Completada
+**Por que:** Las bibliotecas de UI profesionales (Angular Material, Radix UI) usan compound components: multiples componentes que comparten estado implícito. En lugar de un `<Tabs>` con 20 props, creas `<TabGroup>`, `<Tab>`, `<TabPanel>` que se combinan libremente. Este patrón te prepara para entender y construir componentes de calidad profesional.
 
-**Duración:** ~50 min
+| | |
+|---|---|
+| **Requiere** | Actividades 2.2 y 2.3 completadas (composicion, servicios) |
+| **Aprenderas** | El patrón compound component, compartir estado con un servicio scoped, navegación por teclado (flechas), content projection con `<ng-content>` |
+| **Al completar** | Tienes un componente Tabs funcional con navegación por teclado y reordenamiento sin romper funcionalidad |
 
-**Lectura:**
-- [Separación de Responsabilidades](./lecturas/05-separacion-de-responsabilidades.md) (~15 min)
-
-**Práctica:** Extraer lógica de UI a hooks reutilizables. Implementar ref forwarding y controlled vs uncontrolled pattern (~30 min)
-
-**Validación:** Los hooks funcionan sin renderizar un componente (~5 min)
-
-**Criterios de aceptación:**
-- [ ] La lógica de negocio vive en hooks, no en componentes
-- [ ] Los hooks son testeables de forma aislada
-- [ ] Al menos un componente controlled y uno uncontrolled
+[→ Ir a la actividad](./actividades/2.4-compound-component.md)
 
 ---
 
-## Actividades Avanzadas
+### 2.5 — Aplicar OCP, LSP e ISP a componentes existentes
 
-### 🔴 Actividad 2.7 — Atomic Design y cuándo NO usarlo
+**Por que:** SRP es solo uno de los 5 principios SOLID. OCP previene que agregar variantes rompa el componente base. LSP asegura que las variantes sean intercambiables. ISP evita APIs infladas con props innecesarios. Detectar y corregir estas violaciones en componentes existentes es una habilidad directamente transferible a proyectos reales.
 
-- [ ] Completada
+| | |
+|---|---|
+| **Requiere** | Actividades 2.2-2.4 completadas (componentes para auditar) |
+| **Aprenderas** | OCP (extender via composicion), LSP (variantes intercambiables), ISP (APIs minimas), detectar y corregir violaciones |
+| **Al completar** | Has documentado violaciones, corregido al menos una, y creado una variante sustituible |
 
-**Duración:** ~45 min
-
-**Lectura:**
-- [Atomic Design](./lecturas/06-atomic-design.md) (~10 min)
-
-**Práctica:** Clasificar todos los componentes construidos en la jerarquía Atomic Design. Documentar dónde la clasificación se vuelve ambigua y por qué Feature-Sliced Design puede ser mejor para apps complejas (~30 min)
-
-**Validación:** La documentación identifica al menos 2 debilidades de Atomic Design (~5 min)
-
-**Criterios de aceptación:**
-- [ ] Los componentes están clasificados en niveles atómicos
-- [ ] Se identifican al menos 2 casos ambiguos (molecule u organism?)
-- [ ] Se propone cuándo Atomic Design ayuda vs cuándo estorba
+[→ Ir a la actividad](./actividades/2.5-ocp-lsp-isp.md)
 
 ---
 
-### 🔴 Actividad 2.8 — Validación integral de Etapa 2
+### 2.6 — Separacion de responsabilidades con servicios y signals
 
-- [ ] Completada
+**Por que:** Si la lógica de negocio vive en el componente, solo puedes probarla renderizando UI. Si la extraes a un servicio, puedes probarla directamente. Esto acelera los tests, facilita la reutilizacion y simplifica los componentes hasta que sean casi solo template.
 
-**Duración:** ~55 min
+| | |
+|---|---|
+| **Requiere** | Actividades 2.3 y 2.4 completadas (servicios, refactorizacion) |
+| **Aprenderas** | Extraer lógica a servicios reutilizables, controlled vs uncontrolled, testear servicios sin UI |
+| **Al completar** | La lógica de filtrado vive en un servicio testeable, tienes componentes controlled y uncontrolled, y los tests pasan sin renderizar UI |
 
-**Lectura:** Revisar los criterios de aceptación de toda la etapa (~5 min)
-
-**Práctica:** Verificar todos los criterios: props tipados, componentes < 150 líneas, cero fetch en componentes, Tabs con flechas, composición funcional (~40 min)
-
-**Validación:** Los 10 criterios pasan (~10 min)
-
-**Criterios de aceptación:**
-- [ ] Todos los criterios 2.0-2.7 se cumplen
+[→ Ir a la actividad](./actividades/2.6-separacion-hooks.md)
 
 ---
 
-## Material de lectura en esta etapa
+### 2.7 — Atomic Design y cuando NO usarlo
 
-### Lecturas generales
+**Por que:** Atomic Design es popular pero tiene limitaciones reales. Clasificar tus componentes revela las ambiguedades ("¿es molecule u organism?") y te enseña cuando esta metodologia ayuda y cuando estorba. En equipos reales, esta decision de organizacion puede ahorrar — o desperdiciar — horas de debate.
+
+| | |
+|---|---|
+| **Requiere** | Actividades 2.0-2.4 completadas (componentes para clasificar) |
+| **Aprenderas** | Los 5 niveles de Atomic Design, clasificar componentes, identificar ambiguedades, evaluar Feature-Sliced Design como alternativa |
+| **Al completar** | Tienes un documento con clasificacion, ambiguedades y conclusion fundamentada |
+
+[→ Ir a la actividad](./actividades/2.7-atomic-design.md)
+
+---
+
+### 2.8 — Validación integral de Etapa 2
+
+**Por que:** Antes de avanzar a la Etapa 3, necesitas confirmar que dominas la arquitectura de componentes. Esta actividad es tu "code review" propio: ejecutas todos los criterios de aceptacion y cierras brechas.
+
+| | |
+|---|---|
+| **Requiere** | Todas las actividades esenciales (2.0-2.4) completadas |
+| **Aprenderas** | Ejecutar scripts de validación, interpretar resultados, corregir fallos restantes |
+| **Al completar** | Todos los criterios de aceptacion de la etapa pasan |
+
+[→ Ir a la actividad](./actividades/2.8-validacion-integral.md)
+
+---
+
+## Material de lectura
 
 | Archivo | Contenido |
 |---------|-----------|
-| [01-que-es-un-componente.md](./lecturas/01-que-es-un-componente.md) | Modelo mental de componentes: Input->Output, encapsulación, composición |
+| [01-que-es-un-componente.md](./lecturas/01-que-es-un-componente.md) | Modelo mental de componentes: Input → Output, encapsulacion, composicion, arbol de componentes |
 | [02-api-de-componentes.md](./lecturas/02-api-de-componentes.md) | Diseño de APIs: props, children/slots, ref forwarding, controlled vs uncontrolled |
 | [03-solid-en-componentes.md](./lecturas/03-solid-en-componentes.md) | SOLID aplicado a componentes: SRP, OCP, LSP, ISP, DIP |
-| [04-compound-components-y-patrones.md](./lecturas/04-compound-components-y-patrones.md) | Compound components, render props y patrones de composición |
-| [05-separacion-de-responsabilidades.md](./lecturas/05-separacion-de-responsabilidades.md) | Separación de lógica: hooks, composables, presentational vs container |
-| [06-atomic-design.md](./lecturas/06-atomic-design.md) | Atomic Design: atoms, molecules, organisms, cuándo usar y cuándo no |
+| [04-compound-components-y-patrones.md](./lecturas/04-compound-components-y-patrones.md) | Compound components, render props, composicion sobre herencia |
+| [05-separacion-de-responsabilidades.md](./lecturas/05-separacion-de-responsabilidades.md) | Separacion de lógica: hooks, composables, presentational vs container |
+| [06-atomic-design.md](./lecturas/06-atomic-design.md) | Atomic Design: atoms, molecules, organisms, cuando usar y cuando no |
 
-### Material de Angular
+## Material de Angular
 
 | Archivo | Contenido |
 |---------|-----------|
 | [00-setup-angular.md](./angular/00-setup-angular.md) | Setup de proyecto Angular: CLI, estructura, standalone components |
-| [01-componentes-en-angular.md](./angular/01-componentes-en-angular.md) | Componentes en Angular: templates, decorators, lifecycle hooks |
-| [02-api-de-componentes-angular.md](./angular/02-api-de-componentes-angular.md) | APIs de componentes en Angular: @Input, @Output, content projection |
+| [01-componentes-en-angular.md](./angular/01-componentes-en-angular.md) | Componentes en Angular: templates, standalone, signals, `@if`/`@for`, content projection |
+| [02-api-de-componentes-angular.md](./angular/02-api-de-componentes-angular.md) | APIs de componentes en Angular: `input()`, `output()`, `model()`, `viewChild`, `host` |
 
 ---
 
-[← Etapa anterior: Fundamentos](../stage-1-foundations/) | [Volver al índice](../README.md) | [Etapa siguiente: Estado →](../stage-3-state-and-data/)
+[← Etapa anterior: Fundamentos](../stage-1-foundations/) | [Siguiente: Etapa 3 →](../stage-3-state-and-data/)

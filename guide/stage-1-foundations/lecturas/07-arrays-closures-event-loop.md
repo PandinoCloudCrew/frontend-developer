@@ -1,6 +1,6 @@
 # Arrays, Closures y Event Loop
 
-Estos tres temas son la base de como se manipulan datos, se encapsula estado y se ejecuta codigo asincrono en JavaScript. Los metodos de array son tu herramienta principal para transformar datos en la UI. Los closures son el mecanismo detras de los hooks de React. Y el event loop explica por que tu `setTimeout` no se ejecuta cuando crees que deberia.
+Estos tres temas son la base de como se manipulan datos, se encapsula estado y se ejecuta código asincrono en JavaScript. Los metodos de array son tu herramienta principal para transformar datos en la UI. Los closures son el mecanismo detras de los hooks de React. Y el event loop explica por que tu `setTimeout` no se ejecuta cuando crees que deberia.
 
 ---
 
@@ -54,7 +54,7 @@ const activeAdmins = users
 
 ## Closures
 
-Un closure es una funcion que recuerda las variables del scope donde fue creada, incluso despues de que ese scope haya terminado de ejecutarse:
+Un closure es una función que recuerda las variables del scope donde fue creada, incluso despues de que ese scope haya terminado de ejecutarse:
 
 ```js
 function createCounter() {
@@ -90,7 +90,7 @@ function Timer() {
 }
 ```
 
-La solucion — usar la forma de funcion de `setState`:
+La solución — usar la forma de función de `setState`:
 
 ```js
 setCount(prev => prev + 1); // always uses the latest value
@@ -102,7 +102,7 @@ Este es el error mas comun en React, y se origina por no entender los closures.
 
 ## El Event Loop
 
-JavaScript es de un solo hilo (single-threaded). Ejecuta codigo usando un call stack y dos colas:
+JavaScript es de un solo hilo (single-threaded). Ejecuta código usando un call stack y dos colas:
 
 1. **Call stack**: ejecuta funciones una a la vez, sincronamente.
 2. **Cola de microtareas (Microtask queue)**: promesas (`.then`, `await`), `queueMicrotask`. Se procesan despues de cada elemento del call stack, antes de la siguiente macrotarea.
@@ -238,7 +238,7 @@ null == undefined; // true
 0 === false;   // false
 ```
 
-Siempre usa `===`. El unico `==` aceptable es `value == null` para verificar tanto `null` como `undefined` simultaneamente, e incluso eso es una eleccion de estilo.
+Siempre usa `===`. El único `==` aceptable es `value == null` para verificar tanto `null` como `undefined` simultaneamente, e incluso eso es una eleccion de estilo.
 
 **Callback hell (anidar cadenas `.then`):**
 
@@ -263,14 +263,14 @@ async function loadData(id) {
 
 **Usar `var`:**
 
-`var` se eleva (hoisted) al scope de la funcion y puede ser accedido antes de su declaracion (como `undefined`). Esto causa errores silenciosos. No hay razon para usar `var` en JavaScript moderno.
+`var` se eleva (hoisted) al scope de la función y puede ser accedido antes de su declaración (como `undefined`). Esto causa errores silenciosos. No hay razón para usar `var` en JavaScript moderno.
 
 ---
 
 ## Puntos clave
 
 - Los metodos de array (`map`, `filter`, `find`, `reduce`) devuelven nuevos arrays sin mutar el original. Son la base de la transformacion de datos en la UI.
-- Los closures capturan variables por referencia. En los hooks de React, esto significa valores obsoletos si tu array de dependencias es incorrecto. Usa la forma de funcion de `setState` al actualizar basandote en el estado previo.
+- Los closures capturan variables por referencia. En los hooks de React, esto significa valores obsoletos si tu array de dependencias es incorrecto. Usa la forma de función de `setState` al actualizar basandote en el estado previo.
 - El event loop procesa microtareas (promesas) antes de macrotareas (`setTimeout`). Entender este orden previene bugs de timing.
 - Usa `Map` cuando necesites claves no-string o eliminacion frecuente. Usa `Set` para deduplicacion. Usa `WeakMap`/`WeakSet` para metadatos que no deben prevenir el garbage collection.
 - Siempre usa `===` en lugar de `==`. Siempre usa `for...of` (no `for...in`) para iterar arrays.

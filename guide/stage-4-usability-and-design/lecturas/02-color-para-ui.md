@@ -1,6 +1,6 @@
 # Color para UI
 
-El color es la senal visual mas rapida en una interfaz de usuario. Los usuarios procesan el color antes de leer texto o analizar el layout. Un sistema de color bien estructurado hace que una interfaz se sienta cohesiva y profesional; uno mal estructurado -- valores hex ad hoc dispersos por el codigo -- crea caos visual y hace que el dark mode, los temas y la accesibilidad sean casi imposibles.
+El color es la senal visual mas rápida en una interfaz de usuario. Los usuarios procesan el color antes de leer texto o analizar el layout. Un sistema de color bien estructurado hace que una interfaz se sienta cohesiva y profesional; uno mal estructurado -- valores hex ad hoc dispersos por el código -- crea caos visual y hace que el dark mode, los temas y la accesibilidad sean casi imposibles.
 
 ---
 
@@ -19,7 +19,7 @@ En Hex (`#3b82f6`), no hay forma de mirar el valor y razonar sobre el. Es claro 
 
 En HSL (`hsl(217, 91%, 60%)`), cada canal tiene significado: 217 es el hue (azul), 91% es la saturacion (vivido), 60% es la luminosidad (media). Puedes hacer un color mas claro aumentando el tercer valor, o desaturarlo bajando el segundo.
 
-Oklch va mas alla. La luminosidad de HSL no es perceptualmente uniforme -- un amarillo HSL al 50% de luminosidad se ve mucho mas brillante que un azul HSL al 50% de luminosidad. Oklch corrige esto: `oklch(60% 0.15 255)` y `oklch(60% 0.15 90)` (azul y amarillo) aparecen igualmente brillantes al ojo humano. Esto hace de Oklch la mejor opcion para generar escalas de color.
+Oklch va mas alla. La luminosidad de HSL no es perceptualmente uniforme -- un amarillo HSL al 50% de luminosidad se ve mucho mas brillante que un azul HSL al 50% de luminosidad. Oklch corrige esto: `oklch(60% 0.15 255)` y `oklch(60% 0.15 90)` (azul y amarillo) aparecen igualmente brillantes al ojo humano. Esto hace de Oklch la mejor opción para generar escalas de color.
 
 ```css
 /* HSL: easy to reason about */
@@ -118,7 +118,7 @@ Dark mode no es inversion de color. Invertir un tema claro produce colores chill
 1. **Fondo:** Usa grises oscuros (`oklch(15-20% ...)`) no negro puro (`#000`). El negro puro crea un contraste excesivo con el texto blanco, causando fatiga visual.
 2. **Texto:** Usa blanco crema (`oklch(90-95% ...)`) no blanco puro (`#fff`) para texto body. Reserva el blanco puro para elementos de alto enfasis.
 3. **Saturacion:** Reduce la chroma/saturacion en fondos oscuros. Los colores vividos sobre superficies oscuras parecen vibrar.
-4. **Elevacion:** En modo claro, la profundidad se muestra con sombras. En dark mode, la profundidad se muestra haciendo las superficies mas altas mas claras -- una card se situa en `oklch(22% ...)` sobre una pagina en `oklch(15% ...)`.
+4. **Elevacion:** En modo claro, la profundidad se muestra con sombras. En dark mode, la profundidad se muestra haciendo las superficies mas altas mas claras -- una card se situa en `oklch(22% ...)` sobre una página en `oklch(15% ...)`.
 
 Implementa temas con CSS custom properties:
 
@@ -145,7 +145,7 @@ Implementa temas con CSS custom properties:
 }
 ```
 
-Agrega la meta tag para que la UI predeterminada del navegador (scrollbars, controles de formulario) tambien se adapte:
+Agrega la meta tag para que la UI predeterminada del navegador (scrollbars, controles de formulario) también se adapte:
 
 ```html
 <meta name="color-scheme" content="light dark">
@@ -164,9 +164,9 @@ WCAG 2.1 define relaciones minimas de contraste entre el texto y su fondo:
 
 Los elementos no textuales (iconos, bordes, focus rings) requieren 3:1 contra colores adyacentes.
 
-**Referencia rapida para texto gris sobre blanco (`#fff`):**
+**Referencia rápida para texto gris sobre blanco (`#fff`):**
 
-| Valor de Gris | Relacion de Contraste | WCAG AA? |
+| Valor de Gris | Relación de Contraste | WCAG AA? |
 |--------------|----------------------|-----------|
 | `#999`       | 2.85:1               | Falla     |
 | `#888`       | 3.54:1               | Falla     |
@@ -179,7 +179,7 @@ Usa el [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/) 
 
 ## `color-mix()` para Colores Dinamicos
 
-`color-mix()` es una funcion CSS nativa que mezcla dos colores en un espacio de color especificado. Reemplaza la necesidad de funciones `lighten()`/`darken()` de preprocesadores.
+`color-mix()` es una función CSS nativa que mezcla dos colores en un espacio de color especificado. Reemplaza la necesidad de funciones `lighten()`/`darken()` de preprocesadores.
 
 ```css
 :root {
@@ -236,7 +236,7 @@ La excepcion son los fondos de overlay (modales, toasts) donde la semi-transpare
 ## Errores Comunes
 
 - **Demasiados hues (>5):** Una UI con 8 hues diferentes se siente caotica. La mayoria de las interfaces de produccion usan 1-2 hues de marca + 4 hues semanticos (success, warning, error, info) + un gris neutral.
-- **Color como unico indicador de estado:** Un borde rojo en un campo invalido es invisible para usuarios daltonicos (8% de los hombres). Siempre acompana el color con una segunda senal: icono, texto, patron o cambio de posicion. Esto es WCAG 1.4.1 (Use of Color).
+- **Color como único indicador de estado:** Un borde rojo en un campo invalido es invisible para usuarios daltonicos (8% de los hombres). Siempre acompana el color con una segunda senal: icono, texto, patrón o cambio de posición. Esto es WCAG 1.4.1 (Use of Color).
 - **Texto de bajo contraste por estetica:** Texto placeholder gris claro o etiquetas sutiles pueden verse elegantes pero fallan en accesibilidad y frustran a los usuarios en ambientes brillantes (luz solar, exterior).
 - **Semantic colors inconsistentes:** Si rojo significa "error" en tus formularios pero "oferta" en tus cards de producto, los usuarios deben decodificar el significado del contexto cada vez. Asigna significados fijos a los colores y no te desvies.
 - **Valores de color hardcodeados:** Un valor hex pegado directamente en un componente (`color: #3b82f6`) no puede ser tematizado, no puede participar en dark mode y divergira del design system con el tiempo. Siempre referencia design tokens (CSS custom properties).

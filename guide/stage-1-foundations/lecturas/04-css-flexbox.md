@@ -32,7 +32,7 @@ Solo los hijos directos del contenedor se convierten en flex items. Los nietos n
 
 Flexbox opera en dos ejes:
 
-- **Eje principal (Main axis)**: la direccion en la que fluyen los elementos. Horizontal por defecto (`flex-direction: row`).
+- **Eje principal (Main axis)**: la dirección en la que fluyen los elementos. Horizontal por defecto (`flex-direction: row`).
 - **Eje cruzado (Cross axis)**: perpendicular al eje principal. Vertical por defecto.
 
 ```
@@ -141,7 +141,7 @@ Con `wrap`, los elementos pasan a la siguiente linea cuando no pueden caber. Est
 
 ## La propiedad abreviada `flex`
 
-La propiedad `flex` en los elementos controla como crecen, se encogen y su tamano base:
+La propiedad `flex` en los elementos controla como crecen, se encogen y su tamaño base:
 
 ```css
 .item { flex: 1; }
@@ -153,7 +153,7 @@ Los tres componentes:
 
 - **`flex-grow`**: cuanto del espacio restante debe tomar este elemento. `0` significa no crecer. `1` significa tomar una parte igual. `2` significa tomar el doble de la parte de los elementos con `1`.
 - **`flex-shrink`**: cuanto debe encogerse este elemento cuando el espacio es limitado. `0` significa no encogerse. `1` es el valor por defecto.
-- **`flex-basis`**: el tamano inicial antes de crecer o encogerse. Puede ser una longitud (`200px`, `30%`) o `auto` (usa el tamano del contenido del elemento o `width`).
+- **`flex-basis`**: el tamaño inicial antes de crecer o encogerse. Puede ser una longitud (`200px`, `30%`) o `auto` (usa el tamaño del contenido del elemento o `width`).
 
 ```css
 .sidebar { flex: 0 0 250px; }  /* don't grow, don't shrink, always 250px */
@@ -192,7 +192,7 @@ Espaciado entre flex items sin usar margenes:
 }
 ```
 
-**Barra de navegacion:**
+**Barra de navegación:**
 
 ```css
 .nav {
@@ -275,7 +275,7 @@ Si necesitas contenedores flex profundamente anidados, tu estructura HTML probab
 
 **Confundir `flex-basis` y `width`:**
 
-Cuando `flex-direction` es `row`, `flex-basis` y `width` ambos establecen el tamano horizontal. Pero `flex-basis` gana — sobreescribe `width` cuando ambos estan definidos. Cuando `flex-direction` es `column`, `flex-basis` controla la **altura**, no el ancho. Usa `flex-basis` en layouts flex, y `width`/`height` fuera de ellos.
+Cuando `flex-direction` es `row`, `flex-basis` y `width` ambos establecen el tamaño horizontal. Pero `flex-basis` gana — sobreescribe `width` cuando ambos estan definidos. Cuando `flex-direction` es `column`, `flex-basis` controla la **altura**, no el ancho. Usa `flex-basis` en layouts flex, y `width`/`height` fuera de ellos.
 
 **Desbordamiento con `flex: 1`:**
 
@@ -287,13 +287,13 @@ Cuando `flex-direction` es `row`, `flex-basis` y `width` ambos establecen el tam
 .content { flex: 1; min-width: 0; }
 ```
 
-Los flex items tienen un `min-width: auto` implicito, lo que significa que se niegan a encogerse por debajo del tamano de su contenido. Establece `min-width: 0` para anular esto.
+Los flex items tienen un `min-width: auto` implícito, lo que significa que se niegan a encogerse por debajo del tamaño de su contenido. Establece `min-width: 0` para anular esto.
 
 ---
 
 ## Puntos clave
 
-- `justify-content` controla el eje principal; `align-items` controla el eje cruzado. Cambiar `flex-direction` intercambia que direccion fisica controla cada uno.
+- `justify-content` controla el eje principal; `align-items` controla el eje cruzado. Cambiar `flex-direction` intercambia que dirección fisica controla cada uno.
 - `flex: 1` significa "crecer para llenar el espacio disponible". `flex: 0 0 250px` significa "quedarse exactamente en 250px".
 - Usa `gap` en lugar de margenes para espaciado entre flex items.
 - Establece `min-width: 0` en flex items que contengan texto u otro contenido que pueda desbordar.

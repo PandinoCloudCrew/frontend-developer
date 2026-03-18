@@ -1,6 +1,6 @@
 # Form State Management
 
-Los formularios son el patron interactivo mas complejo en el desarrollo frontend. Un input de busqueda tiene un estado. Un formulario de registro de multiples pasos tiene docenas: valores de campo, errores de validacion, estado touched, estado dirty, estado de envio, errores del servidor. Los formularios merecen patrones dedicados porque combinan multiples problemas dificiles a la vez.
+Los formularios son el patrón interactivo mas complejo en el desarrollo frontend. Un input de busqueda tiene un estado. Un formulario de registro de multiples pasos tiene docenas: valores de campo, errores de validación, estado touched, estado dirty, estado de envio, errores del servidor. Los formularios merecen patrones dedicados porque combinan multiples problemas dificiles a la vez.
 
 ---
 
@@ -11,7 +11,7 @@ Un formulario no es solo una coleccion de inputs. Tiene preocupaciones que el es
 | Preocupacion      | Que significa                                      |
 |-------------------|----------------------------------------------------|
 | **Values**        | Datos actuales en cada campo                       |
-| **Errors**        | Mensajes de validacion por campo y/o para todo el formulario |
+| **Errors**        | Mensajes de validación por campo y/o para todo el formulario |
 | **Touched**       | Ha interactuado el usuario con este campo?        |
 | **Dirty**         | Ha cambiado el valor respecto al valor inicial?   |
 | **Submitting**    | Se esta enviando el formulario actualmente?       |
@@ -38,7 +38,7 @@ function LoginForm() {
 }
 ```
 
-Controlled: predecible, inspeccionable, facil de validar en cada cambio. Pero verboso — cada campo necesita su propio estado y handler.
+Controlled: predecible, inspeccionable, fácil de validar en cada cambio. Pero verboso — cada campo necesita su propio estado y handler.
 
 **Uncontrolled forms** — el DOM mantiene los valores. Los lees al enviar.
 
@@ -62,15 +62,15 @@ function LoginForm() {
 }
 ```
 
-Uncontrolled: simple, menos codigo, aprovecha el manejo de formularios integrado del navegador. Pero mas dificil de validar antes de enviar, mas dificil de habilitar/deshabilitar campos condicionalmente, mas dificil de mostrar feedback en tiempo real.
+Uncontrolled: simple, menos código, aprovecha el manejo de formularios integrado del navegador. Pero mas difícil de validar antes de enviar, mas difícil de habilitar/deshabilitar campos condicionalmente, mas difícil de mostrar feedback en tiempo real.
 
 | | Controlled | Uncontrolled |
 |---|---|---|
-| Volumen de codigo | Mas | Menos |
-| Validacion en tiempo real | Facil | Dificil |
+| Volumen de código | Mas | Menos |
+| Validación en tiempo real | Fácil | Difícil |
 | Rendimiento (muchos campos) | Puede ser lento (re-renders) | Mejor (sin re-renders) |
 | Leer valores en cualquier momento | Si | Solo al enviar |
-| Mejor para | Formularios complejos con validacion | Formularios simples, rendimiento critico |
+| Mejor para | Formularios complejos con validación | Formularios simples, rendimiento critico |
 
 ## Librerias de Formularios
 
@@ -133,7 +133,7 @@ export class SignupComponent {
 }
 ```
 
-## Estrategias de Validacion
+## Estrategias de Validación
 
 Cuando validas importa tanto como que validas.
 
@@ -158,9 +158,9 @@ const { register, handleSubmit, formState: { errors } } = useForm({
 });
 ```
 
-## Validacion Basada en Schemas
+## Validación Basada en Schemas
 
-Define tus reglas de validacion como un schema. Reutilizalo en cliente y servidor.
+Define tus reglas de validación como un schema. Reutilizalo en cliente y servidor.
 
 ```typescript
 import { z } from "zod";
@@ -186,9 +186,9 @@ function handleSignup(body: unknown) {
 }
 ```
 
-Una definicion de schema. Dos contextos de validacion. Cero divergencia entre las reglas del cliente y del servidor.
+Una definicion de schema. Dos contextos de validación. Cero divergencia entre las reglas del cliente y del servidor.
 
-**Zod, Yup, Valibot** — todos cumplen este proposito. Zod tiene la integracion mas fuerte con TypeScript y es la opcion mas comun en proyectos modernos. Valibot es la mas pequena (tree-shakable). Yup es la mas antigua y la mas probada en batalla.
+**Zod, Yup, Valibot** — todos cumplen este proposito. Zod tiene la integracion mas fuerte con TypeScript y es la opción mas comun en proyectos modernos. Valibot es la mas pequena (tree-shakable). Yup es la mas antigua y la mas probada en batalla.
 
 ## Formularios de Multiples Pasos (Wizards)
 
@@ -219,7 +219,7 @@ Reglas clave para formularios de multiples pasos:
 1. **Valida cada paso independientemente.** No dejes que el usuario avance al paso 2 con datos invalidos del paso 1.
 2. **Preserva el estado al navegar hacia atras.** Volver al paso 1 deberia mostrar los valores que ya ingresaron.
 3. **Muestra el progreso.** Un indicador de paso ("Step 2 of 3") reduce la ansiedad y el abandono.
-4. **Envia solo al final.** No hagas llamadas al servidor en cada transicion de paso a menos que lo necesites (p.ej., verificar si un email ya esta registrado).
+4. **Envia solo al final.** No hagas llamadas al servidor en cada transición de paso a menos que lo necesites (p.ej., verificar si un email ya esta registrado).
 
 ## Envio del Formulario
 
@@ -262,15 +262,15 @@ function ContactForm() {
 }
 ```
 
-**Prevenir doble envio:** Deshabilita el boton de enviar mientras `status === "submitting"`. Nunca confies en que el usuario no hara clic dos veces.
+**Prevenir doble envio:** Deshabilita el botón de enviar mientras `status === "submitting"`. Nunca confies en que el usuario no hara clic dos veces.
 
-**Errores de validacion del servidor:** El servidor podria rechazar datos que pasaron la validacion del cliente (p.ej., "email already registered"). Mapea los errores del servidor de vuelta a campos especificos.
+**Errores de validación del servidor:** El servidor podria rechazar datos que pasaron la validación del cliente (p.ej., "email already registered"). Mapea los errores del servidor de vuelta a campos especificos.
 
 ## Errores a Nivel de Campo vs a Nivel de Formulario
 
-**Errores a nivel de campo** aparecen junto al campo al que se refieren: "Email is required", "Password must be at least 8 characters". Usalos para problemas de validacion vinculados a un input especifico.
+**Errores a nivel de campo** aparecen junto al campo al que se refieren: "Email is required", "Password must be at least 8 characters". Usalos para problemas de validación vinculados a un input específico.
 
-**Errores a nivel de formulario** aparecen en la parte superior o inferior del formulario: "Unable to create account. Please try again." Usalos para fallos de envio, errores del servidor y problemas de validacion entre campos ("End date must be after start date").
+**Errores a nivel de formulario** aparecen en la parte superior o inferior del formulario: "Unable to create account. Please try again." Usalos para fallos de envio, errores del servidor y problemas de validación entre campos ("End date must be after start date").
 
 ```tsx
 <form>
@@ -292,7 +292,7 @@ function ContactForm() {
 
 **Validar solo on submit.** El usuario llena 15 campos, presiona enviar y recibe un muro de errores. Valida incrementalmente para que los errores se detecten temprano.
 
-**Validacion solo del lado del cliente.** La validacion del cliente es una funcionalidad de UX, no una funcionalidad de seguridad. Un atacante puede saltarse tu cliente por completo. Siempre valida tambien en el servidor — y usa el mismo schema (Zod) para ambos.
+**Validación solo del lado del cliente.** La validación del cliente es una funcionalidad de UX, no una funcionalidad de seguridad. Un atacante puede saltarse tu cliente por completo. Siempre valida también en el servidor — y usa el mismo schema (Zod) para ambos.
 
 **Perder datos del formulario al navegar.** El usuario llena un formulario largo, accidentalmente hace clic en un enlace y pierde todo. Advierte antes de navegar fuera de un formulario dirty.
 
@@ -309,12 +309,12 @@ useEffect(() => {
 
 **Form state en un global store.** Poner valores de formulario en Redux/Zustand/Pinia casi nunca es necesario. El form state es local — pertenece en el componente (o en una libreria de formularios). Los global stores son para estado que multiples componentes no relacionados necesitan leer.
 
-**Un unico componente gigante de formulario.** Un componente de 500 lineas que renderiza todos los campos, maneja toda la validacion y gestiona toda la logica de envio. Dividelo en grupos de campos, extrae la validacion a un schema y separa la logica de envio en un custom hook o servicio.
+**Un único componente gigante de formulario.** Un componente de 500 lineas que renderiza todos los campos, maneja toda la validación y gestiona toda la lógica de envio. Dividelo en grupos de campos, extrae la validación a un schema y separa la lógica de envio en un custom hook o servicio.
 
 ## Puntos Clave
 
 - Los formularios tienen preocupaciones unicas (values, errors, touched, dirty, estado de envio) que los patrones regulares de gestion de estado no abordan bien. Usa una libreria de formularios para cualquier cosa no trivial.
 - Valida on blur primero, luego revalida on change despues de que aparezcan errores. Esto da el mejor balance de UX.
-- Usa validacion basada en schemas (Zod) para compartir reglas entre cliente y servidor.
-- Previen el doble envio deshabilitando el boton durante el submit. Maneja los errores de validacion del servidor mapeandolos de vuelta a los campos.
+- Usa validación basada en schemas (Zod) para compartir reglas entre cliente y servidor.
+- Previen el doble envio deshabilitando el botón durante el submit. Maneja los errores de validación del servidor mapeandolos de vuelta a los campos.
 - El form state es local. Casi nunca pertenece en un global store.

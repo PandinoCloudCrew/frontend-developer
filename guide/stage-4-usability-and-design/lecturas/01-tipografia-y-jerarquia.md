@@ -6,7 +6,7 @@ La tipografia es la interfaz principal de la web: aproximadamente el 90% del con
 
 ## Type Scale
 
-Un type scale es un conjunto de tamanos de fuente predeterminados derivados de una proporcion matematica. En lugar de adivinar tamanos, eliges un tamano base y una proporcion, luego multiplicas hacia arriba y divides hacia abajo.
+Un type scale es un conjunto de tamanos de fuente predeterminados derivados de una proporción matematica. En lugar de adivinar tamanos, eliges un tamaño base y una proporción, luego multiplicas hacia arriba y divides hacia abajo.
 
 **Proporciones comunes:**
 
@@ -17,7 +17,7 @@ Un type scale es un conjunto de tamanos de fuente predeterminados derivados de u
 | Perfect Fourth  | 1.333 | Jerarquia fuerte, editorial           |
 | Golden Ratio    | 1.618 | Dramatico, layouts orientados a display |
 
-**Escala de ejemplo con proporcion 1.25 (base 16px):**
+**Escala de ejemplo con proporción 1.25 (base 16px):**
 
 | Step | Size   | Caso de uso           |
 |------|--------|-----------------------|
@@ -29,7 +29,7 @@ Un type scale es un conjunto de tamanos de fuente predeterminados derivados de u
 | 4    | 39px   | H1                    |
 | 5    | 48.8px | Display / hero        |
 
-Limitante a 5-7 pasos en una escala. Si necesitas mas de 7 tamanos de fuente distintos, tu diseno tiene un problema de jerarquia, no un problema tipografico.
+Limitante a 5-7 pasos en una escala. Si necesitas mas de 7 tamanos de fuente distintos, tu diseño tiene un problema de jerarquia, no un problema tipografico.
 
 **Herramientas:** [utopia.fyi](https://utopia.fyi) genera type scales fluidos con `clamp()`. [type-scale.com](https://type-scale.com) te permite previsualizar proporciones visualmente.
 
@@ -75,9 +75,9 @@ code {
 
 ---
 
-## Tamano de Fuente: Usa `rem`
+## Tamaño de Fuente: Usa `rem`
 
-Establece los tamanos de fuente en `rem`, no en `px`. La unidad `rem` es relativa al tamano de fuente del root (`<html>`), que por defecto es 16px en todos los navegadores. Cuando un usuario cambia el tamano de fuente predeterminado de su navegador (una configuracion de accesibilidad comun), los valores en `rem` escalan con el. Los valores en pixeles no.
+Establece los tamanos de fuente en `rem`, no en `px`. La unidad `rem` es relativa al tamaño de fuente del root (`<html>`), que por defecto es 16px en todos los navegadores. Cuando un usuario cambia el tamaño de fuente predeterminado de su navegador (una configuración de accesibilidad comun), los valores en `rem` escalan con el. Los valores en pixeles no.
 
 ```css
 /* WRONG: breaks user zoom preferences */
@@ -100,7 +100,7 @@ Nunca establezcas `font-size` en `<html>` con un valor en pixeles como `html { f
 - **Headings:** `line-height: 1.1` a `1.3` (los headings necesitan menos porque son mas grandes y generalmente mas cortos)
 - **Texto pequeno:** `line-height: 1.6` a `1.7` (el texto mas pequeno se beneficia de mas espaciado)
 
-Siempre usa valores sin unidad. Un `line-height` sin unidad es un multiplicador del tamano de fuente del propio elemento, lo que significa que escala correctamente cuando es heredado por elementos hijos. Un `line-height` establecido en `px` no lo hace.
+Siempre usa valores sin unidad. Un `line-height` sin unidad es un multiplicador del tamaño de fuente del propio elemento, lo que significa que escala correctamente cuando es heredado por elementos hijos. Un `line-height` establecido en `px` no lo hace.
 
 ```css
 /* WRONG: px line-height doesn't scale with font size */
@@ -145,7 +145,7 @@ p, li, blockquote {
 }
 ```
 
-Esta unica regla hace mas por la legibilidad que casi cualquier otro CSS que puedas escribir.
+Esta única regla hace mas por la legibilidad que casi cualquier otro CSS que puedas escribir.
 
 ---
 
@@ -168,7 +168,7 @@ Evita usar weights por debajo de 300 para cualquier cosa menor de 24px -- las fu
 
 ## Tipografia Fluida con `clamp()`
 
-`clamp()` permite que el tamano de fuente escale suavemente entre un minimo y un maximo basado en el ancho del viewport, eliminando la necesidad de media queries basadas en breakpoints.
+`clamp()` permite que el tamaño de fuente escale suavemente entre un minimo y un maximo basado en el ancho del viewport, eliminando la necesidad de media queries basadas en breakpoints.
 
 ```css
 /* Syntax: clamp(minimum, preferred, maximum) */
@@ -190,7 +190,7 @@ p {
 
 ## Ritmo Vertical
 
-Ritmo vertical significa mantener una cuadricula base consistente a lo largo de toda la pagina. El enfoque practico: elige una unidad de espaciado base derivada de tu body `line-height`, luego usa multiplos de ella para todo el espaciado vertical.
+Ritmo vertical significa mantener una cuadricula base consistente a lo largo de toda la página. El enfoque practico: elige una unidad de espaciado base derivada de tu body `line-height`, luego usa multiplos de ella para todo el espaciado vertical.
 
 Con texto body a `1rem` y `line-height: 1.5`, la unidad base es `1.5rem` (24px). Todo el espaciado entre bloques de texto deberia ser un multiplo de esta unidad.
 
@@ -204,7 +204,7 @@ h2 { margin-top: calc(var(--rhythm) * 2); margin-bottom: var(--rhythm); }
 p  { margin-bottom: var(--rhythm); }
 ```
 
-El ritmo vertical perfecto es dificil de mantener a lo largo de una pagina entera con contenido mixto. El objetivo es consistencia, no perfeccion -- apegate a la cuadricula donde sea posible y acepta desviaciones menores en los limites de los componentes.
+El ritmo vertical perfecto es difícil de mantener a lo largo de una página entera con contenido mixto. El objetivo es consistencia, no perfeccion -- apegate a la cuadricula donde sea posible y acepta desviaciones menores en los limites de los componentes.
 
 ---
 
@@ -212,31 +212,31 @@ El ritmo vertical perfecto es dificil de mantener a lo largo de una pagina enter
 
 Cuando necesitas hacer que un elemento destaque o se retire, usa estas propiedades en orden de efectividad:
 
-1. **Tamano** -- El diferenciador mas poderoso. Un heading de 39px es inconfundiblemente mas importante que un texto body de 16px.
-2. **Weight** -- Bold vs regular crea separacion clara sin cambiar el tamano.
+1. **Tamaño** -- El diferenciador mas poderoso. Un heading de 39px es inconfundiblemente mas importante que un texto body de 16px.
+2. **Weight** -- Bold vs regular crea separacion clara sin cambiar el tamaño.
 3. **Color** -- Un color mas oscuro o de mayor saturacion atrae la mirada. Un gris mas claro se retira.
 4. **Espaciado** -- Mas espacio alrededor de un elemento le da importancia (el efecto de "espacio para respirar").
-5. **Capitalizacion** -- Etiquetas en mayusculas o small caps para informacion terciaria.
+5. **Capitalizacion** -- Etiquetas en mayusculas o small caps para información terciaria.
 
-Usa la menor cantidad necesaria. Si el tamano por si solo establece jerarquia, no necesitas ademas poner bold, colorear y capitalizar.
+Usa la menor cantidad necesaria. Si el tamaño por si solo establece jerarquia, no necesitas ademas poner bold, colorear y capitalizar.
 
 ---
 
 ## Errores Comunes
 
-- **Demasiadas familias tipograficas (>3):** Cada fuente adicional incrementa el peso de la pagina, crea inconsistencia visual y ralentiza el renderizado. Dos es ideal. Tres es el tope.
-- **Demasiados tamanos de fuente (>7):** Si tu pagina usa 12 tamanos de fuente diferentes, no hay jerarquia discernible. Apegate a tu type scale.
-- **Texto gris claro sobre fondos blancos:** Una eleccion estetica comun que no cumple los requisitos de contraste. `#999` sobre `#fff` tiene una proporcion de 2.85:1, muy por debajo del minimo WCAG de 4.5:1. El gris mas claro usable sobre blanco es aproximadamente `#767676` (4.54:1).
+- **Demasiadas familias tipograficas (>3):** Cada fuente adicional incrementa el peso de la página, crea inconsistencia visual y ralentiza el renderizado. Dos es ideal. Tres es el tope.
+- **Demasiados tamanos de fuente (>7):** Si tu página usa 12 tamanos de fuente diferentes, no hay jerarquia discernible. Apegate a tu type scale.
+- **Texto gris claro sobre fondos blancos:** Una eleccion estetica comun que no cumple los requisitos de contraste. `#999` sobre `#fff` tiene una proporción de 2.85:1, muy por debajo del minimo WCAG de 4.5:1. El gris mas claro usable sobre blanco es aproximadamente `#767676` (4.54:1).
 - **Texto justificado en la web:** A diferencia de la impresion, la web no tiene separacion silabica por defecto. El texto justificado crea espacios desiguales entre palabras ("rios de espacio en blanco") que perjudican la legibilidad. Usa `text-align: left`.
-- **Usar `px` para `font-size`:** Esto sobreescribe la configuracion del navegador del usuario y es una falla de accesibilidad. Siempre usa `rem`.
-- **Establecer `html { font-size: 62.5% }` o `html { font-size: 10px }`:** Estos resets de "conveniencia" rompen las preferencias de tamano de fuente del usuario.
+- **Usar `px` para `font-size`:** Esto sobreescribe la configuración del navegador del usuario y es una falla de accesibilidad. Siempre usa `rem`.
+- **Establecer `html { font-size: 62.5% }` o `html { font-size: 10px }`:** Estos resets de "conveniencia" rompen las preferencias de tamaño de fuente del usuario.
 
 ---
 
 ## Puntos Clave
 
-- Construye un type scale a partir de una proporcion (1.25 es un valor seguro por defecto) y limitante a 5-7 tamanos.
+- Construye un type scale a partir de una proporción (1.25 es un valor seguro por defecto) y limitante a 5-7 tamanos.
 - Usa `rem` para tamanos de fuente, valores sin unidad para `line-height` y `em` para `letter-spacing`.
 - Limita la longitud de linea a 45-75 caracteres con `max-width: 65ch`.
 - Usa `clamp()` para tipografia fluida que se adapta sin breakpoints.
-- La jerarquia viene del tamano primero, weight segundo, color tercero -- usa la menor cantidad de propiedades necesarias.
+- La jerarquia viene del tamaño primero, weight segundo, color tercero -- usa la menor cantidad de propiedades necesarias.

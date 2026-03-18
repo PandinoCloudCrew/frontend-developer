@@ -8,7 +8,7 @@ Las optimistic updates y las estrategias de retry son patrones de resiliencia qu
 
 ### Concepto
 
-**Actualiza la UI inmediatamente** como si la operacion hubiera tenido exito, luego confirma con el servidor en segundo plano. Si la operacion del servidor falla, **revierte automaticamente** la UI al estado anterior y notifica al usuario.
+**Actualiza la UI inmediatamente** como si la operación hubiera tenido exito, luego confirma con el servidor en segundo plano. Si la operación del servidor falla, **revierte automáticamente** la UI al estado anterior y notifica al usuario.
 
 ### Casos de Uso
 
@@ -20,7 +20,7 @@ Las optimistic updates y las estrategias de retry son patrones de resiliencia qu
 
 **Regla critica:** Solo usa optimistic updates para operaciones que tienen muy alta probabilidad de exito. Para operaciones riesgosas (pagos, reservas, transferencias bancarias), usa estados de carga en su lugar -- el usuario necesita confirmacion real, no una suposicion.
 
-### Implementacion
+### Implementación
 
 ```javascript
 // Pseudocode: optimistic update with rollback
@@ -44,7 +44,7 @@ async function toggleLike(postId) {
 
 ### Soporte de Bibliotecas
 
-TanStack Query, SWR y Apollo Client tienen soporte integrado para optimistic updates con rollback automatico. Estas bibliotecas manejan el almacenamiento del estado previo, la actualizacion optimista y el rollback en caso de error.
+TanStack Query, SWR y Apollo Client tienen soporte integrado para optimistic updates con rollback automático. Estas bibliotecas manejan el almacenamiento del estado previo, la actualizacion optimista y el rollback en caso de error.
 
 ```javascript
 // TanStack Query: optimistic update
@@ -75,7 +75,7 @@ const mutation = useMutation({
 
 ### Error Critico: Rollback Silencioso
 
-La UI muestra que un "like" tuvo exito, luego silenciosamente lo revierte segundos despues cuando el servidor rechaza la peticion. Los usuarios pierden confianza cuando las acciones parecen tener exito y luego se deshacen silenciosamente. **Siempre notifica a los usuarios cuando ocurre un rollback.**
+La UI muestra que un "like" tuvo exito, luego silenciosamente lo revierte segundos despues cuando el servidor rechaza la petición. Los usuarios pierden confianza cuando las acciones parecen tener exito y luego se deshacen silenciosamente. **Siempre notifica a los usuarios cuando ocurre un rollback.**
 
 ---
 
@@ -110,9 +110,9 @@ Tipicamente 3-5 intentos antes de rendirse y mostrar un error al usuario. Reinte
 
 ### Idempotencia
 
-**La idempotencia es critica:** Solo reintenta operaciones idempotentes (GET, operaciones de lectura) de forma automatica. Para operaciones no idempotentes (pagos, creacion de pedidos), usa claves de idempotencia para que el backend pueda proteger contra duplicados.
+**La idempotencia es critica:** Solo reintenta operaciones idempotentes (GET, operaciones de lectura) de forma automática. Para operaciones no idempotentes (pagos, creacion de pedidos), usa claves de idempotencia para que el backend pueda proteger contra duplicados.
 
-**Peligro:** Reintentar silenciosamente una peticion POST fallida puede causar efectos secundarios duplicados (dobles cobros, envios duplicados). Haz los reintentos visibles para el usuario, o asegura que la operacion sea idempotente antes de reintentar automaticamente.
+**Peligro:** Reintentar silenciosamente una petición POST fallida puede causar efectos secundarios duplicados (dobles cobros, envios duplicados). Haz los reintentos visibles para el usuario, o asegura que la operación sea idempotente antes de reintentar automáticamente.
 
 ### Soporte de Bibliotecas
 
@@ -134,8 +134,8 @@ const { data } = useQuery({
 ## Puntos Clave
 
 - Usa optimistic updates solo para operaciones con alta probabilidad de exito.
-- Siempre guarda el estado previo para poder hacer rollback si la operacion falla.
-- Nunca hagas rollback silencioso -- siempre notifica al usuario cuando una accion optimista falla.
+- Siempre guarda el estado previo para poder hacer rollback si la operación falla.
+- Nunca hagas rollback silencioso -- siempre notifica al usuario cuando una acción optimista falla.
 - Usa backoff exponencial con jitter para reintentos. Limita a 3-5 intentos.
-- Solo reintenta automaticamente operaciones idempotentes. Para operaciones no idempotentes, usa claves de idempotencia.
+- Solo reintenta automáticamente operaciones idempotentes. Para operaciones no idempotentes, usa claves de idempotencia.
 - TanStack Query, SWR y Apollo Client proporcionan soporte integrado para ambos patrones.

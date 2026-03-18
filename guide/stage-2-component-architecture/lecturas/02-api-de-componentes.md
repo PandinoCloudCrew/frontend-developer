@@ -1,6 +1,6 @@
-# Diseno de APIs de Componentes
+# Diseño de APIs de Componentes
 
-La API de un componente es su contrato con cada desarrollador que lo usa — incluyendo tu yo futuro. Una API bien disenada hace que el componente sea facil de usar correctamente y dificil de usar incorrectamente.
+La API de un componente es su contrato con cada desarrollador que lo usa — incluyendo tu yo futuro. Una API bien disenada hace que el componente sea fácil de usar correctamente y difícil de usar incorrectamente.
 
 ---
 
@@ -18,7 +18,7 @@ interface AvatarProps {
 }
 ```
 
-Cada prop que agregas es un compromiso de mantenimiento. Manten la superficie de la API pequena. Cada prop deberia tener una razon clara para existir.
+Cada prop que agregas es un compromiso de mantenimiento. Manten la superficie de la API pequena. Cada prop deberia tener una razón clara para existir.
 
 ## Props Requeridos vs Opcionales
 
@@ -48,7 +48,7 @@ La prueba: puede un consumidor usar el componente solo con los props requeridos 
 <Button onClick={handleSave} variant="secondary" size="lg">Save</Button>
 ```
 
-Si un consumidor tiene que pasar seis props solo para renderizar algo basico, tus valores predeterminados estan mal.
+Si un consumidor tiene que pasar seis props solo para renderizar algo básico, tus valores predeterminados estan mal.
 
 ## Tipado de Props con TypeScript
 
@@ -185,7 +185,7 @@ function Button({ variant = "primary", children, ...rest }: ButtonProps) {
 </Button>
 ```
 
-Vue hace esto automaticamente con `v-bind="$attrs"` en el elemento raiz (o de forma opcional con `inheritAttrs: false` para control manual).
+Vue hace esto automáticamente con `v-bind="$attrs"` en el elemento raiz (o de forma opcional con `inheritAttrs: false` para control manual).
 
 ## Ref Forwarding
 
@@ -248,11 +248,11 @@ function Parent() {
 | | Controlled | Uncontrolled |
 |---|---|---|
 | El estado vive en | Padre | Componente |
-| Predecibilidad | Alta — una unica fuente de verdad | Menor — el estado esta oculto |
+| Predecibilidad | Alta — una única fuente de verdad | Menor — el estado esta oculto |
 | Boilerplate | Mas — el padre gestiona el estado | Menos — el componente lo maneja |
-| Mejor para | Formularios con validacion, UI sincronizada | Inputs simples, integracion con terceros |
+| Mejor para | Formularios con validación, UI sincronizada | Inputs simples, integracion con terceros |
 
-Al construir componentes reutilizables, soporta ambos patrones. Acepta un prop `value` (controlled) y un prop `defaultValue` (uncontrolled). Este es el patron usado por los elementos HTML nativos y las librerias de componentes bien disenadas.
+Al construir componentes reutilizables, soporta ambos patrones. Acepta un prop `value` (controlled) y un prop `defaultValue` (uncontrolled). Este es el patrón usado por los elementos HTML nativos y las librerias de componentes bien disenadas.
 
 ## Errores Comunes
 
@@ -264,7 +264,7 @@ Al construir componentes reutilizables, soporta ambos patrones. Acepta un prop `
 
 **Filtrar estado interno.** Exponer un prop `isInternallyLoading` o un ref `_cache`. Si es interno, no deberia estar en la API. Prefijar con guiones bajos no lo hace privado — removerlo de la interfaz si.
 
-**Props que se contradicen entre si.** `<Modal isOpen={true} isClosed={true} />`. Estos dos props representan el mismo estado. Elige uno. Esto tambien aplica a `disabled` + `loading` — si loading siempre implica disabled, no hagas que el consumidor pase ambos.
+**Props que se contradicen entre si.** `<Modal isOpen={true} isClosed={true} />`. Estos dos props representan el mismo estado. Elige uno. Esto también aplica a `disabled` + `loading` — si loading siempre implica disabled, no hagas que el consumidor pase ambos.
 
 ## Puntos Clave
 
@@ -272,4 +272,4 @@ Al construir componentes reutilizables, soporta ambos patrones. Acepta un prop `
 - Usa union types de TypeScript para variantes, discriminated unions para conjuntos de props condicionales y generics para componentes agnosticos de datos.
 - Nombra los callbacks `onAction`, pasa datos significativos (no eventos crudos) y manten las firmas consistentes.
 - Soporta tanto patrones controlled como uncontrolled para componentes tipo input.
-- Si un consumidor tiene que leer tu codigo fuente para descubrir como usar tu componente, la API ha fallado.
+- Si un consumidor tiene que leer tu código fuente para descubrir como usar tu componente, la API ha fallado.

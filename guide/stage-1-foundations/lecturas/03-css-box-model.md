@@ -1,6 +1,6 @@
 # CSS Box Model y Display
 
-Cada elemento en una pagina web es una caja rectangular. El box model determina que tan grande es cada caja, cuanto espacio ocupa y como interactua con las cajas vecinas. Malinterpretar el box model es la fuente mas comun de errores tipo "¿por que esto es 20px mas ancho de lo que esperaba?".
+Cada elemento en una página web es una caja rectangular. El box model determina que tan grande es cada caja, cuanto espacio ocupa y como interactua con las cajas vecinas. Malinterpretar el box model es la fuente mas comun de errores tipo "¿por que esto es 20px mas ancho de lo que esperaba?".
 
 ---
 
@@ -54,7 +54,7 @@ Hermanos adyacentes — el margen inferior de un elemento y el margen superior d
 /* Gap between them: 30px, not 50px */
 ```
 
-Padre-hijo — si un padre no tiene padding, borde ni configuracion de `overflow`, el margen superior del hijo "escapa" y se convierte en el margen superior del padre:
+Padre-hijo — si un padre no tiene padding, borde ni configuración de `overflow`, el margen superior del hijo "escapa" y se convierte en el margen superior del padre:
 
 ```css
 /* The h1's margin-top collapses through the parent */
@@ -71,7 +71,7 @@ Padre-hijo — si un padre no tiene padding, borde ni configuracion de `overflow
 - Elementos posicionados absolutamente
 - Elementos separados por padding o borde
 
-La solucion para el caso padre-hijo: agrega `padding: 1px` (o cualquier valor) al padre, usa `overflow: auto`, o convierte al padre en un contenedor flex/grid.
+La solución para el caso padre-hijo: agrega `padding: 1px` (o cualquier valor) al padre, usa `overflow: auto`, o convierte al padre en un contenedor flex/grid.
 
 ---
 
@@ -143,7 +143,7 @@ Usa `display: none` para eliminar algo completamente. Usa `visibility: hidden` c
 }
 ```
 
-- **`width`** / **`height`**: establecen un tamano explicito
+- **`width`** / **`height`**: establecen un tamaño explícito
 - **`max-width`** / **`max-height`**: establecen un limite superior (anula `width` / `height`)
 - **`min-width`** / **`min-height`**: establecen un limite inferior (anula `max-width` / `max-height`)
 
@@ -157,7 +157,7 @@ El orden de prioridad es: `min-*` gana sobre `max-*`, que gana sobre `width`/`he
 
 **¿Cuando funciona `z-index`?**
 
-`z-index` no tiene efecto en elementos con posicion static. Solo funciona en elementos con `position` establecido en `relative`, `absolute`, `fixed` o `sticky`. Tambien funciona en hijos de flex/grid.
+`z-index` no tiene efecto en elementos con posición static. Solo funciona en elementos con `position` establecido en `relative`, `absolute`, `fixed` o `sticky`. También funciona en hijos de flex/grid.
 
 **¿Que crea un nuevo stacking context?**
 
@@ -179,7 +179,7 @@ Un nuevo stacking context es creado por cualquiera de estos:
 .main-content { position: relative; z-index: 2; }
 ```
 
-El 9999 del tooltip es irrelevante — no puede escapar del stacking context de su padre. La solucion: reestructura para que el tooltip no este anidado dentro de un stacking context inferior, o usa `isolation: isolate` deliberadamente.
+El 9999 del tooltip es irrelevante — no puede escapar del stacking context de su padre. La solución: reestructura para que el tooltip no este anidado dentro de un stacking context inferior, o usa `isolation: isolate` deliberadamente.
 
 ---
 

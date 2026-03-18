@@ -1,12 +1,12 @@
 # URL State Management
 
-La URL es el gestor de estado mas subutilizado en el desarrollo frontend. Esta integrada en el navegador, es compartible, sobrevive a refrescar la pagina, soporta navegacion hacia atras/adelante y habilita server-side rendering. Aun asi, la mayoria de los desarrolladores almacenan el estado de filtros, busquedas y paginacion en el estado del componente — que se evapora en el momento en que alguien comparte un enlace o refresca la pagina.
+La URL es el gestor de estado mas subutilizado en el desarrollo frontend. Esta integrada en el navegador, es compartible, sobrevive a refrescar la página, soporta navegación hacia atras/adelante y habilita server-side rendering. Aun así, la mayoria de los desarrolladores almacenan el estado de filtros, busquedas y paginación en el estado del componente — que se evapora en el momento en que alguien comparte un enlace o refresca la página.
 
 ---
 
 ## Que Pertenece en la URL
 
-URL state es el estado que deberia sobrevivir al compartir una pagina. Preguntate: "Si alguien copia esta URL y se la envia a un colega, deberian ver la misma vista?"
+URL state es el estado que deberia sobrevivir al compartir una página. Preguntate: "Si alguien copia esta URL y se la envia a un colega, deberian ver la misma vista?"
 
 **Si — ponlo en la URL:**
 
@@ -14,7 +14,7 @@ URL state es el estado que deberia sobrevivir al compartir una pagina. Preguntat
 |-----------------|------------------------------------------------|
 | Consulta de busqueda | `?q=typescript`                           |
 | Filtros         | `?status=active&role=admin`                    |
-| Paginacion      | `?page=3&pageSize=25`                          |
+| Paginación      | `?page=3&pageSize=25`                          |
 | Orden           | `?sort=name&dir=asc`                           |
 | Tab activo      | `?tab=settings`                                |
 | Elemento seleccionado | `/users/42` o `?selected=42`             |
@@ -28,7 +28,7 @@ URL state es el estado que deberia sobrevivir al compartir una pagina. Preguntat
 | Tooltip/dropdown abierto | Estado de UI efimero, irrelevante para otro usuario |
 | Tokens de auth        | Riesgo de seguridad — las URLs se registran y comparten |
 | Modal abierto/cerrado | Generalmente efimero (aunque los modales con deep-link son una excepcion) |
-| Posicion de scroll    | El navegador maneja esto automaticamente            |
+| Posición de scroll    | El navegador maneja esto automáticamente            |
 
 ## La API `URLSearchParams`
 
@@ -128,7 +128,7 @@ export class ProductListComponent {
 }
 ```
 
-## La URL como Fuente Unica de Verdad
+## La URL como Fuente Única de Verdad
 
 Este es el concepto critico. La URL no deberia ser un espejo del estado del componente — deberia ser la fuente.
 
@@ -153,7 +153,7 @@ function SearchPage() {
 }
 ```
 
-Cuando la URL es la fuente, no hay problema de sincronizacion. La URL cambia, el componente lee el nuevo valor, la UI se actualiza. Una direccion.
+Cuando la URL es la fuente, no hay problema de sincronizacion. La URL cambia, el componente lee el nuevo valor, la UI se actualiza. Una dirección.
 
 ## Codificando Estado Complejo
 
@@ -184,7 +184,7 @@ function buildSearchUrl(filters: Filters): string {
 
 **Almacenar todo en la URL.** Borradores de formularios, estado de modales, acordeones abiertos/cerrados — esto infla la URL y confunde a los usuarios que la comparten.
 
-**Ignorar el URL state al renderizar por primera vez.** La pagina carga en `/products?category=electronics&page=3` pero el componente se inicializa con `category = "all"` y `page = 1`, ignorando la URL. Siempre lee de la URL al montar.
+**Ignorar el URL state al renderizar por primera vez.** La página carga en `/products?category=electronics&page=3` pero el componente se inicializa con `category = "all"` y `page = 1`, ignorando la URL. Siempre lee de la URL al montar.
 
 ```tsx
 // Wrong: ignores URL on mount
@@ -195,7 +195,7 @@ const [searchParams] = useSearchParams();
 const page = Number(searchParams.get("page")) || 1;
 ```
 
-**No codificar la entrada del usuario.** Si un usuario busca `price > 100 & sale`, ese `&` rompera tus parametros de URL. `URLSearchParams` maneja la codificacion automaticamente — usalo. Nunca concatenes strings de URL manualmente.
+**No codificar la entrada del usuario.** Si un usuario busca `price > 100 & sale`, ese `&` rompera tus parametros de URL. `URLSearchParams` maneja la codificacion automáticamente — usalo. Nunca concatenes strings de URL manualmente.
 
 ```javascript
 // Dangerous: manual string concatenation
@@ -206,7 +206,7 @@ const params = new URLSearchParams({ q: userInput });
 const url = `/search?${params}`;
 ```
 
-**No reiniciar el estado dependiente.** El usuario esta en la pagina 5, cambia el filtro de categoria, y la URL aun dice `page=5` — pero la nueva categoria solo tiene 2 paginas. Reinicia la paginacion cuando los filtros cambien.
+**No reiniciar el estado dependiente.** El usuario esta en la página 5, cambia el filtro de categoria, y la URL aun dice `page=5` — pero la nueva categoria solo tiene 2 paginas. Reinicia la paginación cuando los filtros cambien.
 
 **Parametros que no hacen roundtrip.** Si `parse(serialize(state)) !== state`, tendras bugs sutiles. Prueba que tu codificacion/decodificacion de URL sea sin perdida.
 
@@ -216,4 +216,4 @@ const url = `/search?${params}`;
 - La URL es la fuente de verdad, no un espejo del estado del componente. Lee de ella, no sincronices hacia ella.
 - Usa `URLSearchParams` para la codificacion — nunca concatenes strings de URL con entrada de usuario.
 - Lee el URL state al renderizar por primera vez. Ignorarlo es uno de los bugs mas comunes.
-- Reinicia el estado dependiente (como paginacion) cuando el estado independiente (como filtros) cambie.
+- Reinicia el estado dependiente (como paginación) cuando el estado independiente (como filtros) cambie.

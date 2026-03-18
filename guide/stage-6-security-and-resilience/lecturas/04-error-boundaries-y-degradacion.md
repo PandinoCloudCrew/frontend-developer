@@ -1,6 +1,6 @@
 # Error Boundaries y Graceful Degradation
 
-Las aplicaciones frontend deben estar disenadas para manejar fallos de manera elegante. Error boundaries capturan errores de JavaScript en el arbol de componentes y muestran una UI de respaldo. Graceful degradation asegura que cuando una funcionalidad falla, la aplicacion sigue siendo util en lugar de colapsar completamente.
+Las aplicaciones frontend deben estar disenadas para manejar fallos de manera elegante. Error boundaries capturan errores de JavaScript en el arbol de componentes y muestran una UI de respaldo. Graceful degradation asegura que cuando una funcionalidad falla, la aplicación sigue siendo útil en lugar de colapsar completamente.
 
 ---
 
@@ -8,9 +8,9 @@ Las aplicaciones frontend deben estar disenadas para manejar fallos de manera el
 
 ### Concepto
 
-Un error boundary es un componente que captura errores de JavaScript en cualquier parte de su arbol de componentes hijos, los registra y muestra una UI de respaldo en lugar de hacer crash a toda la aplicacion.
+Un error boundary es un componente que captura errores de JavaScript en cualquier parte de su arbol de componentes hijos, los registra y muestra una UI de respaldo en lugar de hacer crash a toda la aplicación.
 
-### Implementacion por Framework
+### Implementación por Framework
 
 - **React:** Componentes de clase (usando `componentDidCatch` y `getDerivedStateFromError`) o bibliotecas como `react-error-boundary` que proporcionan una API mas ergonomica.
 - **Vue:** Hook del ciclo de vida `errorCaptured` y `onErrorCaptured` de la Composition API.
@@ -42,12 +42,12 @@ function App() {
 
 ### Ubicacion Estrategica
 
-Coloca error boundaries alrededor de areas de funcionalidad independientes para que un fallo en un area (por ejemplo, un date-picker en un flujo de reserva) no derrumbe toda la pagina.
+Coloca error boundaries alrededor de areas de funcionalidad independientes para que un fallo en un area (por ejemplo, un date-picker en un flujo de reserva) no derrumbe toda la página.
 
 **Granularidad correcta:**
-- Un unico error boundary en la raiz de la aplicacion significa que cualquier fallo en cualquier componente reemplaza toda la aplicacion con un respaldo. Demasiado grueso.
+- Un único error boundary en la raiz de la aplicación significa que cualquier fallo en cualquier componente reemplaza toda la aplicación con un respaldo. Demasiado grueso.
 - Envolver cada componente pequeno es excesivo. Demasiado fino.
-- **Lo ideal:** Boundaries alrededor de areas de funcionalidad independientes (sidebar, feed de contenido, panel de configuracion) para que un fallo en una seccion no derrumbe secciones no relacionadas.
+- **Lo ideal:** Boundaries alrededor de areas de funcionalidad independientes (sidebar, feed de contenido, panel de configuración) para que un fallo en una sección no derrumbe secciones no relacionadas.
 
 ### Desarrollo vs Produccion
 
@@ -59,12 +59,12 @@ Configura los error boundaries para mostrar detalles completos del error (stack 
 
 ### Principio
 
-Cuando una funcionalidad falla, **reduce la funcionalidad en lugar de hacer crash completamente.** El objetivo es mantener la mayor parte de la aplicacion funcional incluso cuando partes individuales fallan.
+Cuando una funcionalidad falla, **reduce la funcionalidad en lugar de hacer crash completamente.** El objetivo es mantener la mayor parte de la aplicación funcional incluso cuando partes individuales fallan.
 
 ### Estrategias
 
 - **Si una llamada a API falla,** muestra datos cacheados con un indicador de datos desactualizados en lugar de una pantalla vacia.
-- **Si un widget de terceros no carga** (chat, analytics, mapa), muestra un respaldo u oculta el widget en lugar de romper la pagina.
+- **Si un widget de terceros no carga** (chat, analytics, mapa), muestra un respaldo u oculta el widget en lugar de romper la página.
 - **Deteccion de funcionalidades** (no deteccion de navegador): verifica si una API/funcionalidad esta disponible antes de usarla y proporciona alternativas cuando no lo esta.
 
 ```javascript

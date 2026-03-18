@@ -6,11 +6,11 @@ Las tres vulnerabilidades de seguridad web mas comunes en el frontend son Cross-
 
 ## Prevencion de XSS
 
-**Cross-Site Scripting (XSS) sigue siendo una de las vulnerabilidades web mas prevalentes.** Un ataque XSS ocurre cuando un atacante logra inyectar y ejecutar codigo JavaScript malicioso en el contexto de tu aplicacion web, con acceso al DOM, cookies y sesion del usuario.
+**Cross-Site Scripting (XSS) sigue siendo una de las vulnerabilidades web mas prevalentes.** Un ataque XSS ocurre cuando un atacante logra inyectar y ejecutar código JavaScript malicioso en el contexto de tu aplicación web, con acceso al DOM, cookies y sesion del usuario.
 
 ### Auto-escaping del Framework
 
-React, Vue, Angular y Svelte escapan automaticamente los datos renderizados en templates/JSX. Esta es tu primera linea de defensa. Cuando renderizas `{userInput}` en JSX o `{{ userInput }}` en un template de Vue, el framework convierte caracteres especiales como `<`, `>` y `"` en entidades HTML inofensivas.
+React, Vue, Angular y Svelte escapan automáticamente los datos renderizados en templates/JSX. Esta es tu primera linea de defensa. Cuando renderizas `{userInput}` en JSX o `{{ userInput }}` en un template de Vue, el framework convierte caracteres especiales como `<`, `>` y `"` en entidades HTML inofensivas.
 
 ### APIs Peligrosas a Evitar
 
@@ -38,31 +38,31 @@ const cleanHTML = DOMPurify.sanitize(userProvidedHTML);
 
 ---
 
-## Proteccion contra CSRF
+## Protección contra CSRF
 
-**Cross-Site Request Forgery (CSRF)** ocurre cuando un sitio malicioso engana al navegador del usuario para que envie una peticion autenticada a tu aplicacion sin el consentimiento del usuario.
+**Cross-Site Request Forgery (CSRF)** ocurre cuando un sitio malicioso engana al navegador del usuario para que envie una petición autenticada a tu aplicación sin el consentimiento del usuario.
 
 ### Tokens Anti-CSRF
 
-Incluye un token unico e impredecible con cada peticion que cambie estado; valida en el servidor. El token se genera en el servidor, se incluye en el formulario o headers, y se verifica en cada peticion POST/PUT/DELETE.
+Incluye un token único e impredecible con cada petición que cambie estado; valida en el servidor. El token se genera en el servidor, se incluye en el formulario o headers, y se verifica en cada petición POST/PUT/DELETE.
 
 ### Cookies SameSite
 
 Establece `SameSite=Strict` o `SameSite=Lax` en las cookies de sesion para prevenir la inclusion de peticiones cross-site:
 
-- **`SameSite=Strict`:** La cookie no se envia en ningun request cross-site. La proteccion mas fuerte pero puede romper flujos legitimos (links desde emails, SSO).
-- **`SameSite=Lax`:** La cookie se envia en navegacion top-level (links) pero no en requests de terceros (iframes, AJAX). Buen equilibrio entre seguridad y funcionalidad.
+- **`SameSite=Strict`:** La cookie no se envia en ningun request cross-site. La protección mas fuerte pero puede romper flujos legitimos (links desde emails, SSO).
+- **`SameSite=Lax`:** La cookie se envia en navegación top-level (links) pero no en requests de terceros (iframes, AJAX). Buen equilibrio entre seguridad y funcionalidad.
 
 ### Otras Medidas
 
 - **Valida los headers Origin y Referer** en el servidor para peticiones que cambien estado.
-- **Soporte del framework:** Usa la proteccion CSRF integrada si esta disponible (Angular la incluye por defecto con `HttpClient`).
+- **Soporte del framework:** Usa la protección CSRF integrada si esta disponible (Angular la incluye por defecto con `HttpClient`).
 
 ---
 
 ## Content Security Policy (CSP)
 
-Una CSP fuerte restringe que scripts, estilos, imagenes y conexiones estan permitidos en tu pagina. Incluso si se inyecta codigo malicioso, CSP puede prevenir su ejecucion o la exfiltracion de datos.
+Una CSP fuerte restringe que scripts, estilos, imagenes y conexiones estan permitidos en tu página. Incluso si se inyecta código malicioso, CSP puede prevenir su ejecución o la exfiltracion de datos.
 
 ### Principios
 
@@ -86,7 +86,7 @@ Content-Security-Policy:
 ### Errores Comunes con CSP
 
 - Una CSP configurada como `default-src *` no bloquea nada -- es teatro de seguridad.
-- `'unsafe-inline'` para scripts anula la mayor parte de la proteccion contra XSS que CSP proporciona.
+- `'unsafe-inline'` para scripts anula la mayor parte de la protección contra XSS que CSP proporciona.
 - No testear la CSP en staging antes de desplegarla en produccion puede romper funcionalidades (scripts de terceros, embeds, analytics).
 
 ---
@@ -95,7 +95,7 @@ Content-Security-Policy:
 
 ### Clickjacking
 
-Sin `X-Frame-Options: DENY` (o `Content-Security-Policy: frame-ancestors 'none'`), tu aplicacion puede ser embebida en un iframe malicioso y los usuarios pueden ser enganados para hacer clic en elementos ocultos. Establece headers de restriccion de frames en todas las paginas autenticadas.
+Sin `X-Frame-Options: DENY` (o `Content-Security-Policy: frame-ancestors 'none'`), tu aplicación puede ser embebida en un iframe malicioso y los usuarios pueden ser enganados para hacer clic en elementos ocultos. Establece headers de restriccion de frames en todas las paginas autenticadas.
 
 ### CORS
 
@@ -103,7 +103,7 @@ Establecer `Access-Control-Allow-Origin: *` en endpoints de API autenticados per
 
 ### Open Redirects
 
-Redirigir usuarios a una URL tomada de un parametro de query (`?redirect=https://evil.com`) sin validacion habilita ataques de phishing. Valida las URLs de redireccion contra una lista blanca de dominios confiables o restringe a rutas relativas.
+Redirigir usuarios a una URL tomada de un parametro de query (`?redirect=https://evil.com`) sin validación habilita ataques de phishing. Valida las URLs de redirección contra una lista blanca de dominios confiables o restringe a rutas relativas.
 
 ---
 

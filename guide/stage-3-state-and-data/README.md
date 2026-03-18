@@ -1,8 +1,12 @@
 # Etapa 3: Estado y Flujo de Datos
 
-> Dominar los datos que impulsan la UI.
+[Inicio](../README.md) > Etapa 3
 
-**Prerrequisitos:** Etapa 2 completada.
+> Dominar los datos que impulsan la UI. Aprende a obtener, almacenar, clasificar y validar el estado de tu aplicación — con resiliencia ante fallos y claridad ante la complejidad.
+
+**Prerrequisitos:** Etapa 2 completada (sabes crear componentes Angular standalone, usar signals, y componer UIs con `@if`/`@for`).
+
+**Por qué esta etapa importa:** Una aplicación frontend es, en esencia, una función del estado: `UI = f(state)`. Si no sabes de dónde viene cada dato, quién lo actualiza, y qué pasa cuando falla, terminarás con una app que "a veces funciona". Los bugs más costosos en producción no son de CSS — son datos inconsistentes, formularios que se envían doble, y pantallas en blanco cuando la API no responde.
 
 ---
 
@@ -12,208 +16,161 @@
 
 ---
 
-## Actividades Esenciales
+## Actividades Esenciales 🟢
 
-### 🟢 Actividad 3.1 — Implementar los 4 estados de UI para data fetching
+| # | Actividad | Duración | Estado |
+|:-:|-----------|:--------:|:------:|
+| 3.1 | [Implementar los 4 estados de UI para data fetching](#31--implementar-los-4-estados-de-ui-para-data-fetching) | ~55 min | ☐ |
+| 3.2 | [Gestionar estado en la URL](#32--gestionar-estado-en-la-url) | ~60 min | ☐ |
+| 3.3 | [Gestionar estado de formularios con validación](#33--gestionar-estado-de-formularios-con-validación) | ~55 min | ☐ |
+| 3.4 | [Distinguir tipos de estado y separar responsabilidades](#34--distinguir-tipos-de-estado-y-separar-responsabilidades) | ~55 min | ☐ |
+| 3.5 | [Construir un wizard multi-paso con validación por paso](#35--construir-un-wizard-multi-paso-con-validación-por-paso) | ~55 min | ☐ |
 
-- [ ] Completada
+## Actividades Recomendadas 🟡
 
-**Duración:** ~55 min
+| # | Actividad | Duración | Estado |
+|:-:|-----------|:--------:|:------:|
+| 3.6 | [Implementar state machine para flujo complejo](#36--implementar-state-machine-para-flujo-complejo) | ~55 min | ☐ |
+| 3.7 | [Optimistic updates con rollback y retry](#37--optimistic-updates-con-rollback-y-retry) | ~55 min | ☐ |
 
-**Lectura:**
-- [Data Fetching: 4 Estados](./lecturas/01-data-fetching-4-estados.md) (~18 min)
+## Actividades Avanzadas 🔴
 
-**Angular:**
-- [HTTP y Data Fetching en Angular](./angular/03-http-y-data-fetching.md) (~10 min)
-
-**Práctica:** Construir un componente que consume una API y muestra los 4 estados: skeleton (loading), datos (success), mensaje + reintentar (error), guía útil (empty) (~30 min)
-
-**Validación:** Probar Slow 3G, bloquear API, devolver array vacío (~7 min)
-
-**Criterios de aceptación:**
-- [ ] Skeleton/spinner visible en conexión lenta
-- [ ] Error con botón reintentar al bloquear API
-- [ ] Empty state descriptivo con array vacío
-- [ ] Sin flash de contenido entre estados
-
----
-
-### 🟢 Actividad 3.2 — Gestionar estado en la URL
-
-- [ ] Completada
-
-**Duración:** ~60 min
-
-**Lectura:**
-- [URL State](./lecturas/02-url-state.md) (~15 min)
-
-**Angular:**
-- [Router y URL State en Angular](./angular/05-router-y-url-state.md) (~10 min)
-
-**Práctica:** Construir una lista filtrable, ordenable y paginada donde filtro, orden y página viven en la URL. Compartir la URL debe reproducir la vista exacta (~35 min)
-
-**Validación:** Copiar URL -> incógnito -> misma vista; botón atrás 3 veces (~10 min)
-
-**Criterios de aceptación:**
-- [ ] Filtros, orden y página están en query params de la URL
-- [ ] Compartir la URL reproduce la vista exacta en incógnito
-- [ ] El botón atrás restaura cada estado previo
+| # | Actividad | Duración | Estado |
+|:-:|-----------|:--------:|:------:|
+| 3.8 | [Inmutabilidad, stale closures y rendimiento de estado](#38--inmutabilidad-stale-closures-y-rendimiento-de-estado) | ~50 min | ☐ |
+| 3.9 | [Validación integral de Etapa 3](#39--validación-integral-de-etapa-3) | ~55 min | ☐ |
 
 ---
 
-### 🟢 Actividad 3.3 — Gestionar estado de formularios con validación
+## Detalle de actividades
 
-- [ ] Completada
+### 3.1 — Implementar los 4 estados de UI para data fetching
 
-**Duración:** ~55 min
+**Por qué:** Cuando tu app obtiene datos de un servidor, la respuesta no llega al instante. Si no manejas ese tiempo de espera, el usuario ve una pantalla vacía y piensa que la app está rota. Los 4 estados (loading, success, error, empty) son la diferencia entre una app profesional y una abandonada.
 
-**Lectura:**
-- [Form State](./lecturas/03-form-state.md) (~15 min)
+| | |
+|---|---|
+| **Requiere** | Etapa 2 completada (componentes Angular, signals, `@if`/`@for`) |
+| **Aprenderás** | Representar los 4 estados de una petición HTTP en la UI, usar `HttpClient`, mostrar skeletons, manejar errores con reintentar, diseñar empty states |
+| **Al completar** | Un componente que consume una API y muestra correctamente loading, success, error y empty |
 
-**Angular:**
-- [Reactive Forms en Angular](./angular/04-reactive-forms.md) (~10 min)
-
-**Práctica:** Implementar formulario con validación basada en schema (Zod) y estrategia on-blur. Prevenir double-submit con estado de loading en el botón (~35 min)
-
-**Validación:** Verificar errores al blur, no al submit; verificar que el botón se deshabilita al enviar (~5 min)
-
-**Criterios de aceptación:**
-- [ ] Validación on-blur (no en cada keystroke)
-- [ ] Se usa schema de validación (Zod/Valibot)
-- [ ] El botón de envío muestra loading y se deshabilita durante el submit
+[→ Ir a la actividad](./actividades/3.1-data-fetching-4-estados.md)
 
 ---
 
-### 🟢 Actividad 3.4 — Distinguir tipos de estado y migrar a server state
+### 3.2 — Gestionar estado en la URL
 
-- [ ] Completada
+**Por qué:** Si guardas filtros y paginación en signals, al recargar se pierden. La URL es el gestor de estado más poderoso y más ignorado: es persistente, compartible, y el botón "Atrás" funciona gratis.
 
-**Duración:** ~55 min
+| | |
+|---|---|
+| **Requiere** | Actividad 3.1 completada |
+| **Aprenderás** | Usar query params como fuente de verdad para filtros, orden y paginación. Sincronizar URL con vista usando el Router de Angular |
+| **Al completar** | Una lista filtrable donde compartir la URL reproduce la vista exacta en incógnito |
 
-**Lectura:**
-- [Tipos de Estado](./lecturas/04-tipos-de-estado.md) (~15 min)
-
-**Angular:**
-- [Signals y Estado en Angular](./angular/01-signals-y-estado.md) (~10 min)
-- [Servicios e Inyección](./angular/02-servicios-e-inyeccion.md) (~10 min)
-
-**Práctica:** Auditar el estado de la app: clasificar cada pieza como local, servidor, derivado o URL. Reemplazar `useState`+`useEffect` para data fetching por TanStack Query (~30 min)
-
-**Validación:** `grep "setState\|dispatch" src/` — cero actualizaciones de datos del servidor; cache funciona (~10 min)
-
-**Criterios de aceptación:**
-- [ ] Ningún dato del servidor almacenado en estado del cliente
-- [ ] Los datos del servidor fluyen por TanStack Query
-- [ ] Ningún estado derivado almacenado como `useState`
-- [ ] La cache funciona (navegar ida y vuelta sin re-fetch)
+[→ Ir a la actividad](./actividades/3.2-url-state.md)
 
 ---
 
-### 🟢 Actividad 3.5 — Construir un wizard multi-paso con validación por paso
+### 3.3 — Gestionar estado de formularios con validación
 
-- [ ] Completada
+**Por qué:** Los formularios son la forma principal de enviar datos. Si muestras errores mientras el usuario escribe, si permites doble submit, o si la validación está dispersa en 10 archivos, tu UX sufre y tu código se vuelve inmantenible.
 
-**Duración:** ~55 min
+| | |
+|---|---|
+| **Requiere** | Actividades 3.1 y 3.2 completadas |
+| **Aprenderás** | Reactive Forms de Angular, validación con schema Zod, estrategia on-blur, prevenir double-submit |
+| **Al completar** | Un formulario con validación on-blur, errores claros por campo, y botón que se deshabilita mientras envía |
 
-**Lectura:**
-- [Form State](./lecturas/03-form-state.md) (sección wizards, ~10 min)
-
-**Práctica:** Construir flujo de checkout (carrito -> envío -> pago -> confirmación) con preservación de datos entre pasos y navegación atrás (~35 min)
-
-**Validación:** Avanzar, retroceder, verificar datos preservados; intentar saltar pasos (~10 min)
-
-**Criterios de aceptación:**
-- [ ] El wizard muestra progreso (Paso X de N)
-- [ ] El botón atrás preserva datos
-- [ ] No se puede avanzar sin validación del paso actual
+[→ Ir a la actividad](./actividades/3.3-form-state.md)
 
 ---
 
-## Actividades Recomendadas
+### 3.4 — Distinguir tipos de estado y separar responsabilidades
 
-### 🟡 Actividad 3.6 — Implementar state machine para flujo complejo (XState)
+**Por qué:** Meter todo el estado en el componente funciona al principio. Cuando la app crece, el componente se vuelve un monstruo de 300 líneas. Separar por tipo (local, servidor, derivado, URL) te da claridad y reutilización.
 
-- [ ] Completada
+| | |
+|---|---|
+| **Requiere** | Actividades 3.1-3.3 completadas |
+| **Aprenderás** | Clasificar estado por tipo, mover datos del servidor a servicios con cache, usar `computed()` para estado derivado |
+| **Al completar** | Tu app tiene estado organizado: servidor en servicios, derivado en `computed()`, local en el componente, filtros en la URL |
 
-**Duración:** ~55 min
-
-**Lectura:**
-- [Máquinas de Estado](./lecturas/06-maquinas-de-estado.md) (~5 min)
-
-**Práctica:** Integrar XState al wizard de checkout. Definir máquina con estados y transiciones. Impedir transiciones inválidas (~40 min)
-
-**Validación:** Intentar saltar de carrito a pago; intentar volver de confirmación a carrito (~10 min)
-
-**Criterios de aceptación:**
-- [ ] La máquina impide saltar pasos
-- [ ] Los estados imposibles son imposibles por definición
-- [ ] Las transiciones requieren validación
+[→ Ir a la actividad](./actividades/3.4-tipos-de-estado.md)
 
 ---
 
-### 🟡 Actividad 3.7 — Optimistic updates con rollback y retry
+### 3.5 — Construir un wizard multi-paso con validación por paso
 
-- [ ] Completada
+**Por qué:** Un formulario largo es abrumador. Un wizard lo divide en pasos manejables — pero si los datos desaparecen al retroceder o el usuario puede saltar pasos, la confianza se destruye. Este patrón es estándar en checkout, registro y onboarding.
 
-**Duración:** ~55 min
+| | |
+|---|---|
+| **Requiere** | Actividad 3.3 completada (Reactive Forms y validación) |
+| **Aprenderás** | Flujo multi-paso con componentes por paso, preservar datos en un servicio, validar antes de avanzar, mostrar progreso |
+| **Al completar** | Un wizard de checkout de 4 pasos con datos preservados, validación por paso, y progreso visible |
 
-**Lectura:**
-- [Anti-patterns de Estado](./lecturas/07-anti-patterns-de-estado.md) (~10 min)
-- [Flujo Unidireccional e Inmutabilidad](./lecturas/05-flujo-unidireccional-e-inmutabilidad.md) (~10 min)
-
-**Práctica:** Implementar like/unlike optimista. En fallo: rollback visible + error toast. Implementar retry con backoff exponencial (~35 min)
-
-**Validación:** Like -> bloquear API -> rollback visible; verificar intervalos crecientes de retry (~10 min)
-
-**Criterios de aceptación:**
-- [ ] Optimistic update aparece inmediatamente
-- [ ] En fallo, se revierte con mensaje de error visible
-- [ ] Los intervalos de retry son crecientes (~1s, ~2s, ~4s)
+[→ Ir a la actividad](./actividades/3.5-wizard-multi-paso.md)
 
 ---
 
-## Actividades Avanzadas
+### 3.6 — Implementar state machine para flujo complejo
 
-### 🔴 Actividad 3.8 — Inmutabilidad, stale closures y rendimiento de estado
+**Por qué:** Un wizard controlado con `if`/`switch` permite estados imposibles — como "en pago sin datos de envío". Una state machine define qué transiciones son válidas y elimina bugs de estado por diseño, no por código defensivo.
 
-- [ ] Completada
+| | |
+|---|---|
+| **Requiere** | Actividad 3.5 completada (wizard funcionando) |
+| **Aprenderás** | Qué es una state machine, definir estados y transiciones con XState, integrar XState con Angular, impedir transiciones inválidas por definición |
+| **Al completar** | Tu wizard usa una state machine donde saltar pasos es literalmente imposible |
 
-**Duración:** ~50 min
-
-**Lectura:**
-- [Flujo Unidireccional e Inmutabilidad](./lecturas/05-flujo-unidireccional-e-inmutabilidad.md) (~10 min)
-- [Anti-patterns de Estado](./lecturas/07-anti-patterns-de-estado.md) (~5 min)
-
-**Práctica:** Demostrar un bug de stale closure (click rápido 10 veces != 10). Corregirlo. Demostrar el costo de spread en objetos grandes a 60fps vs useRef (~30 min)
-
-**Validación:** Click rápido 10 veces = 10; sin jank en animación (~5 min)
-
-**Criterios de aceptación:**
-- [ ] Click rápido 10 veces produce conteo = 10
-- [ ] Se demuestra cuándo `useRef` es mejor que `useState` para animaciones
+[→ Ir a la actividad](./actividades/3.6-state-machine.md)
 
 ---
 
-### 🔴 Actividad 3.9 — Validación integral de Etapa 3
+### 3.7 — Optimistic updates con rollback y retry
 
-- [ ] Completada
+**Por qué:** Cuando el usuario hace click en "Like", espera que el corazón se llene inmediatamente, no 500ms después. Los optimistic updates actualizan la UI primero y manejan el error si el servidor falla.
 
-**Duración:** ~55 min
+| | |
+|---|---|
+| **Requiere** | Actividades 3.1 y 3.4 completadas |
+| **Aprenderás** | Optimistic updates, rollback en fallo, feedback de error con toast, retry con backoff exponencial |
+| **Al completar** | Un sistema de likes que responde instantáneamente, revierte si falla, y reintenta con intervalos crecientes |
 
-**Lectura:** Revisar los criterios de aceptación de toda la etapa (~5 min)
-
-**Práctica:** Verificar todos los criterios 3.1-3.8 (~40 min)
-
-**Validación:** Los 8 criterios pasan (~10 min)
-
-**Criterios de aceptación:**
-- [ ] Todos los criterios 3.1-3.8 se cumplen
+[→ Ir a la actividad](./actividades/3.7-optimistic-updates.md)
 
 ---
 
-## Material de lectura en esta etapa
+### 3.8 — Inmutabilidad, stale closures y rendimiento de estado
 
-### Lecturas generales
+**Por qué:** Los bugs más difíciles de rastrear son de estado invisible: clicks que se pierden, mutaciones que el framework no detecta, animaciones que tiemblan. Entender por qué ocurren te ahorra horas de debugging.
+
+| | |
+|---|---|
+| **Requiere** | Actividades 3.1-3.5 completadas. Actividad 1.9 recomendada (closures) |
+| **Aprenderás** | Reproducir y corregir stale closures, entender inmutabilidad y detección de cambios, medir costo de spread, alternativas a signals para animaciones |
+| **Al completar** | Has reproducido bugs de stale closure y mutación invisible, los has corregido, y sabes cuándo signals no son la herramienta correcta |
+
+[→ Ir a la actividad](./actividades/3.8-inmutabilidad-closures.md)
+
+---
+
+### 3.9 — Validación integral de Etapa 3
+
+**Por qué:** Antes de avanzar a la Etapa 4, necesitas confirmar que dominas estado y flujo de datos. Esta actividad recorre todos los criterios y te ayuda a cerrar brechas.
+
+| | |
+|---|---|
+| **Requiere** | Actividades esenciales 3.1-3.5 completadas |
+| **Aprenderás** | Verificar sistemáticamente tus conocimientos, detectar brechas, reforzar patrones clave |
+| **Al completar** | Todos los criterios de aceptación de la etapa pasan. Estás listo para la Etapa 4 |
+
+[→ Ir a la actividad](./actividades/3.9-validacion-integral.md)
+
+---
+
+## Material de lectura
 
 | Archivo | Contenido |
 |---------|-----------|
@@ -225,16 +182,16 @@
 | [06-maquinas-de-estado.md](./lecturas/06-maquinas-de-estado.md) | Máquinas de estado con XState |
 | [07-anti-patterns-de-estado.md](./lecturas/07-anti-patterns-de-estado.md) | Anti-patterns de estado: stale closures, prop drilling, estado derivado innecesario |
 
-### Material de Angular
+## Material de Angular
 
 | Archivo | Contenido |
 |---------|-----------|
 | [01-signals-y-estado.md](./angular/01-signals-y-estado.md) | Signals y estado reactivo en Angular |
-| [02-servicios-e-inyeccion.md](./angular/02-servicios-e-inyeccion.md) | Servicios, inyección de dependencias y estado compartido |
+| [02-servicios-e-inyección.md](./angular/02-servicios-e-inyeccion.md) | Servicios, inyección de dependencias y estado compartido |
 | [03-http-y-data-fetching.md](./angular/03-http-y-data-fetching.md) | HttpClient, interceptors y data fetching en Angular |
 | [04-reactive-forms.md](./angular/04-reactive-forms.md) | Reactive Forms: FormGroup, FormControl, validación |
 | [05-router-y-url-state.md](./angular/05-router-y-url-state.md) | Router, query params y URL state en Angular |
 
 ---
 
-[← Etapa anterior: Componentes](../stage-2-component-architecture/) | [Volver al índice](../README.md) | [Etapa siguiente: Usabilidad →](../stage-4-usability-and-design/)
+[← Etapa anterior: Componentes](../stage-2-component-architecture/) | [Siguiente: Etapa 4 →](../stage-4-usability-and-design/)

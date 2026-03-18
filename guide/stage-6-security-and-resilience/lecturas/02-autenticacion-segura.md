@@ -1,6 +1,6 @@
-# Autenticacion Segura
+# Autenticación Segura
 
-La autenticacion segura en aplicaciones frontend implica decisiones criticas sobre donde almacenar tokens, como implementar flujos OAuth y como proteger sesiones de usuario. Errores en estos patrones son una de las fuentes mas comunes de vulnerabilidades en aplicaciones web modernas.
+La autenticación segura en aplicaciones frontend implica decisiones criticas sobre donde almacenar tokens, como implementar flujos OAuth y como proteger sesiones de usuario. Errores en estos patrones son una de las fuentes mas comunes de vulnerabilidades en aplicaciones web modernas.
 
 ---
 
@@ -8,7 +8,7 @@ La autenticacion segura en aplicaciones frontend implica decisiones criticas sob
 
 ### Donde NO Almacenar Tokens
 
-**Nunca almacenes JWTs o tokens sensibles en `localStorage`.** `localStorage` es accesible desde cualquier JavaScript que se ejecute en el mismo origen. Si un atacante logra un XSS (inyectar script en tu pagina), puede leer todos los tokens en `localStorage` y exfiltrarlos.
+**Nunca almacenes JWTs o tokens sensibles en `localStorage`.** `localStorage` es accesible desde cualquier JavaScript que se ejecute en el mismo origen. Si un atacante logra un XSS (inyectar script en tu página), puede leer todos los tokens en `localStorage` y exfiltrarlos.
 
 ```javascript
 // WRONG: tokens accessible to any XSS attack
@@ -35,7 +35,7 @@ Set-Cookie: refresh_token=abc123;
 - **`Secure`:** La cookie solo se envia sobre HTTPS.
 - **`SameSite=Strict`:** La cookie no se envia en requests cross-site, protegiendo contra CSRF.
 
-**Access tokens en memoria:** Almacena el access token en una variable JavaScript (no en storage). Se pierde al refrescar la pagina, pero se puede obtener uno nuevo usando el refresh token en la cookie `HttpOnly`.
+**Access tokens en memoria:** Almacena el access token en una variable JavaScript (no en storage). Se pierde al refrescar la página, pero se puede obtener uno nuevo usando el refresh token en la cookie `HttpOnly`.
 
 ### Rotacion de Tokens
 
@@ -49,7 +49,7 @@ Usa access tokens de corta duracion (por ejemplo, 15 minutos) con rotacion de re
 
 El flujo actualmente recomendado para aplicaciones basadas en navegador es **Authorization Code Grant con PKCE** (Proof Key for Code Exchange).
 
-**Por que PKCE:** Las SPAs no pueden almacenar un client secret de forma segura (todo el codigo es visible en el navegador). PKCE elimina la necesidad de un client secret generando un code verifier y un code challenge dinamicos por sesion.
+**Por que PKCE:** Las SPAs no pueden almacenar un client secret de forma segura (todo el código es visible en el navegador). PKCE elimina la necesidad de un client secret generando un code verifier y un code challenge dinamicos por sesion.
 
 **Flujo simplificado:**
 1. La SPA genera un `code_verifier` aleatorio y calcula su `code_challenge` (SHA-256 hash).
@@ -64,9 +64,9 @@ Usa el parametro `state` para proteger contra CSRF y ataques de intercambio de a
 
 ---
 
-## Patron Backend for Frontend (BFF)
+## Patrón Backend for Frontend (BFF)
 
-El patron BFF proporciona la seguridad mas fuerte para autenticacion en SPAs: un componente del lado del servidor maneja los tokens, y la SPA usa cookies de sesion HTTP-only para comunicarse con su BFF.
+El patrón BFF proporciona la seguridad mas fuerte para autenticación en SPAs: un componente del lado del servidor maneja los tokens, y la SPA usa cookies de sesion HTTP-only para comunicarse con su BFF.
 
 **Como funciona:**
 1. La SPA nunca ve los tokens de acceso ni los refresh tokens.
@@ -77,20 +77,20 @@ El patron BFF proporciona la seguridad mas fuerte para autenticacion en SPAs: un
 **Ventajas:**
 - Los tokens nunca estan expuestos al navegador, eliminando el riesgo de XSS.
 - El BFF puede manejar la rotacion de tokens de forma transparente.
-- Simplifica la logica de autenticacion en el frontend.
+- Simplifica la lógica de autenticación en el frontend.
 
 **Compromiso:**
 - Requiere una unidad de despliegue adicional (el servidor BFF).
-- Anade un salto de red extra en cada peticion.
+- Anade un salto de red extra en cada petición.
 
 ---
 
 ## Principios Generales
 
 - **Implementa HTTPS en todas partes.** Sin HTTPS, cualquier medida de seguridad de tokens es inutil -- las cookies y tokens se transmiten en texto plano.
-- **Impon atributos seguros de cookies:** `HttpOnly`, `Secure`, `SameSite` en todas las cookies de sesion y autenticacion.
-- **Aplica el principio de menor privilegio** a los scopes y permisos de las APIs. Solicita solo los permisos que la aplicacion necesita.
-- **Registra eventos de autenticacion** para auditoria: logins exitosos, logins fallidos, rotaciones de tokens, logouts.
+- **Impon atributos seguros de cookies:** `HttpOnly`, `Secure`, `SameSite` en todas las cookies de sesion y autenticación.
+- **Aplica el principio de menor privilegio** a los scopes y permisos de las APIs. Solicita solo los permisos que la aplicación necesita.
+- **Registra eventos de autenticación** para auditoria: logins exitosos, logins fallidos, rotaciones de tokens, logouts.
 
 ---
 
@@ -100,5 +100,5 @@ El patron BFF proporciona la seguridad mas fuerte para autenticacion en SPAs: un
 - Usa cookies `HttpOnly` + `Secure` + `SameSite` para refresh tokens; access tokens en memoria.
 - Access tokens de corta duracion (15 min) con rotacion de refresh tokens.
 - OAuth en SPAs: Authorization Code Grant con PKCE. Nunca uses Implicit Grant.
-- El patron BFF proporciona la seguridad mas fuerte al mantener los tokens fuera del navegador.
+- El patrón BFF proporciona la seguridad mas fuerte al mantener los tokens fuera del navegador.
 - HTTPS es obligatorio -- sin el, ninguna otra medida de seguridad tiene sentido.

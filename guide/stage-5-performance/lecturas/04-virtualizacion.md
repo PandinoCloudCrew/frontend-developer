@@ -1,6 +1,6 @@
 # Virtualizacion
 
-La virtualizacion es una tecnica de rendimiento que consiste en renderizar solo los elementos visibles en el viewport para listas y tablas grandes, en lugar de renderizar todos los elementos en el DOM.
+La virtualizacion es una técnica de rendimiento que consiste en renderizar solo los elementos visibles en el viewport para listas y tablas grandes, en lugar de renderizar todos los elementos en el DOM.
 
 ---
 
@@ -22,10 +22,10 @@ Esto reduce dramaticamente los nodos del DOM: de potencialmente miles a solo dec
 
 | Biblioteca | Ecosistema | Notas |
 |-----------|-----------|-------|
-| `@tanstack/virtual` | React, Vue, Solid, Svelte | La solucion mas moderna y agnositca de framework |
+| `@tanstack/virtual` | React, Vue, Solid, Svelte | La solución mas moderna y agnositca de framework |
 | `react-window` | React | Liviana, API simple, de Brian Vaughn |
 | `react-virtualized` | React | Mas features pero mas pesada que react-window |
-| Vue Virtual Scroller | Vue | Solucion nativa del ecosistema Vue |
+| Vue Virtual Scroller | Vue | Solución nativa del ecosistema Vue |
 | Angular CDK Virtual Scroll | Angular | Parte del Component Dev Kit oficial de Angular |
 
 ---
@@ -41,7 +41,7 @@ Esto reduce dramaticamente los nodos del DOM: de potencialmente miles a solo dec
 
 ## Compromisos
 
-- **Anade complejidad:** La virtualizacion introduce una capa de abstraccion que puede complicar el manejo de scroll, focus y seleccion.
+- **Anade complejidad:** La virtualizacion introduce una capa de abstraccion que puede complicar el manejo de scroll, focus y selección.
 - **Accesibilidad:** Los lectores de pantalla no pueden ver los elementos fuera de pantalla, lo que significa que no pueden navegar la lista completa. Esto requiere consideraciones adicionales de ARIA.
 - **Alturas de elementos:** Para el mejor rendimiento, los elementos deben tener alturas fijas o estimables. Las alturas variables dinamicas son posibles pero mas complejas de implementar.
 - **Busqueda en el navegador:** Ctrl+F no encontrara texto en elementos que no estan renderizados en el DOM.
@@ -51,6 +51,6 @@ Esto reduce dramaticamente los nodos del DOM: de potencialmente miles a solo dec
 ## Puntos Clave
 
 - Virtualiza listas con mas de ~100 elementos para mantener el DOM pequeno y el scroll fluido.
-- `@tanstack/virtual` es la solucion mas moderna y funciona con multiples frameworks.
+- `@tanstack/virtual` es la solución mas moderna y funciona con multiples frameworks.
 - Considera los compromisos de accesibilidad y busqueda del navegador antes de virtualizar.
-- Alturas fijas o estimables de elementos simplifican la implementacion significativamente.
+- Alturas fijas o estimables de elementos simplifican la implementación significativamente.

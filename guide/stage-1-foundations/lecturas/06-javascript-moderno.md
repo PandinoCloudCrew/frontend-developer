@@ -6,7 +6,7 @@ JavaScript moderno es el lenguaje que escribiras a diario. Los frameworks abstra
 
 ## Modulos: `import` / `export`
 
-Los modulos son la base de la organizacion del codigo. Cada archivo es un modulo con su propio scope.
+Los modulos son la base de la organizacion del código. Cada archivo es un modulo con su propio scope.
 
 **Named exports** — exportar multiples valores por nombre:
 
@@ -38,7 +38,7 @@ export { add, subtract } from './math.js';
 export { default as log } from './logger.js';
 ```
 
-**`import()` dinamico** — cargar modulos bajo demanda para code splitting:
+**`import()` dinámico** — cargar modulos bajo demanda para code splitting:
 
 ```js
 button.addEventListener('click', async () => {
@@ -53,7 +53,7 @@ Los imports dinamicos devuelven una promesa y son la base de la carga diferida (
 
 ## `let` / `const` vs `var`
 
-`var` tiene scope de funcion. `let` y `const` tienen scope de bloque.
+`var` tiene scope de función. `let` y `const` tienen scope de bloque.
 
 ```js
 if (true) {
@@ -65,14 +65,14 @@ console.log(x); // 1
 console.log(y); // ReferenceError
 ```
 
-**Zona muerta temporal (Temporal dead zone)**: `let` y `const` existen en su bloque desde el inicio pero no pueden ser accedidos antes de su linea de declaracion. Acceder a ellos antes lanza un `ReferenceError`:
+**Zona muerta temporal (Temporal dead zone)**: `let` y `const` existen en su bloque desde el inicio pero no pueden ser accedidos antes de su linea de declaración. Acceder a ellos antes lanza un `ReferenceError`:
 
 ```js
 console.log(name); // ReferenceError: Cannot access 'name' before initialization
 let name = 'Alice';
 ```
 
-`var` silenciosamente devolveria `undefined` aqui, lo cual oculta errores. Por eso `let`/`const` son mejores.
+`var` silenciosamente devolveria `undefined` aquí, lo cual oculta errores. Por eso `let`/`const` son mejores.
 
 **Regla**: Usa `const` por defecto. Usa `let` cuando necesites reasignar. Nunca uses `var`.
 
@@ -109,7 +109,7 @@ const { data: { users: [{ name }] } } = response;
 
 Usa destructuring anidado con moderacion — los patrones profundamente anidados se vuelven dificiles de leer.
 
-**Destructuring en parametros de funcion:**
+**Destructuring en parametros de función:**
 
 ```js
 function greet({ name, greeting = 'Hello' }) {
@@ -234,7 +234,7 @@ async function loadUserPosts(id) {
 }
 ```
 
-**Ejecucion en paralelo** — cuando las peticiones son independientes:
+**Ejecución en paralelo** — cuando las peticiones son independientes:
 
 ```js
 // Bad: sequential — each waits for the previous

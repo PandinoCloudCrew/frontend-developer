@@ -167,8 +167,8 @@
 | Archivo | Contenido |
 |---------|-----------|
 | [01-xss-csrf-csp.md](./lecturas/01-xss-csrf-csp.md) | XSS, CSRF y CSP: prevención, auto-escaping, headers de seguridad |
-| [02-autenticacion-segura.md](./lecturas/02-autenticacion-segura.md) | Autenticación segura: OAuth, PKCE, tokens, cookies HttpOnly |
-| [03-validacion-de-entradas.md](./lecturas/03-validacion-de-entradas.md) | Validación de entradas: cliente + servidor, schemas con Zod |
+| [02-autenticación-segura.md](./lecturas/02-autenticacion-segura.md) | Autenticación segura: OAuth, PKCE, tokens, cookies HttpOnly |
+| [03-validación-de-entradas.md](./lecturas/03-validacion-de-entradas.md) | Validación de entradas: cliente + servidor, schemas con Zod |
 | [04-error-boundaries-y-degradacion.md](./lecturas/04-error-boundaries-y-degradacion.md) | Error boundaries, degradación elegante, los 4 estados de error |
 | [05-optimistic-updates-y-retry.md](./lecturas/05-optimistic-updates-y-retry.md) | Optimistic updates, rollback, retry con exponential backoff |
 | [06-anti-patterns-de-seguridad.md](./lecturas/06-anti-patterns-de-seguridad.md) | Anti-patterns de seguridad: secretos en bundle, eval, localStorage para tokens |

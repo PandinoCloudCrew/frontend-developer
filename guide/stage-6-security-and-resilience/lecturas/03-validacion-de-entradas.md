@@ -1,25 +1,25 @@
-# Validacion de Entradas
+# Validación de Entradas
 
-La validacion y sanitizacion de entradas es una capa fundamental de defensa que protege tanto la experiencia del usuario (feedback inmediato) como la seguridad del sistema (proteccion contra inyeccion de datos maliciosos).
+La validación y sanitizacion de entradas es una capa fundamental de defensa que protege tanto la experiencia del usuario (feedback inmediato) como la seguridad del sistema (protección contra inyección de datos maliciosos).
 
 ---
 
-## Validacion vs Sanitizacion
+## Validación vs Sanitizacion
 
-- **Validacion de entradas:** Asegura que los datos enviados por el usuario se ajusten a los formatos, tipos y restricciones esperados antes del procesamiento. Rechaza datos que no cumplen.
-- **Sanitizacion:** Limpia o neutraliza datos, eliminando caracteres potencialmente maliciosos o fragmentos de codigo. Transforma los datos para que sean seguros.
+- **Validación de entradas:** Asegura que los datos enviados por el usuario se ajusten a los formatos, tipos y restricciones esperados antes del procesamiento. Rechaza datos que no cumplen.
+- **Sanitizacion:** Limpia o neutraliza datos, eliminando caracteres potencialmente maliciosos o fragmentos de código. Transforma los datos para que sean seguros.
 
 ---
 
 ## Defensa en Profundidad
 
-Sanitiza en el cliente para retroalimentacion inmediata, pero **siempre valida y sanitiza en el servidor** -- la validacion del lado del cliente es facilmente evitable.
+Sanitiza en el cliente para retroalimentacion inmediata, pero **siempre valida y sanitiza en el servidor** -- la validación del lado del cliente es facilmente evitable.
 
-La validacion en el frontend es una conveniencia de UX, no una medida de seguridad. Cualquier validacion en el navegador puede ser evitada con DevTools, curl o una peticion modificada. Toda validacion critica de seguridad (autenticacion, autorizacion, sanitizacion de entrada, reglas de negocio) debe ocurrir en el servidor.
+La validación en el frontend es una conveniencia de UX, no una medida de seguridad. Cualquier validación en el navegador puede ser evitada con DevTools, curl o una petición modificada. Toda validación critica de seguridad (autenticación, autorizacion, sanitizacion de entrada, reglas de negocio) debe ocurrir en el servidor.
 
 ---
 
-## Herramientas de Validacion
+## Herramientas de Validación
 
 Usa bibliotecas establecidas en lugar de regex personalizado para sanitizacion:
 
@@ -44,7 +44,7 @@ const validated = UserInput.parse(userInput);
 
 ## Puntos Clave
 
-- La validacion en el cliente es UX, no seguridad. Siempre valida en el servidor.
+- La validación en el cliente es UX, no seguridad. Siempre valida en el servidor.
 - Usa bibliotecas establecidas (DOMPurify, Zod, Valibot) en lugar de regex personalizado.
 - Valida la forma, el tipo y los limites de todos los datos del usuario.
 - Sanitiza HTML con DOMPurify antes de renderizarlo con `dangerouslySetInnerHTML`/`v-html`.

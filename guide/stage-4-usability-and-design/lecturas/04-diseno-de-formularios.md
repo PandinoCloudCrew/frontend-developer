@@ -1,12 +1,12 @@
-# Diseno de Formularios
+# Diseño de Formularios
 
-Los formularios son donde los usuarios intercambian datos con tu aplicacion. Cada registro, checkout, busqueda y cambio de configuracion fluye a traves de un formulario. Un formulario bien disenado reduce el abandono, reduce los tickets de soporte y reduce los errores. Un formulario mal disenado es la razon individual mas comun por la que los usuarios abandonan un producto.
+Los formularios son donde los usuarios intercambian datos con tu aplicación. Cada registro, checkout, busqueda y cambio de configuración fluye a traves de un formulario. Un formulario bien disenado reduce el abandono, reduce los tickets de soporte y reduce los errores. Un formulario mal disenado es la razón individual mas comun por la que los usuarios abandonan un producto.
 
 ---
 
 ## Ubicacion de Etiquetas
 
-**Encima del input (valor predeterminado recomendado):** Las etiquetas colocadas directamente encima de su input son las mas rapidas de escanear porque el ojo se mueve en una sola linea vertical. Este patron funciona en todos los anchos de viewport y es el estandar en practicamente todos los design systems modernos.
+**Encima del input (valor predeterminado recomendado):** Las etiquetas colocadas directamente encima de su input son las mas rapidas de escanear porque el ojo se mueve en una sola linea vertical. Este patrón funciona en todos los anchos de viewport y es el estandar en practicamente todos los design systems modernos.
 
 ```html
 <div class="form-field">
@@ -23,15 +23,15 @@ Los formularios son donde los usuarios intercambian datos con tu aplicacion. Cad
 }
 ```
 
-**Floating labels:** La etiqueta comienza como texto placeholder dentro del input y se anima a una posicion mas pequena encima del campo al hacer focus. Visualmente elegante pero problematico: la etiqueta se vuelve diminuta, el campo parece vacio cuando esta lleno (rompiendo la capacidad de escaneo), y es mas dificil de implementar de forma accesible. Evitalo a menos que tu design system lo requiera explicitamente.
+**Floating labels:** La etiqueta comienza como texto placeholder dentro del input y se anima a una posición mas pequena encima del campo al hacer focus. Visualmente elegante pero problematico: la etiqueta se vuelve diminuta, el campo parece vacio cuando esta lleno (rompiendo la capacidad de escaneo), y es mas difícil de implementar de forma accesible. Evitalo a menos que tu design system lo requiera explicitamente.
 
-**Etiquetas alineadas a la izquierda:** La etiqueta se situa a la izquierda del input. Esto funciona en layouts amplios (formularios de admin, paginas de configuracion) pero desperdicia espacio vertical, crea columnas desalineadas si las longitudes de las etiquetas varian, y se rompe en viewports estrechos. Usalo con moderacion.
+**Etiquetas alineadas a la izquierda:** La etiqueta se situa a la izquierda del input. Esto funciona en layouts amplios (formularios de admin, paginas de configuración) pero desperdicia espacio vertical, crea columnas desalineadas si las longitudes de las etiquetas varian, y se rompe en viewports estrechos. Usalo con moderacion.
 
 ---
 
 ## Dimensionamiento de Inputs
 
-Ajusta el ancho del input al contenido esperado. Esto le da a los usuarios una pista visual sobre cuantos datos se esperan y evita que el formulario se sienta como un muro de rectangulos del mismo tamano.
+Ajusta el ancho del input al contenido esperado. Esto le da a los usuarios una pista visual sobre cuantos datos se esperan y evita que el formulario se sienta como un muro de rectangulos del mismo tamaño.
 
 ```css
 .input-full  { width: 100%; }          /* email, address, name */
@@ -41,7 +41,7 @@ Ajusta el ancho del input al contenido esperado. Esto le da a los usuarios una p
 .input-xs    { max-width: 5rem; }       /* quantity, age */
 ```
 
-Un campo de codigo postal que abarca todo el ancho del formulario comunica silenciosamente la expectativa equivocada.
+Un campo de código postal que abarca todo el ancho del formulario comunica silenciosamente la expectativa equivocada.
 
 ---
 
@@ -49,7 +49,7 @@ Un campo de codigo postal que abarca todo el ancho del formulario comunica silen
 
 Marca la minoria. Si 8 de 10 campos son requeridos, marcar los 8 con asteriscos crea ruido visual. En su lugar, marca los 2 campos opcionales con "(optional)."
 
-Si la mayoria de los campos son opcionales (p.ej., una pagina de perfil), marca los requeridos con "(required)" o el asterisco tradicional.
+Si la mayoria de los campos son opcionales (p.ej., una página de perfil), marca los requeridos con "(required)" o el asterisco tradicional.
 
 ```html
 <!-- Most fields required: mark the optional ones -->
@@ -65,7 +65,7 @@ Siempre incluye una nota explicando la convencion del asterisco si la usas: "Fie
 
 ## Texto Placeholder
 
-El texto placeholder desaparece cuando el usuario empieza a escribir. Esto lo hace inutil como etiqueta -- el usuario no puede consultarlo despues de ingresar datos. Tambien tiene bajo contraste en la mayoria de los navegadores (no cumple WCAG), no tiene significado semantico para lectores de pantalla y puede confundirse con un valor pre-llenado.
+El texto placeholder desaparece cuando el usuario empieza a escribir. Esto lo hace inutil como etiqueta -- el usuario no puede consultarlo despues de ingresar datos. También tiene bajo contraste en la mayoria de los navegadores (no cumple WCAG), no tiene significado semántico para lectores de pantalla y puede confundirse con un valor pre-llenado.
 
 **Usa placeholders solo para pistas de formato:**
 
@@ -85,13 +85,13 @@ El texto placeholder desaparece cuando el usuario empieza a escribir. Esto lo ha
 
 ---
 
-## Momento de la Validacion
+## Momento de la Validación
 
-Elegir cuando mostrar errores de validacion es una de las decisiones de UX de formularios mas impactantes.
+Elegir cuando mostrar errores de validación es una de las decisiones de UX de formularios mas impactantes.
 
-**On blur (valor predeterminado recomendado):** Valida cuando el usuario abandona el campo (el evento `blur`). El usuario ha terminado de ingresar datos, asi que el feedback es oportuno pero no interruptivo. Ven el error antes de avanzar demasiado en el formulario.
+**On blur (valor predeterminado recomendado):** Valida cuando el usuario abandona el campo (el evento `blur`). El usuario ha terminado de ingresar datos, así que el feedback es oportuno pero no interruptivo. Ven el error antes de avanzar demasiado en el formulario.
 
-**On change despues del primer blur:** Un refinamiento del enfoque on blur. Despues de que el usuario ha visitado y abandonado un campo una vez (disparando la primera validacion), cambia a validar en cada pulsacion de tecla (evento `input`) para que vean el error desaparecer en tiempo real mientras lo corrigen. Este es el estandar de oro para la experiencia de usuario.
+**On change despues del primer blur:** Un refinamiento del enfoque on blur. Despues de que el usuario ha visitado y abandonado un campo una vez (disparando la primera validación), cambia a validar en cada pulsacion de tecla (evento `input`) para que vean el error desaparecer en tiempo real mientras lo corrigen. Este es el estandar de oro para la experiencia de usuario.
 
 ```javascript
 // Pseudocode for "validate on blur, then on input after first blur"
@@ -162,8 +162,8 @@ El atributo `aria-invalid="true"` le indica a los lectores de pantalla que el ca
 
 ## Errores Inline vs Resumen de Errores
 
-- **Errores inline:** Para problemas de validacion especificos de un campo (campo requerido faltante, formato incorrecto, valor fuera de rango). Colocalos directamente debajo del campo relevante.
-- **Resumen de errores:** Para problemas a nivel de formulario (errores del servidor, validacion entre campos como "la fecha de fin debe ser posterior a la fecha de inicio"). Colocalo en la parte superior del formulario, con enlaces ancla a cada campo problematico.
+- **Errores inline:** Para problemas de validación especificos de un campo (campo requerido faltante, formato incorrecto, valor fuera de rango). Colocalos directamente debajo del campo relevante.
+- **Resumen de errores:** Para problemas a nivel de formulario (errores del servidor, validación entre campos como "la fecha de fin debe ser posterior a la fecha de inicio"). Colocalo en la parte superior del formulario, con enlaces ancla a cada campo problematico.
 
 ```html
 <div class="error-summary" role="alert">
@@ -185,8 +185,8 @@ Los formularios largos (>7 campos) se benefician de dividirse en pasos logicos.
 
 **Requisitos:**
 - **Indicador de progreso:** Muestra al usuario donde se encuentra (p.ej., "Step 2 of 4") con una barra visual de pasos.
-- **Validacion por paso:** Valida el paso actual antes de permitir al usuario avanzar. No esperes hasta el envio final.
-- **Navegacion hacia atras:** Siempre permite al usuario volver a pasos anteriores. Nunca bloquees pasos completados.
+- **Validación por paso:** Valida el paso actual antes de permitir al usuario avanzar. No esperes hasta el envio final.
+- **Navegación hacia atras:** Siempre permite al usuario volver a pasos anteriores. Nunca bloquees pasos completados.
 - **Preservacion de estado:** Si el usuario vuelve atras y regresa, los datos ingresados anteriormente deben seguir ahi. Usa controlled form state, no valores del DOM.
 
 ```html
@@ -210,16 +210,16 @@ Los formularios largos (>7 campos) se benefician de dividirse en pasos logicos.
 
 ---
 
-## Estados del Boton de Envio
+## Estados del Botón de Envio
 
-Un boton de envio debe comunicar su estado claramente a traves de cuatro fases:
+Un botón de envio debe comunicar su estado claramente a traves de cuatro fases:
 
 | Estado   | Apariencia                         | Comportamiento                       |
 |----------|----------------------------------|---------------------------------|
 | Default  | Color primario, etiqueta completa | Clickeable                      |
 | Loading  | Icono spinner + "Submitting..."   | Deshabilitado, no clickeable    |
 | Success  | Verde + checkmark + "Done!"       | Deshabilitado brevemente, luego redirect |
-| Error    | Animacion de sacudida breve + mensaje | Re-habilitado para reintentar  |
+| Error    | Animación de sacudida breve + mensaje | Re-habilitado para reintentar  |
 
 ```css
 .button--loading {
@@ -243,7 +243,7 @@ Un boton de envio debe comunicar su estado claramente a traves de cuatro fases:
 }
 ```
 
-Deshabilita el boton de envio durante el envio para prevenir doble submit. Pero nunca deshabilites el boton antes de que el usuario haya interactuado -- un boton permanentemente deshabilitado sin explicacion es un callejon sin salida.
+Deshabilita el botón de envio durante el envio para prevenir doble submit. Pero nunca deshabilites el botón antes de que el usuario haya interactuado -- un botón permanentemente deshabilitado sin explicacion es un callejon sin salida.
 
 ---
 
@@ -263,7 +263,7 @@ El atributo HTML `autocomplete` le indica al navegador que tipo de dato espera u
 <input type="text"   name="cc-num"  autocomplete="cc-number">
 ```
 
-Valores de `autocomplete` faltantes o incorrectos son una de las causas mas comunes de abandono de checkout en movil.
+Valores de `autocomplete` faltantes o incorrectos son una de las causas mas comunes de abandono de checkout en móvil.
 
 ---
 
@@ -291,7 +291,7 @@ Usa `<fieldset>` y `<legend>` para agrupar semanticamente campos relacionados. L
 </fieldset>
 ```
 
-Para agrupacion visual sin significado semantico, usa espaciado y encabezados opcionales:
+Para agrupacion visual sin significado semántico, usa espaciado y encabezados opcionales:
 
 ```css
 .form-section {
@@ -311,20 +311,20 @@ Para agrupacion visual sin significado semantico, usa espaciado y encabezados op
 
 ## Errores Comunes
 
-- **Submit deshabilitado sin explicacion:** Un boton de envio en gris sin indicacion de que necesita arreglar el usuario es un callejon sin salida. Si debes deshabilitarlo, acompanalo con un tooltip o pista inline listando los requisitos no cumplidos.
-- **Limpiar el formulario ante error de validacion:** Si el usuario comete un error y tu formulario reinicia todos los campos, se ira y nunca volvera. Siempre preserva el input valido ante un error.
-- **Formularios modales para entrada de datos complejos:** Los modales tienen espacio limitado, no se pueden redimensionar y no se pueden desplazar comodamente en movil. Usa una pagina completa o seccion expandible para formularios con mas de 4-5 campos.
+- **Submit deshabilitado sin explicacion:** Un botón de envio en gris sin indicacion de que necesita arreglar el usuario es un callejon sin salida. Si debes deshabilitarlo, acompanalo con un tooltip o pista inline listando los requisitos no cumplidos.
+- **Limpiar el formulario ante error de validación:** Si el usuario comete un error y tu formulario reinicia todos los campos, se ira y nunca volvera. Siempre preserva el input valido ante un error.
+- **Formularios modales para entrada de datos complejos:** Los modales tienen espacio limitado, no se pueden redimensionar y no se pueden desplazar comodamente en móvil. Usa una página completa o sección expandible para formularios con mas de 4-5 campos.
 - **Placeholder como etiqueta:** Desaparece, tiene pobre contraste y no es accesible.
-- **Requerir campos innecesarios:** Cada campo requerido adicional incrementa el abandono. Cuestiona agresivamente si realmente necesitas segundo nombre, numero de telefono, nombre de empresa, etc. en este paso.
-- **Auto-avance entre inputs:** Mover automaticamente el foco al siguiente campo despues de cierta cantidad de caracteres (p.ej., segmentos de numero telefonico) rompe la expectativa del usuario, interfiere con pegar y confunde a los lectores de pantalla. Deja que el usuario controle la navegacion.
-- **Layouts horizontales de formulario en movil:** Campos lado a lado en pantallas mas estrechas que 400px crean inputs diminutos e inutilizables. Apilalos verticalmente en movil.
+- **Requerir campos innecesarios:** Cada campo requerido adicional incrementa el abandono. Cuestiona agresivamente si realmente necesitas segundo nombre, número de telefono, nombre de empresa, etc. en este paso.
+- **Auto-avance entre inputs:** Mover automáticamente el foco al siguiente campo despues de cierta cantidad de caracteres (p.ej., segmentos de número telefonico) rompe la expectativa del usuario, interfiere con pegar y confunde a los lectores de pantalla. Deja que el usuario controle la navegación.
+- **Layouts horizontales de formulario en móvil:** Campos lado a lado en pantallas mas estrechas que 400px crean inputs diminutos e inutilizables. Apilalos verticalmente en móvil.
 
 ---
 
 ## Puntos Clave
 
-- Coloca las etiquetas encima de los inputs (lo mas rapido de escanear, funciona en todos los anchos de viewport).
+- Coloca las etiquetas encima de los inputs (lo mas rápido de escanear, funciona en todos los anchos de viewport).
 - Valida on blur, luego en cada pulsacion de tecla despues del primer blur -- el mejor equilibrio entre oportunidad y no intrusion.
 - Los mensajes de error van debajo del campo, indican que esta mal y como arreglarlo, y usan icono + color (nunca solo color).
 - Establece atributos `autocomplete` correctos en cada campo de formulario -- esto es de bajo esfuerzo y alto impacto.
-- Nunca deshabilites el boton de envio sin decirle al usuario por que, y nunca limpies input valido ante un error.
+- Nunca deshabilites el botón de envio sin decirle al usuario por que, y nunca limpies input valido ante un error.

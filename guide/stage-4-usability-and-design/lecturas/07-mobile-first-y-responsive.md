@@ -1,17 +1,17 @@
 # Mobile-First y Responsive Design
 
-El diseno mobile-first y los principios responsive son enfoques complementarios que aseguran que las interfaces funcionen bien en cualquier tamano de pantalla. Mobile-first establece la estrategia de diseno; responsive design proporciona las tecnicas de implementacion.
+El diseño mobile-first y los principios responsive son enfoques complementarios que aseguran que las interfaces funcionen bien en cualquier tamaño de pantalla. Mobile-first establece la estrategia de diseño; responsive design proporciona las tecnicas de implementación.
 
 ---
 
-## Diseno Mobile-First
+## Diseño Mobile-First
 
 **Disena primero para la ventana grafica mas pequena y con mas restricciones, luego mejora progresivamente para pantallas mas grandes.**
 
 - Fuerza la priorizacion del contenido y las funcionalidades esenciales.
-- CSS: escribe estilos base para movil, luego usa media queries `min-width` para anadir complejidad para pantallas mas grandes.
+- CSS: escribe estilos base para móvil, luego usa media queries `min-width` para anadir complejidad para pantallas mas grandes.
 - Targets tactiles: minimo 44x44px, con espaciado adecuado entre elementos interactivos.
-- Navegacion: menus hamburguesa para navegacion secundaria, pero manten la navegacion critica visible.
+- Navegación: menus hamburguesa para navegación secundaria, pero manten la navegación critica visible.
 - Rendimiento: las redes moviles son mas lentas; optimiza los assets y difiere la carga no esencial.
 
 **Ejemplo de CSS mobile-first:**
@@ -45,12 +45,12 @@ El diseno mobile-first y los principios responsive son enfoques complementarios 
 
 ---
 
-## Principios de Diseno Responsive
+## Principios de Diseño Responsive
 
 - **Layouts fluidos:** Usa unidades relativas (%, vw, vh, rem, em) y CSS Grid/Flexbox en lugar de anchos fijos en pixeles.
 - **Breakpoints basados en contenido, no en dispositivos.** Anade breakpoints donde el layout se rompe, no en anchos arbitrarios de dispositivos.
 - **Imagenes responsive:** `srcset`, `<picture>` y CSS `object-fit` para dimensionamiento apropiado de imagenes.
-- **Container queries (CSS moderno):** Estiliza componentes basandote en el tamano de su contenedor, no de la ventana grafica -- habilitando componentes responsive verdaderamente modulares.
+- **Container queries (CSS moderno):** Estiliza componentes basandote en el tamaño de su contenedor, no de la ventana grafica -- habilitando componentes responsive verdaderamente modulares.
 - **Tipografia:** Escalas de tipo fluido usando `clamp()` para escalado suave entre ventanas graficas.
 
 **Container queries -- componentes que responden a su contexto:**
@@ -92,7 +92,7 @@ El diseno mobile-first y los principios responsive son enfoques complementarios 
 
 ## Puntos Clave
 
-- Mobile-first significa *empezar* con movil, luego *mejorar* para viewports mas grandes -- no detenerse en movil.
+- Mobile-first significa *empezar* con móvil, luego *mejorar* para viewports mas grandes -- no detenerse en móvil.
 - Usa media queries `min-width` (mobile-first) en lugar de `max-width` (desktop-first).
 - Establece breakpoints donde tu contenido se rompe, no en anchos de dispositivos especificos.
 - Container queries permiten componentes verdaderamente modulares que se adaptan a su contexto.

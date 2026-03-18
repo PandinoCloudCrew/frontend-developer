@@ -1,8 +1,12 @@
 # Etapa 8: Arquitectura a Escala
 
-> Patrones para equipos y aplicaciones grandes.
+[Inicio](../README.md) > Etapa 8
+
+> Patrones para equipos y aplicaciones grandes. Aprende a organizar, escalar y mantener aplicaciones frontend que crecen en complejidad y en número de desarrolladores.
 
 **Prerrequisitos:** Etapa 7 completada.
+
+**Por qué esta etapa importa:** Un proyecto con 10 componentes se maneja fácil. Con 100 componentes y 10 desarrolladores, la estructura plana se vuelve un laberinto. ¿Dónde está el componente de productos? ¿Quién cambió el botón y rompió 5 páginas? ¿Por qué el build tarda 8 minutos? Esta etapa te enseña los patrones que resuelven estos problemas: organización por features, Clean Architecture para separar lógica de UI, design systems para eliminar duplicación visual, type safety end-to-end para evitar bugs de desincronización con el backend, y decisiones informadas sobre renderizado, builds y organización de repositorios. Si te saltas esta etapa, tu proyecto funcionará — hasta que crezca lo suficiente para volverse inmanejable.
 
 ---
 
@@ -12,191 +16,161 @@
 
 ---
 
-## Actividades Esenciales
+## Actividades Esenciales 🟢
 
-### 🟢 Actividad 8.1 — Organizar código por features
+| # | Actividad | Duración | Estado |
+|:-:|-----------|:--------:|:------:|
+| 8.1 | [Organizar código por features](#81--organizar-código-por-features) | ~60 min | ☐ |
 
-- [ ] Completada
+## Actividades Recomendadas 🟡
 
-**Duración:** ~60 min
+| # | Actividad | Duración | Estado |
+|:-:|-----------|:--------:|:------:|
+| 8.2 | [Clean Architecture en frontend (4 capas)](#82--clean-architecture-en-frontend-4-capas) | ~55 min | ☐ |
+| 8.3 | [Extraer un design system](#83--extraer-un-design-system) | ~60 min | ☐ |
+| 8.4 | [Implementar capa de API type-safe](#84--implementar-capa-de-api-type-safe) | ~60 min | ☐ |
+| 8.5 | [Elegir estrategia de renderizado (SSR/SSG/ISR)](#85--elegir-estrategia-de-renderizado-ssrssgisr) | ~60 min | ☐ |
 
-**Lectura:**
-- [Organización por Features](./lecturas/01-organizacion-por-features.md) (~15 min)
+## Actividades Avanzadas 🔴
 
-**Angular:**
-- [Arquitectura Angular](./angular/01-arquitectura-angular.md) (~10 min)
-
-**Práctica:** Refactorizar estructura plana (components/, hooks/, services/) a organización por feature. Verificar cero imports circulares con `npx madge --circular src/` (~35 min)
-
-**Validación:** `madge --circular` -> cero ciclos; eliminar un feature no rompe otros (~10 min)
-
-**Criterios de aceptación:**
-- [ ] Cero dependencias circulares entre features
-- [ ] Cada feature contiene sus componentes, hooks y tipos
-- [ ] Eliminar un feature directory solo rompe imports a su API pública
-
----
-
-## Actividades Recomendadas
-
-### 🟡 Actividad 8.2 — Clean Architecture en frontend (4 capas)
-
-- [ ] Completada
-
-**Duración:** ~55 min
-
-**Lectura:**
-- [Clean Architecture Frontend](./lecturas/02-clean-architecture-frontend.md) (~10 min)
-
-**Práctica:** Reorganizar una feature compleja en 4 capas (Presentation -> Application -> Domain -> Infrastructure). La lógica de dominio debe ser agnóstica de framework (~35 min)
-
-**Validación:** Domain layer no importa React/Vue/Angular; tests de dominio pasan sin UI (~10 min)
-
-**Criterios de aceptación:**
-- [ ] Domain layer no importa ningún framework
-- [ ] Tests de dominio se ejecutan sin renderizar UI
-- [ ] Infrastructure layer es intercambiable
+| # | Actividad | Duración | Estado |
+|:-:|-----------|:--------:|:------:|
+| 8.6 | [Configurar Vite y entender el build](#86--configurar-vite-y-entender-el-build) | ~45 min | ☐ |
+| 8.7 | [Entender monorepos y micro-frontends](#87--entender-monorepos-y-micro-frontends) | ~45 min | ☐ |
+| 8.8 | [Validación integral de Etapa 8](#88--validación-integral-de-etapa-8) | ~55 min | ☐ |
 
 ---
 
-### 🟡 Actividad 8.3 — Extraer un design system
+## Detalle de actividades
 
-- [ ] Completada
+### 8.1 — Organizar código por features
 
-**Duración:** ~60 min
+**Por qué:** La estructura plana (`components/`, `services/`, `models/`) funciona con 10 componentes. Con 50, tocar una funcionalidad requiere saltar entre 4 carpetas. La organización por features agrupa todo lo relacionado a una funcionalidad en una sola carpeta — si necesitas eliminar una feature, borras la carpeta y listo.
 
-**Lectura:**
-- [Design Systems](./lecturas/03-design-systems.md) (~10 min)
+| | |
+|---|---|
+| **Requiere** | Etapa 7 completada (tests funcionando), un proyecto Angular con al menos 3-4 funcionalidades |
+| **Aprenderás** | Organización por features, API pública de un feature, detectar y eliminar dependencias circulares |
+| **Al completar** | Proyecto organizado por features. `npx madge --circular src/` reporta cero dependencias circulares |
 
-**Práctica:** Extraer 5 componentes reutilizables en un paquete de design system con design tokens para colores, espaciado y tipografía (~40 min)
-
-**Validación:** El paquete compila independientemente; cambiar un token actualiza todos los componentes (~10 min)
-
-**Criterios de aceptación:**
-- [ ] Design system compila independientemente
-- [ ] Exporta componentes, tokens y tipos
-- [ ] Cambiar un token de color se propaga a todos los componentes
+[→ Ir a la actividad](./actividades/8.1-organizacion-features.md)
 
 ---
 
-### 🟡 Actividad 8.4 — Implementar capa de API type-safe
+### 8.2 — Clean Architecture en frontend (4 capas)
 
-- [ ] Completada
+**Por qué:** Si tu componente mezcla validaciones, llamadas a API y renderizado, cambiar el framework requiere reescribir todo. Clean Architecture separa la lógica de negocio del framework — la lógica se testea sin UI, se reutiliza entre proyectos, y sobrevive cambios de framework.
 
-**Duración:** ~60 min
+| | |
+|---|---|
+| **Requiere** | Actividad 8.1 completada, conocimiento de servicios e inyección de dependencias |
+| **Aprenderás** | Las 4 capas (Presentation, Application, Domain, Infrastructure), dominio agnóstico de framework, testear lógica sin UI |
+| **Al completar** | Una feature en 4 capas. Domain layer no importa Angular. Tests de dominio pasan sin renderizar UI |
 
-**Lectura:**
-- [Patrones de API](./lecturas/04-patrones-de-api.md) (~10 min)
-
-**Práctica:** Implementar capa de API con tRPC. Cambiar tipo de respuesta backend -> `npx tsc --noEmit` falla en frontend (~40 min)
-
-**Validación:** Cambiar tipo backend -> error de tipos en frontend (~10 min)
-
-**Criterios de aceptación:**
-- [ ] Type safety end-to-end
-- [ ] Breaking change backend produce error de tipos en frontend
-- [ ] `npx tsc --noEmit` detecta el cambio
+[→ Ir a la actividad](./actividades/8.2-clean-architecture.md)
 
 ---
 
-### 🟡 Actividad 8.5 — Elegir estrategia de renderizado (SSR/SSG/ISR)
+### 8.3 — Extraer un design system
 
-- [ ] Completada
+**Por qué:** El mismo botón implementado de 3 formas en 3 componentes. El mismo color hardcodeado en 47 archivos. Un design system centraliza componentes reutilizables y design tokens — cambias el color una vez y se propaga a todos los componentes.
 
-**Duración:** ~60 min
+| | |
+|---|---|
+| **Requiere** | Actividad 8.1 completada, experiencia con CSS custom properties (Etapa 1) |
+| **Aprenderás** | Design tokens, componentes reutilizables, configurar una librería Angular con Nx |
+| **Al completar** | Paquete de design system con 5 componentes y tokens para colores, espaciado y tipografía. Cambiar un token actualiza todo |
 
-**Lectura:**
-- [Meta-frameworks y Renderizado](./lecturas/05-meta-frameworks-y-renderizado.md) (~10 min)
-
-**Angular:**
-- [Arquitectura Angular](./angular/01-arquitectura-angular.md) (sección Analog, ~5 min)
-
-**Práctica:** Para 3 páginas (blog, dashboard, e-commerce listing), elegir e implementar la estrategia correcta con justificación escrita (~40 min)
-
-**Validación:** Blog = HTML estático; dashboard = SSR; listing = ISR con cache headers (~10 min)
-
-**Criterios de aceptación:**
-- [ ] Cada estrategia coincide con el tipo de contenido
-- [ ] La justificación referencia frecuencia de datos, SEO, personalización y TTI
+[→ Ir a la actividad](./actividades/8.3-design-system.md)
 
 ---
 
-## Actividades Avanzadas
+### 8.4 — Implementar capa de API type-safe
 
-### 🔴 Actividad 8.6 — Configurar Vite y entender el build
+**Por qué:** Si el backend cambia la forma de una respuesta y nadie avisa al frontend, el código compila, los mocks pasan, y la app se rompe en producción. Una API type-safe con Zod valida en runtime y en compilación — si algo cambia, TypeScript te avisa inmediatamente.
 
-- [ ] Completada
+| | |
+|---|---|
+| **Requiere** | Actividad 8.2 completada, TypeScript con `strict: true` (Actividad 1.6) |
+| **Aprenderás** | Type safety end-to-end, esquemas de validación con Zod, alternativas (tRPC, OpenAPI) |
+| **Al completar** | Capa de API que valida respuestas con Zod. Cambiar un tipo produce error de TypeScript en frontend |
 
-**Duración:** ~45 min
-
-**Lectura:**
-- [Meta-frameworks y Renderizado](./lecturas/05-meta-frameworks-y-renderizado.md) (sección de build tools, ~10 min)
-
-**Práctica:** Configurar Vite con aliases y env vars. Verificar que el build produce chunks por feature (~30 min)
-
-**Validación:** `npx vite build` -> chunks nombrados por feature (~5 min)
-
-**Criterios de aceptación:**
-- [ ] Build produce chunks separados por feature
-- [ ] No es un único bundle monolítico
+[→ Ir a la actividad](./actividades/8.4-api-type-safe.md)
 
 ---
 
-### 🔴 Actividad 8.7 — Entender monorepos y micro-frontends
+### 8.5 — Elegir estrategia de renderizado (SSR/SSG/ISR)
 
-- [ ] Completada
+**Por qué:** CSR muestra pantalla en blanco hasta que el JavaScript se descarga. SSR envía HTML con contenido desde el servidor. SSG genera HTML estático en build time. Ninguna es "la mejor" — cada una es correcta para un tipo de contenido. Elegir la incorrecta perjudica rendimiento o desperdicia recursos.
 
-**Duración:** ~45 min
+| | |
+|---|---|
+| **Requiere** | Actividad 8.1 completada, conceptos básicos de HTTP |
+| **Aprenderás** | Diferencias entre CSR, SSR, SSG e ISR, cuándo usar cada una, implementar con Angular Universal y Analog |
+| **Al completar** | 3 páginas analizadas con la estrategia correcta, justificación escrita referenciando SEO, frecuencia de datos, personalización y TTI |
 
-**Lectura:**
-- [Micro-frontends](./lecturas/06-micro-frontends.md) (~10 min)
-
-**Práctica:** Documentar decisión: el proyecto justifica monorepo/micro-frontends? Con trade-offs listados (~30 min)
-
-**Validación:** La decisión referencia al menos 3 trade-offs concretos (~5 min)
-
-**Criterios de aceptación:**
-- [ ] Decisión documentada con justificación
-- [ ] Al menos 3 trade-offs por enfoque
-- [ ] No se adopta por "porque Netflix lo usa"
+[→ Ir a la actividad](./actividades/8.5-estrategias-renderizado.md)
 
 ---
 
-### 🔴 Actividad 8.8 — Validación integral de Etapa 8
+### 8.6 — Configurar Vite y entender el build
 
-- [ ] Completada
+**Por qué:** ¿Sabes qué produce `ng build`? ¿Por qué `main.js` pesa 400 KB? Entender el build te permite optimizarlo: chunks por feature, aliases para imports limpios, variables de entorno sin exponer secretos. Vite es la herramienta de build que Angular usa desde v17 — más rápida y más configurable.
 
-**Duración:** ~55 min
+| | |
+|---|---|
+| **Requiere** | Actividad 8.1 completada (organización por features con lazy loading) |
+| **Aprenderás** | Qué es un build y qué produce, lazy loading para chunks por feature, aliases de importación, variables de entorno |
+| **Al completar** | Build produce chunks separados por feature. Aliases configurados. Variables de entorno funcionando |
 
-**Lectura:** Revisar los criterios de aceptación de toda la etapa (~5 min)
-
-**Práctica:** Verificar todos los criterios 8.1-8.7 (~40 min)
-
-**Validación:** Los criterios pasan (~10 min)
-
-**Criterios de aceptación:**
-- [ ] Todos los criterios 8.1-8.7 se cumplen
+[→ Ir a la actividad](./actividades/8.6-vite-build.md)
 
 ---
 
-## Material de lectura en esta etapa
+### 8.7 — Entender monorepos y micro-frontends
 
-### Lecturas generales
+**Por qué:** Cuando pasas de 1 app con 3 developers a 5 apps con 30 developers, la organización del código es una decisión estratégica. ¿Monorepo? ¿Polyrepo? ¿Micro-frontends? Estas decisiones son difíciles de revertir. Esta actividad te ayuda a decidir para tu contexto, no para el de Netflix.
+
+| | |
+|---|---|
+| **Requiere** | Actividades 8.1-8.6 completadas, experiencia trabajando en equipo |
+| **Aprenderás** | Monorepo vs polyrepo, micro-frontends y cuándo tienen sentido, trade-offs de cada enfoque, Nx para monorepos |
+| **Al completar** | Decisión documentada con al menos 3 trade-offs por enfoque, basada en tu contexto real |
+
+[→ Ir a la actividad](./actividades/8.7-monorepos-microfrontends.md)
+
+---
+
+### 8.8 — Validación integral de Etapa 8
+
+**Por qué:** Esta es la última etapa de la guía. Confirma que dominas los patrones de arquitectura a escala y puedes tomar decisiones informadas sobre organización, capas, design systems y estrategias de renderizado.
+
+| | |
+|---|---|
+| **Requiere** | Actividades 8.1-8.7 completadas |
+| **Aprenderás** | Ejecutar validación integral de la arquitectura, identificar y cerrar brechas |
+| **Al completar** | Todos los criterios 8.1-8.7 se cumplen. Arquitectura que escala con el equipo y los requisitos |
+
+[→ Ir a la actividad](./actividades/8.8-validacion-integral.md)
+
+---
+
+## Material de lectura
 
 | Archivo | Contenido |
 |---------|-----------|
 | [01-organizacion-por-features.md](./lecturas/01-organizacion-por-features.md) | Organización por features, Feature-Sliced Design, imports circulares |
 | [02-clean-architecture-frontend.md](./lecturas/02-clean-architecture-frontend.md) | Clean Architecture: 4 capas, dominio agnóstico de framework |
 | [03-design-systems.md](./lecturas/03-design-systems.md) | Design systems: tokens, componentes reutilizables, paquetes |
-| [04-patrones-de-api.md](./lecturas/04-patrones-de-api.md) | Patrones de API: tRPC, type safety end-to-end |
+| [04-patrones-de-api.md](./lecturas/04-patrones-de-api.md) | Patrones de API: tRPC, Zod, type safety end-to-end |
 | [05-meta-frameworks-y-renderizado.md](./lecturas/05-meta-frameworks-y-renderizado.md) | Meta-frameworks, SSR/SSG/ISR, build tools |
 | [06-micro-frontends.md](./lecturas/06-micro-frontends.md) | Micro-frontends: cuándo sí, cuándo no, implementación, trade-offs |
 
-### Material de Angular
+## Material de Angular
 
 | Archivo | Contenido |
 |---------|-----------|
-| [01-arquitectura-angular.md](./angular/01-arquitectura-angular.md) | Arquitectura Angular: módulos, standalone, lazy loading, Analog |
+| [01-arquitectura-angular.md](./angular/01-arquitectura-angular.md) | Arquitectura Angular: standalone, lazy loading, Nx, Analog |
 
 ---
 

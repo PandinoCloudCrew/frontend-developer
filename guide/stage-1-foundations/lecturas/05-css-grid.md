@@ -1,6 +1,6 @@
 # CSS Grid
 
-CSS Grid es el sistema de layout para **layouts bidimensionales** — controlando filas y columnas simultaneamente. Flexbox maneja un eje a la vez; Grid maneja ambos. Con Grid puedes construir layouts de pagina, cuadriculas de tarjetas y dashboards con menos codigo, menos matematicas y mejor responsividad que cualquier otra tecnica CSS.
+CSS Grid es el sistema de layout para **layouts bidimensionales** — controlando filas y columnas simultaneamente. Flexbox maneja un eje a la vez; Grid maneja ambos. Con Grid puedes construir layouts de página, cuadriculas de tarjetas y dashboards con menos código, menos matematicas y mejor responsividad que cualquier otra técnica CSS.
 
 ---
 
@@ -46,7 +46,7 @@ Esto crea una cuadricula de 3 columnas y 3 filas. La primera y tercera columnas 
 }
 ```
 
-`fr` se calcula *despues* de que las columnas de tamano fijo y los gaps se restan. Entonces en `200px 1fr 1fr`, las dos columnas `1fr` dividen lo que queda despues de la columna de 200px y cualquier gap.
+`fr` se calcula *despues* de que las columnas de tamaño fijo y los gaps se restan. Entonces en `200px 1fr 1fr`, las dos columnas `1fr` dividen lo que queda despues de la columna de 200px y cualquier gap.
 
 ---
 
@@ -66,7 +66,7 @@ grid-template-columns: repeat(4, 1fr);
 
 ## `minmax()`
 
-Establece un rango de tamano para los tracks:
+Establece un rango de tamaño para los tracks:
 
 ```css
 .grid {
@@ -95,7 +95,7 @@ Con 3 elementos en un contenedor ancho:
 - **`auto-fill`**: 3 elementos con un ancho de aproximadamente 200px, los tracks vacios llenan el resto. Los elementos NO se estiran mas alla de su minimo.
 - **`auto-fit`**: 3 elementos se estiran para llenar todo el ancho del contenedor. Sin tracks vacios.
 
-**Usa `auto-fit`** cuando quieras que los elementos crezcan y llenen el espacio disponible (lo mas comun). **Usa `auto-fill`** cuando quieras que los elementos mantengan un tamano consistente sin importar el ancho del contenedor.
+**Usa `auto-fit`** cuando quieras que los elementos crezcan y llenen el espacio disponible (lo mas comun). **Usa `auto-fill`** cuando quieras que los elementos mantengan un tamaño consistente sin importar el ancho del contenedor.
 
 ---
 
@@ -115,7 +115,7 @@ Con 3 elementos en un contenedor ancho:
 
 ## Colocar elementos (Placing Items)
 
-Los elementos se colocan automaticamente por defecto (en orden, llenando cada fila). Puedes colocar elementos explicitamente:
+Los elementos se colocan automáticamente por defecto (en orden, llenando cada fila). Puedes colocar elementos explicitamente:
 
 ```css
 .header {
@@ -164,7 +164,7 @@ Cada cadena en `grid-template-areas` representa una fila. Cada palabra represent
 
 ## Grids implicitos vs explicitos (Implicit vs Explicit Grids)
 
-El **grid explicito** es lo que defines con `grid-template-columns` y `grid-template-rows`. Si tienes mas elementos que celdas, Grid crea nuevas filas automaticamente — esto es el **grid implicito**.
+El **grid explícito** es lo que defines con `grid-template-columns` y `grid-template-rows`. Si tienes mas elementos que celdas, Grid crea nuevas filas automáticamente — esto es el **grid implícito**.
 
 ```css
 .grid {
@@ -176,7 +176,7 @@ El **grid explicito** es lo que defines con `grid-template-columns` y `grid-temp
 }
 ```
 
-`grid-auto-rows` y `grid-auto-columns` controlan el tamano de los tracks en el grid implicito.
+`grid-auto-rows` y `grid-auto-columns` controlan el tamaño de los tracks en el grid implícito.
 
 ---
 
@@ -208,7 +208,7 @@ El **grid explicito** es lo que defines con `grid-template-columns` y `grid-temp
 }
 ```
 
-Esta unica declaracion crea una cuadricula responsiva: 1 columna en pantallas pequenas, 2 en medianas, 3+ en grandes. No se necesitan breakpoints.
+Esta única declaración crea una cuadricula responsiva: 1 columna en pantallas pequenas, 2 en medianas, 3+ en grandes. No se necesitan breakpoints.
 
 **Layout de dashboard:**
 
@@ -243,7 +243,7 @@ Esta unica declaracion crea una cuadricula responsiva: 1 columna en pantallas pe
 
 ## Flexbox vs Grid: cuando usar cual
 
-**Una dimension (fila O columna)** → Flexbox
+**Una dimensión (fila O columna)** → Flexbox
 
 ```
 Navigation bar: [Logo] [Home] [About] [Contact] [Login]
@@ -262,7 +262,7 @@ Navigation bar: [Logo] [Home] [About] [Contact] [Login]
 └──────────────────────────────────┘
 ```
 
-Ambas herramientas trabajan juntas. Usa Grid para el layout de la pagina y Flexbox para componentes dentro de las celdas del grid (por ejemplo, una navegacion flex dentro de un header en grid).
+Ambas herramientas trabajan juntas. Usa Grid para el layout de la página y Flexbox para componentes dentro de las celdas del grid (por ejemplo, una navegación flex dentro de un header en grid).
 
 ---
 
@@ -270,9 +270,9 @@ Ambas herramientas trabajan juntas. Usa Grid para el layout de la pagina y Flexb
 
 **Evitar Grid porque "Flexbox es mas simple":**
 
-Grid no es mas dificil que Flexbox — resuelve problemas diferentes. Una cuadricula de tarjetas responsiva en Flexbox requiere calculos manuales de ancho y hacks de margenes. En Grid es una sola linea: `repeat(auto-fit, minmax(280px, 1fr))`.
+Grid no es mas difícil que Flexbox — resuelve problemas diferentes. Una cuadricula de tarjetas responsiva en Flexbox requiere calculos manuales de ancho y hacks de margenes. En Grid es una sola linea: `repeat(auto-fit, minmax(280px, 1fr))`.
 
-**Codificar el numero de columnas:**
+**Codificar el número de columnas:**
 
 ```css
 /* Bad: breaks on small screens, requires media queries */
@@ -314,8 +314,8 @@ Los grid items, al igual que los flex items, tienen minimos implicitos. El conte
 
 ## Puntos clave
 
-- `repeat(auto-fit, minmax(250px, 1fr))` es la linea individual mas util en CSS. Crea una cuadricula completamente responsiva con cero media queries.
-- Usa `grid-template-areas` para layouts a nivel de pagina — se lee como un diagrama ASCII de tu pagina.
-- `auto-fit` colapsa tracks vacios (los elementos se estiran). `auto-fill` mantiene tracks vacios (los elementos mantienen su tamano).
-- Usa Grid para layouts 2D (estructura de pagina, cuadriculas de tarjetas, dashboards). Usa Flexbox para layouts 1D (barras de navegacion, grupos de botones, centrado).
+- `repeat(auto-fit, minmax(250px, 1fr))` es la linea individual mas útil en CSS. Crea una cuadricula completamente responsiva con cero media queries.
+- Usa `grid-template-areas` para layouts a nivel de página — se lee como un diagrama ASCII de tu página.
+- `auto-fit` colapsa tracks vacios (los elementos se estiran). `auto-fill` mantiene tracks vacios (los elementos mantienen su tamaño).
+- Usa Grid para layouts 2D (estructura de página, cuadriculas de tarjetas, dashboards). Usa Flexbox para layouts 1D (barras de navegación, grupos de botones, centrado).
 - Define grids explicitos para la estructura que conoces. Usa `grid-auto-rows` para manejar las filas implicitas que no conoces.

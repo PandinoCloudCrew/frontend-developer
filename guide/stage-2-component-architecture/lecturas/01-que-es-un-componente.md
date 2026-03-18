@@ -1,12 +1,12 @@
 # Que es un Componente
 
-Un componente es la abstraccion central de todo framework frontend moderno. Antes de aprender cualquier framework, necesitas entender que es realmente un componente y por que el codigo esta organizado de esa manera.
+Un componente es la abstraccion central de todo framework frontend moderno. Antes de aprender cualquier framework, necesitas entender que es realmente un componente y por que el código esta organizado de esa manera.
 
 ---
 
-## Un Componente es una Funcion
+## Un Componente es una Función
 
-Si eliminas todos los frameworks, un componente es una funcion:
+Si eliminas todos los frameworks, un componente es una función:
 
 ```
 Input (data) → Output (UI)
@@ -32,7 +32,7 @@ Un componente posee tres cosas:
 
 1. **Markup** — la estructura HTML que produce
 2. **Estilos** — como se ve
-3. **Comportamiento** — como responde a la interaccion
+3. **Comportamiento** — como responde a la interacción
 
 Estas tres responsabilidades viven juntas dentro del limite del componente. Un componente `Button` conoce su propia estructura HTML, su propio CSS y que pasa cuando lo cliqueas. Nada fuera del componente deberia necesitar conocer esos detalles.
 
@@ -50,7 +50,7 @@ Esto es encapsulacion. El mundo exterior interactua con el componente a traves d
 
 ## Reusabilidad
 
-Dado que un componente es una funcion de sus datos, puedes reutilizarlo con diferentes entradas:
+Dado que un componente es una función de sus datos, puedes reutilizarlo con diferentes entradas:
 
 ```js
 // Same component, different data
@@ -82,7 +82,7 @@ function App() {
 }
 ```
 
-Esto se lee como una tabla de contenidos de tu UI. `App` contiene `Layout`, que contiene `Header` y `Main`, y asi sucesivamente. Cada componente es una pieza autocontenida que delega a piezas mas pequenas.
+Esto se lee como una tabla de contenidos de tu UI. `App` contiene `Layout`, que contiene `Header` y `Main`, y así sucesivamente. Cada componente es una pieza autocontenida que delega a piezas mas pequenas.
 
 ## El Arbol de Componentes
 
@@ -106,9 +106,9 @@ Los datos fluyen hacia abajo en este arbol (de padre a hijo via props). Los even
 
 Los componentes no solo se renderizan una vez. Pasan por un ciclo de vida:
 
-1. **Mount** — el componente aparece en la UI por primera vez. Aqui es donde configuras suscripciones, obtienes datos o inicias temporizadores.
+1. **Mount** — el componente aparece en la UI por primera vez. Aquí es donde configuras suscripciones, obtienes datos o inicias temporizadores.
 2. **Update** — los datos del componente cambian y se re-renderiza. Esto sucede muchas veces durante la vida del componente.
-3. **Unmount** — el componente se elimina de la UI. Aqui es donde limpias: cancelas peticiones de red, remueves event listeners, limpias temporizadores.
+3. **Unmount** — el componente se elimina de la UI. Aquí es donde limpias: cancelas peticiones de red, remueves event listeners, limpias temporizadores.
 
 ```
 Mount → Update → Update → Update → ... → Unmount
@@ -126,9 +126,9 @@ La sintaxis varia. El concepto es universal.
 
 ## Como Se Mapea a los Frameworks
 
-Aqui esta el mismo componente `Greeting` en cuatro frameworks. Observa como todos expresan la misma idea.
+Aquí esta el mismo componente `Greeting` en cuatro frameworks. Observa como todos expresan la misma idea.
 
-**React** — una funcion que retorna JSX:
+**React** — una función que retorna JSX:
 ```jsx
 function Greeting({ name }) {
   return <h1>Hello, {name}</h1>;
@@ -168,17 +168,17 @@ Cuatro sintaxis. Un concepto: datos entran, UI sale.
 
 ## Errores Comunes
 
-**El mega-componente.** Un unico componente que renderiza una pagina entera — header, sidebar, contenido, footer, modales y todo. Tiene 500 lineas, 30 variables de estado y nadie quiere tocarlo. Si no puedes describir lo que hace un componente en una oracion, es demasiado grande. Dividelo.
+**El mega-componente.** Un único componente que renderiza una página entera — header, sidebar, contenido, footer, modales y todo. Tiene 500 lineas, 30 variables de estado y nadie quiere tocarlo. Si no puedes describir lo que hace un componente en una oracion, es demasiado grande. Dividelo.
 
-**Sin limites claros.** Un componente que accede al DOM de un componente hermano para leer o modificar su estado. Si `Sidebar` necesita saber que esta seleccionado en `Content`, esa informacion deberia fluir a traves de su padre compartido, no mediante manipulacion directa del DOM.
+**Sin limites claros.** Un componente que accede al DOM de un componente hermano para leer o modificar su estado. Si `Sidebar` necesita saber que esta seleccionado en `Content`, esa información deberia fluir a traves de su padre compartido, no mediante manipulación directa del DOM.
 
-**Componentes que son solo wrappers.** Un `UserSection` que literalmente solo renderiza `<div><UserList /></div>` sin logica, estilos ni composicion adicional. Cada componente deberia justificar su existencia.
+**Componentes que son solo wrappers.** Un `UserSection` que literalmente solo renderiza `<div><UserList /></div>` sin lógica, estilos ni composicion adicional. Cada componente deberia justificar su existencia.
 
-**Mezclar niveles de abstraccion.** Un componente que mezcla elementos crudos como `<div>` y `<span>` con componentes de alto nivel como `<DataTable>` y `<Chart>` en el mismo return statement, haciendo la template dificil de escanear. Manten los componentes en un nivel de abstraccion consistente.
+**Mezclar niveles de abstraccion.** Un componente que mezcla elementos crudos como `<div>` y `<span>` con componentes de alto nivel como `<DataTable>` y `<Chart>` en el mismo return statement, haciendo la template difícil de escanear. Manten los componentes en un nivel de abstraccion consistente.
 
 ## Puntos Clave
 
-- Un componente es una funcion: datos entran, UI sale. Este modelo mental es universal a traves de los frameworks.
+- Un componente es una función: datos entran, UI sale. Este modelo mental es universal a traves de los frameworks.
 - Los componentes encapsulan markup, estilos y comportamiento detras de una interfaz publica.
 - La composicion (componentes dentro de componentes) produce un arbol. Los datos fluyen hacia abajo, los eventos fluyen hacia arriba.
 - Cada componente se monta, actualiza y desmonta. Limpia lo que configures.

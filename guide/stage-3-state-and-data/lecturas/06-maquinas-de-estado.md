@@ -17,7 +17,7 @@ Las state machines modelan transiciones de estado complejas de forma explicita, 
 Las state machines son particularmente valiosas para:
 
 - Formularios de multiples pasos
-- Flujos de autenticacion
+- Flujos de autenticación
 - Interacciones de UI complejas (drag-and-drop)
 - Procesos de pago
 

@@ -1,10 +1,10 @@
 # Anti-patterns de Rendimiento
 
-Los anti-patterns de rendimiento son errores recurrentes que degradan la velocidad, la capacidad de respuesta o la estabilidad visual de una aplicacion web. Estos errores son especialmente daninos porque a menudo parecen inofensivos en desarrollo pero causan problemas severos en produccion con usuarios reales, dispositivos lentos y redes congestionadas.
+Los anti-patterns de rendimiento son errores recurrentes que degradan la velocidad, la capacidad de respuesta o la estabilidad visual de una aplicación web. Estos errores son especialmente daninos porque a menudo parecen inofensivos en desarrollo pero causan problemas severos en produccion con usuarios reales, dispositivos lentos y redes congestionadas.
 
 ---
 
-## 1. Optimizacion Prematura
+## 1. Optimización Prematura
 
 Pasar horas optimizando una ruta de render que representa el 1% del tiempo total de renderizado mientras se ignora el 60% no optimizado es esfuerzo desperdiciado. Primero haz profiling con DevTools del navegador, React Profiler o herramientas especificas del framework. Optimiza el cuello de botella medido, no el sospechado.
 
@@ -22,7 +22,7 @@ Envolver cada componente en `React.memo()` mientras se pasan objetos inline (`st
 
 Hacer lazy loading de un componente de 5KB introduce un estado de carga, un viaje de red y layout shift -- costos que exceden los bytes ahorrados. Haz code splitting en limites significativos (rutas, funcionalidades pesadas como bibliotecas de graficos) donde el chunk sea lo suficientemente grande para justificar el compromiso.
 
-**Regla:** Un bundle de 80KB carga mas rapido que cuatro bundles de 20KB descargados secuencialmente. Divide por ruta, no por componente. Usa el analizador de tu bundler para detectar cascadas de chunks.
+**Regla:** Un bundle de 80KB carga mas rápido que cuatro bundles de 20KB descargados secuencialmente. Divide por ruta, no por componente. Usa el analizador de tu bundler para detectar cascadas de chunks.
 
 ---
 
@@ -42,7 +42,7 @@ Un barrel file (`index.ts`) que re-exporta todo de un paquete fuerza al bundler 
 
 ## 6. Sobre-dividir Bundles de Vendor a CDNs
 
-Cargar bibliotecas desde CDNs de terceros introduce un punto unico de fallo (la caida del CDN rompe tu aplicacion), niega las ganancias de multiplexacion de HTTP/2, y los navegadores modernos particionan caches por origen, asi que el caching entre sitios ya no funciona. Auto-aloja y empaqueta tus dependencias.
+Cargar bibliotecas desde CDNs de terceros introduce un punto único de fallo (la caida del CDN rompe tu aplicación), niega las ganancias de multiplexacion de HTTP/2, y los navegadores modernos particionan caches por origen, así que el caching entre sitios ya no funciona. Auto-aloja y empaqueta tus dependencias.
 
 ---
 
@@ -53,7 +53,7 @@ Hacer lazy loading de un componente que empuja el contenido hacia abajo cuando a
 **Otras causas comunes de CLS:**
 - Imagenes sin dimensiones (`width`/`height` o `aspect-ratio` en CSS).
 - Contenido inyectado dinamicamente (anuncios, banners, embeds).
-- Carga de fuentes web que cambia el tamano del texto.
+- Carga de fuentes web que cambia el tamaño del texto.
 
 **Prevencion:** Siempre establece los atributos `width` y `height` en imagenes y videos. Reserva espacio para anuncios y embeds. Usa `font-display: swap` con `size-adjust` o `font-display: optional`.
 
@@ -67,11 +67,11 @@ Una puntuacion de Lighthouse de 100 en tu maquina de desarrollo no dice nada sob
 
 ## 9. Scripts de Terceros sin Auditar
 
-Analytics, widgets de chat, A/B testing, scripts de anuncios y embeds sociales a menudo contribuyen mas al rendimiento deficiente que el codigo de tu aplicacion. Audita el impacto de terceros con la insignia "Third-party" de Chrome DevTools, carga scripts no criticos con `async`/`defer` o tras la interaccion del usuario, y elimina scripts que nadie usa.
+Analytics, widgets de chat, A/B testing, scripts de anuncios y embeds sociales a menudo contribuyen mas al rendimiento deficiente que el código de tu aplicación. Audita el impacto de terceros con la insignia "Third-party" de Chrome DevTools, carga scripts no criticos con `async`/`defer` o tras la interacción del usuario, y elimina scripts que nadie usa.
 
 ---
 
-## 10. React Compiler como Solucion Magica
+## 10. React Compiler como Solución Magica
 
 El compilador optimiza el rendimiento de renderizado auto-memorizando, pero no puede arreglar jerarquias de componentes fundamentalmente defectuosas, re-renders innecesarios causados por mal uso de context o data fetching en rutas de renderizado. Perfila primero, corrige los problemas de arquitectura, y luego deja que el compilador optimice lo que queda.
 
@@ -79,7 +79,7 @@ El compilador optimiza el rendimiento de renderizado auto-memorizando, pero no p
 
 ## 11. Code Splitting sin Estados de Carga
 
-Un usuario hace clic en un enlace, el chunk lazy carga, y nada pasa visualmente durante 1-3 segundos. Siempre acompana los puntos de code splitting con un indicador de carga (spinner, skeleton o barra de progreso) para que los usuarios sepan que la aplicacion esta respondiendo.
+Un usuario hace clic en un enlace, el chunk lazy carga, y nada pasa visualmente durante 1-3 segundos. Siempre acompana los puntos de code splitting con un indicador de carga (spinner, skeleton o barra de progreso) para que los usuarios sepan que la aplicación esta respondiendo.
 
 ---
 

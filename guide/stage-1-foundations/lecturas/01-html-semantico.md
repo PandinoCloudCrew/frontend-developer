@@ -1,6 +1,6 @@
-# HTML Semantico y el DOM
+# HTML Semántico y el DOM
 
-HTML no es un lenguaje de formato visual. Es una **descripcion estructural** de tu contenido que proporciona significado a navegadores, lectores de pantalla y motores de busqueda. Elegir los elementos correctos te da comportamiento gratis; elegir los equivocados te hace reimplementar lo que el navegador ya provee.
+HTML no es un lenguaje de formato visual. Es una **descripción estructural** de tu contenido que proporciona significado a navegadores, lectores de pantalla y motores de busqueda. Elegir los elementos correctos te da comportamiento gratis; elegir los equivocados te hace reimplementar lo que el navegador ya provee.
 
 ---
 
@@ -29,8 +29,8 @@ Que hace cada parte:
 - **`<!DOCTYPE html>`** le dice al navegador que use el modo estandar, no el modo quirks. Siempre incluyelo.
 - **`<html lang="en">`** declara el idioma del documento. Los lectores de pantalla lo usan para elegir el motor de pronunciacion correcto.
 - **`<meta charset="UTF-8">`** debe ser el primer elemento en `<head>`. Sin el, los caracteres fuera de ASCII pueden mostrarse como basura.
-- **`<meta name="viewport">`** hace que la pagina sea responsiva en moviles. Sin el, los telefonos renderizan la pagina con un ancho de escritorio y la encogen.
-- **`<title>`** aparece en la pestana del navegador, los marcadores y los resultados de busqueda. Cada pagina debe tener un titulo unico y descriptivo.
+- **`<meta name="viewport">`** hace que la página sea responsiva en moviles. Sin el, los telefonos renderizan la página con un ancho de escritorio y la encogen.
+- **`<title>`** aparece en la pestana del navegador, los marcadores y los resultados de busqueda. Cada página debe tener un titulo único y descriptivo.
 - **`<meta name="description">`** es el fragmento que se muestra en los resultados de busqueda. Mantenlo bajo 160 caracteres.
 
 ---
@@ -80,14 +80,14 @@ Referencia de elementos:
 
 | Elemento | Proposito |
 |---------|---------|
-| `<header>` | Contenido introductorio para su ancestro de seccion mas cercano (pagina o articulo) |
-| `<nav>` | Un grupo de enlaces de navegacion. Agrega `aria-label` cuando tengas multiples elementos `<nav>` |
-| `<main>` | El contenido dominante de la pagina. Solo uno por pagina |
+| `<header>` | Contenido introductorio para su ancestro de sección mas cercano (página o articulo) |
+| `<nav>` | Un grupo de enlaces de navegación. Agrega `aria-label` cuando tengas multiples elementos `<nav>` |
+| `<main>` | El contenido dominante de la página. Solo uno por página |
 | `<section>` | Una agrupacion tematica de contenido, tipicamente con un encabezado |
 | `<article>` | Contenido autocontenido que podria funcionar por si solo (publicacion de blog, comentario, tarjeta de producto) |
 | `<aside>` | Contenido tangencialmente relacionado con el contenido circundante (barra lateral, nota destacada) |
-| `<footer>` | Pie de pagina para su ancestro de seccion mas cercano |
-| `<figure>` / `<figcaption>` | Una imagen, diagrama o fragmento de codigo con una leyenda opcional |
+| `<footer>` | Pie de página para su ancestro de sección mas cercano |
+| `<figure>` / `<figcaption>` | Una imagen, diagrama o fragmento de código con una leyenda opcional |
 | `<time>` | Una fecha u hora. Usa el atributo `datetime` para el formato legible por maquinas |
 | `<mark>` | Texto resaltado (coincidencia en resultados de busqueda, por ejemplo) |
 | `<details>` / `<summary>` | Un widget de revelacion nativo — clic para expandir/colapsar. No se necesita JavaScript |
@@ -98,12 +98,12 @@ Referencia de elementos:
 
 Usa este proceso de decision:
 
-1. **¿Este contenido tiene un significado especifico?** (navegacion, articulo, barra lateral, encabezado, pie de pagina) → Usa el elemento semantico correspondiente.
+1. **¿Este contenido tiene un significado específico?** (navegación, articulo, barra lateral, encabezado, pie de página) → Usa el elemento semántico correspondiente.
 2. **¿Es una agrupacion tematica con un encabezado?** → Usa `<section>`.
 3. **¿Es contenido autocontenido?** → Usa `<article>`.
 4. **¿Necesito un contenedor generico puramente para estilos o layout?** → Usa `<div>`.
 
-La regla es simple: **`<div>` es el ultimo recurso, no el valor por defecto.** Un `<div>` no le dice nada al navegador ni a la tecnologia asistiva sobre el contenido dentro de el. Cuando usas `<nav>`, los lectores de pantalla anuncian "navegacion". Cuando usas `<div>`, no anuncian nada.
+La regla es simple: **`<div>` es el ultimo recurso, no el valor por defecto.** Un `<div>` no le dice nada al navegador ni a la tecnologia asistiva sobre el contenido dentro de el. Cuando usas `<nav>`, los lectores de pantalla anuncian "navegación". Cuando usas `<div>`, no anuncian nada.
 
 ---
 
@@ -138,7 +138,7 @@ Relaciones:
 - **Hijo (Child)**: un nodo directamente debajo. `<li>` es un hijo de `<ul>`.
 - **Hermano (Sibling)**: nodos que comparten el mismo padre. Dos elementos `<li>` dentro del mismo `<ul>` son hermanos.
 
-El DOM no es tu codigo fuente HTML. El navegador analiza el HTML, corrige errores y construye el DOM. JavaScript puede modificar el DOM en tiempo de ejecucion — agregando, eliminando o cambiando nodos. Cuando un framework "re-renderiza", esta actualizando el arbol DOM (o una representacion virtual del mismo).
+El DOM no es tu código fuente HTML. El navegador analiza el HTML, corrige errores y construye el DOM. JavaScript puede modificar el DOM en tiempo de ejecución — agregando, eliminando o cambiando nodos. Cuando un framework "re-renderiza", esta actualizando el arbol DOM (o una representacion virtual del mismo).
 
 ---
 
@@ -176,15 +176,15 @@ El DOM no es tu codigo fuente HTML. El navegador analiza el HTML, corrige errore
 <h2>Section Title</h2>
 ```
 
-**Tabla para layout** — usar `<table>` para organizar elementos de la pagina. Las tablas son para datos tabulares (filas y columnas de valores relacionados). Usa CSS Grid o Flexbox para layout.
+**Tabla para layout** — usar `<table>` para organizar elementos de la página. Las tablas son para datos tabulares (filas y columnas de valores relacionados). Usa CSS Grid o Flexbox para layout.
 
-**Span para estructura** — usar `<span>` donde se necesita un elemento semantico de bloque. `<span>` es para texto en linea dentro de una oracion, no para envolver secciones de contenido.
+**Span para estructura** — usar `<span>` donde se necesita un elemento semántico de bloque. `<span>` es para texto en linea dentro de una oracion, no para envolver secciones de contenido.
 
 ---
 
 ## Puntos clave
 
 - HTML describe la estructura del contenido, no la apariencia visual. Elige elementos por su significado, no por como se ven.
-- `<div>` es un contenedor de estilos. Usalo solo cuando ningun elemento semantico encaje.
+- `<div>` es un contenedor de estilos. Usalo solo cuando ningun elemento semántico encaje.
 - El DOM es un arbol en vivo de objetos que el navegador construye a partir de tu HTML. JavaScript y los frameworks manipulan este arbol.
-- Cada pagina necesita exactamente un `<h1>`. Los encabezados deben descender secuencialmente.
+- Cada página necesita exactamente un `<h1>`. Los encabezados deben descender secuencialmente.

@@ -1,6 +1,6 @@
 # Memoizacion
 
-La memoizacion es una tecnica de optimizacion que cachea el resultado de computaciones costosas o previene re-renders innecesarios al reutilizar resultados anteriores cuando las entradas no han cambiado. Es una herramienta poderosa, pero su uso incorrecto puede empeorar el rendimiento en lugar de mejorarlo.
+La memoizacion es una técnica de optimización que cachea el resultado de computaciones costosas o previene re-renders innecesarios al reutilizar resultados anteriores cuando las entradas no han cambiado. Es una herramienta poderosa, pero su uso incorrecto puede empeorar el rendimiento en lugar de mejorarlo.
 
 ---
 
@@ -10,7 +10,7 @@ La memoizacion es una tecnica de optimizacion que cachea el resultado de computa
 
 - **`React.memo()`:** Memoizacion de componentes. El componente se re-renderiza solo si sus props cambian (comparacion superficial).
 - **`useMemo`:** Cachea valores computados costosos entre renders. Recalcula solo cuando las dependencias cambian.
-- **`useCallback`:** Cachea una referencia de funcion estable entre renders. Util cuando la funcion se pasa como prop a componentes memoizados.
+- **`useCallback`:** Cachea una referencia de función estable entre renders. Útil cuando la función se pasa como prop a componentes memoizados.
 
 ```jsx
 // Memoize an expensive computation
@@ -33,11 +33,11 @@ const ExpensiveList = React.memo(({ items, onSelect }) => {
 });
 ```
 
-**Nota sobre React Compiler:** React Compiler (React 19+) optimiza automaticamente los componentes memorizando referencias estables, reduciendo en gran medida la necesidad de `useMemo`/`useCallback` manuales. Sin embargo, entender la memoizacion sigue siendo esencial para diagnosticar problemas de rendimiento.
+**Nota sobre React Compiler:** React Compiler (React 19+) optimiza automáticamente los componentes memorizando referencias estables, reduciendo en gran medida la necesidad de `useMemo`/`useCallback` manuales. Sin embargo, entender la memoizacion sigue siendo esencial para diagnosticar problemas de rendimiento.
 
 ### Vue
 
-- Las propiedades `computed()` son automaticamente memoizadas. Rastrean dependencias automaticamente y cachean resultados.
+- Las propiedades `computed()` son automáticamente memoizadas. Rastrean dependencias automáticamente y cachean resultados.
 - `v-memo` para memoizacion a nivel de template.
 
 ### Angular
@@ -53,7 +53,7 @@ La memoizacion es beneficiosa cuando:
 
 - **Calculos costosos que se re-ejecutarian en cada render.** Ordenar, filtrar o transformar datasets grandes. Generar datos para graficos o tablas complejas.
 - **Componentes que reciben props complejos y renderizan subarboles grandes.** Un componente de lista con 500 items que se re-renderiza porque un componente hermano cambio estado.
-- **Referencias de callback estables necesarias para optimizacion de componentes hijos o dependencias de efectos.** Cuando una funcion se pasa como prop a un componente memoizado, una referencia inestable (nueva funcion en cada render) anula la memoizacion del hijo.
+- **Referencias de callback estables necesarias para optimización de componentes hijos o dependencias de efectos.** Cuando una función se pasa como prop a un componente memoizado, una referencia inestable (nueva función en cada render) anula la memoizacion del hijo.
 
 ---
 
@@ -61,9 +61,9 @@ La memoizacion es beneficiosa cuando:
 
 La memoizacion tiene un costo: cada `useMemo`/`useCallback` anade una comparacion de dependencias y almacenamiento en cache. Si el costo de la memoizacion excede el costo de la computacion, estas empeorando el rendimiento.
 
-- **Calculos simples.** Sumar dos numeros, concatenar strings, o acceder a propiedades de un objeto es mas rapido que la sobrecarga de `useMemo`. La comparacion de dependencias y el almacenamiento en cache cuestan mas que el calculo mismo.
+- **Calculos simples.** Sumar dos numeros, concatenar strings, o acceder a propiedades de un objeto es mas rápido que la sobrecarga de `useMemo`. La comparacion de dependencias y el almacenamiento en cache cuestan mas que el calculo mismo.
 - **Componentes que se re-renderizan infrecuentemente de todos modos.** Si un componente se re-renderiza una vez cada 10 segundos, memoizarlo no tiene impacto perceptible.
-- **Optimizacion prematura.** Primero haz profiling con las DevTools del navegador o React Profiler. Si no puedes medir el problema, no necesitas la solucion. Memoizar "por si acaso" anade complejidad sin beneficio verificado.
+- **Optimización prematura.** Primero haz profiling con las DevTools del navegador o React Profiler. Si no puedes medir el problema, no necesitas la solución. Memoizar "por si acaso" anade complejidad sin beneficio verificado.
 
 ---
 
@@ -88,7 +88,7 @@ Envolver un componente en `React.memo()` mientras se pasan props inestables anad
 
 ---
 
-## Proceso de Optimizacion
+## Proceso de Optimización
 
 1. **Detecta el problema:** Usa React Profiler, Vue DevTools o el panel de Performance de las DevTools del navegador para identificar componentes que se re-renderizan excesivamente.
 2. **Mide el impacto:** Cuantifica cuantos milisegundos se gastan en los re-renders innecesarios. Si el total es menor a 16ms por frame, probablemente no hay un problema real.

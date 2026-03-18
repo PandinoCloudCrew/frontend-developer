@@ -29,7 +29,7 @@ function UserList() {
 }
 ```
 
-Modela estos estados explicitamente. No te apoyes en verificaciones implicitas como `if (!data && !error)` — eso es fragil y dificil de razonar.
+Modela estos estados explicitamente. No te apoyes en verificaciones implicitas como `if (!data && !error)` — eso es fragil y difícil de razonar.
 
 ## Estados de Loading
 
@@ -60,7 +60,7 @@ function UserCardSkeleton() {
 }
 ```
 
-**Spinners** — usalos para areas pequenas e impredecibles (un boton enviando, un dropdown cargando opciones).
+**Spinners** — usalos para areas pequenas e impredecibles (un botón enviando, un dropdown cargando opciones).
 
 **Barras de progreso** — usalas cuando puedes medir el progreso (carga de archivos, procesos de varios pasos).
 
@@ -131,17 +131,17 @@ function getErrorMessage(error: Error): string {
 
 Distingue los tipos de error y proporciona orientacion accionable:
 
-| Tipo de error | Mensaje al usuario                          | Accion de recuperacion    |
+| Tipo de error | Mensaje al usuario                          | Acción de recuperacion    |
 |--------------|---------------------------------------------|-------------------------|
-| Red          | "Unable to connect. Check your internet."   | Boton de reintentar     |
+| Red          | "Unable to connect. Check your internet."   | Botón de reintentar     |
 | Auth (401)   | "Session expired."                          | Redirigir a login       |
 | No encontrado | "This item no longer exists."              | Enlace de vuelta a la lista |
-| Servidor (500) | "We're having trouble. Try again shortly."| Boton de reintentar + enlace de soporte |
-| Validacion   | Mensajes especificos por campo              | Resaltar campos invalidos |
+| Servidor (500) | "We're having trouble. Try again shortly."| Botón de reintentar + enlace de soporte |
+| Validación   | Mensajes especificos por campo              | Resaltar campos invalidos |
 
 ## Estados Vacios
 
-Un estado vacio es una oportunidad. Le dice a los usuarios por que no hay nada aqui y que pueden hacer a continuacion.
+Un estado vacio es una oportunidad. Le dice a los usuarios por que no hay nada aquí y que pueden hacer a continuacion.
 
 ```tsx
 // Bad: nothing
@@ -273,15 +273,15 @@ Usa el mismo contenedor, el mismo espaciado, las mismas dimensiones. Cuando el c
 
 ## Errores Comunes
 
-**Sin estado de loading.** La pagina esta en blanco por dos segundos, luego aparece el contenido. El usuario piensa que la pagina esta rota.
+**Sin estado de loading.** La página esta en blanco por dos segundos, luego aparece el contenido. El usuario piensa que la página esta rota.
 
-**Destello de loading.** Mostrar un spinner por 50ms en una conexion rapida crea un parpadeo molesto. Agrega un retraso minimo antes de mostrar indicadores de loading (200-300ms).
+**Destello de loading.** Mostrar un spinner por 50ms en una conexión rápida crea un parpadeo molesto. Agrega un retraso minimo antes de mostrar indicadores de loading (200-300ms).
 
-**Bloques catch vacios.** `catch (e) {}` — el error se traga, el usuario no ve nada, el desarrollador no tiene informacion de depuracion. Siempre maneja los errores de forma visible.
+**Bloques catch vacios.** `catch (e) {}` — el error se traga, el usuario no ve nada, el desarrollador no tiene información de depuracion. Siempre maneja los errores de forma visible.
 
-**Loading de pagina completa para datos parciales.** Solo la seccion de comentarios esta cargando, pero toda la pagina muestra un spinner. Delimita los estados de loading al area relevante mas pequena.
+**Loading de página completa para datos parciales.** Solo la sección de comentarios esta cargando, pero toda la página muestra un spinner. Delimita los estados de loading al area relevante mas pequena.
 
-**Estados de error sin recuperacion.** "Something went wrong." Y luego que? Siempre dale al usuario un siguiente paso: reintentar, volver atras, contactar soporte, refrescar la pagina.
+**Estados de error sin recuperacion.** "Something went wrong." Y luego que? Siempre dale al usuario un siguiente paso: reintentar, volver atras, contactar soporte, refrescar la página.
 
 **Layout shift al cargar.** El skeleton tiene 200px de alto, el contenido real tiene 400px. Todo lo de abajo salta. Haz que las dimensiones del skeleton coincidan con las del contenido real.
 
@@ -290,5 +290,5 @@ Usa el mismo contenedor, el mismo espaciado, las mismas dimensiones. Cuando el c
 - Cada vista de datos tiene exactamente cuatro estados: loading, success, error, empty. Maneja los cuatro explicitamente.
 - Usa skeleton screens cuando el layout es predecible. Retrasa mostrar indicadores de loading para operaciones menores a 200ms.
 - Los mensajes de error deben decirle al usuario que hacer, no solo que salio mal.
-- Los estados vacios son una oportunidad de diseno — guia a los usuarios hacia su siguiente accion.
-- Delimita los estados de loading y error a la seccion relevante mas pequena de la pagina, no a la vista completa.
+- Los estados vacios son una oportunidad de diseño — guia a los usuarios hacia su siguiente acción.
+- Delimita los estados de loading y error a la sección relevante mas pequena de la página, no a la vista completa.

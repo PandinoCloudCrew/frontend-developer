@@ -1,4 +1,4 @@
-# TypeScript Basico
+# TypeScript Básico
 
 TypeScript es la linea base para el desarrollo frontend profesional en 2026. Agrega type safety a JavaScript, detectando errores en tiempo de compilacion en lugar de en produccion. Con un 78% de adopcion en proyectos React y el 82% de las ofertas de trabajo frontend requiriendo o prefiriendo TypeScript, es una habilidad esencial que debes dominar desde los fundamentos.
 
@@ -19,7 +19,7 @@ TypeScript es la linea base para el desarrollo frontend profesional en 2026. Agr
 Escribir JavaScript plano para produccion se considera un enfoque legacy. Aspectos clave del rol de TypeScript:
 
 - **Type safety de extremo a extremo**: TypeScript conecta frontend y backend mediante herramientas como tRPC, proporcionando inferencia de tipos completa a traves de los limites de la API.
-- **Integracion con React Compiler**: React Compiler entiende los tipos de TypeScript para una mejor optimizacion.
+- **Integracion con React Compiler**: React Compiler entiende los tipos de TypeScript para una mejor optimización.
 - **Alineacion con frameworks**: Todos los frameworks principales (React, Angular, Vue, Svelte, Solid) tienen soporte de primera clase para TypeScript.
 
 ---
@@ -38,7 +38,7 @@ type RequestState =
   | { status: 'error'; error: string };
 ```
 
-- **Aprovecha el operador `satisfies`** para verificacion de tipos sin widening:
+- **Aprovecha el operador `satisfies`** para verificación de tipos sin widening:
 
 ```ts
 const config = {
@@ -48,7 +48,7 @@ const config = {
 // TypeScript verifica el tipo pero mantiene los tipos literales
 ```
 
-- **Usa template literal types** para validacion de patrones de cadenas:
+- **Usa template literal types** para validación de patrones de cadenas:
 
 ```ts
 type Route = `/${string}`;
@@ -78,7 +78,7 @@ function parse(input: unknown) {
 
 **Aserciones de tipo con `as` como muleta para silenciar errores:**
 
-Escribir `data as User` le dice al compilador "confia en mi" sin ninguna validacion en runtime. Si los datos no coinciden con el tipo, obtienes errores en runtime sin advertencia en tiempo de compilacion: lo peor de ambos mundos. Usa type guards, bibliotecas de validacion (Zod, Valibot) o narrowing de tipos adecuado en su lugar.
+Escribir `data as User` le dice al compilador "confia en mi" sin ninguna validación en runtime. Si los datos no coinciden con el tipo, obtienes errores en runtime sin advertencia en tiempo de compilacion: lo peor de ambos mundos. Usa type guards, bibliotecas de validación (Zod, Valibot) o narrowing de tipos adecuado en su lugar.
 
 ```ts
 // Bad
@@ -94,7 +94,7 @@ Una firma de tipo como `type Merge<T extends object, U extends object> = Omit<T,
 
 **Proliferacion de `@ts-ignore` / `@ts-expect-error`:**
 
-Cada supresion es un agujero en tu red de seguridad de tipos. Un codebase con docenas de estas directivas ha cambiado el valor de TypeScript por la sobrecarga de TypeScript. Registra estos como deuda tecnica, corrigelos incrementalmente y bloquea nuevos en la revision de codigo a menos que vayan acompanados de un comentario de justificacion.
+Cada supresion es un agujero en tu red de seguridad de tipos. Un codebase con docenas de estas directivas ha cambiado el valor de TypeScript por la sobrecarga de TypeScript. Registra estos como deuda técnica, corrigelos incrementalmente y bloquea nuevos en la revision de código a menos que vayan acompanados de un comentario de justificacion.
 
 **Confiar en los tipos en los limites del runtime:**
 
@@ -110,7 +110,7 @@ const users = usersSchema.parse(await fetch('/api/users').then(r => r.json()));
 
 **Peculiaridades de Enum: prefiere `as const` o uniones de string literals:**
 
-Los enums de TypeScript tienen comportamiento sorprendente: los enums numericos permiten mapeo inverso y aceptan cualquier numero, `const enum` es incompatible con `isolatedModules`, y los enums son nominales (no estructuralmente compatibles). Usa objetos `as const` o tipos de union de string literals para un comportamiento mas simple y predecible:
+Los enums de TypeScript tienen comportamiento sorprendente: los enums numericos permiten mapeo inverso y aceptan cualquier número, `const enum` es incompatible con `isolatedModules`, y los enums son nominales (no estructuralmente compatibles). Usa objetos `as const` o tipos de union de string literals para un comportamiento mas simple y predecible:
 
 ```ts
 // Instead of enum
@@ -133,8 +133,8 @@ Adaptar el modo estricto a un codebase existente significa corregir cientos o mi
 ## Puntos clave
 
 - TypeScript es la linea base del desarrollo frontend profesional. Todos los frameworks principales lo soportan nativamente.
-- Usa `strict: true` desde el dia uno. Es mucho mas facil que adaptarlo despues.
+- Usa `strict: true` desde el dia uno. Es mucho mas fácil que adaptarlo despues.
 - Prefiere inferencia de tipos sobre anotaciones explicitas. Anota funciones publicas, interfaces de API y tipos complejos.
 - Nunca uses `any`. Usa `unknown` y valida los datos en los limites del runtime con librerias como Zod o Valibot.
 - Prefiere `as const` y union types sobre enums. Son mas simples, mas predecibles y mas compatibles con el ecosistema.
-- Las aserciones de tipo (`as`) no son validacion. Valida los datos externos antes de confiar en ellos.
+- Las aserciones de tipo (`as`) no son validación. Valida los datos externos antes de confiar en ellos.

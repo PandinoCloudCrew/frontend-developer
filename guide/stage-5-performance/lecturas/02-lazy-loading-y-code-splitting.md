@@ -1,6 +1,6 @@
 # Lazy Loading y Code Splitting
 
-Lazy loading y code splitting son tecnicas complementarias para reducir la cantidad de JavaScript y recursos que el navegador necesita descargar y procesar en la carga inicial. Lazy loading difiere la carga de recursos hasta que son necesarios; code splitting divide el bundle de la aplicacion en chunks mas pequenos que se cargan bajo demanda.
+Lazy loading y code splitting son tecnicas complementarias para reducir la cantidad de JavaScript y recursos que el navegador necesita descargar y procesar en la carga inicial. Lazy loading difiere la carga de recursos hasta que son necesarios; code splitting divide el bundle de la aplicación en chunks mas pequenos que se cargan bajo demanda.
 
 ---
 
@@ -8,9 +8,9 @@ Lazy loading y code splitting son tecnicas complementarias para reducir la canti
 
 ### Code Splitting Basado en Rutas
 
-El enfoque de mayor impacto y menor esfuerzo. Cada pagina/ruta es un bundle separado que se carga solo cuando el usuario navega a ella. Soportado nativamente por todos los frameworks y bundlers principales.
+El enfoque de mayor impacto y menor esfuerzo. Cada página/ruta es un bundle separado que se carga solo cuando el usuario navega a ella. Soportado nativamente por todos los frameworks y bundlers principales.
 
-La division basada en rutas es la linea base. Todos los meta-frameworks (Next.js, Nuxt, SvelteKit, Analog) lo hacen automaticamente.
+La division basada en rutas es la linea base. Todos los meta-frameworks (Next.js, Nuxt, SvelteKit, Analog) lo hacen automáticamente.
 
 ### Lazy Loading a Nivel de Componente
 
@@ -59,11 +59,11 @@ Difiere la carga de contenido no visible en la ventana grafica inicial. Prioriza
 
 ### Splitting Basado en Rutas
 
-Cada pagina o ruta es un bundle separado. Es el enfoque de mayor impacto porque las paginas no visitadas no se descargan nunca.
+Cada página o ruta es un bundle separado. Es el enfoque de mayor impacto porque las paginas no visitadas no se descargan nunca.
 
 ### Splitting Basado en Features
 
-Funcionalidades grandes (por ejemplo, dashboard de administracion, analytics, editor de texto enriquecido) se cargan solo cuando se acceden. Util cuando una funcionalidad pesada es usada por un subconjunto de usuarios.
+Funcionalidades grandes (por ejemplo, dashboard de administracion, analytics, editor de texto enriquecido) se cargan solo cuando se acceden. Útil cuando una funcionalidad pesada es usada por un subconjunto de usuarios.
 
 ### Splitting a Nivel de Componente
 
@@ -71,11 +71,11 @@ Componentes pesados (graficos, editores de texto enriquecido, mapas) cargados ba
 
 ### Splitting de Bibliotecas
 
-Bibliotecas de vendor en chunks separados para mejor caching. Las dependencias de vendor cambian con menos frecuencia que el codigo de la aplicacion, asi que separarlas permite que el navegador cache el chunk de vendor independientemente.
+Bibliotecas de vendor en chunks separados para mejor caching. Las dependencias de vendor cambian con menos frecuencia que el código de la aplicación, así que separarlas permite que el navegador cache el chunk de vendor independientemente.
 
 ### Prefetching
 
-Carga especulativamente bundles para los probables proximos destinos de navegacion. Esto elimina el delay de carga cuando el usuario finalmente navega.
+Carga especulativamente bundles para los probables proximos destinos de navegación. Esto elimina el delay de carga cuando el usuario finalmente navega.
 
 ```html
 <!-- Prefetch the product detail page when hovering a product link -->
@@ -83,7 +83,7 @@ Carga especulativamente bundles para los probables proximos destinos de navegaci
 ```
 
 Estrategias comunes:
-- Precarga el bundle de la pagina de detalle al hacer hover sobre un enlace de producto.
+- Precarga el bundle de la página de detalle al hacer hover sobre un enlace de producto.
 - Precarga rutas adyacentes en el flujo del usuario (p.ej., el paso 2 de un wizard al estar en el paso 1).
 - Usa `requestIdleCallback` para precargar rutas probables durante el tiempo idle.
 
@@ -98,17 +98,17 @@ No todo se beneficia de code splitting. Dividir excesivamente introduce costos:
 - **Layout shift** si el espacio no esta reservado.
 - **Cascada de chunks:** La division agresiva crea una cascada donde el navegador descarga el chunk A, que importa el chunk B, que importa el chunk C. Cada round-trip agrega latencia.
 
-**Regla practica:** Un bundle de 80KB carga mas rapido que cuatro bundles de 20KB descargados secuencialmente. Divide por ruta y por funcionalidad pesada, no por componente individual. Haz code splitting en limites significativos donde el chunk sea lo suficientemente grande para justificar el compromiso.
+**Regla practica:** Un bundle de 80KB carga mas rápido que cuatro bundles de 20KB descargados secuencialmente. Divide por ruta y por funcionalidad pesada, no por componente individual. Haz code splitting en limites significativos donde el chunk sea lo suficientemente grande para justificar el compromiso.
 
-**Siempre acompana los puntos de code splitting con un indicador de carga** (spinner, skeleton o barra de progreso) para que los usuarios sepan que la aplicacion esta respondiendo.
+**Siempre acompana los puntos de code splitting con un indicador de carga** (spinner, skeleton o barra de progreso) para que los usuarios sepan que la aplicación esta respondiendo.
 
 ---
 
 ## Puntos Clave
 
-- Code splitting basado en rutas es la linea base -- todos los meta-frameworks lo hacen automaticamente.
+- Code splitting basado en rutas es la linea base -- todos los meta-frameworks lo hacen automáticamente.
 - Lazy loading a nivel de componente para funcionalidades pesadas (graficos, editores, mapas).
 - Nunca apliques `loading="lazy"` a imagenes above-the-fold -- perjudica el LCP.
-- Usa prefetching para precargar los proximos destinos de navegacion probables.
+- Usa prefetching para precargar los proximos destinos de navegación probables.
 - No sobre-dividas: un bundle mediano es mejor que una cascada de chunks pequenos.
 - Siempre incluye un indicador de carga (skeleton, spinner) en los puntos de code splitting.
