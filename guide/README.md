@@ -53,44 +53,90 @@ Cada actividad está marcada con un nivel. Un principiante solo necesita complet
 ## Las 8 Etapas
 
 ### [Etapa 1: Fundamentos](./stage-1-foundations/)
-> La base que todo desarrollador frontend debe dominar antes de tocar un framework.
+> La plataforma antes del framework.
 
-Semantic HTML, CSS (box model, Flexbox, Grid), JavaScript ES2020+, TypeScript, accesibilidad y entorno de desarrollo.
+**Qué aprenderás:** HTML semántico, CSS (box model, Flexbox, Grid), JavaScript ES2020+, TypeScript, accesibilidad y entorno de desarrollo.
+
+**Por qué importa:** Todo framework se compila a HTML, CSS y JavaScript. Si no entiendes la plataforma, lucharás contra el framework en lugar de usarlo.
+
+**Al completar:** Puedes construir páginas web completas, responsivas y accesibles sin ningún framework.
+
+---
 
 ### [Etapa 2: Arquitectura de Componentes](./stage-2-component-architecture/)
-> Pensar en componentes — el bloque de construcción universal de los frontends modernos.
+> Pensar en componentes — el bloque de construcción universal.
 
-Modelo mental de componentes, SOLID aplicado a UI, composición, compound components, hooks y composables.
+**Qué aprenderás:** Modelo mental de componentes, SOLID aplicado a UI, composición, compound components, hooks/composables. Configuras tu primer proyecto Angular.
+
+**Por qué importa:** Los componentes son la abstracción fundamental de todo framework moderno. Entender cómo diseñarlos, dividirlos y componerlos determina si tu código escala o se convierte en una maraña.
+
+**Al completar:** Sabes descomponer cualquier UI en componentes, diseñar APIs de props limpias, y aplicar SOLID para mantener cada componente enfocado.
+
+---
 
 ### [Etapa 3: Estado y Flujo de Datos](./stage-3-state-and-data/)
 > Dominar los datos que impulsan tu UI.
 
-Data fetching (los 4 estados), URL state, form state, server state vs client state, máquinas de estado.
+**Qué aprenderás:** Data fetching (loading/error/success/empty), URL state, form state, server vs client state, máquinas de estado, optimistic updates.
+
+**Por qué importa:** La mayoría de bugs en aplicaciones frontend son bugs de estado: datos desincronizados, estados imposibles, formularios que pierden datos. Entender los tipos de estado y dónde debe vivir cada uno previene estas categorías enteras de bugs.
+
+**Al completar:** Tus aplicaciones manejan correctamente los 4 estados de datos, los filtros viven en la URL, los formularios validan con schema, y el servidor nunca se sincroniza a mano.
+
+---
 
 ### [Etapa 4: Usabilidad y Principios de Diseño](./stage-4-usability-and-design/)
-> Construir interfaces que la gente realmente quiera usar.
+> Construir interfaces que la gente quiera usar.
 
-Tipografía, color, espaciado, heurísticas de Nielsen, Fitts/Hick/Gestalt, mobile-first, diseño de formularios.
+**Qué aprenderás:** Tipografía, color, espaciado, heurísticas de Nielsen, leyes de Fitts/Hick/Gestalt, mobile-first, responsive design, diseño de formularios.
+
+**Por qué importa:** Un developer que solo sabe programar pero no entiende usabilidad construye interfaces que funcionan técnicamente pero frustran al usuario. Estos principios son la diferencia entre "funciona" y "es un placer usarlo".
+
+**Al completar:** Sabes crear sistemas de tipografía, color y espaciado consistentes. Puedes auditar una interfaz con las heurísticas de Nielsen e identificar violaciones.
+
+---
 
 ### [Etapa 5: Rendimiento](./stage-5-performance/)
-> Cada milisegundo cuenta — enviar rápido, mantener rápido.
+> Cada milisegundo cuenta.
 
-Core Web Vitals, lazy loading, code splitting, virtualización, memoización, optimización de bundles.
+**Qué aprenderás:** Core Web Vitals (LCP, INP, CLS), lazy loading, code splitting, virtualización, memoización, optimización de bundles.
+
+**Por qué importa:** Una página que tarda 5 segundos en cargar pierde el 90% de sus usuarios. Google penaliza páginas lentas en el ranking de búsqueda. Y en dispositivos móviles con conexión lenta, cada kilobyte de JavaScript cuenta.
+
+**Al completar:** Tu Lighthouse Performance supera 90, sabes cuándo lazy-load vs cuándo no, y puedes reducir el tamaño del bundle en al menos 20%.
+
+---
 
 ### [Etapa 6: Seguridad y Resiliencia](./stage-6-security-and-resilience/)
-> Proteger a tus usuarios y manejar lo inesperado con elegancia.
+> Proteger a tus usuarios y manejar fallos con elegancia.
 
-XSS, CSRF, CSP, auth seguro, error boundaries, optimistic updates, retry con backoff.
+**Qué aprenderás:** XSS, CSRF, CSP, autenticación segura (JWT, OAuth+PKCE), error boundaries, graceful degradation, optimistic updates, retry con backoff.
+
+**Por qué importa:** Una vulnerabilidad XSS puede exponer los datos de todos tus usuarios. Un token JWT en localStorage puede ser robado por cualquier script de terceros. Y una app que muestra una pantalla en blanco cuando el servidor falla pierde la confianza del usuario.
+
+**Al completar:** Tu app no tiene vulnerabilidades XSS, los tokens están seguros, cada vista maneja los 4 estados de error, y las operaciones fallidas se reintentan con backoff.
+
+---
 
 ### [Etapa 7: Testing y Calidad](./stage-7-testing-and-quality/)
 > Confianza en cada deploy.
 
-Testing Library, MSW, Playwright E2E, code review, pipeline de CI, testing de accesibilidad.
+**Qué aprenderás:** Testing Library, MSW para mocking, Playwright para E2E, code review, pipeline de CI, testing de accesibilidad.
+
+**Por qué importa:** Sin tests, cada cambio es un acto de fe. Los tests no son un lujo — son la diferencia entre "creo que funciona" y "sé que funciona". Y una pipeline de CI que corre automáticamente te protege de tus propios errores.
+
+**Al completar:** Tienes tests que verifican comportamiento (no implementación), mocks a nivel de red, un E2E del camino crítico, y una pipeline de CI que falla ante errores.
+
+---
 
 ### [Etapa 8: Arquitectura a Escala](./stage-8-architecture-at-scale/)
 > Patrones para equipos y aplicaciones grandes.
 
-Organización por features, Clean Architecture, design systems, APIs type-safe, SSR/SSG/ISR, micro-frontends.
+**Qué aprenderás:** Organización por features, Clean Architecture, design systems, APIs type-safe (tRPC), estrategias de renderizado (SSR/SSG/ISR), micro-frontends.
+
+**Por qué importa:** Todo lo anterior funciona para una app pequeña. Cuando la app crece a 50+ componentes y 3+ developers, necesitas estructura: dónde va cada archivo, cómo evitar que un cambio en una feature rompa otra, cómo compartir componentes entre proyectos.
+
+**Al completar:** Sabes organizar código por features, extraer un design system, elegir la estrategia de renderizado correcta, y tomar decisiones arquitectónicas con trade-offs documentados.
 
 ---
 

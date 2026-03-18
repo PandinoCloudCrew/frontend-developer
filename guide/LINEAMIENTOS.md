@@ -134,6 +134,19 @@ Cada actividad es un archivo markdown independiente en `actividades/`. Debe segu
 
 **Duración:** ~XX min
 
+## Por qué esta actividad
+
+Explicación en 2-3 oraciones de POR QUÉ el estudiante está haciendo esto.
+No qué va a hacer (eso viene después), sino qué problema resuelve, qué
+consecuencia tiene no saber esto, o qué beneficio real obtiene al dominarlo.
+El estudiante debe entender la motivación ANTES de empezar a trabajar.
+
+| | |
+|---|---|
+| **Requiere** | Actividades previas necesarias y habilidades específicas |
+| **Aprenderás** | Lista concreta de habilidades que se obtienen al completar esta actividad |
+| **Al completar** | Descripción del resultado tangible — qué tiene el estudiante al terminar |
+
 **Lectura:**
 - [Nombre del tema](../lecturas/XX-nombre.md) (~X min)
 
@@ -382,9 +395,25 @@ Código Angular concreto con explicación.
 
 ---
 
+## Estructura del índice global (guide/README.md)
+
+El índice global lista las 8 etapas. Cada etapa debe tener:
+- **Título** con link a la etapa
+- **Qué aprenderás** — lista de temas
+- **Por qué importa** — 1-2 oraciones de motivación real
+- **Al completar** — resultado tangible que el estudiante puede verificar
+
+El estudiante debe poder leer el índice y entender el viaje completo antes de empezar.
+
+---
+
 ## Estructura de un README de etapa
 
-Cada etapa tiene un `README.md` que es un **índice conciso** (~60-80 líneas), no el contenido completo.
+Cada etapa tiene un `README.md` que es un **índice enriquecido**. Tiene dos partes:
+1. **Tabla de progreso** — vista rápida con links a anchors en la misma página
+2. **Detalle de actividades** — una tarjeta por actividad con "Por qué", "Requiere", "Aprenderás", "Al completar" y link al archivo
+
+El estudiante puede escanear la tabla para ver el panorama, o leer los detalles para entender por qué cada actividad existe antes de empezar.
 
 ```markdown
 # Etapa N: Nombre
@@ -394,6 +423,9 @@ Cada etapa tiene un `README.md` que es un **índice conciso** (~60-80 líneas), 
 > Descripción de una línea.
 
 **Prerrequisitos:** Etapa N-1 completada.
+
+**Por qué esta etapa importa:** 2-3 oraciones explicando qué problema
+resuelve esta etapa y qué consecuencia tiene saltársela.
 
 ---
 
@@ -407,13 +439,35 @@ Cada etapa tiene un `README.md` que es un **índice conciso** (~60-80 líneas), 
 
 | # | Actividad | Duración | Estado |
 |:-:|-----------|:--------:|:------:|
-| N.0 | [Nombre](./actividades/N.0-slug.md) | ~45 min | ☐ |
+| N.0 | [Nombre](#n0--nombre-descriptivo) | ~45 min | ☐ |
+
+*(Los links van a anchors en la misma página, no directamente al archivo)*
 
 ## Actividades Recomendadas 🟡
 ...
 
 ## Actividades Avanzadas 🔴
 ...
+
+---
+
+## Detalle de actividades
+
+### N.0 — Nombre descriptivo
+
+**Por qué:** 1-2 oraciones de motivación.
+
+| | |
+|---|---|
+| **Requiere** | Actividades previas, habilidades |
+| **Aprenderás** | Habilidades concretas que se obtienen |
+| **Al completar** | Resultado tangible |
+
+[→ Ir a la actividad](./actividades/N.0-slug.md)
+
+---
+
+*(Repetir para cada actividad)*
 
 ---
 
@@ -457,6 +511,11 @@ Cada etapa tiene un `README.md` que es un **índice conciso** (~60-80 líneas), 
 - [ ] Tiene breadcrumb al inicio: `[Inicio] > [Etapa N] > Actividad X.Y`
 - [ ] Tiene navegación al final: `← Anterior | Siguiente →`
 - [ ] Si tiene más de 6 pasos, tiene mini-índice de pasos con anchors
+
+### Propósito y contexto
+- [ ] Tiene sección "Por qué esta actividad" que explica la motivación (no el qué, sino el por qué)
+- [ ] Tiene tabla con Requiere / Aprenderás / Al completar
+- [ ] "Al completar" describe un resultado tangible y verificable
 
 ### Contenido
 - [ ] "Antes de empezar" lista actividades previas requeridas
