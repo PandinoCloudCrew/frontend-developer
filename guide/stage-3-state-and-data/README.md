@@ -20,7 +20,11 @@
 
 **Duración:** ~55 min
 
-**Lectura:** [Patrones de UI para Data Fetching](./data-fetching-url-state-forms.md) — Tema 3: Los 4 estados de datos (~18 min)
+**Lectura:**
+- [Data Fetching: 4 Estados](./lecturas/01-data-fetching-4-estados.md) (~18 min)
+
+**Angular:**
+- [HTTP y Data Fetching en Angular](./angular/03-http-y-data-fetching.md) (~10 min)
 
 **Práctica:** Construir un componente que consume una API y muestra los 4 estados: skeleton (loading), datos (success), mensaje + reintentar (error), guía útil (empty) (~30 min)
 
@@ -40,7 +44,11 @@
 
 **Duración:** ~60 min
 
-**Lectura:** [URL State Management](./data-fetching-url-state-forms.md) — Tema 4: La URL como gestor de estado (~15 min)
+**Lectura:**
+- [URL State](./lecturas/02-url-state.md) (~15 min)
+
+**Angular:**
+- [Router y URL State en Angular](./angular/05-router-y-url-state.md) (~10 min)
 
 **Práctica:** Construir una lista filtrable, ordenable y paginada donde filtro, orden y página viven en la URL. Compartir la URL debe reproducir la vista exacta (~35 min)
 
@@ -59,7 +67,11 @@
 
 **Duración:** ~55 min
 
-**Lectura:** [Form State Management](./data-fetching-url-state-forms.md) — Tema 5: Formularios como preocupación distinta (~15 min)
+**Lectura:**
+- [Form State](./lecturas/03-form-state.md) (~15 min)
+
+**Angular:**
+- [Reactive Forms en Angular](./angular/04-reactive-forms.md) (~10 min)
 
 **Práctica:** Implementar formulario con validación basada en schema (Zod) y estrategia on-blur. Prevenir double-submit con estado de loading en el botón (~35 min)
 
@@ -78,7 +90,12 @@
 
 **Duración:** ~55 min
 
-**Lectura:** Consultar las secciones de gestión de estado en el documento de principios (~15 min)
+**Lectura:**
+- [Tipos de Estado](./lecturas/04-tipos-de-estado.md) (~15 min)
+
+**Angular:**
+- [Signals y Estado en Angular](./angular/01-signals-y-estado.md) (~10 min)
+- [Servicios e Inyección](./angular/02-servicios-e-inyeccion.md) (~10 min)
 
 **Práctica:** Auditar el estado de la app: clasificar cada pieza como local, servidor, derivado o URL. Reemplazar `useState`+`useEffect` para data fetching por TanStack Query (~30 min)
 
@@ -98,7 +115,8 @@
 
 **Duración:** ~55 min
 
-**Lectura:** [Formularios multi-paso](./data-fetching-url-state-forms.md) — Tema 5, sección de wizards (~10 min)
+**Lectura:**
+- [Form State](./lecturas/03-form-state.md) (sección wizards, ~10 min)
 
 **Práctica:** Construir flujo de checkout (carrito -> envío -> pago -> confirmación) con preservación de datos entre pasos y navegación atrás (~35 min)
 
@@ -119,7 +137,8 @@
 
 **Duración:** ~55 min
 
-**Lectura:** Consultar las secciones de máquinas de estado en el documento de principios (~5 min)
+**Lectura:**
+- [Máquinas de Estado](./lecturas/06-maquinas-de-estado.md) (~5 min)
 
 **Práctica:** Integrar XState al wizard de checkout. Definir máquina con estados y transiciones. Impedir transiciones inválidas (~40 min)
 
@@ -138,7 +157,9 @@
 
 **Duración:** ~55 min
 
-**Lectura:** Consultar las secciones de optimistic updates en el documento de principios (~10 min)
+**Lectura:**
+- [Anti-patterns de Estado](./lecturas/07-anti-patterns-de-estado.md) (~10 min)
+- [Flujo Unidireccional e Inmutabilidad](./lecturas/05-flujo-unidireccional-e-inmutabilidad.md) (~10 min)
 
 **Práctica:** Implementar like/unlike optimista. En fallo: rollback visible + error toast. Implementar retry con backoff exponencial (~35 min)
 
@@ -159,7 +180,9 @@
 
 **Duración:** ~50 min
 
-**Lectura:** Consultar las secciones de inmutabilidad y anti-patterns de estado en el documento de principios (~15 min)
+**Lectura:**
+- [Flujo Unidireccional e Inmutabilidad](./lecturas/05-flujo-unidireccional-e-inmutabilidad.md) (~10 min)
+- [Anti-patterns de Estado](./lecturas/07-anti-patterns-de-estado.md) (~5 min)
 
 **Práctica:** Demostrar un bug de stale closure (click rápido 10 veces != 10). Corregirlo. Demostrar el costo de spread en objetos grandes a 60fps vs useRef (~30 min)
 
@@ -190,9 +213,27 @@
 
 ## Material de lectura en esta etapa
 
+### Lecturas generales
+
 | Archivo | Contenido |
 |---------|-----------|
-| [data-fetching-url-state-forms.md](./data-fetching-url-state-forms.md) | Patrones de UI para data fetching (loading/success/error/empty), URL state management, form state management (validación, schemas, wizards multi-paso) |
+| [01-data-fetching-4-estados.md](./lecturas/01-data-fetching-4-estados.md) | Los 4 estados de data fetching: loading, success, error, empty |
+| [02-url-state.md](./lecturas/02-url-state.md) | La URL como gestor de estado: query params, navegación, deep linking |
+| [03-form-state.md](./lecturas/03-form-state.md) | Estado de formularios: validación, schemas, wizards multi-paso |
+| [04-tipos-de-estado.md](./lecturas/04-tipos-de-estado.md) | Tipos de estado: local, servidor, derivado, URL |
+| [05-flujo-unidireccional-e-inmutabilidad.md](./lecturas/05-flujo-unidireccional-e-inmutabilidad.md) | Flujo unidireccional de datos e inmutabilidad |
+| [06-maquinas-de-estado.md](./lecturas/06-maquinas-de-estado.md) | Máquinas de estado con XState |
+| [07-anti-patterns-de-estado.md](./lecturas/07-anti-patterns-de-estado.md) | Anti-patterns de estado: stale closures, prop drilling, estado derivado innecesario |
+
+### Material de Angular
+
+| Archivo | Contenido |
+|---------|-----------|
+| [01-signals-y-estado.md](./angular/01-signals-y-estado.md) | Signals y estado reactivo en Angular |
+| [02-servicios-e-inyeccion.md](./angular/02-servicios-e-inyeccion.md) | Servicios, inyección de dependencias y estado compartido |
+| [03-http-y-data-fetching.md](./angular/03-http-y-data-fetching.md) | HttpClient, interceptors y data fetching en Angular |
+| [04-reactive-forms.md](./angular/04-reactive-forms.md) | Reactive Forms: FormGroup, FormControl, validación |
+| [05-router-y-url-state.md](./angular/05-router-y-url-state.md) | Router, query params y URL state en Angular |
 
 ---
 

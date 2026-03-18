@@ -20,7 +20,9 @@
 
 **Duración:** ~55 min
 
-**Lectura:** [Tipografía y Jerarquía Visual + Teoría del Color](./diseno-visual-fundamentos.md) — Secciones 1 y 2 (~20 min)
+**Lectura:**
+- [Tipografía y Jerarquía Visual](./lecturas/01-tipografia-y-jerarquia.md) (~10 min)
+- [Color para UI](./lecturas/02-color-para-ui.md) (~10 min)
 
 **Práctica:** Definir type scale con CSS custom properties usando ratio 1.25 y `clamp()`. Crear paleta de 3 capas (brand, neutral, semantic) con dark mode via `prefers-color-scheme` (~30 min)
 
@@ -40,7 +42,9 @@
 
 **Duración:** ~55 min
 
-**Lectura:** [Sistemas de Espaciado + Patrones de Formularios](./diseno-visual-fundamentos.md) — Secciones 3 y 4 (~20 min)
+**Lectura:**
+- [Sistema de Espaciado](./lecturas/03-sistema-de-espaciado.md) (~10 min)
+- [Diseño de Formularios](./lecturas/04-diseno-de-formularios.md) (~10 min)
 
 **Práctica:** Definir tokens de espaciado (grid 8px). Rediseñar un formulario de 20 campos como wizard multi-paso con validación inline on-blur, labels arriba del input, y valores por defecto (~30 min)
 
@@ -60,7 +64,8 @@
 
 **Duración:** ~55 min
 
-**Lectura:** [Ejemplos de violación de heurísticas](./diseno-visual-fundamentos.md) — Sección 5 + las secciones de heurísticas de Nielsen en el documento de principios (~15 min)
+**Lectura:**
+- [Heurísticas de Nielsen](./lecturas/05-heuristicas-de-nielsen.md) (~15 min)
 
 **Práctica:** Auditoría heurística: dado un mockup con 10 violaciones (una por heurística), identificar cada violación, nombrar la heurística y proponer solución (~35 min)
 
@@ -79,7 +84,11 @@
 
 **Duración:** ~60 min
 
-**Lectura:** Consultar las secciones de mobile-first y responsivo en el documento de principios (~5 min)
+**Lectura:**
+- [Mobile-First y Responsive](./lecturas/07-mobile-first-y-responsive.md) (~5 min)
+
+**Angular:**
+- [Angular Material y CDK](./angular/01-angular-material-y-cdk.md) (~10 min)
 
 **Práctica:** Dashboard que funciona en móvil (1 columna), tablet (2 columnas), escritorio (sidebar + main). Breakpoints basados en contenido, no dispositivos (~45 min)
 
@@ -100,7 +109,8 @@
 
 **Duración:** ~45 min
 
-**Lectura:** Consultar las secciones de Fitts, Hick y Gestalt en el documento de principios (~10 min)
+**Lectura:**
+- [Fitts, Hick y Gestalt](./lecturas/06-fitts-hick-gestalt.md) (~10 min)
 
 **Práctica:** Revisar el dashboard: agrupar elementos relacionados (Gestalt proximidad), reducir opciones visibles (Hick), verificar tamaño de targets (Fitts) (~30 min)
 
@@ -119,7 +129,8 @@
 
 **Duración:** ~50 min
 
-**Lectura:** Consultar la sección de skeleton screens en el material de la Etapa 3 (~10 min)
+**Lectura:**
+- [Data Fetching: 4 Estados](../stage-3-state-and-data/lecturas/01-data-fetching-4-estados.md) (sección skeletons, ~10 min)
 
 **Práctica:** Mejorar los skeletons de la app: que reflejen la forma del contenido real, con animación de pulse, sin skeleton para el elemento LCP (~35 min)
 
@@ -138,7 +149,8 @@
 
 **Duración:** ~45 min
 
-**Lectura:** Consultar las secciones de anti-patterns de usabilidad en el documento de principios (~10 min)
+**Lectura:**
+- [Anti-patterns de Usabilidad](./lecturas/08-anti-patterns-de-usabilidad.md) (~10 min)
 
 **Práctica:** Revisión por pares de la app: verificar que no hay confirm-shaming, misdirection, costos ocultos. Verificar que toda notificación es necesaria (no toast fatigue) (~30 min)
 
@@ -159,7 +171,8 @@
 
 **Duración:** ~45 min
 
-**Lectura:** [Diseño de color accesible](./diseno-visual-fundamentos.md) — Sección 2, parte de accesibilidad + secciones de accesibilidad en principios (~10 min)
+**Lectura:**
+- [Color para UI](./lecturas/02-color-para-ui.md) (sección contraste y accesibilidad, ~10 min)
 
 **Práctica:** Verificar que ningún estado usa solo color como indicador (WCAG 1.4.1). Implementar `prefers-reduced-motion` para desactivar animaciones (~30 min)
 
@@ -191,9 +204,24 @@
 
 ## Material de lectura en esta etapa
 
+### Lecturas generales
+
 | Archivo | Contenido |
 |---------|-----------|
-| [diseno-visual-fundamentos.md](./diseno-visual-fundamentos.md) | Tipografía y jerarquía visual, teoría del color para UI, sistemas de espaciado, patrones de diseño de formularios, ejemplos de violación de heurísticas de Nielsen |
+| [01-tipografia-y-jerarquia.md](./lecturas/01-tipografia-y-jerarquia.md) | Tipografía: type scale, jerarquía visual, custom properties |
+| [02-color-para-ui.md](./lecturas/02-color-para-ui.md) | Color para UI: paletas, contraste, accesibilidad, dark mode |
+| [03-sistema-de-espaciado.md](./lecturas/03-sistema-de-espaciado.md) | Sistema de espaciado: grid 8px, tokens, consistencia |
+| [04-diseno-de-formularios.md](./lecturas/04-diseno-de-formularios.md) | Diseño de formularios: labels, validación inline, wizards |
+| [05-heuristicas-de-nielsen.md](./lecturas/05-heuristicas-de-nielsen.md) | Las 10 heurísticas de Nielsen con ejemplos |
+| [06-fitts-hick-gestalt.md](./lecturas/06-fitts-hick-gestalt.md) | Leyes de Fitts, Hick y principios Gestalt |
+| [07-mobile-first-y-responsive.md](./lecturas/07-mobile-first-y-responsive.md) | Mobile-first, responsive design, breakpoints por contenido |
+| [08-anti-patterns-de-usabilidad.md](./lecturas/08-anti-patterns-de-usabilidad.md) | Anti-patterns de usabilidad: dark patterns, toast fatigue |
+
+### Material de Angular
+
+| Archivo | Contenido |
+|---------|-----------|
+| [01-angular-material-y-cdk.md](./angular/01-angular-material-y-cdk.md) | Angular Material, CDK y componentes de UI |
 
 ---
 

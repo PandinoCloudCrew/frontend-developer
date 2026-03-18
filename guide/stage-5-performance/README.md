@@ -20,7 +20,8 @@
 
 **Duración:** ~55 min
 
-**Lectura:** Consultar las secciones de Core Web Vitals y rendimiento en los documentos de principios y ecosistema (~15 min)
+**Lectura:**
+- [Core Web Vitals y RAIL](./lecturas/01-core-web-vitals-y-rail.md) (~15 min)
 
 **Práctica:** Ejecutar Lighthouse en una app lenta. Documentar hallazgos, priorizar por impacto, corregir los 3 principales (LCP, CLS, bundle size) (~35 min)
 
@@ -39,7 +40,11 @@
 
 **Duración:** ~55 min
 
-**Lectura:** Consultar las secciones de lazy loading y code splitting en los documentos de principios y ecosistema (~10 min)
+**Lectura:**
+- [Lazy Loading y Code Splitting](./lecturas/02-lazy-loading-y-code-splitting.md) (~10 min)
+
+**Angular:**
+- [Rendimiento en Angular](./angular/01-rendimiento-en-angular.md) (~10 min)
 
 **Práctica:** Agregar code splitting por ruta. Agregar `loading="lazy"` a imágenes below-the-fold. Asegurar que la imagen hero tiene `fetchpriority="high"` y NO `loading="lazy"` (~35 min)
 
@@ -58,7 +63,8 @@
 
 **Duración:** ~55 min
 
-**Lectura:** Consultar las secciones de optimización de bundle en el documento de principios (~5 min)
+**Lectura:**
+- [Bundle Optimization](./lecturas/03-bundle-optimization.md) (~5 min)
 
 **Práctica:** Ejecutar bundle analyzer. Identificar las 3 dependencias más grandes. Implementar al menos una reducción (tree shaking, reemplazo de librería, eliminación de import innecesario) (~40 min)
 
@@ -79,7 +85,8 @@
 
 **Duración:** ~55 min
 
-**Lectura:** Consultar las secciones de virtualización en el documento de principios (~5 min)
+**Lectura:**
+- [Virtualización](./lecturas/04-virtualizacion.md) (~5 min)
 
 **Práctica:** Usar `@tanstack/virtual` o `react-window` para renderizar 10,000 elementos sin jank (~40 min)
 
@@ -98,7 +105,11 @@
 
 **Duración:** ~50 min
 
-**Lectura:** Consultar las secciones de memoización y anti-patterns en el documento de principios (~15 min)
+**Lectura:**
+- [Memoización](./lecturas/05-memoizacion.md) (~15 min)
+
+**Angular:**
+- [Rendimiento en Angular](./angular/01-rendimiento-en-angular.md) (secciones OnPush y Signals, ~10 min)
 
 **Práctica:** Identificar un re-render costoso con React Profiler. Aplicar `React.memo`/`useMemo`. Luego demostrar cómo un inline object rompe la memoización silenciosamente (~30 min)
 
@@ -119,7 +130,8 @@
 
 **Duración:** ~50 min
 
-**Lectura:** Consultar las secciones de anti-patterns de rendimiento en el documento del ecosistema (~10 min)
+**Lectura:**
+- [Anti-patterns de Rendimiento](./lecturas/06-anti-patterns-de-rendimiento.md) (~10 min)
 
 **Práctica:** Comparar Lighthouse (sintético) vs `web-vitals` library (real). Auditar impacto de scripts de terceros con DevTools. Documentar diferencias (~30 min)
 
@@ -140,18 +152,33 @@
 
 **Lectura:** Revisar los criterios de aceptación de toda la etapa (~5 min)
 
-**Práctica:** Verificar todos los criterios 5.1-5.8 (~40 min)
+**Práctica:** Verificar todos los criterios 5.1-5.6 (~40 min)
 
-**Validación:** Los 8 criterios pasan (~10 min)
+**Validación:** Los criterios pasan (~10 min)
 
 **Criterios de aceptación:**
-- [ ] Todos los criterios 5.1-5.8 se cumplen
+- [ ] Todos los criterios 5.1-5.6 se cumplen
 
 ---
 
 ## Material de lectura en esta etapa
 
-> Esta etapa se apoya en las secciones de rendimiento de los documentos de referencia generales (principios y ecosistema). El material cubre Core Web Vitals, RAIL, lazy loading, code splitting, virtualización, memoización y medición de rendimiento.
+### Lecturas generales
+
+| Archivo | Contenido |
+|---------|-----------|
+| [01-core-web-vitals-y-rail.md](./lecturas/01-core-web-vitals-y-rail.md) | Core Web Vitals (LCP, CLS, INP), modelo RAIL, Lighthouse |
+| [02-lazy-loading-y-code-splitting.md](./lecturas/02-lazy-loading-y-code-splitting.md) | Lazy loading, code splitting por ruta, dynamic imports |
+| [03-bundle-optimization.md](./lecturas/03-bundle-optimization.md) | Análisis de bundle, tree shaking, optimización de dependencias |
+| [04-virtualizacion.md](./lecturas/04-virtualizacion.md) | Virtualización de listas largas con TanStack Virtual / react-window |
+| [05-memoizacion.md](./lecturas/05-memoizacion.md) | Memoización: React.memo, useMemo, useCallback, cuándo usar y cuándo no |
+| [06-anti-patterns-de-rendimiento.md](./lecturas/06-anti-patterns-de-rendimiento.md) | Anti-patterns de rendimiento, RUM vs sintético, scripts de terceros |
+
+### Material de Angular
+
+| Archivo | Contenido |
+|---------|-----------|
+| [01-rendimiento-en-angular.md](./angular/01-rendimiento-en-angular.md) | Rendimiento en Angular: OnPush, Signals, lazy loading de rutas, change detection |
 
 ---
 

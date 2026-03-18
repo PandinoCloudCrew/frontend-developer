@@ -39,14 +39,14 @@ Cada actividad está marcada con un nivel. Un principiante solo necesita complet
 | Etapa | 🟢 Esencial | 🟡 Recomendado | 🔴 Avanzado | Ir |
 |-------|:-----------:|:-------------:|:-----------:|:--:|
 | 1 - Fundamentos | 0/8 | 0/2 | 0/3 | [→](./stage-1-foundations/) |
-| 2 - Componentes | 0/4 | 0/2 | 0/2 | [→](./stage-2-component-architecture/) |
+| 2 - Componentes | 0/5 | 0/2 | 0/2 | [→](./stage-2-component-architecture/) |
 | 3 - Estado y Datos | 0/5 | 0/2 | 0/2 | [→](./stage-3-state-and-data/) |
 | 4 - Usabilidad y Diseño | 0/4 | 0/3 | 0/2 | [→](./stage-4-usability-and-design/) |
 | 5 - Rendimiento | 0/3 | 0/2 | 0/2 | [→](./stage-5-performance/) |
 | 6 - Seguridad y Resiliencia | 0/4 | 0/2 | 0/1 | [→](./stage-6-security-and-resilience/) |
 | 7 - Testing y Calidad | 0/3 | 0/3 | 0/2 | [→](./stage-7-testing-and-quality/) |
 | 8 - Arquitectura a Escala | 0/1 | 0/4 | 0/3 | [→](./stage-8-architecture-at-scale/) |
-| **Total** | **0/32** | **0/20** | **0/17** | |
+| **Total** | **0/33** | **0/20** | **0/17** | |
 
 ---
 
@@ -108,5 +108,8 @@ Ve etapa por etapa, completando al menos todas las actividades 🟢 antes de ava
 ### Para profesionales con experiencia
 Salta a la etapa que necesites. Cada etapa es autocontenida con sus propias lecturas.
 
-### Agnóstico de framework
-Cada concepto se enseña primero de forma agnóstica y luego se muestra cómo se mapea a React, Vue, Angular y Svelte.
+### Framework: Angular
+
+Esta edición de la guía incluye implementación específica para **Angular**. Cada etapa (a partir de la 2) tiene un directorio `angular/` con material que enseña cómo aplicar los conceptos del stage usando Angular (standalone components, Signals, Reactive Forms, `@defer`, CDK, etc.).
+
+Los principios se enseñan primero de forma agnóstica. El material de Angular los implementa. El soporte para React, Vue y Svelte puede agregarse en el futuro siguiendo la misma estructura (`react/`, `vue/`, `svelte/`).

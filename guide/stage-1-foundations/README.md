@@ -20,7 +20,8 @@
 
 **Duración:** ~55 min
 
-**Lectura:** [HTML Semántico y el DOM](./foundations-reference.md) — secciones sobre estructura del documento y elementos semánticos (L7-273, ~20 min)
+**Lectura:**
+- [HTML Semántico y el DOM](./lecturas/01-html-semantico.md) (~20 min)
 
 **Práctica:** Construir una página de perfil personal usando solo HTML semántico — `nav`, `header`, `main`, `section`, `article`, `aside`, `footer`. Sin `div` para estructura. Incluir un `h1` y jerarquía de encabezados correcta (~30 min)
 
@@ -39,7 +40,8 @@
 
 **Duración:** ~50 min
 
-**Lectura:** [Formularios y validación nativa](./foundations-reference.md) — sección de formularios (L110-181, ~10 min)
+**Lectura:**
+- [Formularios Nativos](./lecturas/02-formularios-nativos.md) (~10 min)
 
 **Práctica:** Agregar formulario de contacto a la página de perfil con `fieldset`, `legend`, `label` asociados y atributos de validación nativa (`required`, `pattern`, `type="email"`) (~35 min)
 
@@ -58,7 +60,9 @@
 
 **Duración:** ~55 min
 
-**Lectura:** [CSS Box Model y Flexbox](./foundations-reference.md) — box model (L274-503, ~10 min) + flexbox (L504-784, ~15 min)
+**Lectura:**
+- [CSS Box Model](./lecturas/03-css-box-model.md) (~10 min)
+- [CSS Flexbox](./lecturas/04-css-flexbox.md) (~15 min)
 
 **Práctica:** Aplicar reset `border-box`. Construir 3 patrones con Flexbox: navbar horizontal, card row con wrap, centering perfecto. Todo con `rem` y `gap` (~25 min)
 
@@ -77,7 +81,8 @@
 
 **Duración:** ~60 min
 
-**Lectura:** [CSS Grid](./foundations-reference.md) — sección de Grid (L785-1082, ~20 min)
+**Lectura:**
+- [CSS Grid](./lecturas/05-css-grid.md) (~20 min)
 
 **Práctica:** Implementar layout de dashboard con Grid: sidebar + header + contenido principal + grid de tarjetas responsivo con `auto-fill`/`minmax` (~35 min)
 
@@ -96,7 +101,8 @@
 
 **Duración:** ~55 min
 
-**Lectura:** [JavaScript ES2020+](./foundations-reference.md) — sección de JavaScript moderno (L1083-1384, ~20 min)
+**Lectura:**
+- [JavaScript Moderno](./lecturas/06-javascript-moderno.md) (~20 min)
 
 **Práctica:** Crear un módulo que haga fetch a una API pública, use destructuring para extraer datos, spread para copias inmutables, optional chaining para datos anidados, y `async`/`await` con `try`/`catch` (~30 min)
 
@@ -116,7 +122,8 @@
 
 **Duración:** ~60 min
 
-**Lectura:** Consultar las secciones de TypeScript en los documentos de referencia del ecosistema (~15 min)
+**Lectura:**
+- [TypeScript Básico](./lecturas/08-typescript-basico.md) (~15 min)
 
 **Práctica:** Implementar módulo que obtiene JSON de API pública, define interfaces TypeScript para la forma de datos, transforma los datos y maneja errores. `strict: true`, cero `any` (~35 min)
 
@@ -135,7 +142,8 @@
 
 **Duración:** ~50 min
 
-**Lectura:** Consultar las secciones de accesibilidad en el documento de principios (~10 min)
+**Lectura:**
+- [Accesibilidad Fundamentos](./lecturas/09-accesibilidad-fundamentos.md) (~10 min)
 
 **Práctica:** Desconectar el ratón. Navegar toda la página solo con teclado (Tab, Enter, Space, Escape). Documentar cada fallo. Corregir los 3 más críticos (~30 min)
 
@@ -154,7 +162,8 @@
 
 **Duración:** ~45 min
 
-**Lectura:** Consultar las secciones de herramientas y DX en el documento del ecosistema (~10 min)
+**Lectura:**
+- [Entorno de Desarrollo](./lecturas/10-entorno-de-desarrollo.md) (~10 min)
 
 **Práctica:** Configurar proyecto con linter (ESLint o Biome). Verificar que detecta `var`, variables no usadas y `console.log`. Explorar DevTools: Elements, Console, Network (~30 min)
 
@@ -175,7 +184,8 @@
 
 **Duración:** ~50 min
 
-**Lectura:** [Métodos de array y closures](./foundations-reference.md) — sección avanzada de JavaScript (L1339-1502, ~15 min)
+**Lectura:**
+- [Arrays, Closures y Event Loop](./lecturas/07-arrays-closures-event-loop.md) (~15 min)
 
 **Práctica:** Implementar transformaciones de datos usando cadenas de `map`/`filter`/`reduce`; crear un closure práctico (counter factory, event handler con contexto) (~30 min)
 
@@ -194,7 +204,9 @@
 
 **Duración:** ~60 min
 
-**Lectura:** Revisar puntos clave Flexbox vs Grid (~5 min)
+**Lectura:**
+- [CSS Flexbox](./lecturas/04-css-flexbox.md) (repaso, ~5 min)
+- [CSS Grid](./lecturas/05-css-grid.md) (repaso, ~5 min)
 
 **Práctica:** Reproducir mockup de dashboard completo combinando Flexbox y Grid, 3 breakpoints, solo `rem`/`clamp()` (~45 min)
 
@@ -215,7 +227,8 @@
 
 **Duración:** ~50 min
 
-**Lectura:** [Event loop y estructuras avanzadas](./foundations-reference.md) — sección de event loop y Map/Set (L1460-1598, ~15 min)
+**Lectura:**
+- [Arrays, Closures y Event Loop](./lecturas/07-arrays-closures-event-loop.md) (secciones de event loop y Map/Set, ~15 min)
 
 **Práctica:** Predecir el orden de ejecución de 3 snippets con `setTimeout`, Promises y microtasks. Implementar un caché con `Map` y un registro de observers con `WeakMap` (~30 min)
 
@@ -234,7 +247,8 @@
 
 **Duración:** ~45 min
 
-**Lectura:** [Stacking context](./foundations-reference.md) — sección de stacking context y z-index (L416-503, ~10 min)
+**Lectura:**
+- [CSS Box Model](./lecturas/03-css-box-model.md) (sección de stacking context, ~10 min)
 
 **Práctica:** Crear una demo con 3 stacking contexts anidados. Demostrar que `z-index: 9999` puede quedar atrapado dentro de un contexto padre con `z-index` menor (~30 min)
 
@@ -290,7 +304,16 @@ grep -rn "[0-9]px" src/**/*.css | grep -v "border\|shadow\|1px"
 
 | Archivo | Contenido |
 |---------|-----------|
-| [foundations-reference.md](./foundations-reference.md) | HTML semántico, CSS (box model, Flexbox, Grid), JavaScript ES2020+, event loop, Map/Set/WeakMap |
+| [01-html-semantico.md](./lecturas/01-html-semantico.md) | HTML semántico, estructura del documento, elementos semánticos y el DOM |
+| [02-formularios-nativos.md](./lecturas/02-formularios-nativos.md) | Formularios HTML, validación nativa, fieldset y legend |
+| [03-css-box-model.md](./lecturas/03-css-box-model.md) | CSS box model, border-box, stacking context y z-index |
+| [04-css-flexbox.md](./lecturas/04-css-flexbox.md) | CSS Flexbox: ejes, alineación, wrap y patrones comunes |
+| [05-css-grid.md](./lecturas/05-css-grid.md) | CSS Grid: tracks, areas, auto-fill/auto-fit y minmax |
+| [06-javascript-moderno.md](./lecturas/06-javascript-moderno.md) | JavaScript ES2020+: módulos, destructuring, spread, optional chaining, async/await |
+| [07-arrays-closures-event-loop.md](./lecturas/07-arrays-closures-event-loop.md) | Métodos de array, closures, event loop, Map/Set/WeakMap |
+| [08-typescript-basico.md](./lecturas/08-typescript-basico.md) | TypeScript básico: interfaces, tipos, strict mode, generics |
+| [09-accesibilidad-fundamentos.md](./lecturas/09-accesibilidad-fundamentos.md) | Accesibilidad: navegación por teclado, ARIA, WCAG |
+| [10-entorno-de-desarrollo.md](./lecturas/10-entorno-de-desarrollo.md) | Entorno de desarrollo: linters, DevTools, herramientas DX |
 
 ---
 

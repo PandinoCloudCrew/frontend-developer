@@ -39,7 +39,7 @@ No necesitas completar todo — elige tu ruta:
 
 ## Qué hace diferente a esta guía
 
-- **Principios, no frameworks**: Cada concepto se enseña de forma agnóstica y luego se mapea a React, Angular, Vue, Svelte
+- **Principios primero, framework después**: Cada concepto se enseña de forma agnóstica y luego se implementa en Angular (con estructura para agregar React/Vue/Svelte)
 - **Caminos positivos Y negativos**: Cada tema cubre cómo hacerlo bien y los anti-patterns comunes (qué NO hacer y por qué)
 - **Actividades de 45-60 minutos**: Lectura (~15 min) + práctica (~30 min) + validación (~5 min)
 - **Criterios de aceptación verificables**: Cada actividad tiene condiciones concretas que el estudiante verifica por sí mismo
@@ -48,24 +48,20 @@ No necesitas completar todo — elige tu ruta:
 ## Estructura del proyecto
 
 ```
-guide/                          ← La guía (empieza aquí)
-  README.md                     ← Punto de entrada para el estudiante
-  stage-1-foundations/           ← Etapa 1: actividades + material de lectura
-  stage-2-component-architecture/
-  stage-3-state-and-data/
-  stage-4-usability-and-design/
-  stage-5-performance/
-  stage-6-security-and-resilience/
-  stage-7-testing-and-quality/
-  stage-8-architecture-at-scale/
+guide/                                    ← La guía (empieza aquí)
+  README.md                               ← Punto de entrada para el estudiante
+  stage-N-topic/                          ← Cada etapa tiene:
+    README.md                             ←   Actividades con checkboxes y progreso
+    lecturas/                             ←   Lecturas cortas (una por actividad, 50-300 líneas)
+      01-tema.md
+      02-tema.md
+    angular/                              ←   Implementación en Angular (etapas 2-8)
+      01-tema-angular.md
 
-frontend-ecosystem-2026.md      ← Investigación: estado del ecosistema
-frontend-principles-and-best-practices.md  ← Investigación: principios + anti-patterns
+frontend-ecosystem-2026.md                ← Referencia: estado del ecosistema
+frontend-principles-and-best-practices.md ← Referencia: principios + anti-patterns
 
-_internal/                      ← Documentos internos del proyecto
-  PLAN.md                       ← Plan con criterios de aceptación detallados
-  CONTENT-MAP.md                ← Mapeo de contenido a etapas
-  ACTIVIDADES.md                ← Lista plana de las 69 actividades
+_internal/                                ← Documentos internos (no para estudiantes)
 ```
 
 ## Contenido de referencia
