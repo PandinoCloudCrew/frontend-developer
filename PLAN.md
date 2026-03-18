@@ -440,6 +440,7 @@ frontend-developer/
 | Plan con criterios de aceptación | Done | Este archivo |
 | Estructura de directorios de etapas | Done | 8 directorios de etapas creados |
 | README de la guía | Done | Resumen + descripciones de etapas |
+| Plan de actividades | Done | `ACTIVIDADES.md` — 70 actividades de 45-60 min (~60h total) |
 | Capítulo Etapa 1 | Not started | |
 | Mockups Etapa 1 | Not started | |
 | Etapas 2-8 | Not started | |
