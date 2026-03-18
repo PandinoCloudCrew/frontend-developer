@@ -131,7 +131,6 @@ Las extensiones agregan funcionalidad a VS Code. Instala estas tres:
 
 Al terminar esta actividad, tu computadora tiene todo listo para programar: VS Code con extensiones instaladas, Node.js funcionando en la terminal, y un linter que detecta errores en tu código. Todas las actividades siguientes asumen que esto ya está configurado.
 
-![Resultado esperado](./mockups/1.0-entorno-desarrollo.png)
 
 **Criterios de aceptación:**
 - [ ] El linter marca `var`, variables no usadas y `console.log`
@@ -584,7 +583,6 @@ En `styles.css`:
 
 Tu página de perfil ahora tiene estilos: una barra de navegación horizontal oscura con links en blanco, tarjetas de skills alineadas en fila (que pasan a la siguiente línea en pantallas angostas), y una sección hero centrada vertical y horizontalmente.
 
-![Resultado esperado](./mockups/1.3-box-model-flexbox.png)
 
 **Criterios de aceptación:**
 - [ ] Reset universal `box-sizing: border-box` aplicado
@@ -925,7 +923,6 @@ main();
 
 Una página que carga datos de una API pública y los muestra: nombre y email de un usuario, y una lista de títulos de sus posts. En la Console de DevTools se ven los mensajes de log con los datos procesados.
 
-![Resultado esperado](./mockups/1.5-javascript-moderno.png)
 
 **Criterios de aceptación:**
 - [ ] Todos los módulos usan `import`/`export`
@@ -1152,7 +1149,6 @@ main();
 
 Al ejecutar `npx tsc --noEmit`, no hay errores. Al compilar con `npx tsc` y ejecutar con `node dist/main.js`, la terminal muestra una lista de usuarios transformados (solo con id, displayName, email, city, companyName) y los usuarios filtrados por ciudad.
 
-![Resultado esperado](./mockups/1.6-typescript-transformador.png)
 
 **Criterios de aceptación:**
 - [ ] Compila con `strict: true` sin errores
@@ -1259,7 +1255,6 @@ Para cada corrección, modifica el HTML o CSS según corresponda:
 
 Tu auditoría documenta todos los problemas de accesibilidad encontrados. Los 3 problemas más críticos están corregidos. Al navegar con teclado, puedes alcanzar y activar todos los elementos interactivos, el foco es visible en cada paso, y Lighthouse Accessibility marca > 90.
 
-![Resultado esperado](./mockups/1.7-accesibilidad-teclado.png)
 
 **Criterios de aceptación:**
 - [ ] Todo elemento interactivo alcanzable con Tab y activable con Enter/Space
@@ -1407,7 +1402,6 @@ function renderTodos() {
 
 Una aplicación de lista de tareas funcional: puedes agregar, marcar como completada y eliminar tareas. El contador se actualiza en tiempo real. Todo funciona sin recargar la página.
 
-![Resultado esperado](./mockups/1.8-interactividad-dom.png)
 
 **Criterios de aceptación:**
 - [ ] Los elementos se seleccionan correctamente del DOM
@@ -1513,7 +1507,6 @@ console.log(counter.getCount()); // 11
 
 La terminal muestra los arrays transformados correctamente y el closure mantiene estado entre llamadas sin exponer la variable interna.
 
-![Resultado esperado](./mockups/1.9-arrays-closures.png)
 
 **Criterios de aceptación:**
 - [ ] Se usan al menos 3 métodos funcionales de array
@@ -1600,7 +1593,6 @@ Usa Device Toolbar en DevTools para probar 320px, 768px y 1280px.
 
 Un dashboard completo que replica el mockup proporcionado, con layout responsivo que funciona en móvil, tablet y desktop. La tipografía es fluida y no hay valores `px` para espaciado.
 
-![Resultado esperado](./mockups/1.10-mockup-dashboard.png)
 
 **Criterios de aceptación:**
 - [ ] El layout reproduce el mockup proporcionado
@@ -1721,7 +1713,6 @@ Compara tus predicciones con los resultados reales.
 
 Las 3 predicciones de orden de ejecución son correctas. El caché con `Map` funciona correctamente con evicción cuando se excede el tamaño máximo. El `WeakMap` asocia datos a objetos sin impedir garbage collection.
 
-![Resultado esperado](./mockups/1.11-event-loop-map-set.png)
 
 **Criterios de aceptación:**
 - [ ] Las 3 predicciones de orden de ejecución son correctas
@@ -1803,7 +1794,6 @@ Documenta en un comentario en tu CSS las propiedades que crean stacking context:
 
 Una demo visual que demuestra claramente que un `z-index` alto puede quedar atrapado dentro de un stacking context padre con un `z-index` bajo. El estudiante identifica al menos 5 propiedades CSS que crean stacking contexts.
 
-![Resultado esperado](./mockups/1.12-stacking-context.png)
 
 **Criterios de aceptación:**
 - [ ] Se demuestra que un `z-index` alto falla dentro de un contexto padre
@@ -1920,7 +1910,6 @@ Los 6 comandos de arriba deben pasar sin errores.
 
 Todos los comandos de validación pasan sin errores. Esto confirma que dominas los fundamentos: HTML semántico, CSS con box model y layouts, JavaScript moderno con módulos y async, TypeScript con tipos strict, y accesibilidad básica.
 
-![Resultado esperado](./mockups/1.13-validacion-integral.png)
 
 **Criterios de aceptación:**
 - [ ] `html-validate` pasa sin errores

@@ -8,6 +8,7 @@
       "y": 0,
       "name": "1.1 — Perfil Semántico HTML",
       "width": 1280,
+      "height": 900,
       "fill": "#FFFFFF",
       "layout": "vertical",
       "children": [
@@ -528,9 +529,10 @@
       "type": "frame",
       "id": "ZOdTP",
       "x": 0,
-      "y": 0,
+      "y": 1050,
       "name": "1.4 — Dashboard CSS Grid",
       "width": 1440,
+      "height": 500,
       "fill": "#FFFFFF",
       "layout": "vertical",
       "children": [
@@ -987,9 +989,10 @@
       "type": "frame",
       "id": "Wf7hv",
       "x": 0,
-      "y": 0,
+      "y": 1700,
       "name": "1.2 — Formulario HTML Nativo",
       "width": 800,
+      "height": 850,
       "fill": "#FFFFFF",
       "layout": "vertical",
       "children": [
