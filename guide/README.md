@@ -1,118 +1,118 @@
-# Frontend Developer Guide
+# Guía para Desarrolladores Frontend
 
-> A framework-agnostic, principle-driven reference for building modern web applications.
-> Covers software development principles, usability, and best practices adaptable to React, Angular, Vue, Svelte, and others.
-
----
-
-## Stage Structure
-
-The guide is organized in 8 progressive stages. Each stage builds on the previous one. Every stage includes:
-- **Chapter document** (markdown) — concepts, principles, and framework-agnostic patterns
-- **Mockups** (exported from .pen files) — visual references the student implements themselves
-- **Exercises** — hands-on tasks to reinforce concepts
+> Una referencia agnóstica de framework, basada en principios, para construir aplicaciones web modernas.
+> Cubre principios de desarrollo de software, usabilidad y mejores prácticas adaptables a React, Angular, Vue, Svelte y otros.
 
 ---
 
-### Stage 1: Foundations
-> *The bedrock every frontend developer must master before touching a framework.*
+## Estructura de Etapas
 
-- Semantic HTML and the DOM
-- CSS fundamentals: Box model, Flexbox, Grid, responsive units
-- JavaScript essentials: ES2020+, async/await, modules
-- Accessibility from day one (semantic elements, keyboard navigation)
-- Developer environment: editor, browser DevTools, terminal
-- TypeScript as the professional baseline
+La guía está organizada en 8 etapas progresivas. Cada etapa se construye sobre la anterior. Cada etapa incluye:
+- **Documento del capítulo** (markdown) — conceptos, principios y patrones agnósticos de framework
+- **Mockups** (exportados desde archivos .pen) — referencias visuales que el estudiante implementa por su cuenta
+- **Ejercicios** — tareas prácticas para reforzar los conceptos
 
-### Stage 2: Component Architecture
-> *Think in components — the universal building block of modern frontends.*
+---
 
-- What is a component? (framework-agnostic mental model)
-- SOLID principles applied to components
-- Composition over inheritance
-- Props, slots, and component contracts
+### Etapa 1: Fundamentos
+> *La base que todo desarrollador frontend debe dominar antes de tocar un framework.*
+
+- Semantic HTML y el DOM
+- Fundamentos de CSS: Box model, Flexbox, Grid, unidades responsivas
+- JavaScript esencial: ES2020+, async/await, módulos
+- Accesibilidad desde el primer día (elementos semánticos, navegación por teclado)
+- Entorno de desarrollo: editor, browser DevTools, terminal
+- TypeScript como la línea base profesional
+
+### Etapa 2: Arquitectura de Componentes
+> *Pensar en componentes — el bloque de construcción universal de los frontends modernos.*
+
+- ¿Qué es un componente? (modelo mental agnóstico de framework)
+- Principios SOLID aplicados a componentes
+- Composición sobre herencia
+- Props, slots y contratos de componentes
 - Atomic Design: atoms, molecules, organisms, templates, pages
-- Compound components and headless patterns
-- Hooks / Composables as the universal logic abstraction
+- Compound components y patrones headless
+- Hooks / Composables como la abstracción de lógica universal
 
-### Stage 3: State & Data Flow
-> *Master the data that drives your UI.*
+### Etapa 3: Estado y Flujo de Datos
+> *Dominar los datos que impulsan tu UI.*
 
-- Local vs global state — when to lift
-- Server state vs client state (the paradigm shift)
-- Unidirectional data flow
-- Derived / computed state — never store what you can calculate
-- Immutability and why it matters
-- State machines for complex flows (XState)
-- Data fetching patterns: loading, error, success states
+- Estado local vs global — cuándo elevar
+- Server state vs client state (el cambio de paradigma)
+- Flujo de datos unidireccional
+- Estado derivado / computado — nunca almacenes lo que puedes calcular
+- Inmutabilidad y por qué importa
+- Máquinas de estado para flujos complejos (XState)
+- Patrones de data fetching: estados de loading, error, success
 
-### Stage 4: Usability & Design Principles
-> *Build interfaces people actually want to use.*
+### Etapa 4: Usabilidad y Principios de Diseño
+> *Construir interfaces que la gente realmente quiera usar.*
 
-- Nielsen's 10 Heuristics applied to web
-- Fitts's Law and Hick's Law in practice
-- Gestalt principles in UI layout
-- Progressive disclosure and cognitive load reduction
-- Mobile-first and responsive design
-- Typography, color, spacing, and visual hierarchy
-- Form design and input patterns
+- Las 10 Heurísticas de Nielsen aplicadas a la web
+- Ley de Fitts y Ley de Hick en la práctica
+- Principios de Gestalt en el layout de UI
+- Progressive disclosure y reducción de carga cognitiva
+- Diseño mobile-first y responsivo
+- Tipografía, color, espaciado y jerarquía visual
+- Diseño de formularios y patrones de entrada
 
-### Stage 5: Performance
-> *Every millisecond counts — ship fast, stay fast.*
+### Etapa 5: Rendimiento
+> *Cada milisegundo cuenta — enviar rápido, mantener rápido.*
 
 - Core Web Vitals: LCP, INP, CLS
-- The RAIL model
-- Lazy loading: routes, components, images
-- Code splitting and bundle optimization
-- Virtualization for large lists
-- Memoization — when to use it and when not to
-- Image optimization and modern formats
-- Measuring and monitoring performance
+- El modelo RAIL
+- Lazy loading: rutas, componentes, imágenes
+- Code splitting y optimización de bundles
+- Virtualización para listas grandes
+- Memoización — cuándo usarla y cuándo no
+- Optimización de imágenes y formatos modernos
+- Medición y monitoreo de rendimiento
 
-### Stage 6: Security & Resilience
-> *Protect your users and handle the unexpected gracefully.*
+### Etapa 6: Seguridad y Resiliencia
+> *Proteger a tus usuarios y manejar lo inesperado con elegancia.*
 
-- XSS prevention and framework auto-escaping
-- CSRF protection and SameSite cookies
+- Prevención de XSS y auto-escaping del framework
+- Protección CSRF y SameSite cookies
 - Content Security Policy (CSP)
-- Secure authentication: JWT storage, OAuth + PKCE, BFF pattern
-- Input validation and sanitization
-- Error boundaries and graceful degradation
-- Optimistic updates with rollback
-- Retry strategies with exponential backoff
+- Autenticación segura: almacenamiento de JWT, OAuth + PKCE, patrón BFF
+- Validación y sanitización de entradas
+- Error boundaries y degradación elegante
+- Optimistic updates con rollback
+- Estrategias de retry con exponential backoff
 
-### Stage 7: Testing & Quality
-> *Confidence in every deploy.*
+### Etapa 7: Testing y Calidad
+> *Confianza en cada deploy.*
 
-- The testing pyramid: unit, component, integration, E2E
-- Testing Library — test from the user's perspective
-- Mocking strategies: MSW for API mocking
-- Accessibility testing (automated + manual)
-- Linting and formatting: ESLint, Biome, Prettier
-- CI pipeline strategy: fast feedback loops
-- Code review practices
+- La pirámide de testing: unit, component, integration, E2E
+- Testing Library — testear desde la perspectiva del usuario
+- Estrategias de mocking: MSW para API mocking
+- Testing de accesibilidad (automatizado + manual)
+- Linting y formateo: ESLint, Biome, Prettier
+- Estrategia de pipeline de CI: ciclos de feedback rápidos
+- Prácticas de code review
 
-### Stage 8: Architecture at Scale
-> *Patterns for teams and large applications.*
+### Etapa 8: Arquitectura a Escala
+> *Patrones para equipos y aplicaciones grandes.*
 
-- Feature-based folder organization
+- Organización de carpetas basada en features
 - Feature-Sliced Design (FSD)
-- Clean Architecture / Hexagonal in frontend
-- Separation of concerns: 4-layer architecture
-- Design systems: headless primitives + design tokens
-- API patterns: REST, GraphQL, tRPC — when to use each
-- Build tools: Vite, bundler configuration
-- Meta-frameworks: SSR, SSG, ISR — choosing the right rendering strategy
-- Monorepos and shared code strategies
+- Clean Architecture / Hexagonal en frontend
+- Separación de responsabilidades: arquitectura de 4 capas
+- Design systems: primitivos headless + design tokens
+- Patrones de API: REST, GraphQL, tRPC — cuándo usar cada uno
+- Build tools: Vite, configuración del bundler
+- Meta-frameworks: SSR, SSG, ISR — elegir la estrategia de renderizado correcta
+- Monorepos y estrategias de código compartido
 
 ---
 
-## How to Use This Guide
+## Cómo Usar Esta Guía
 
-1. **Sequential for learners**: Go stage by stage, completing exercises before moving on.
-2. **Reference for practitioners**: Jump to any stage/topic as needed.
-3. **Framework adapter**: Each concept is taught framework-agnostic first, then shows how it maps to React, Angular, Vue, and Svelte.
+1. **Secuencial para aprendices**: Ir etapa por etapa, completando ejercicios antes de avanzar.
+2. **Referencia para profesionales**: Saltar a cualquier etapa/tema según sea necesario.
+3. **Adaptador de framework**: Cada concepto se enseña primero de forma agnóstica al framework, luego muestra cómo se mapea a React, Angular, Vue y Svelte.
 
 ## Mockups
 
-Visual mockups for each stage are in the `frontend-guide.pen` file and exported as images in each stage's directory. These serve as **implementation targets** — the student builds the actual implementation.
+Los mockups visuales para cada etapa están en el archivo `frontend-guide.pen` y exportados como imágenes en el directorio de cada etapa. Sirven como **objetivos de implementación** — el estudiante construye la implementación real.

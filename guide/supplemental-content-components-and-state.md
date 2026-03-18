@@ -1,26 +1,26 @@
-# Supplemental Content: Components and State
+# Contenido Complementario: Componentes y Estado
 
-Practical teaching material covering component fundamentals, API design, data fetching patterns, URL state, and form state management.
+Material didáctico práctico que cubre fundamentos de componentes, diseño de APIs, patrones de data fetching, URL state y form state management.
 
 ---
 
-## Topic 1: What is a Component?
+## Tema 1: ¿Qué es un Componente?
 
-**Stage 2 — Framework-Agnostic Mental Model**
+**Etapa 2 — Modelo Mental Agnóstico de Framework**
 
-### Why This Matters
+### Por Qué Esto Importa
 
-Every modern frontend framework — React, Vue, Angular, Svelte — is built on the same core abstraction: the component. Before you learn any framework, you need to understand what a component actually is. If you skip this, you'll write framework code without understanding why it's organized the way it is.
+Cada framework frontend moderno — React, Vue, Angular, Svelte — está construido sobre la misma abstracción central: el componente. Antes de aprender cualquier framework, necesitas entender qué es realmente un componente. Si te saltas esto, escribirás código de framework sin entender por qué está organizado de esa manera.
 
-### A Component is a Function
+### Un Componente es una Función
 
-Strip away every framework and a component is a function:
+Si eliminas todos los frameworks, un componente es una función:
 
 ```
 Input (data) → Output (UI)
 ```
 
-You give it data. It returns a chunk of user interface. The same data always produces the same UI. That's it.
+Le das datos. Devuelve un fragmento de interfaz de usuario. Los mismos datos siempre producen la misma UI. Eso es todo.
 
 ```js
 // Pseudocode — no framework
@@ -32,17 +32,17 @@ Greeting({ name: "Alex" })  // → <h1>Hello, Alex</h1>
 Greeting({ name: "Sam" })   // → <h1>Hello, Sam</h1>
 ```
 
-This is the mental model you should carry into every framework you touch. React components are functions that return JSX. Vue single-file components have a `<template>` that renders based on reactive data. Angular components are classes whose templates render based on properties. Svelte `.svelte` files compile down to efficient update functions. Different syntax, same idea.
+Este es el modelo mental que deberías llevar a cada framework que toques. Los componentes de React son funciones que retornan JSX. Los single-file components de Vue tienen un `<template>` que renderiza basándose en datos reactivos. Los componentes de Angular son clases cuyas templates renderizan basándose en propiedades. Los archivos `.svelte` de Svelte se compilan en funciones de actualización eficientes. Diferente sintaxis, misma idea.
 
-### Encapsulation
+### Encapsulación
 
-A component owns three things:
+Un componente posee tres cosas:
 
-1. **Markup** — the HTML structure it produces
-2. **Styles** — how it looks
-3. **Behavior** — how it responds to interaction
+1. **Markup** — la estructura HTML que produce
+2. **Estilos** — cómo se ve
+3. **Comportamiento** — cómo responde a la interacción
 
-These three concerns live together inside the component boundary. A `Button` component knows its own HTML structure, its own CSS, and what happens when you click it. Nothing outside the component should need to know those details.
+Estas tres responsabilidades viven juntas dentro del límite del componente. Un componente `Button` conoce su propia estructura HTML, su propio CSS y qué pasa cuando lo cliqueas. Nada fuera del componente debería necesitar conocer esos detalles.
 
 ```
 ┌─────────────────────────┐
@@ -54,11 +54,11 @@ These three concerns live together inside the component boundary. A `Button` com
 └─────────────────────────┘
 ```
 
-This is encapsulation. The outside world interacts with the component through its public interface (props and events), not by reaching into its internals.
+Esto es encapsulación. El mundo exterior interactúa con el componente a través de su interfaz pública (props y eventos), no accediendo a sus detalles internos.
 
-### Reusability
+### Reusabilidad
 
-Because a component is a function of its data, you can reuse it with different inputs:
+Dado que un componente es una función de sus datos, puedes reutilizarlo con diferentes entradas:
 
 ```js
 // Same component, different data
@@ -67,11 +67,11 @@ Because a component is a function of its data, you can reuse it with different i
 <UserCard name="Jordan" role="PM" />
 ```
 
-You wrote `UserCard` once. You used it three times. Each instance is independent — its own data, its own state, its own lifecycle.
+Escribiste `UserCard` una vez. Lo usaste tres veces. Cada instancia es independiente — sus propios datos, su propio estado, su propio ciclo de vida.
 
-### Composition
+### Composición
 
-Components contain other components. This is composition — the same principle from function composition, applied to UI.
+Los componentes contienen otros componentes. Esto es composición — el mismo principio de la composición de funciones, aplicado a la UI.
 
 ```js
 function App() {
@@ -90,11 +90,11 @@ function App() {
 }
 ```
 
-This reads like a table of contents for your UI. `App` contains `Layout`, which contains `Header` and `Main`, and so on. Each component is a self-contained piece that delegates to smaller pieces.
+Esto se lee como una tabla de contenidos de tu UI. `App` contiene `Layout`, que contiene `Header` y `Main`, y así sucesivamente. Cada componente es una pieza autocontenida que delega a piezas más pequeñas.
 
-### The Component Tree
+### El Árbol de Componentes
 
-When you compose components, you get a tree:
+Cuando compones componentes, obtienes un árbol:
 
 ```
           App
@@ -106,23 +106,23 @@ When you compose components, you get a tree:
                   ArticleList  Pagination
 ```
 
-This tree mirrors the DOM tree the browser renders, but at a higher level of abstraction. Instead of thinking about `<div>` and `<span>`, you think about `Header` and `ArticleList`.
+Este árbol refleja el árbol del DOM que el navegador renderiza, pero a un nivel de abstracción más alto. En lugar de pensar en `<div>` y `<span>`, piensas en `Header` y `ArticleList`.
 
-Data flows down this tree (parent to child via props). Events flow up (child to parent via callbacks). This one-way data flow is a convention shared across every major framework.
+Los datos fluyen hacia abajo en este árbol (de padre a hijo vía props). Los eventos fluyen hacia arriba (de hijo a padre vía callbacks). Este flujo de datos unidireccional es una convención compartida por todos los frameworks principales.
 
-### Lifecycle
+### Ciclo de Vida
 
-Components don't just render once. They go through a lifecycle:
+Los componentes no solo se renderizan una vez. Pasan por un ciclo de vida:
 
-1. **Mount** — the component appears in the UI for the first time. This is where you set up subscriptions, fetch data, or start timers.
-2. **Update** — the component's data changes and it re-renders. This happens many times during the component's life.
-3. **Unmount** — the component is removed from the UI. This is where you clean up: cancel network requests, remove event listeners, clear timers.
+1. **Mount** — el componente aparece en la UI por primera vez. Aquí es donde configuras suscripciones, obtienes datos o inicias temporizadores.
+2. **Update** — los datos del componente cambian y se re-renderiza. Esto sucede muchas veces durante la vida del componente.
+3. **Unmount** — el componente se elimina de la UI. Aquí es donde limpias: cancelas peticiones de red, remueves event listeners, limpias temporizadores.
 
 ```
 Mount → Update → Update → Update → ... → Unmount
 ```
 
-Every framework gives you hooks into these phases:
+Cada framework te da hooks para estas fases:
 
 | Phase   | React              | Vue               | Angular             | Svelte            |
 |---------|--------------------|--------------------|---------------------|-------------------|
@@ -130,20 +130,20 @@ Every framework gives you hooks into these phases:
 | Update  | `useEffect(() => {}, [dep])` | `watch()`     | `ngOnChanges()`     | `$:` reactive     |
 | Unmount | `useEffect` return fn | `onUnmounted()`  | `ngOnDestroy()`     | `onDestroy()`     |
 
-The syntax varies. The concept is universal.
+La sintaxis varía. El concepto es universal.
 
-### How This Maps to Frameworks
+### Cómo Se Mapea a los Frameworks
 
-Here's the same `Greeting` component in four frameworks. Notice how they're all expressing the same idea.
+Aquí está el mismo componente `Greeting` en cuatro frameworks. Observa cómo todos expresan la misma idea.
 
-**React** — a function returning JSX:
+**React** — una función que retorna JSX:
 ```jsx
 function Greeting({ name }) {
   return <h1>Hello, {name}</h1>;
 }
 ```
 
-**Vue** — a Single File Component:
+**Vue** — un Single File Component:
 ```vue
 <template>
   <h1>Hello, {{ name }}</h1>
@@ -153,7 +153,7 @@ defineProps({ name: String });
 </script>
 ```
 
-**Angular** — a class with decorator and template:
+**Angular** — una clase con decorator y template:
 ```typescript
 @Component({
   selector: 'app-greeting',
@@ -164,7 +164,7 @@ export class GreetingComponent {
 }
 ```
 
-**Svelte** — a `.svelte` file:
+**Svelte** — un archivo `.svelte`:
 ```svelte
 <script>
   export let name;
@@ -172,39 +172,39 @@ export class GreetingComponent {
 <h1>Hello, {name}</h1>
 ```
 
-Four syntaxes. One concept: data in, UI out.
+Cuatro sintaxis. Un concepto: datos entran, UI sale.
 
-### Common Pitfalls
+### Errores Comunes
 
-**The mega-component.** A single component that renders an entire page — header, sidebar, content, footer, modals, and all. It has 500 lines, 30 state variables, and nobody wants to touch it. If you can't describe what a component does in one sentence, it's too big. Break it up.
+**El mega-componente.** Un único componente que renderiza una página entera — header, sidebar, contenido, footer, modales y todo. Tiene 500 líneas, 30 variables de estado y nadie quiere tocarlo. Si no puedes describir lo que hace un componente en una oración, es demasiado grande. Divídelo.
 
-**No clear boundary.** A component that reaches into a sibling's DOM to read or modify its state. If `Sidebar` needs to know what's selected in `Content`, that information should flow through their shared parent, not through direct DOM manipulation.
+**Sin límites claros.** Un componente que accede al DOM de un componente hermano para leer o modificar su estado. Si `Sidebar` necesita saber qué está seleccionado en `Content`, esa información debería fluir a través de su padre compartido, no mediante manipulación directa del DOM.
 
-**Components that are just wrappers.** A `UserSection` that literally just renders `<div><UserList /></div>` with no additional logic, styling, or composition. Every component should earn its existence.
+**Componentes que son solo wrappers.** Un `UserSection` que literalmente solo renderiza `<div><UserList /></div>` sin lógica, estilos ni composición adicional. Cada componente debería justificar su existencia.
 
-**Mixing abstraction levels.** A component that mixes raw `<div>` and `<span>` elements with high-level components like `<DataTable>` and `<Chart>` in the same return statement, making the template hard to scan. Keep components at a consistent level of abstraction.
+**Mezclar niveles de abstracción.** Un componente que mezcla elementos crudos como `<div>` y `<span>` con componentes de alto nivel como `<DataTable>` y `<Chart>` en el mismo return statement, haciendo la template difícil de escanear. Mantén los componentes en un nivel de abstracción consistente.
 
-### Key Takeaways
+### Puntos Clave
 
-- A component is a function: data in, UI out. This mental model is universal across frameworks.
-- Components encapsulate markup, styles, and behavior behind a public interface.
-- Composition (components inside components) produces a tree. Data flows down, events flow up.
-- Every component mounts, updates, and unmounts. Clean up what you set up.
-- If you can't describe a component's purpose in one sentence, split it.
+- Un componente es una función: datos entran, UI sale. Este modelo mental es universal a través de los frameworks.
+- Los componentes encapsulan markup, estilos y comportamiento detrás de una interfaz pública.
+- La composición (componentes dentro de componentes) produce un árbol. Los datos fluyen hacia abajo, los eventos fluyen hacia arriba.
+- Cada componente se monta, actualiza y desmonta. Limpia lo que configures.
+- Si no puedes describir el propósito de un componente en una oración, divídelo.
 
 ---
 
-## Topic 2: Component API Design
+## Tema 2: Diseño de APIs de Componentes
 
-**Stage 2 — Designing Good Component Interfaces**
+**Etapa 2 — Diseñando Buenas Interfaces de Componentes**
 
-### Why This Matters
+### Por Qué Esto Importa
 
-A component's API is its contract with every developer who uses it — including your future self. A well-designed API makes the component easy to use correctly and hard to use incorrectly. A poorly designed API creates bugs, confusion, and "why does this prop exist?" comments in code reviews.
+La API de un componente es su contrato con cada desarrollador que lo usa — incluyendo tu yo futuro. Una API bien diseñada hace que el componente sea fácil de usar correctamente y difícil de usar incorrectamente. Una API mal diseñada crea bugs, confusión y comentarios de "¿por qué existe este prop?" en code reviews.
 
-### Props as the Public API
+### Props como API Pública
 
-Props define what the outside world can control. Everything else is internal. Think of a component like a TV remote: the buttons are the props. The circuitry inside is private.
+Los props definen lo que el mundo exterior puede controlar. Todo lo demás es interno. Piensa en un componente como un control remoto de TV: los botones son los props. El circuito interno es privado.
 
 ```typescript
 // The public API of an Avatar component
@@ -216,11 +216,11 @@ interface AvatarProps {
 }
 ```
 
-Every prop you add is a maintenance commitment. Keep the API surface small. Each prop should have a clear reason to exist.
+Cada prop que agregas es un compromiso de mantenimiento. Mantén la superficie de la API pequeña. Cada prop debería tener una razón clara para existir.
 
-### Required vs Optional Props
+### Props Requeridos vs Opcionales
 
-Required props are things the component cannot function without. Optional props have sensible defaults.
+Los props requeridos son cosas sin las cuales el componente no puede funcionar. Los props opcionales tienen valores predeterminados sensatos.
 
 ```typescript
 interface ButtonProps {
@@ -236,7 +236,7 @@ interface ButtonProps {
 }
 ```
 
-The test: can a consumer use the component with just the required props and get a reasonable result?
+La prueba: ¿puede un consumidor usar el componente solo con los props requeridos y obtener un resultado razonable?
 
 ```jsx
 // This should work and look fine
@@ -246,13 +246,13 @@ The test: can a consumer use the component with just the required props and get 
 <Button onClick={handleSave} variant="secondary" size="lg">Save</Button>
 ```
 
-If a consumer has to pass six props just to render something basic, your defaults are wrong.
+Si un consumidor tiene que pasar seis props solo para renderizar algo básico, tus valores predeterminados están mal.
 
-### Typing Props with TypeScript
+### Tipado de Props con TypeScript
 
-TypeScript is your first line of defense against misuse. Use it aggressively.
+TypeScript es tu primera línea de defensa contra el mal uso. Úsalo agresivamente.
 
-**Union types for variants** — not booleans:
+**Union types para variantes** — no booleans:
 
 ```typescript
 // Bad: boolean explosion
@@ -271,7 +271,7 @@ interface ButtonProps {
 // Exactly one variant. No ambiguity.
 ```
 
-**Discriminated unions for conditional props:**
+**Discriminated unions para props condicionales:**
 
 ```typescript
 // A modal that's either confirmable or informational
@@ -283,7 +283,7 @@ type ModalProps =
 // If type is "info", only onClose exists. You can't mix them.
 ```
 
-**Generics for data-agnostic components:**
+**Generics para componentes agnósticos de datos:**
 
 ```typescript
 interface ListProps<T> {
@@ -302,9 +302,9 @@ interface ListProps<T> {
 
 ### Event Callbacks
 
-Name callbacks with the `on` prefix: `onClick`, `onChange`, `onSubmit`, `onSelect`. This is a universal convention.
+Nombra los callbacks con el prefijo `on`: `onClick`, `onChange`, `onSubmit`, `onSelect`. Esta es una convención universal.
 
-Pass relevant data in the callback argument. Don't make the consumer dig for it.
+Pasa datos relevantes en el argumento del callback. No hagas que el consumidor tenga que buscarlos.
 
 ```typescript
 // Bad: consumer has to extract the value themselves
@@ -324,9 +324,9 @@ interface TableProps<T> {
 }
 ```
 
-### Children and Slots
+### Children y Slots
 
-Use children / slots when consumers need to control the content, not just the data.
+Usa children / slots cuando los consumidores necesitan controlar el contenido, no solo los datos.
 
 ```jsx
 // Props approach: limited, rigid
@@ -345,9 +345,9 @@ Use children / slots when consumers need to control the content, not just the da
 </Card>
 ```
 
-The rule of thumb: use **props** for data. Use **children / slots** for UI structure. If you find yourself passing JSX/HTML through a prop, that content should probably be children or a named slot.
+La regla general: usa **props** para datos. Usa **children / slots** para estructura de UI. Si te encuentras pasando JSX/HTML a través de un prop, ese contenido probablemente debería ser children o un named slot.
 
-Vue uses named slots explicitly:
+Vue usa named slots explícitamente:
 
 ```vue
 <template>
@@ -361,7 +361,7 @@ Vue uses named slots explicitly:
 
 ### Forwarding Attributes
 
-Components often wrap a native HTML element. Forward unknown attributes to that element so consumers can add `id`, `aria-*`, `data-*`, or `className` without the component needing to know about every possible attribute.
+Los componentes frecuentemente envuelven un elemento HTML nativo. Reenvía los atributos desconocidos a ese elemento para que los consumidores puedan agregar `id`, `aria-*`, `data-*` o `className` sin que el componente necesite conocer cada atributo posible.
 
 ```tsx
 // React: spread rest props
@@ -383,11 +383,11 @@ function Button({ variant = "primary", children, ...rest }: ButtonProps) {
 </Button>
 ```
 
-Vue does this automatically with `v-bind="$attrs"` on the root element (or opt-in with `inheritAttrs: false` for manual control).
+Vue hace esto automáticamente con `v-bind="$attrs"` en el elemento raíz (o de forma opcional con `inheritAttrs: false` para control manual).
 
 ### Ref Forwarding
 
-Sometimes a parent needs direct access to the underlying DOM element — for focus management, measurements, or third-party library integration. Expose this explicitly.
+A veces un padre necesita acceso directo al elemento DOM subyacente — para gestión de foco, mediciones o integración con librerías de terceros. Expón esto explícitamente.
 
 ```tsx
 // React: forwardRef
@@ -408,7 +408,7 @@ const inputRef = useRef<HTMLInputElement>(null);
 inputRef.current?.focus();
 ```
 
-Vue uses `defineExpose` to explicitly choose what the parent can access:
+Vue usa `defineExpose` para elegir explícitamente qué puede acceder el padre:
 
 ```vue
 <script setup>
@@ -420,7 +420,7 @@ defineExpose({ focus: () => inputEl.value?.focus() });
 
 ### Controlled vs Uncontrolled Components
 
-**Controlled:** the parent owns the state. The component reflects what it's told and reports changes.
+**Controlled:** el padre posee el estado. El componente refleja lo que se le indica y reporta cambios.
 
 ```tsx
 // Controlled — parent is the source of truth
@@ -430,7 +430,7 @@ function Parent() {
 }
 ```
 
-**Uncontrolled:** the component manages its own internal state. The parent can read it on demand.
+**Uncontrolled:** el componente gestiona su propio estado interno. El padre puede leerlo bajo demanda.
 
 ```tsx
 // Uncontrolled — component is the source of truth
@@ -445,46 +445,46 @@ function Parent() {
 
 | | Controlled | Uncontrolled |
 |---|---|---|
-| State lives in | Parent | Component |
-| Predictability | High — one source of truth | Lower — state is hidden |
-| Boilerplate | More — parent manages state | Less — component handles it |
-| Best for | Forms with validation, synced UI | Simple inputs, third-party integration |
+| El estado vive en | Padre | Componente |
+| Predecibilidad | Alta — una única fuente de verdad | Menor — el estado está oculto |
+| Boilerplate | Más — el padre gestiona el estado | Menos — el componente lo maneja |
+| Mejor para | Formularios con validación, UI sincronizada | Inputs simples, integración con terceros |
 
-When building reusable components, support both patterns. Accept a `value` prop (controlled) and a `defaultValue` prop (uncontrolled). This is the pattern used by native HTML elements and well-designed component libraries.
+Al construir componentes reutilizables, soporta ambos patrones. Acepta un prop `value` (controlled) y un prop `defaultValue` (uncontrolled). Este es el patrón usado por los elementos HTML nativos y las librerías de componentes bien diseñadas.
 
-### Common Pitfalls
+### Errores Comunes
 
-**Boolean explosion.** Ten boolean props where only one should be active at a time. Use a union type instead of `isPrimary`, `isSecondary`, `isDanger`, `isGhost`. When two booleans are true simultaneously, behavior is undefined.
+**Boolean explosion.** Diez props booleanos donde solo uno debería estar activo a la vez. Usa un union type en lugar de `isPrimary`, `isSecondary`, `isDanger`, `isGhost`. Cuando dos booleanos son verdaderos simultáneamente, el comportamiento es indefinido.
 
-**Required props that should be optional.** If 90% of consumers pass the same value, that value should be the default. Don't make everyone write `<Button type="button">` when `"button"` is almost always what they want.
+**Props requeridos que deberían ser opcionales.** Si el 90% de los consumidores pasan el mismo valor, ese valor debería ser el predeterminado. No hagas que todos escriban `<Button type="button">` cuando `"button"` es casi siempre lo que quieren.
 
-**Inconsistent callback signatures.** One callback passes the raw event, another passes just a value, another passes an object. Pick a convention and stick to it within a component library.
+**Firmas de callbacks inconsistentes.** Un callback pasa el evento crudo, otro pasa solo un valor, otro pasa un objeto. Elige una convención y mantenla dentro de una librería de componentes.
 
-**Leaking internal state.** Exposing an `isInternallyLoading` prop or a `_cache` ref. If it's internal, it shouldn't be in the API. Prefixing with underscores doesn't make it private — removing it from the interface does.
+**Filtrar estado interno.** Exponer un prop `isInternallyLoading` o un ref `_cache`. Si es interno, no debería estar en la API. Prefijar con guiones bajos no lo hace privado — removerlo de la interfaz sí.
 
-**Props that fight each other.** `<Modal isOpen={true} isClosed={true} />`. These two props represent the same state. Pick one. This also applies to `disabled` + `loading` — if loading always implies disabled, don't make the consumer pass both.
+**Props que se contradicen entre sí.** `<Modal isOpen={true} isClosed={true} />`. Estos dos props representan el mismo estado. Elige uno. Esto también aplica a `disabled` + `loading` — si loading siempre implica disabled, no hagas que el consumidor pase ambos.
 
-### Key Takeaways
+### Puntos Clave
 
-- Every prop is a maintenance commitment. Keep the surface area small with sensible defaults.
-- Use TypeScript union types for variants, discriminated unions for conditional prop sets, and generics for data-agnostic components.
-- Name callbacks `onAction`, pass meaningful data (not raw events), and keep signatures consistent.
-- Support both controlled and uncontrolled patterns for input-like components.
-- If a consumer has to read your source code to figure out how to use your component, the API has failed.
+- Cada prop es un compromiso de mantenimiento. Mantén la superficie pequeña con valores predeterminados sensatos.
+- Usa union types de TypeScript para variantes, discriminated unions para conjuntos de props condicionales y generics para componentes agnósticos de datos.
+- Nombra los callbacks `onAction`, pasa datos significativos (no eventos crudos) y mantén las firmas consistentes.
+- Soporta tanto patrones controlled como uncontrolled para componentes tipo input.
+- Si un consumidor tiene que leer tu código fuente para descubrir cómo usar tu componente, la API ha fallado.
 
 ---
 
-## Topic 3: Data Fetching UI Patterns
+## Tema 3: Patrones de UI para Data Fetching
 
-**Stage 3 — Handling the 4 States of Data**
+**Etapa 3 — Manejando los 4 Estados de los Datos**
 
-### Why This Matters
+### Por Qué Esto Importa
 
-Every view that depends on data from a server exists in one of four states: loading, success, error, or empty. If you don't handle all four explicitly, your users will see blank screens, confusing errors, or unresponsive interfaces. This is one of the most common sources of poor UX in web applications.
+Cada vista que depende de datos de un servidor existe en uno de cuatro estados: loading, success, error o empty. Si no manejas los cuatro explícitamente, tus usuarios verán pantallas en blanco, errores confusos o interfaces que no responden. Esta es una de las fuentes más comunes de mala UX en aplicaciones web.
 
-### The 4 States
+### Los 4 Estados
 
-Every data-dependent view must handle these states. No exceptions.
+Cada vista dependiente de datos debe manejar estos estados. Sin excepciones.
 
 ```typescript
 type DataState<T> =
@@ -507,11 +507,11 @@ function UserList() {
 }
 ```
 
-Model these states explicitly. Don't rely on implicit checks like `if (!data && !error)` — that's fragile and hard to reason about.
+Modela estos estados explícitamente. No te apoyes en verificaciones implícitas como `if (!data && !error)` — eso es frágil y difícil de razonar.
 
-### Loading States
+### Estados de Loading
 
-**Skeleton screens** — placeholder shapes that match the content layout. Use when the layout is predictable.
+**Skeleton screens** — formas placeholder que coinciden con el layout del contenido. Úsalos cuando el layout es predecible.
 
 ```css
 .skeleton {
@@ -538,17 +538,17 @@ function UserCardSkeleton() {
 }
 ```
 
-**Spinners** — use for small, unpredictable areas (a button submitting, a dropdown loading options).
+**Spinners** — úsalos para áreas pequeñas e impredecibles (un botón enviando, un dropdown cargando opciones).
 
-**Progress bars** — use when you can measure progress (file uploads, multi-step processes).
+**Barras de progreso** — úsalas cuando puedes medir el progreso (carga de archivos, procesos de varios pasos).
 
-| Loading type    | Use when                            |
+| Tipo de loading | Cuándo usarlo                              |
 |-----------------|--------------------------------------|
-| Skeleton screen | Layout is predictable, content varies |
-| Spinner         | Small area, unpredictable duration   |
-| Progress bar    | Progress is measurable               |
+| Skeleton screen | El layout es predecible, el contenido varía |
+| Spinner         | Área pequeña, duración impredecible   |
+| Barra de progreso | El progreso es medible               |
 
-Delay showing loading indicators for fast operations. If data arrives in under 200ms, showing a skeleton and then immediately replacing it creates a distracting flash.
+Retrasa mostrar indicadores de loading para operaciones rápidas. Si los datos llegan en menos de 200ms, mostrar un skeleton e inmediatamente reemplazarlo crea un destello que distrae.
 
 ```tsx
 function useDelayedLoading(isLoading: boolean, delayMs = 200) {
@@ -562,9 +562,9 @@ function useDelayedLoading(isLoading: boolean, delayMs = 200) {
 }
 ```
 
-### Success State
+### Estado de Success
 
-The straightforward case — but don't overlook partial data. APIs sometimes return incomplete objects. Defend against missing fields.
+El caso directo — pero no ignores los datos parciales. Las APIs a veces retornan objetos incompletos. Defiéndete contra campos faltantes.
 
 ```tsx
 function UserProfile({ user }) {
@@ -578,9 +578,9 @@ function UserProfile({ user }) {
 }
 ```
 
-### Error States
+### Estados de Error
 
-Errors are not optional — they're a feature. A good error state tells the user what happened, whether it's temporary, and what they can do about it.
+Los errores no son opcionales — son una funcionalidad. Un buen estado de error le dice al usuario qué pasó, si es temporal y qué puede hacer al respecto.
 
 ```tsx
 function ErrorMessage({ error, onRetry }) {
@@ -607,19 +607,19 @@ function getErrorMessage(error: Error): string {
 }
 ```
 
-Distinguish error types and give actionable guidance:
+Distingue los tipos de error y proporciona orientación accionable:
 
-| Error type   | User message                                | Recovery action         |
+| Tipo de error | Mensaje al usuario                          | Acción de recuperación    |
 |--------------|---------------------------------------------|-------------------------|
-| Network      | "Unable to connect. Check your internet."   | Retry button            |
-| Auth (401)   | "Session expired."                          | Redirect to login       |
-| Not found    | "This item no longer exists."               | Link back to list       |
-| Server (500) | "We're having trouble. Try again shortly."  | Retry button + support link |
-| Validation   | Specific field-level messages               | Highlight invalid fields |
+| Red          | "Unable to connect. Check your internet."   | Botón de reintentar     |
+| Auth (401)   | "Session expired."                          | Redirigir a login       |
+| No encontrado | "This item no longer exists."              | Enlace de vuelta a la lista |
+| Servidor (500) | "We're having trouble. Try again shortly."| Botón de reintentar + enlace de soporte |
+| Validación   | Mensajes específicos por campo              | Resaltar campos inválidos |
 
-### Empty States
+### Estados Vacíos
 
-An empty state is an opportunity. It tells users why there's nothing here and what they can do next.
+Un estado vacío es una oportunidad. Le dice a los usuarios por qué no hay nada aquí y qué pueden hacer a continuación.
 
 ```tsx
 // Bad: nothing
@@ -646,7 +646,7 @@ function EmptyState({ title, description, action }) {
 />
 ```
 
-Differentiate between "no data exists" and "no results match your filters":
+Diferencia entre "no existen datos" y "ningún resultado coincide con tus filtros":
 
 ```tsx
 if (items.length === 0 && hasActiveFilters) {
@@ -665,9 +665,9 @@ if (items.length === 0) {
 }
 ```
 
-### Combining States: The Full Flow
+### Combinando Estados: El Flujo Completo
 
-A complete data-fetching flow handles transitions between states:
+Un flujo completo de data fetching maneja las transiciones entre estados:
 
 ```
 Initial render → Loading → Success
@@ -697,9 +697,9 @@ function DataView() {
 }
 ```
 
-### Skeleton Screen Best Practices
+### Mejores Prácticas para Skeleton Screens
 
-Match the skeleton to the content layout to prevent layout shift:
+Haz que el skeleton coincida con el layout del contenido para prevenir layout shift:
 
 ```tsx
 // The skeleton and the real content should occupy the same space
@@ -716,11 +716,11 @@ function ArticleSkeleton() {
 }
 ```
 
-Use the same container, same spacing, same dimensions. When the real content loads, only the content changes — not the layout.
+Usa el mismo contenedor, el mismo espaciado, las mismas dimensiones. Cuando el contenido real carga, solo cambia el contenido — no el layout.
 
-### Framework Patterns
+### Patrones de Framework
 
-**React Suspense** — declarative loading boundaries:
+**React Suspense** — límites de loading declarativos:
 
 ```tsx
 <Suspense fallback={<UserListSkeleton />}>
@@ -728,7 +728,7 @@ Use the same container, same spacing, same dimensions. When the real content loa
 </Suspense>
 ```
 
-**Vue `<Suspense>`** — similar concept:
+**Vue `<Suspense>`** — concepto similar:
 
 ```vue
 <Suspense>
@@ -737,7 +737,7 @@ Use the same container, same spacing, same dimensions. When the real content loa
 </Suspense>
 ```
 
-**Angular** — `@defer` with loading and error templates:
+**Angular** — `@defer` con templates de loading y error:
 
 ```html
 @defer {
@@ -749,67 +749,67 @@ Use the same container, same spacing, same dimensions. When the real content loa
 }
 ```
 
-### Common Pitfalls
+### Errores Comunes
 
-**No loading state.** The page is blank for two seconds, then content appears. The user thinks the page is broken.
+**Sin estado de loading.** La página está en blanco por dos segundos, luego aparece el contenido. El usuario piensa que la página está rota.
 
-**Flash of loading.** Showing a spinner for 50ms on a fast connection creates a jarring flicker. Add a minimum delay before showing loading indicators (200–300ms).
+**Destello de loading.** Mostrar un spinner por 50ms en una conexión rápida crea un parpadeo molesto. Agrega un retraso mínimo antes de mostrar indicadores de loading (200-300ms).
 
-**Empty catch blocks.** `catch (e) {}` — the error is swallowed, the user sees nothing, the developer has no debugging information. Always handle errors visibly.
+**Bloques catch vacíos.** `catch (e) {}` — el error se traga, el usuario no ve nada, el desarrollador no tiene información de depuración. Siempre maneja los errores de forma visible.
 
-**Full-page loading for partial data.** Only the comments section is loading, but the entire page shows a spinner. Scope loading states to the smallest relevant area.
+**Loading de página completa para datos parciales.** Solo la sección de comentarios está cargando, pero toda la página muestra un spinner. Delimita los estados de loading al área relevante más pequeña.
 
-**Error states with no recovery.** "Something went wrong." And then what? Always give the user a next step: retry, go back, contact support, refresh the page.
+**Estados de error sin recuperación.** "Something went wrong." ¿Y luego qué? Siempre dale al usuario un siguiente paso: reintentar, volver atrás, contactar soporte, refrescar la página.
 
-**Layout shift on load.** The skeleton is 200px tall, the real content is 400px. Everything below jumps. Match skeleton dimensions to real content dimensions.
+**Layout shift al cargar.** El skeleton tiene 200px de alto, el contenido real tiene 400px. Todo lo de abajo salta. Haz que las dimensiones del skeleton coincidan con las del contenido real.
 
-### Key Takeaways
+### Puntos Clave
 
-- Every data view has exactly four states: loading, success, error, empty. Handle all four explicitly.
-- Use skeleton screens when the layout is predictable. Delay showing loading indicators for operations under 200ms.
-- Error messages must tell the user what to do, not just what went wrong.
-- Empty states are a design opportunity — guide users toward their next action.
-- Scope loading and error states to the smallest relevant section of the page, not the entire view.
+- Cada vista de datos tiene exactamente cuatro estados: loading, success, error, empty. Maneja los cuatro explícitamente.
+- Usa skeleton screens cuando el layout es predecible. Retrasa mostrar indicadores de loading para operaciones menores a 200ms.
+- Los mensajes de error deben decirle al usuario qué hacer, no solo qué salió mal.
+- Los estados vacíos son una oportunidad de diseño — guía a los usuarios hacia su siguiente acción.
+- Delimita los estados de loading y error a la sección relevante más pequeña de la página, no a la vista completa.
 
 ---
 
-## Topic 4: URL State Management
+## Tema 4: URL State Management
 
-**Stage 3 — The URL as a State Manager**
+**Etapa 3 — La URL como Gestor de Estado**
 
-### Why This Matters
+### Por Qué Esto Importa
 
-The URL is the most underused state manager in frontend development. It's built into the browser. It's shareable. It survives page refreshes. It supports back/forward navigation. It enables server-side rendering. And yet, most developers store filter state, search queries, and pagination in component state — which evaporates the moment someone shares a link or hits refresh.
+La URL es el gestor de estado más subutilizado en el desarrollo frontend. Está integrada en el navegador. Es compartible. Sobrevive a refrescar la página. Soporta navegación hacia atrás/adelante. Habilita server-side rendering. Y aun así, la mayoría de los desarrolladores almacenan el estado de filtros, búsquedas y paginación en el estado del componente — que se evapora en el momento en que alguien comparte un enlace o refresca la página.
 
-### What Belongs in the URL
+### Qué Pertenece en la URL
 
-URL state is state that should survive a page share. Ask: "If someone copies this URL and sends it to a colleague, should they see the same view?"
+URL state es el estado que debería sobrevivir al compartir una página. Pregúntate: "Si alguien copia esta URL y se la envía a un colega, ¿deberían ver la misma vista?"
 
-**Yes — put it in the URL:**
+**Sí — ponlo en la URL:**
 
-| State type      | Example URL                                    |
+| Tipo de estado  | URL de ejemplo                                 |
 |-----------------|------------------------------------------------|
-| Search query    | `?q=typescript`                                |
-| Filters         | `?status=active&role=admin`                    |
-| Pagination      | `?page=3&pageSize=25`                          |
-| Sort order      | `?sort=name&dir=asc`                           |
-| Active tab      | `?tab=settings`                                |
-| Selected item   | `/users/42` or `?selected=42`                  |
-| View mode       | `?view=grid`                                   |
+| Consulta de búsqueda | `?q=typescript`                           |
+| Filtros         | `?status=active&role=admin`                    |
+| Paginación      | `?page=3&pageSize=25`                          |
+| Orden           | `?sort=name&dir=asc`                           |
+| Tab activo      | `?tab=settings`                                |
+| Elemento seleccionado | `/users/42` o `?selected=42`             |
+| Modo de vista   | `?view=grid`                                   |
 
-**No — keep it out of the URL:**
+**No — mantenlo fuera de la URL:**
 
-| State type            | Why not the URL                                    |
+| Tipo de estado        | Por qué no la URL                                  |
 |-----------------------|----------------------------------------------------|
-| Form input mid-typing | Changes too frequently, not shareable state         |
-| Tooltip/dropdown open | Ephemeral UI state, irrelevant to another user      |
-| Auth tokens           | Security risk — URLs are logged and shared          |
-| Modal open/closed     | Usually ephemeral (though deep-linkable modals are an exception) |
-| Scroll position       | Browser handles this automatically                  |
+| Input de formulario a medio escribir | Cambia con demasiada frecuencia, no es estado compartible |
+| Tooltip/dropdown abierto | Estado de UI efímero, irrelevante para otro usuario |
+| Tokens de auth        | Riesgo de seguridad — las URLs se registran y comparten |
+| Modal abierto/cerrado | Generalmente efímero (aunque los modales con deep-link son una excepción) |
+| Posición de scroll    | El navegador maneja esto automáticamente            |
 
-### The `URLSearchParams` API
+### La API `URLSearchParams`
 
-You don't need a library. The browser has this built in.
+No necesitas una librería. El navegador tiene esto integrado.
 
 ```javascript
 // Read parameters from the current URL
@@ -839,7 +839,7 @@ function setUrlParams(params: Record<string, string>) {
 }
 ```
 
-### Framework Integration
+### Integración con Frameworks
 
 **React Router — `useSearchParams`:**
 
@@ -905,9 +905,9 @@ export class ProductListComponent {
 }
 ```
 
-### The URL as Single Source of Truth
+### La URL como Fuente Única de Verdad
 
-This is the critical concept. The URL should not be a mirror of component state — it should be the source.
+Este es el concepto crítico. La URL no debería ser un espejo del estado del componente — debería ser la fuente.
 
 ```tsx
 // Wrong: state is the source, URL is a mirror
@@ -930,11 +930,11 @@ function SearchPage() {
 }
 ```
 
-When the URL is the source, there's no syncing problem. The URL changes, the component reads the new value, the UI updates. One direction.
+Cuando la URL es la fuente, no hay problema de sincronización. La URL cambia, el componente lee el nuevo valor, la UI se actualiza. Una dirección.
 
-### Encoding Complex State
+### Codificando Estado Complejo
 
-**Arrays:** Use repeated keys or comma separation.
+**Arrays:** Usa claves repetidas o separación por comas.
 
 ```javascript
 // Repeated keys (standard-compliant)
@@ -944,7 +944,7 @@ When the URL is the source, there's no syncing problem. The URL changes, the com
 // ?tags=react,vue → params.get("tags").split(",") → ["react", "vue"]
 ```
 
-**Default values:** Omit defaults from the URL to keep it clean.
+**Valores predeterminados:** Omite los valores predeterminados de la URL para mantenerla limpia.
 
 ```typescript
 function buildSearchUrl(filters: Filters): string {
@@ -957,11 +957,11 @@ function buildSearchUrl(filters: Filters): string {
 }
 ```
 
-### Common Pitfalls
+### Errores Comunes
 
-**Storing everything in the URL.** Form drafts, modal state, accordion open/closed — this bloats the URL and confuses users who share it.
+**Almacenar todo en la URL.** Borradores de formularios, estado de modales, acordeones abiertos/cerrados — esto infla la URL y confunde a los usuarios que la comparten.
 
-**Ignoring URL state on initial render.** The page loads at `/products?category=electronics&page=3` but the component initializes with `category = "all"` and `page = 1`, ignoring the URL. Always read from the URL on mount.
+**Ignorar el URL state al renderizar por primera vez.** La página carga en `/products?category=electronics&page=3` pero el componente se inicializa con `category = "all"` y `page = 1`, ignorando la URL. Siempre lee de la URL al montar.
 
 ```tsx
 // Wrong: ignores URL on mount
@@ -972,7 +972,7 @@ const [searchParams] = useSearchParams();
 const page = Number(searchParams.get("page")) || 1;
 ```
 
-**Not encoding user input.** If a user searches for `price > 100 & sale`, that `&` will break your URL parameters. `URLSearchParams` handles encoding automatically — use it. Never concatenate URL strings manually.
+**No codificar la entrada del usuario.** Si un usuario busca `price > 100 & sale`, ese `&` romperá tus parámetros de URL. `URLSearchParams` maneja la codificación automáticamente — úsalo. Nunca concatenes strings de URL manualmente.
 
 ```javascript
 // Dangerous: manual string concatenation
@@ -983,46 +983,46 @@ const params = new URLSearchParams({ q: userInput });
 const url = `/search?${params}`;
 ```
 
-**Not resetting dependent state.** User is on page 5, changes the category filter, and the URL still says `page=5` — but the new category only has 2 pages. Reset pagination when filters change.
+**No reiniciar el estado dependiente.** El usuario está en la página 5, cambia el filtro de categoría, y la URL aún dice `page=5` — pero la nueva categoría solo tiene 2 páginas. Reinicia la paginación cuando los filtros cambien.
 
-**Parameters that don't roundtrip.** If `parse(serialize(state)) !== state`, you'll have subtle bugs. Test that your URL encoding/decoding is lossless.
+**Parámetros que no hacen roundtrip.** Si `parse(serialize(state)) !== state`, tendrás bugs sutiles. Prueba que tu codificación/decodificación de URL sea sin pérdida.
 
-### Key Takeaways
+### Puntos Clave
 
-- If state should survive a link share, it belongs in the URL. If not, it doesn't.
-- The URL is the source of truth, not a mirror of component state. Read from it, don't sync to it.
-- Use `URLSearchParams` for encoding — never concatenate URL strings with user input.
-- Read URL state on initial render. Ignoring it is one of the most common bugs.
-- Reset dependent state (like pagination) when independent state (like filters) changes.
+- Si el estado debería sobrevivir al compartir un enlace, pertenece en la URL. Si no, no.
+- La URL es la fuente de verdad, no un espejo del estado del componente. Lee de ella, no sincronices hacia ella.
+- Usa `URLSearchParams` para la codificación — nunca concatenes strings de URL con entrada de usuario.
+- Lee el URL state al renderizar por primera vez. Ignorarlo es uno de los bugs más comunes.
+- Reinicia el estado dependiente (como paginación) cuando el estado independiente (como filtros) cambie.
 
 ---
 
-## Topic 5: Form State Management
+## Tema 5: Form State Management
 
-**Stage 3 — Forms as a Distinct Concern**
+**Etapa 3 — Formularios como una Preocupación Distinta**
 
-### Why This Matters
+### Por Qué Esto Importa
 
-Forms are the most complex interactive pattern in frontend development. A search input has one state. A multi-step registration form has dozens: field values, validation errors, touched status, dirty status, submission state, server errors. Getting forms wrong means users lose data, see confusing errors, or submit invalid information. Forms deserve dedicated patterns because they combine multiple hard problems at once.
+Los formularios son el patrón interactivo más complejo en el desarrollo frontend. Un input de búsqueda tiene un estado. Un formulario de registro de múltiples pasos tiene docenas: valores de campo, errores de validación, estado touched, estado dirty, estado de envío, errores del servidor. Hacer los formularios mal significa que los usuarios pierden datos, ven errores confusos o envían información inválida. Los formularios merecen patrones dedicados porque combinan múltiples problemas difíciles a la vez.
 
-### Why Forms Are Special
+### Por Qué los Formularios Son Especiales
 
-A form is not just a collection of inputs. It has concerns that normal UI state does not:
+Un formulario no es solo una colección de inputs. Tiene preocupaciones que el estado normal de UI no tiene:
 
-| Concern           | What it means                                      |
+| Preocupación      | Qué significa                                      |
 |-------------------|----------------------------------------------------|
-| **Values**        | Current data in each field                         |
-| **Errors**        | Validation messages per field and/or for the whole form |
-| **Touched**       | Has the user interacted with this field?           |
-| **Dirty**         | Has the value changed from the initial value?      |
-| **Submitting**    | Is the form currently being submitted?             |
-| **Submit count**  | How many times has the user attempted to submit?   |
+| **Values**        | Datos actuales en cada campo                       |
+| **Errors**        | Mensajes de validación por campo y/o para todo el formulario |
+| **Touched**       | ¿Ha interactuado el usuario con este campo?        |
+| **Dirty**         | ¿Ha cambiado el valor respecto al valor inicial?   |
+| **Submitting**    | ¿Se está enviando el formulario actualmente?       |
+| **Submit count**  | ¿Cuántas veces ha intentado enviar el usuario?     |
 
-A typical `useState` call manages one value. Forms need coordinated state across all of these dimensions.
+Una llamada típica a `useState` gestiona un valor. Los formularios necesitan estado coordinado en todas estas dimensiones.
 
 ### Controlled vs Uncontrolled Forms
 
-**Controlled forms** — React or framework state holds every field value. Every keystroke triggers a state update.
+**Controlled forms** — el estado de React o del framework mantiene el valor de cada campo. Cada pulsación de tecla dispara una actualización de estado.
 
 ```tsx
 function LoginForm() {
@@ -1039,9 +1039,9 @@ function LoginForm() {
 }
 ```
 
-Controlled: predictable, inspectable, easy to validate on every change. But verbose — every field needs its own state and handler.
+Controlled: predecible, inspeccionable, fácil de validar en cada cambio. Pero verboso — cada campo necesita su propio estado y handler.
 
-**Uncontrolled forms** — the DOM holds the values. You read them on submit.
+**Uncontrolled forms** — el DOM mantiene los valores. Los lees al enviar.
 
 ```tsx
 function LoginForm() {
@@ -1063,21 +1063,21 @@ function LoginForm() {
 }
 ```
 
-Uncontrolled: simple, less code, leverages the browser's built-in form handling. But harder to validate before submit, harder to conditionally enable/disable fields, harder to show real-time feedback.
+Uncontrolled: simple, menos código, aprovecha el manejo de formularios integrado del navegador. Pero más difícil de validar antes de enviar, más difícil de habilitar/deshabilitar campos condicionalmente, más difícil de mostrar feedback en tiempo real.
 
 | | Controlled | Uncontrolled |
 |---|---|---|
-| Code volume | More | Less |
-| Real-time validation | Easy | Hard |
-| Performance (many fields) | Can be slow (re-renders) | Better (no re-renders) |
-| Read values at any time | Yes | Only on submit |
-| Best for | Complex forms with validation | Simple forms, performance-critical |
+| Volumen de código | Más | Menos |
+| Validación en tiempo real | Fácil | Difícil |
+| Rendimiento (muchos campos) | Puede ser lento (re-renders) | Mejor (sin re-renders) |
+| Leer valores en cualquier momento | Sí | Solo al enviar |
+| Mejor para | Formularios complejos con validación | Formularios simples, rendimiento crítico |
 
-### Form Libraries
+### Librerías de Formularios
 
-For anything beyond a login form, use a form library. They solve the coordination problem.
+Para cualquier cosa más allá de un formulario de login, usa una librería de formularios. Resuelven el problema de coordinación.
 
-**React Hook Form** — the current standard for React. Uncontrolled by default for performance, with opt-in controlled fields.
+**React Hook Form** — el estándar actual para React. Uncontrolled por defecto para rendimiento, con campos controlled opcionales.
 
 ```tsx
 import { useForm } from "react-hook-form";
@@ -1101,7 +1101,7 @@ function SignupForm() {
 }
 ```
 
-**VeeValidate** — form handling for Vue:
+**VeeValidate** — manejo de formularios para Vue:
 
 ```vue
 <script setup>
@@ -1118,7 +1118,7 @@ const onSubmit = handleSubmit((values) => api.createUser(values));
 </script>
 ```
 
-**Angular Reactive Forms** — built into the framework:
+**Angular Reactive Forms** — integrados en el framework:
 
 ```typescript
 @Component({ /* ... */ })
@@ -1134,17 +1134,17 @@ export class SignupComponent {
 }
 ```
 
-### Validation Strategies
+### Estrategias de Validación
 
-When you validate matters as much as what you validate.
+Cuándo validas importa tanto como qué validas.
 
-**On change** — validate on every keystroke. Immediate feedback but can be annoying ("Invalid email" while the user is still typing).
+**On change** — validar en cada pulsación de tecla. Feedback inmediato pero puede ser molesto ("Invalid email" mientras el usuario aún está escribiendo).
 
-**On blur** — validate when the user leaves the field. Gives the user time to finish typing before showing errors. This is usually the best default.
+**On blur** — validar cuando el usuario abandona el campo. Le da tiempo al usuario para terminar de escribir antes de mostrar errores. Este es generalmente el mejor valor predeterminado.
 
-**On submit** — validate when the form is submitted. Least intrusive but gives the latest feedback. Users might fill out an entire form before learning the first field was wrong.
+**On submit** — validar cuando se envía el formulario. Menos intrusivo pero da el feedback más tardío. Los usuarios podrían llenar un formulario entero antes de enterarse de que el primer campo estaba mal.
 
-The best UX is often a combination:
+La mejor UX suele ser una combinación:
 
 ```
 First validation: on blur (or on submit)
@@ -1159,9 +1159,9 @@ const { register, handleSubmit, formState: { errors } } = useForm({
 });
 ```
 
-### Schema-Based Validation
+### Validación Basada en Schemas
 
-Define your validation rules as a schema. Reuse it on client and server.
+Define tus reglas de validación como un schema. Reutilízalo en cliente y servidor.
 
 ```typescript
 import { z } from "zod";
@@ -1187,13 +1187,13 @@ function handleSignup(body: unknown) {
 }
 ```
 
-One schema definition. Two validation contexts. Zero drift between client and server rules.
+Una definición de schema. Dos contextos de validación. Cero divergencia entre las reglas del cliente y del servidor.
 
-**Zod, Yup, Valibot** — all serve this purpose. Zod has the strongest TypeScript integration and is the most common choice in modern projects. Valibot is the smallest (tree-shakable). Yup is the oldest and most battle-tested.
+**Zod, Yup, Valibot** — todos cumplen este propósito. Zod tiene la integración más fuerte con TypeScript y es la opción más común en proyectos modernos. Valibot es la más pequeña (tree-shakable). Yup es la más antigua y la más probada en batalla.
 
-### Multi-Step Forms (Wizards)
+### Formularios de Múltiples Pasos (Wizards)
 
-Multi-step forms add complexity: preserving state across steps, validating per step, and letting users navigate back without losing data.
+Los formularios de múltiples pasos agregan complejidad: preservar estado entre pasos, validar por paso y permitir a los usuarios navegar hacia atrás sin perder datos.
 
 ```tsx
 function MultiStepForm() {
@@ -1215,16 +1215,16 @@ function MultiStepForm() {
 }
 ```
 
-Key rules for multi-step forms:
+Reglas clave para formularios de múltiples pasos:
 
-1. **Validate each step independently.** Don't let the user advance to step 2 with invalid step 1 data.
-2. **Preserve state when navigating back.** Going back to step 1 should show the values they already entered.
-3. **Show progress.** A step indicator ("Step 2 of 3") reduces anxiety and abandonment.
-4. **Submit only at the end.** Don't hit the server on every step transition unless you need to (e.g., checking if an email is already registered).
+1. **Valida cada paso independientemente.** No dejes que el usuario avance al paso 2 con datos inválidos del paso 1.
+2. **Preserva el estado al navegar hacia atrás.** Volver al paso 1 debería mostrar los valores que ya ingresaron.
+3. **Muestra el progreso.** Un indicador de paso ("Step 2 of 3") reduce la ansiedad y el abandono.
+4. **Envía solo al final.** No hagas llamadas al servidor en cada transición de paso a menos que lo necesites (p.ej., verificar si un email ya está registrado).
 
-### Form Submission
+### Envío del Formulario
 
-Handle submission as a state machine: idle, submitting, success, error.
+Maneja el envío como una máquina de estados: idle, submitting, success, error.
 
 ```tsx
 function ContactForm() {
@@ -1263,15 +1263,15 @@ function ContactForm() {
 }
 ```
 
-**Preventing double submission:** Disable the submit button while `status === "submitting"`. Never rely on the user not clicking twice.
+**Prevenir doble envío:** Deshabilita el botón de enviar mientras `status === "submitting"`. Nunca confíes en que el usuario no hará clic dos veces.
 
-**Server validation errors:** The server might reject data that passed client validation (e.g., "email already registered"). Map server errors back to specific fields.
+**Errores de validación del servidor:** El servidor podría rechazar datos que pasaron la validación del cliente (p.ej., "email already registered"). Mapea los errores del servidor de vuelta a campos específicos.
 
-### Field-Level vs Form-Level Errors
+### Errores a Nivel de Campo vs a Nivel de Formulario
 
-**Field-level errors** appear next to the field they relate to: "Email is required", "Password must be at least 8 characters". Use for validation issues tied to a specific input.
+**Errores a nivel de campo** aparecen junto al campo al que se refieren: "Email is required", "Password must be at least 8 characters". Úsalos para problemas de validación vinculados a un input específico.
 
-**Form-level errors** appear at the top or bottom of the form: "Unable to create account. Please try again." Use for submission failures, server errors, and cross-field validation issues ("End date must be after start date").
+**Errores a nivel de formulario** aparecen en la parte superior o inferior del formulario: "Unable to create account. Please try again." Úsalos para fallos de envío, errores del servidor y problemas de validación entre campos ("End date must be after start date").
 
 ```tsx
 <form>
@@ -1287,15 +1287,15 @@ function ContactForm() {
 </form>
 ```
 
-### Common Pitfalls
+### Errores Comunes
 
-**Validating on every keystroke from the start.** The user types "j" into the email field and immediately sees "Invalid email address." They know. They haven't finished typing. Validate on blur first, then re-validate on change after the first error appears.
+**Validar en cada pulsación de tecla desde el principio.** El usuario escribe "j" en el campo de email e inmediatamente ve "Invalid email address." Lo sabe. No ha terminado de escribir. Valida on blur primero, luego revalida on change después de que el primer error aparezca.
 
-**Validating only on submit.** The user fills out 15 fields, hits submit, and gets a wall of errors. Validate incrementally so errors are caught early.
+**Validar solo on submit.** El usuario llena 15 campos, presiona enviar y recibe un muro de errores. Valida incrementalmente para que los errores se detecten temprano.
 
-**Client-side-only validation.** Client validation is a UX feature, not a security feature. An attacker can bypass your client entirely. Always validate on the server too — and use the same schema (Zod) for both.
+**Validación solo del lado del cliente.** La validación del cliente es una funcionalidad de UX, no una funcionalidad de seguridad. Un atacante puede saltarse tu cliente por completo. Siempre valida también en el servidor — y usa el mismo schema (Zod) para ambos.
 
-**Losing form data on navigation.** The user fills out a long form, accidentally clicks a link, and loses everything. Warn them before navigating away from a dirty form.
+**Perder datos del formulario al navegar.** El usuario llena un formulario largo, accidentalmente hace clic en un enlace y pierde todo. Advierte antes de navegar fuera de un formulario dirty.
 
 ```tsx
 // React Router: warn on navigation away from dirty form
@@ -1308,14 +1308,14 @@ useEffect(() => {
 }, [isDirty]);
 ```
 
-**Form state in a global store.** Putting form values in Redux/Zustand/Pinia is almost never necessary. Form state is local — it belongs in the component (or a form library). Global stores are for state that multiple unrelated components need to read.
+**Form state en un global store.** Poner valores de formulario en Redux/Zustand/Pinia casi nunca es necesario. El form state es local — pertenece en el componente (o en una librería de formularios). Los global stores son para estado que múltiples componentes no relacionados necesitan leer.
 
-**A single giant form component.** A 500-line component that renders all fields, handles all validation, manages all submission logic. Break it into field groups, extract validation to a schema, and separate submission logic into a custom hook or service.
+**Un único componente gigante de formulario.** Un componente de 500 líneas que renderiza todos los campos, maneja toda la validación y gestiona toda la lógica de envío. Divídelo en grupos de campos, extrae la validación a un schema y separa la lógica de envío en un custom hook o servicio.
 
-### Key Takeaways
+### Puntos Clave
 
-- Forms have unique concerns (values, errors, touched, dirty, submission status) that regular state management patterns don't address well. Use a form library for anything non-trivial.
-- Validate on blur first, then re-validate on change after errors appear. This gives the best UX balance.
-- Use schema-based validation (Zod) to share rules between client and server.
-- Prevent double submission by disabling the button during submit. Handle server validation errors by mapping them back to fields.
-- Form state is local. It almost never belongs in a global store.
+- Los formularios tienen preocupaciones únicas (values, errors, touched, dirty, estado de envío) que los patrones regulares de gestión de estado no abordan bien. Usa una librería de formularios para cualquier cosa no trivial.
+- Valida on blur primero, luego revalida on change después de que aparezcan errores. Esto da el mejor balance de UX.
+- Usa validación basada en schemas (Zod) para compartir reglas entre cliente y servidor.
+- Prevén el doble envío deshabilitando el botón durante el submit. Maneja los errores de validación del servidor mapeándolos de vuelta a los campos.
+- El form state es local. Casi nunca pertenece en un global store.

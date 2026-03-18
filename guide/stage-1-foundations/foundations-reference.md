@@ -1,18 +1,18 @@
-# Stage 1: Foundations Reference
+# Etapa 1: Referencia de Fundamentos
 
-> The platform before the framework. Every framework compiles down to HTML, CSS, and JavaScript. If you don't understand what happens at that layer, you will fight the framework instead of using it.
+> La plataforma antes del framework. Todo framework se compila a HTML, CSS y JavaScript. Si no entiendes lo que sucede en esa capa, lucharas contra el framework en lugar de utilizarlo.
 
 ---
 
-## 1. Semantic HTML & the DOM
+## 1. HTML Semantico y el DOM
 
-### Why This Matters
+### Por que esto importa
 
-HTML is not a formatting language. It is a **structural description** of your content. When you pick the right element, you get behavior for free: screen readers announce sections correctly, search engines understand your page hierarchy, and browsers apply sensible default styles. When you pick the wrong element, you spend hours reimplementing what the browser already provides.
+HTML no es un lenguaje de formato. Es una **descripcion estructural** de tu contenido. Cuando eliges el elemento correcto, obtienes comportamiento gratis: los lectores de pantalla anuncian las secciones correctamente, los motores de busqueda entienden la jerarquia de tu pagina, y los navegadores aplican estilos predeterminados sensatos. Cuando eliges el elemento equivocado, pasas horas reimplementando lo que el navegador ya proporciona.
 
-### Document Structure
+### Estructura del documento
 
-Every HTML document follows the same skeleton:
+Todo documento HTML sigue el mismo esqueleto:
 
 ```html
 <!DOCTYPE html>
@@ -30,18 +30,18 @@ Every HTML document follows the same skeleton:
 </html>
 ```
 
-What each piece does:
+Que hace cada parte:
 
-- **`<!DOCTYPE html>`** tells the browser to use standards mode, not quirks mode. Always include it.
-- **`<html lang="en">`** declares the document language. Screen readers use this to pick the right pronunciation engine.
-- **`<meta charset="UTF-8">`** must be the first element in `<head>`. Without it, characters outside ASCII may render as garbage.
-- **`<meta name="viewport">`** makes the page responsive on mobile. Without it, phones render the page at a desktop width and shrink it down.
-- **`<title>`** appears in the browser tab, bookmarks, and search results. Every page must have a unique, descriptive title.
-- **`<meta name="description">`** is the snippet shown in search results. Keep it under 160 characters.
+- **`<!DOCTYPE html>`** le dice al navegador que use el modo estandar, no el modo quirks. Siempre incluyelo.
+- **`<html lang="en">`** declara el idioma del documento. Los lectores de pantalla lo usan para elegir el motor de pronunciacion correcto.
+- **`<meta charset="UTF-8">`** debe ser el primer elemento en `<head>`. Sin el, los caracteres fuera de ASCII pueden mostrarse como basura.
+- **`<meta name="viewport">`** hace que la pagina sea responsiva en moviles. Sin el, los telefonos renderizan la pagina con un ancho de escritorio y la encogen.
+- **`<title>`** aparece en la pestana del navegador, los marcadores y los resultados de busqueda. Cada pagina debe tener un titulo unico y descriptivo.
+- **`<meta name="description">`** es el fragmento que se muestra en los resultados de busqueda. Mantenlo bajo 160 caracteres.
 
-### Semantic Elements
+### Elementos semanticos
 
-Semantic elements describe **what the content is**, not how it looks. Here are the ones you will use constantly:
+Los elementos semanticos describen **que es el contenido**, no como se ve. Estos son los que usaras constantemente:
 
 ```html
 <body>
@@ -80,36 +80,36 @@ Semantic elements describe **what the content is**, not how it looks. Here are t
 </body>
 ```
 
-Element reference:
+Referencia de elementos:
 
-| Element | Purpose |
+| Elemento | Proposito |
 |---------|---------|
-| `<header>` | Introductory content for its nearest sectioning ancestor (page or article) |
-| `<nav>` | A group of navigation links. Add `aria-label` when you have multiple `<nav>` elements |
-| `<main>` | The dominant content of the page. Only one per page |
-| `<section>` | A thematic grouping of content, typically with a heading |
-| `<article>` | Self-contained content that could stand alone (blog post, comment, product card) |
-| `<aside>` | Content tangentially related to the surrounding content (sidebar, callout) |
-| `<footer>` | Footer for its nearest sectioning ancestor |
-| `<figure>` / `<figcaption>` | An image, diagram, or code snippet with an optional caption |
-| `<time>` | A date or time. Use the `datetime` attribute for machine-readable format |
-| `<mark>` | Highlighted text (search result match, for example) |
-| `<details>` / `<summary>` | A native disclosure widget — click to expand/collapse. No JavaScript needed |
+| `<header>` | Contenido introductorio para su ancestro de seccion mas cercano (pagina o articulo) |
+| `<nav>` | Un grupo de enlaces de navegacion. Agrega `aria-label` cuando tengas multiples elementos `<nav>` |
+| `<main>` | El contenido dominante de la pagina. Solo uno por pagina |
+| `<section>` | Una agrupacion tematica de contenido, tipicamente con un encabezado |
+| `<article>` | Contenido autocontenido que podria funcionar por si solo (publicacion de blog, comentario, tarjeta de producto) |
+| `<aside>` | Contenido tangencialmente relacionado con el contenido circundante (barra lateral, nota destacada) |
+| `<footer>` | Pie de pagina para su ancestro de seccion mas cercano |
+| `<figure>` / `<figcaption>` | Una imagen, diagrama o fragmento de codigo con una leyenda opcional |
+| `<time>` | Una fecha u hora. Usa el atributo `datetime` para el formato legible por maquinas |
+| `<mark>` | Texto resaltado (coincidencia en resultados de busqueda, por ejemplo) |
+| `<details>` / `<summary>` | Un widget de revelacion nativo — clic para expandir/colapsar. No se necesita JavaScript |
 
-### The `<div>` vs Semantic Element Decision
+### La decision entre `<div>` y elementos semanticos
 
-Use this decision process:
+Usa este proceso de decision:
 
-1. **Does this content have a specific meaning?** (navigation, article, sidebar, header, footer) → Use the matching semantic element.
-2. **Is this a thematic grouping with a heading?** → Use `<section>`.
-3. **Is this self-contained content?** → Use `<article>`.
-4. **Do I need a generic container purely for styling or layout?** → Use `<div>`.
+1. **¿Este contenido tiene un significado especifico?** (navegacion, articulo, barra lateral, encabezado, pie de pagina) → Usa el elemento semantico correspondiente.
+2. **¿Es una agrupacion tematica con un encabezado?** → Usa `<section>`.
+3. **¿Es contenido autocontenido?** → Usa `<article>`.
+4. **¿Necesito un contenedor generico puramente para estilos o layout?** → Usa `<div>`.
 
-The rule is simple: **`<div>` is the last resort, not the default.** A `<div>` tells the browser and assistive technology nothing about the content inside it. When you use `<nav>`, screen readers announce "navigation." When you use `<div>`, they announce nothing.
+La regla es simple: **`<div>` es el ultimo recurso, no el valor por defecto.** Un `<div>` no le dice nada al navegador ni a la tecnologia asistiva sobre el contenido dentro de el. Cuando usas `<nav>`, los lectores de pantalla anuncian "navegacion". Cuando usas `<div>`, no anuncian nada.
 
-### Forms
+### Formularios (Forms)
 
-Forms are where HTML gives you the most free behavior — if you use it correctly.
+Los formularios son donde HTML te da mas comportamiento gratuito — si lo usas correctamente.
 
 ```html
 <form action="/signup" method="post">
@@ -156,32 +156,32 @@ Forms are where HTML gives you the most free behavior — if you use it correctl
 </form>
 ```
 
-Key concepts:
+Conceptos clave:
 
-- **`<label>`** must be associated with its input via `for`/`id` match. Clicking the label focuses the input. Screen readers read the label when the input is focused.
-- **`<fieldset>` / `<legend>`** groups related inputs and gives the group a visible, accessible name.
-- **Native validation attributes** — `required`, `pattern`, `min`, `max`, `minlength`, `maxlength`, `type="email"` — give you client-side validation with zero JavaScript. The browser shows error messages, prevents submission, and highlights invalid fields automatically.
-- **`autocomplete`** attributes tell the browser which saved data to suggest (e.g., `autocomplete="email"`, `autocomplete="new-password"`).
-- **`<button type="submit">`** is the standard submit button inside a form. Never use `<div onclick>` for form submission.
+- **`<label>`** debe estar asociado con su input mediante la coincidencia `for`/`id`. Al hacer clic en la etiqueta se enfoca el input. Los lectores de pantalla leen la etiqueta cuando el input esta enfocado.
+- **`<fieldset>` / `<legend>`** agrupa inputs relacionados y le da al grupo un nombre visible y accesible.
+- **Atributos de validacion nativos** — `required`, `pattern`, `min`, `max`, `minlength`, `maxlength`, `type="email"` — te dan validacion del lado del cliente con cero JavaScript. El navegador muestra mensajes de error, previene el envio y resalta los campos invalidos automaticamente.
+- **Los atributos `autocomplete`** le dicen al navegador que datos guardados sugerir (por ejemplo, `autocomplete="email"`, `autocomplete="new-password"`).
+- **`<button type="submit">`** es el boton de envio estandar dentro de un formulario. Nunca uses `<div onclick>` para el envio de formularios.
 
-Common `<input>` types and what they provide:
+Tipos comunes de `<input>` y lo que proporcionan:
 
-| Type | Provides |
+| Tipo | Proporciona |
 |------|----------|
-| `text` | Standard text input |
-| `email` | Email keyboard on mobile, validates email format |
-| `password` | Masks input, triggers password managers |
-| `number` | Numeric keyboard on mobile, validates numeric input |
-| `tel` | Phone keyboard on mobile |
-| `url` | URL keyboard on mobile, validates URL format |
-| `date` | Native date picker |
-| `search` | Clear button, search keyboard on mobile |
-| `checkbox` | Boolean toggle |
-| `radio` | One-of-many selection (group by `name`) |
+| `text` | Entrada de texto estandar |
+| `email` | Teclado de email en movil, valida formato de email |
+| `password` | Enmascara la entrada, activa gestores de contrasenas |
+| `number` | Teclado numerico en movil, valida entrada numerica |
+| `tel` | Teclado telefonico en movil |
+| `url` | Teclado de URL en movil, valida formato de URL |
+| `date` | Selector de fecha nativo |
+| `search` | Boton de limpiar, teclado de busqueda en movil |
+| `checkbox` | Alternador booleano |
+| `radio` | Seleccion de uno entre varios (agrupar por `name`) |
 
-### The DOM Mental Model
+### El modelo mental del DOM
 
-The DOM (Document Object Model) is the browser's live representation of your HTML as a tree of objects. Every element becomes a **node** in this tree.
+El DOM (Document Object Model) es la representacion en vivo que el navegador hace de tu HTML como un arbol de objetos. Cada elemento se convierte en un **nodo** en este arbol.
 
 ```
 document
@@ -204,17 +204,17 @@ document
             └── p
 ```
 
-Relationships:
+Relaciones:
 
-- **Parent**: the node directly above. `<ul>` is the parent of `<li>`.
-- **Child**: a node directly below. `<li>` is a child of `<ul>`.
-- **Sibling**: nodes that share the same parent. Two `<li>` elements inside the same `<ul>` are siblings.
+- **Padre (Parent)**: el nodo directamente arriba. `<ul>` es el padre de `<li>`.
+- **Hijo (Child)**: un nodo directamente debajo. `<li>` es un hijo de `<ul>`.
+- **Hermano (Sibling)**: nodos que comparten el mismo padre. Dos elementos `<li>` dentro del mismo `<ul>` son hermanos.
 
-The DOM is not your HTML source code. The browser parses HTML, error-corrects it, and constructs the DOM. JavaScript can modify the DOM at runtime — adding, removing, or changing nodes. When a framework "re-renders," it is updating the DOM tree (or a virtual representation of it).
+El DOM no es tu codigo fuente HTML. El navegador analiza el HTML, corrige errores y construye el DOM. JavaScript puede modificar el DOM en tiempo de ejecucion — agregando, eliminando o cambiando nodos. Cuando un framework "re-renderiza", esta actualizando el arbol DOM (o una representacion virtual del mismo).
 
-### Common Pitfalls
+### Errores comunes
 
-**Div soup** — using `<div>` for everything:
+**Sopa de divs** — usar `<div>` para todo:
 
 ```html
 <!-- Bad: meaningless structure -->
@@ -234,7 +234,7 @@ The DOM is not your HTML source code. The browser parses HTML, error-corrects it
 </header>
 ```
 
-**Missing form labels** — inputs without associated labels:
+**Etiquetas de formulario faltantes** — inputs sin etiquetas asociadas:
 
 ```html
 <!-- Bad: screen readers say "edit text, blank" -->
@@ -245,7 +245,7 @@ The DOM is not your HTML source code. The browser parses HTML, error-corrects it
 <input type="email" id="email">
 ```
 
-**Skipping heading levels** — going from `<h1>` to `<h3>`:
+**Saltar niveles de encabezado** — pasar de `<h1>` a `<h3>`:
 
 ```html
 <!-- Bad: screen reader users navigate by heading level -->
@@ -257,47 +257,47 @@ The DOM is not your HTML source code. The browser parses HTML, error-corrects it
 <h2>Section Title</h2>
 ```
 
-**Table for layout** — using `<table>` to arrange page elements. Tables are for tabular data (rows and columns of related values). Use CSS Grid or Flexbox for layout.
+**Tabla para layout** — usar `<table>` para organizar elementos de la pagina. Las tablas son para datos tabulares (filas y columnas de valores relacionados). Usa CSS Grid o Flexbox para layout.
 
-**Span for structure** — using `<span>` where a block-level semantic element is needed. `<span>` is for inline text within a sentence, not for wrapping sections of content.
+**Span para estructura** — usar `<span>` donde se necesita un elemento semantico de bloque. `<span>` es para texto en linea dentro de una oracion, no para envolver secciones de contenido.
 
-### Key Takeaways
+### Puntos clave
 
-- HTML describes content structure, not visual appearance. Pick elements by meaning, not by how they look.
-- `<div>` is a styling container. Use it only when no semantic element fits.
-- Native form elements give you validation, accessibility, and mobile keyboards for free. Use them.
-- The DOM is a live tree of objects the browser builds from your HTML. JavaScript and frameworks manipulate this tree.
-- Every `<input>` needs a `<label>`. Every page needs exactly one `<h1>`. Headings must descend sequentially.
+- HTML describe la estructura del contenido, no la apariencia visual. Elige elementos por su significado, no por como se ven.
+- `<div>` es un contenedor de estilos. Usalo solo cuando ningun elemento semantico encaje.
+- Los elementos nativos de formulario te dan validacion, accesibilidad y teclados moviles gratis. Usalos.
+- El DOM es un arbol en vivo de objetos que el navegador construye a partir de tu HTML. JavaScript y los frameworks manipulan este arbol.
+- Cada `<input>` necesita un `<label>`. Cada pagina necesita exactamente un `<h1>`. Los encabezados deben descender secuencialmente.
 
 ---
 
-## 2. CSS Box Model & Display
+## 2. Modelo de caja CSS y Display
 
-### Why This Matters
+### Por que esto importa
 
-Every element on a web page is a rectangular box. The box model determines how big each box is, how much space it takes up, and how it interacts with neighboring boxes. Misunderstanding the box model is the most common source of "why is this 20px wider than I expected?" bugs.
+Cada elemento en una pagina web es una caja rectangular. El modelo de caja determina que tan grande es cada caja, cuanto espacio ocupa y como interactua con las cajas vecinas. Malinterpretar el modelo de caja es la fuente mas comun de errores tipo "¿por que esto es 20px mas ancho de lo que esperaba?".
 
 ### `content-box` vs `border-box`
 
-By default, CSS uses `content-box`. When you set `width: 200px`, that 200px applies only to the content area. Padding and border are added *on top*:
+Por defecto, CSS usa `content-box`. Cuando estableces `width: 200px`, esos 200px aplican solo al area de contenido. El padding y el borde se agregan *encima*:
 
 ```
 content-box: total width = width + padding-left + padding-right + border-left + border-right
 ```
 
-So `width: 200px` + `padding: 20px` + `border: 1px solid` = **242px** total. This is almost never what you want.
+Entonces `width: 200px` + `padding: 20px` + `border: 1px solid` = **242px** en total. Esto casi nunca es lo que quieres.
 
-`border-box` includes padding and border *inside* the specified width:
+`border-box` incluye el padding y el borde *dentro* del ancho especificado:
 
 ```
 border-box: total width = width (padding and border are subtracted from this)
 ```
 
-Now `width: 200px` means 200px total, always. The content area shrinks to accommodate padding and border.
+Ahora `width: 200px` significa 200px en total, siempre. El area de contenido se reduce para acomodar el padding y el borde.
 
-### The Universal Reset
+### El reset universal
 
-Every modern project starts with this:
+Todo proyecto moderno comienza con esto:
 
 ```css
 *,
@@ -307,15 +307,15 @@ Every modern project starts with this:
 }
 ```
 
-This applies `border-box` to every element, including pseudo-elements. Without this, you will constantly fight unexpected sizing. Add it to the top of your CSS and never think about `content-box` again.
+Esto aplica `border-box` a cada elemento, incluyendo pseudo-elementos. Sin esto, lucharas constantemente contra dimensiones inesperadas. Agregalo al inicio de tu CSS y nunca vuelvas a pensar en `content-box`.
 
-### Margin Collapse
+### Margin Collapse (Colapso de margenes)
 
-Margin collapse is a CSS behavior where adjacent vertical margins combine into a single margin instead of stacking. It is the most misunderstood CSS behavior.
+El margin collapse es un comportamiento de CSS donde los margenes verticales adyacentes se combinan en un solo margen en lugar de apilarse. Es el comportamiento de CSS mas malinterpretado.
 
-**When it happens:**
+**Cuando sucede:**
 
-Adjacent siblings — the bottom margin of one element and the top margin of the next one collapse into whichever is larger:
+Hermanos adyacentes — el margen inferior de un elemento y el margen superior del siguiente colapsan en el que sea mayor:
 
 ```css
 .box-a { margin-bottom: 20px; }
@@ -323,7 +323,7 @@ Adjacent siblings — the bottom margin of one element and the top margin of the
 /* Gap between them: 30px, not 50px */
 ```
 
-Parent-child — if a parent has no padding, border, or `overflow` setting, the child's top margin "escapes" and becomes the parent's top margin:
+Padre-hijo — si un padre no tiene padding, borde ni configuracion de `overflow`, el margen superior del hijo "escapa" y se convierte en el margen superior del padre:
 
 ```css
 /* The h1's margin-top collapses through the parent */
@@ -332,21 +332,21 @@ Parent-child — if a parent has no padding, border, or `overflow` setting, the 
 /* The 40px appears ABOVE .parent, not inside it */
 ```
 
-**When it does NOT happen:**
+**Cuando NO sucede:**
 
-- Flex or grid children — margins never collapse inside a flex or grid container
-- Elements with `overflow` set to anything other than `visible`
-- Floated elements
-- Absolutely positioned elements
-- Elements separated by padding or border
+- Hijos de flex o grid — los margenes nunca colapsan dentro de un contenedor flex o grid
+- Elementos con `overflow` establecido en cualquier cosa diferente a `visible`
+- Elementos flotados
+- Elementos posicionados absolutamente
+- Elementos separados por padding o borde
 
-The fix for the parent-child case: add `padding: 1px` (or any value) to the parent, use `overflow: auto`, or make the parent a flex/grid container.
+La solucion para el caso padre-hijo: agrega `padding: 1px` (o cualquier valor) al padre, usa `overflow: auto`, o convierte al padre en un contenedor flex/grid.
 
-### Display Modes
+### Modos de display
 
-The `display` property controls how an element participates in layout:
+La propiedad `display` controla como un elemento participa en el layout:
 
-**`block`** — takes the full available width, starts on a new line. `<div>`, `<p>`, `<h1>`-`<h6>`, `<section>`, `<article>` are block by default.
+**`block`** — ocupa todo el ancho disponible, comienza en una nueva linea. `<div>`, `<p>`, `<h1>`-`<h6>`, `<section>`, `<article>` son block por defecto.
 
 ```css
 .card {
@@ -356,7 +356,7 @@ The `display` property controls how an element participates in layout:
 }
 ```
 
-**`inline`** — flows within text, takes only as much width as its content. `<span>`, `<a>`, `<strong>`, `<em>` are inline by default.
+**`inline`** — fluye dentro del texto, ocupa solo el ancho de su contenido. `<span>`, `<a>`, `<strong>`, `<em>` son inline por defecto.
 
 ```css
 .tag {
@@ -367,7 +367,7 @@ The `display` property controls how an element participates in layout:
 }
 ```
 
-**`inline-block`** — flows inline like text but respects width, height, and vertical padding/margin. The best of both:
+**`inline-block`** — fluye en linea como texto pero respeta width, height y padding/margin vertical. Lo mejor de ambos:
 
 ```css
 .badge {
@@ -393,9 +393,9 @@ The `display` property controls how an element participates in layout:
 }
 ```
 
-Use `display: none` to fully remove something. Use `visibility: hidden` when you need to preserve the layout space (e.g., preventing layout shift when toggling content).
+Usa `display: none` para eliminar algo completamente. Usa `visibility: hidden` cuando necesites preservar el espacio del layout (por ejemplo, para prevenir desplazamientos de layout al alternar contenido).
 
-### Width and Height Properties
+### Propiedades de ancho y alto (Width y Height)
 
 ```css
 .container {
@@ -408,30 +408,30 @@ Use `display: none` to fully remove something. Use `visibility: hidden` when you
 }
 ```
 
-- **`width`** / **`height`**: set an explicit size
-- **`max-width`** / **`max-height`**: set an upper bound (overrides `width` / `height`)
-- **`min-width`** / **`min-height`**: set a lower bound (overrides `max-width` / `max-height`)
+- **`width`** / **`height`**: establecen un tamano explicito
+- **`max-width`** / **`max-height`**: establecen un limite superior (anula `width` / `height`)
+- **`min-width`** / **`min-height`**: establecen un limite inferior (anula `max-width` / `max-height`)
 
-The priority order is: `min-*` wins over `max-*`, which wins over `width`/`height`.
+El orden de prioridad es: `min-*` gana sobre `max-*`, que gana sobre `width`/`height`.
 
-### Stacking Context and `z-index`
+### Stacking Context (Contexto de apilamiento) y `z-index`
 
-`z-index` controls which elements appear on top of others — but it only works within a **stacking context**.
+`z-index` controla que elementos aparecen encima de otros — pero solo funciona dentro de un **stacking context**.
 
-**When does `z-index` work?**
+**¿Cuando funciona `z-index`?**
 
-`z-index` has no effect on static-positioned elements. It only works on elements with `position` set to `relative`, `absolute`, `fixed`, or `sticky`. It also works on flex/grid children.
+`z-index` no tiene efecto en elementos con posicion static. Solo funciona en elementos con `position` establecido en `relative`, `absolute`, `fixed` o `sticky`. Tambien funciona en hijos de flex/grid.
 
-**What creates a new stacking context?**
+**¿Que crea un nuevo stacking context?**
 
-A new stacking context is created by any of these:
+Un nuevo stacking context es creado por cualquiera de estos:
 
-- `position: relative/absolute/fixed/sticky` combined with a `z-index` value other than `auto`
-- `opacity` less than `1`
-- `transform`, `filter`, `perspective`, `clip-path` set to any value
+- `position: relative/absolute/fixed/sticky` combinado con un valor de `z-index` diferente de `auto`
+- `opacity` menor que `1`
+- `transform`, `filter`, `perspective`, `clip-path` establecidos en cualquier valor
 - `isolation: isolate`
 
-**Why this matters:** elements inside a stacking context can only compete for z-order *within* that context. A `z-index: 9999` inside a stacking context with `z-index: 1` will still appear behind a sibling with `z-index: 2`:
+**Por que esto importa:** los elementos dentro de un stacking context solo pueden competir por el orden z *dentro* de ese contexto. Un `z-index: 9999` dentro de un stacking context con `z-index: 1` seguira apareciendo detras de un hermano con `z-index: 2`:
 
 ```css
 /* Parent A creates stacking context at z-index: 1 */
@@ -442,11 +442,11 @@ A new stacking context is created by any of these:
 .main-content { position: relative; z-index: 2; }
 ```
 
-The tooltip's 9999 is irrelevant — it cannot escape its parent's stacking context. The fix: restructure so the tooltip is not nested inside a lower stacking context, or use `isolation: isolate` deliberately.
+El 9999 del tooltip es irrelevante — no puede escapar del stacking context de su padre. La solucion: reestructura para que el tooltip no este anidado dentro de un stacking context inferior, o usa `isolation: isolate` deliberadamente.
 
-### Common Pitfalls
+### Errores comunes
 
-**Using `px` for everything:**
+**Usar `px` para todo:**
 
 ```css
 /* Bad: doesn't respect user's font size preferences */
@@ -456,7 +456,7 @@ The tooltip's 9999 is irrelevant — it cannot escape its parent's stacking cont
 .card { padding: 1rem; font-size: 0.875rem; margin-bottom: 1.5rem; }
 ```
 
-**`!important` chains** — using `!important` to win specificity fights:
+**Cadenas de `!important`** — usar `!important` para ganar batallas de especificidad:
 
 ```css
 /* This spiral has no exit */
@@ -465,9 +465,9 @@ The tooltip's 9999 is irrelevant — it cannot escape its parent's stacking cont
 .nav .button.primary { color: green !important; }
 ```
 
-If you need `!important`, it means your specificity architecture is broken. Fix the selectors, use CSS layers (`@layer`), or restructure your class naming.
+Si necesitas `!important`, significa que tu arquitectura de especificidad esta rota. Corrige los selectores, usa CSS layers (`@layer`), o reestructura tu nomenclatura de clases.
 
-**Setting explicit heights on content:**
+**Establecer alturas explicitas en contenido:**
 
 ```css
 /* Bad: content overflows when text is longer than expected */
@@ -477,7 +477,7 @@ If you need `!important`, it means your specificity architecture is broken. Fix 
 .card { min-height: 200px; }
 ```
 
-**Overriding framework styles with specificity hacks:**
+**Sobreescribir estilos del framework con hacks de especificidad:**
 
 ```css
 /* Bad: fragile, breaks on framework updates */
@@ -491,25 +491,25 @@ body div.MuiButton-root.MuiButton-contained {
 }
 ```
 
-### Key Takeaways
+### Puntos clave
 
-- Always use `box-sizing: border-box` globally. It makes `width` mean what you think it means.
-- Margin collapse only happens vertically, only between block elements, and never inside flex/grid containers.
-- `display: none` removes from flow; `visibility: hidden` hides but keeps the space.
-- `z-index` only works on positioned elements and only competes within the same stacking context.
-- Use `min-height` instead of `height` for content containers. Content grows; fixed heights overflow.
+- Siempre usa `box-sizing: border-box` globalmente. Hace que `width` signifique lo que crees que significa.
+- El margin collapse solo sucede verticalmente, solo entre elementos block, y nunca dentro de contenedores flex/grid.
+- `display: none` elimina del flujo; `visibility: hidden` oculta pero mantiene el espacio.
+- `z-index` solo funciona en elementos posicionados y solo compite dentro del mismo stacking context.
+- Usa `min-height` en lugar de `height` para contenedores de contenido. El contenido crece; las alturas fijas desbordan.
 
 ---
 
 ## 3. CSS Flexbox
 
-### Why This Matters
+### Por que esto importa
 
-Flexbox is the layout system for arranging items along a **single axis** — either a row or a column. Before Flexbox, centering an element vertically required hacks. Distributing space equally between items was painful. Flexbox solved all of this with a small, learnable set of properties.
+Flexbox es el sistema de layout para organizar elementos a lo largo de un **solo eje** — ya sea una fila o una columna. Antes de Flexbox, centrar un elemento verticalmente requeria hacks. Distribuir espacio equitativamente entre elementos era doloroso. Flexbox resolvio todo esto con un conjunto pequeno y aprendible de propiedades.
 
-### Container vs Items
+### Contenedor vs elementos (Container vs Items)
 
-Flexbox has two roles: the **flex container** (parent) and the **flex items** (direct children).
+Flexbox tiene dos roles: el **flex container** (padre) y los **flex items** (hijos directos).
 
 ```css
 .container {
@@ -517,7 +517,7 @@ Flexbox has two roles: the **flex container** (parent) and the **flex items** (d
 }
 ```
 
-Only the container's direct children become flex items. Grandchildren are not affected.
+Solo los hijos directos del contenedor se convierten en flex items. Los nietos no se ven afectados.
 
 ```html
 <div class="container">     <!-- flex container -->
@@ -529,12 +529,12 @@ Only the container's direct children become flex items. Grandchildren are not af
 </div>
 ```
 
-### Main Axis vs Cross Axis
+### Eje principal vs eje cruzado (Main Axis vs Cross Axis)
 
-Flexbox operates on two axes:
+Flexbox opera en dos ejes:
 
-- **Main axis**: the direction items flow. Horizontal by default (`flex-direction: row`).
-- **Cross axis**: perpendicular to the main axis. Vertical by default.
+- **Eje principal (Main axis)**: la direccion en la que fluyen los elementos. Horizontal por defecto (`flex-direction: row`).
+- **Eje cruzado (Cross axis)**: perpendicular al eje principal. Vertical por defecto.
 
 ```
 flex-direction: row (default)
@@ -550,7 +550,7 @@ Main axis:  ↑
 Cross axis: ← ─ ─ ─ ─ ─ ─ ─ →
 ```
 
-This distinction is critical: `justify-content` always controls the **main** axis. `align-items` always controls the **cross** axis. When you switch `flex-direction`, which axis is horizontal and which is vertical swaps.
+Esta distincion es critica: `justify-content` siempre controla el eje **principal**. `align-items` siempre controla el eje **cruzado**. Cuando cambias `flex-direction`, cual eje es horizontal y cual es vertical se intercambian.
 
 ### `flex-direction`
 
@@ -561,9 +561,9 @@ This distinction is critical: `justify-content` always controls the **main** axi
 .col-rev     { flex-direction: column-reverse; }  /* bottom to top */
 ```
 
-### `justify-content` (Main Axis)
+### `justify-content` (Eje principal)
 
-Controls how items are distributed along the main axis:
+Controla como se distribuyen los elementos a lo largo del eje principal:
 
 ```css
 .container { display: flex; justify-content: flex-start; }
@@ -587,9 +587,9 @@ Controls how items are distributed along the main axis:
 /* (equal space everywhere, including edges) */
 ```
 
-### `align-items` (Cross Axis)
+### `align-items` (Eje cruzado)
 
-Controls how items are positioned along the cross axis:
+Controla como se posicionan los elementos a lo largo del eje cruzado:
 
 ```css
 .container { display: flex; align-items: stretch; }
@@ -610,7 +610,7 @@ Controls how items are positioned along the cross axis:
 
 ### `align-self`
 
-Override `align-items` for a single item:
+Sobreescribe `align-items` para un solo elemento:
 
 ```css
 .container { display: flex; align-items: flex-start; }
@@ -619,18 +619,18 @@ Override `align-items` for a single item:
 
 ### `flex-wrap`
 
-By default, all items squeeze onto one line, shrinking as needed:
+Por defecto, todos los elementos se comprimen en una sola linea, encogiendose segun sea necesario:
 
 ```css
 .container { display: flex; flex-wrap: nowrap; }  /* default: single line */
 .container { display: flex; flex-wrap: wrap; }     /* items wrap to new lines */
 ```
 
-With `wrap`, items move to the next line when they cannot fit. This is essential for responsive layouts.
+Con `wrap`, los elementos pasan a la siguiente linea cuando no pueden caber. Esto es esencial para layouts responsivos.
 
-### The `flex` Shorthand
+### La propiedad abreviada `flex`
 
-The `flex` property on items controls how they grow, shrink, and their base size:
+La propiedad `flex` en los elementos controla como crecen, se encogen y su tamano base:
 
 ```css
 .item { flex: 1; }
@@ -638,11 +638,11 @@ The `flex` property on items controls how they grow, shrink, and their base size
 /* Item will grow to fill available space */
 ```
 
-The three components:
+Los tres componentes:
 
-- **`flex-grow`**: how much of the remaining space this item should take. `0` means don't grow. `1` means take an equal share. `2` means take double the share of `1` items.
-- **`flex-shrink`**: how much this item should shrink when space is tight. `0` means don't shrink. `1` is the default.
-- **`flex-basis`**: the starting size before growing or shrinking. Can be a length (`200px`, `30%`) or `auto` (use the item's content size or `width`).
+- **`flex-grow`**: cuanto del espacio restante debe tomar este elemento. `0` significa no crecer. `1` significa tomar una parte igual. `2` significa tomar el doble de la parte de los elementos con `1`.
+- **`flex-shrink`**: cuanto debe encogerse este elemento cuando el espacio es limitado. `0` significa no encogerse. `1` es el valor por defecto.
+- **`flex-basis`**: el tamano inicial antes de crecer o encogerse. Puede ser una longitud (`200px`, `30%`) o `auto` (usa el tamano del contenido del elemento o `width`).
 
 ```css
 .sidebar { flex: 0 0 250px; }  /* don't grow, don't shrink, always 250px */
@@ -651,7 +651,7 @@ The three components:
 
 ### `gap`
 
-Spacing between flex items without using margins:
+Espaciado entre flex items sin usar margenes:
 
 ```css
 .container {
@@ -662,11 +662,11 @@ Spacing between flex items without using margins:
 }
 ```
 
-`gap` is cleaner than margins because it only applies *between* items, never on the outside edges.
+`gap` es mas limpio que los margenes porque solo aplica *entre* elementos, nunca en los bordes exteriores.
 
-### Common Patterns
+### Patrones comunes
 
-**Centering on both axes** (the most famous Flexbox use case):
+**Centrado en ambos ejes** (el caso de uso mas famoso de Flexbox):
 
 ```css
 .center-everything {
@@ -677,7 +677,7 @@ Spacing between flex items without using margins:
 }
 ```
 
-**Navigation bar:**
+**Barra de navegacion:**
 
 ```css
 .nav {
@@ -689,7 +689,7 @@ Spacing between flex items without using margins:
 .nav-links { display: flex; gap: 1.5rem; }
 ```
 
-**Card row that wraps:**
+**Fila de tarjetas que se envuelve:**
 
 ```css
 .card-row {
@@ -700,7 +700,7 @@ Spacing between flex items without using margins:
 .card { flex: 1 1 300px; } /* grow, shrink, minimum 300px */
 ```
 
-**Sticky footer** (footer sticks to bottom even when content is short):
+**Footer fijo** (el footer se pega al fondo incluso cuando el contenido es corto):
 
 ```css
 body {
@@ -712,7 +712,7 @@ main { flex: 1; } /* main grows to push footer down */
 footer { /* stays at bottom naturally */ }
 ```
 
-**Sidebar layout:**
+**Layout con barra lateral:**
 
 ```css
 .layout {
@@ -723,9 +723,9 @@ footer { /* stays at bottom naturally */ }
 .content { flex: 1; min-width: 0; } /* min-width: 0 prevents overflow */
 ```
 
-### Common Pitfalls
+### Errores comunes
 
-**Nesting Flexbox 5 levels deep:**
+**Anidar Flexbox 5 niveles de profundidad:**
 
 ```css
 /* Bad: hard to debug, hard to maintain */
@@ -736,9 +736,9 @@ footer { /* stays at bottom naturally */ }
         .item { display: flex; }
 ```
 
-If you need deeply nested flex containers, your HTML structure is likely overcomplicated. Flatten it or use Grid for the outer layout.
+Si necesitas contenedores flex profundamente anidados, tu estructura HTML probablemente esta sobrecomplicada. Aplanala o usa Grid para el layout exterior.
 
-**Using Flexbox for 2D layouts:**
+**Usar Flexbox para layouts 2D:**
 
 ```css
 /* Bad: Flexbox for a grid of cards with aligned rows and columns */
@@ -756,11 +756,11 @@ If you need deeply nested flex containers, your HTML structure is likely overcom
 }
 ```
 
-**Confusing `flex-basis` and `width`:**
+**Confundir `flex-basis` y `width`:**
 
-When `flex-direction` is `row`, `flex-basis` and `width` both set horizontal size. But `flex-basis` wins — it overrides `width` when both are set. When `flex-direction` is `column`, `flex-basis` controls **height**, not width. Use `flex-basis` in flex layouts, and `width`/`height` outside of them.
+Cuando `flex-direction` es `row`, `flex-basis` y `width` ambos establecen el tamano horizontal. Pero `flex-basis` gana — sobreescribe `width` cuando ambos estan definidos. Cuando `flex-direction` es `column`, `flex-basis` controla la **altura**, no el ancho. Usa `flex-basis` en layouts flex, y `width`/`height` fuera de ellos.
 
-**Overflow with `flex: 1`:**
+**Desbordamiento con `flex: 1`:**
 
 ```css
 /* Bug: long text in a flex child overflows the container */
@@ -770,27 +770,27 @@ When `flex-direction` is `row`, `flex-basis` and `width` both set horizontal siz
 .content { flex: 1; min-width: 0; }
 ```
 
-Flex items have an implicit `min-width: auto`, meaning they refuse to shrink below their content size. Set `min-width: 0` to override this.
+Los flex items tienen un `min-width: auto` implicito, lo que significa que se niegan a encogerse por debajo del tamano de su contenido. Establece `min-width: 0` para anular esto.
 
-### Key Takeaways
+### Puntos clave
 
-- `justify-content` controls the main axis; `align-items` controls the cross axis. Switching `flex-direction` swaps which physical direction each controls.
-- `flex: 1` means "grow to fill available space." `flex: 0 0 250px` means "stay exactly 250px."
-- Use `gap` instead of margins for spacing between flex items.
-- Set `min-width: 0` on flex items that contain text or other content that might overflow.
-- If you need items aligned in both rows AND columns, use Grid instead of Flexbox.
+- `justify-content` controla el eje principal; `align-items` controla el eje cruzado. Cambiar `flex-direction` intercambia que direccion fisica controla cada uno.
+- `flex: 1` significa "crecer para llenar el espacio disponible". `flex: 0 0 250px` significa "quedarse exactamente en 250px".
+- Usa `gap` en lugar de margenes para espaciado entre flex items.
+- Establece `min-width: 0` en flex items que contengan texto u otro contenido que pueda desbordar.
+- Si necesitas elementos alineados tanto en filas COMO en columnas, usa Grid en lugar de Flexbox.
 
 ---
 
 ## 4. CSS Grid
 
-### Why This Matters
+### Por que esto importa
 
-CSS Grid is the layout system for **two-dimensional layouts** — controlling rows and columns simultaneously. Flexbox handles one axis at a time. Grid handles both. With Grid, you can build page layouts, card grids, and dashboards with less code, less math, and better responsiveness than any other CSS technique.
+CSS Grid es el sistema de layout para **layouts bidimensionales** — controlando filas y columnas simultaneamente. Flexbox maneja un eje a la vez. Grid maneja ambos. Con Grid, puedes construir layouts de pagina, cuadriculas de tarjetas y dashboards con menos codigo, menos matematicas y mejor responsividad que cualquier otra tecnica CSS.
 
-### Container vs Items
+### Contenedor vs elementos (Container vs Items)
 
-Like Flexbox, Grid has a container and items:
+Al igual que Flexbox, Grid tiene un contenedor y elementos:
 
 ```css
 .grid {
@@ -798,9 +798,9 @@ Like Flexbox, Grid has a container and items:
 }
 ```
 
-Direct children of the grid container become grid items.
+Los hijos directos del contenedor grid se convierten en grid items.
 
-### Defining Columns and Rows
+### Definir columnas y filas
 
 ```css
 .grid {
@@ -810,11 +810,11 @@ Direct children of the grid container become grid items.
 }
 ```
 
-This creates a 3-column, 3-row grid. The first and third columns are 200px wide. The middle column takes all remaining space (`1fr`). The rows are sized by content (`auto`) for the first and last, and the middle row fills the remaining height.
+Esto crea una cuadricula de 3 columnas y 3 filas. La primera y tercera columnas miden 200px de ancho. La columna del medio toma todo el espacio restante (`1fr`). Las filas se dimensionan por contenido (`auto`) para la primera y la ultima, y la fila del medio llena la altura restante.
 
-### The `fr` Unit
+### La unidad `fr`
 
-`fr` stands for "fraction of available space." It distributes remaining space proportionally:
+`fr` significa "fraccion del espacio disponible". Distribuye el espacio restante proporcionalmente:
 
 ```css
 .grid {
@@ -826,11 +826,11 @@ This creates a 3-column, 3-row grid. The first and third columns are 200px wide.
 }
 ```
 
-`fr` is calculated *after* fixed-size columns and gaps are subtracted. So in `200px 1fr 1fr`, the two `1fr` columns split whatever is left after the 200px column and any gaps.
+`fr` se calcula *despues* de que las columnas de tamano fijo y los gaps se restan. Entonces en `200px 1fr 1fr`, las dos columnas `1fr` dividen lo que queda despues de la columna de 200px y cualquier gap.
 
 ### `repeat()`
 
-Avoid repetition:
+Evita la repeticion:
 
 ```css
 /* Instead of: */
@@ -842,7 +842,7 @@ grid-template-columns: repeat(4, 1fr);
 
 ### `minmax()`
 
-Set a size range for tracks:
+Establece un rango de tamano para los tracks:
 
 ```css
 .grid {
@@ -854,7 +854,7 @@ Set a size range for tracks:
 
 ### `auto-fill` vs `auto-fit`
 
-Both create as many columns as will fit. The difference is what happens with leftover space:
+Ambos crean tantas columnas como quepan. La diferencia es que sucede con el espacio sobrante:
 
 ```css
 /* auto-fill: creates empty tracks for leftover space */
@@ -864,12 +864,12 @@ grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 ```
 
-With 3 items in a wide container:
+Con 3 elementos en un contenedor ancho:
 
-- **`auto-fill`**: 3 items at 200px-ish width, empty track(s) fill the rest. Items do NOT stretch beyond their minimum.
-- **`auto-fit`**: 3 items stretch to fill the entire container width. No empty tracks.
+- **`auto-fill`**: 3 elementos con un ancho de aproximadamente 200px, los tracks vacios llenan el resto. Los elementos NO se estiran mas alla de su minimo.
+- **`auto-fit`**: 3 elementos se estiran para llenar todo el ancho del contenedor. Sin tracks vacios.
 
-**Use `auto-fit`** when you want items to grow and fill available space (most common). **Use `auto-fill`** when you want items to maintain a consistent size regardless of container width.
+**Usa `auto-fit`** cuando quieras que los elementos crezcan y llenen el espacio disponible (lo mas comun). **Usa `auto-fill`** cuando quieras que los elementos mantengan un tamano consistente sin importar el ancho del contenedor.
 
 ### `gap`
 
@@ -883,9 +883,9 @@ With 3 items in a wide container:
 }
 ```
 
-### Placing Items
+### Colocar elementos (Placing Items)
 
-Items are placed automatically by default (in order, filling each row). You can place items explicitly:
+Los elementos se colocan automaticamente por defecto (en orden, llenando cada fila). Puedes colocar elementos explicitamente:
 
 ```css
 .header {
@@ -902,11 +902,11 @@ Items are placed automatically by default (in order, filling each row). You can 
 }
 ```
 
-Grid lines are numbered starting at 1. Negative numbers count from the end (`-1` is the last line).
+Las lineas del grid se numeran empezando en 1. Los numeros negativos cuentan desde el final (`-1` es la ultima linea).
 
-### Named Grid Areas
+### Areas de grid con nombre (Named Grid Areas)
 
-The most readable way to define layouts:
+La forma mas legible de definir layouts:
 
 ```css
 .page {
@@ -926,11 +926,11 @@ The most readable way to define layouts:
 .page-footer  { grid-area: footer; }
 ```
 
-Each string in `grid-template-areas` represents one row. Each word represents one column in that row. Repeating a name spans the item across those columns/rows. Use `.` for empty cells.
+Cada cadena en `grid-template-areas` representa una fila. Cada palabra representa una columna en esa fila. Repetir un nombre extiende el elemento a traves de esas columnas/filas. Usa `.` para celdas vacias.
 
-### Implicit vs Explicit Grids
+### Grids implicitos vs explicitos (Implicit vs Explicit Grids)
 
-The **explicit grid** is what you define with `grid-template-columns` and `grid-template-rows`. If you have more items than cells, Grid creates new rows automatically — this is the **implicit grid**.
+El **grid explicito** es lo que defines con `grid-template-columns` y `grid-template-rows`. Si tienes mas elementos que celdas, Grid crea nuevas filas automaticamente — esto es el **grid implicito**.
 
 ```css
 .grid {
@@ -942,11 +942,11 @@ The **explicit grid** is what you define with `grid-template-columns` and `grid-
 }
 ```
 
-`grid-auto-rows` and `grid-auto-columns` control the size of tracks in the implicit grid.
+`grid-auto-rows` y `grid-auto-columns` controlan el tamano de los tracks en el grid implicito.
 
-### Common Patterns
+### Patrones comunes
 
-**Holy grail layout:**
+**Layout holy grail:**
 
 ```css
 .layout {
@@ -962,7 +962,7 @@ The **explicit grid** is what you define with `grid-template-columns` and `grid-
 }
 ```
 
-**Responsive card grid (no media queries):**
+**Cuadricula de tarjetas responsiva (sin media queries):**
 
 ```css
 .cards {
@@ -972,9 +972,9 @@ The **explicit grid** is what you define with `grid-template-columns` and `grid-
 }
 ```
 
-This single declaration creates a responsive grid: 1 column on small screens, 2 on medium, 3+ on large. No breakpoints needed.
+Esta unica declaracion crea una cuadricula responsiva: 1 columna en pantallas pequenas, 2 en medianas, 3+ en grandes. No se necesitan breakpoints.
 
-**Dashboard layout:**
+**Layout de dashboard:**
 
 ```css
 .dashboard {
@@ -988,7 +988,7 @@ This single declaration creates a responsive grid: 1 column on small screens, 2 
 .widget-full { grid-column: 1 / -1; }
 ```
 
-**Magazine-style layout:**
+**Layout estilo revista:**
 
 ```css
 .magazine {
@@ -1003,15 +1003,15 @@ This single declaration creates a responsive grid: 1 column on small screens, 2 
 }
 ```
 
-### Flexbox vs Grid: When to Use Which
+### Flexbox vs Grid: cuando usar cual
 
-**One dimension (row OR column)** → Flexbox
+**Una dimension (fila O columna)** → Flexbox
 
 ```
 Navigation bar: [Logo] [Home] [About] [Contact] [Login]
 ```
 
-**Two dimensions (rows AND columns)** → Grid
+**Dos dimensiones (filas Y columnas)** → Grid
 
 ```
 ┌──────────────────────────────────┐
@@ -1024,15 +1024,15 @@ Navigation bar: [Logo] [Home] [About] [Contact] [Login]
 └──────────────────────────────────┘
 ```
 
-Both tools work together. Use Grid for the page layout and Flexbox for components within grid cells (e.g., a flex nav inside a grid header).
+Ambas herramientas trabajan juntas. Usa Grid para el layout de la pagina y Flexbox para componentes dentro de las celdas del grid (por ejemplo, una navegacion flex dentro de un header en grid).
 
-### Common Pitfalls
+### Errores comunes
 
-**Avoiding Grid because "Flexbox is simpler":**
+**Evitar Grid porque "Flexbox es mas simple":**
 
-Grid is not harder than Flexbox — it solves different problems. A responsive card grid in Flexbox requires manual width calculations and margin hacks. In Grid it is one line: `repeat(auto-fit, minmax(280px, 1fr))`.
+Grid no es mas dificil que Flexbox — resuelve problemas diferentes. Una cuadricula de tarjetas responsiva en Flexbox requiere calculos manuales de ancho y hacks de margenes. En Grid es una sola linea: `repeat(auto-fit, minmax(280px, 1fr))`.
 
-**Hardcoding column counts:**
+**Codificar el numero de columnas:**
 
 ```css
 /* Bad: breaks on small screens, requires media queries */
@@ -1042,7 +1042,7 @@ Grid is not harder than Flexbox — it solves different problems. A responsive c
 .grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
 ```
 
-**Using Grid for simple single-axis layouts:**
+**Usar Grid para layouts simples de un solo eje:**
 
 ```css
 /* Overkill: Grid for a row of buttons */
@@ -1058,9 +1058,9 @@ Grid is not harder than Flexbox — it solves different problems. A responsive c
 }
 ```
 
-**Forgetting `min-width: 0` or `min-height: 0`:**
+**Olvidar `min-width: 0` o `min-height: 0`:**
 
-Grid items, like flex items, have implicit minimums. Content can overflow grid cells if you don't account for this:
+Los grid items, al igual que los flex items, tienen minimos implicitos. El contenido puede desbordar las celdas del grid si no tienes esto en cuenta:
 
 ```css
 /* Fix for text overflow in grid items */
@@ -1070,27 +1070,27 @@ Grid items, like flex items, have implicit minimums. Content can overflow grid c
 }
 ```
 
-### Key Takeaways
+### Puntos clave
 
-- `repeat(auto-fit, minmax(250px, 1fr))` is the most useful single line in CSS. It creates a fully responsive grid with zero media queries.
-- Use `grid-template-areas` for page-level layouts — it reads like an ASCII art diagram of your page.
-- `auto-fit` collapses empty tracks (items stretch). `auto-fill` keeps empty tracks (items maintain size).
-- Use Grid for 2D layouts (page structure, card grids, dashboards). Use Flexbox for 1D layouts (nav bars, button groups, centering).
-- Define explicit grids for the structure you know. Use `grid-auto-rows` to handle the implicit rows you don't.
+- `repeat(auto-fit, minmax(250px, 1fr))` es la linea individual mas util en CSS. Crea una cuadricula completamente responsiva con cero media queries.
+- Usa `grid-template-areas` para layouts a nivel de pagina — se lee como un diagrama ASCII de tu pagina.
+- `auto-fit` colapsa tracks vacios (los elementos se estiran). `auto-fill` mantiene tracks vacios (los elementos mantienen su tamano).
+- Usa Grid para layouts 2D (estructura de pagina, cuadriculas de tarjetas, dashboards). Usa Flexbox para layouts 1D (barras de navegacion, grupos de botones, centrado).
+- Define grids explicitos para la estructura que conoces. Usa `grid-auto-rows` para manejar las filas implicitas que no conoces.
 
 ---
 
-## 5. JavaScript Essentials (ES2020+)
+## 5. Esenciales de JavaScript (ES2020+)
 
-### Why This Matters
+### Por que esto importa
 
-Modern JavaScript is the language you will write daily. Frameworks abstract some of it, but they cannot hide it — you need closures for hooks, destructuring for props, async/await for data fetching, and array methods for transforming data. Weak JavaScript fundamentals are the #1 predictor of struggling with frameworks.
+JavaScript moderno es el lenguaje que escribiras a diario. Los frameworks abstraen parte de el, pero no pueden ocultarlo — necesitas closures para hooks, destructuring para props, async/await para la obtencion de datos, y metodos de array para transformar datos. Fundamentos debiles de JavaScript son el predictor #1 de dificultades con los frameworks.
 
-### Modules: `import` / `export`
+### Modulos: `import` / `export`
 
-Modules are the foundation of code organization. Each file is a module with its own scope.
+Los modulos son la base de la organizacion del codigo. Cada archivo es un modulo con su propio scope.
 
-**Named exports** — export multiple values by name:
+**Named exports** — exportar multiples valores por nombre:
 
 ```js
 // math.js
@@ -1101,7 +1101,7 @@ export function subtract(a, b) { return a - b; }
 import { add, subtract } from './math.js';
 ```
 
-**Default export** — one per module, imported with any name:
+**Default export** — uno por modulo, importado con cualquier nombre:
 
 ```js
 // logger.js
@@ -1112,7 +1112,7 @@ import log from './logger.js';
 import myLogger from './logger.js'; // same thing, different name
 ```
 
-**Re-exporting** — aggregate modules:
+**Re-exportar** — agregar modulos:
 
 ```js
 // utils/index.js
@@ -1120,7 +1120,7 @@ export { add, subtract } from './math.js';
 export { default as log } from './logger.js';
 ```
 
-**Dynamic `import()`** — load modules on demand for code splitting:
+**`import()` dinamico** — cargar modulos bajo demanda para code splitting:
 
 ```js
 button.addEventListener('click', async () => {
@@ -1129,11 +1129,11 @@ button.addEventListener('click', async () => {
 });
 ```
 
-Dynamic imports return a promise and are the basis for lazy loading in every framework.
+Los imports dinamicos devuelven una promesa y son la base de la carga diferida (lazy loading) en todos los frameworks.
 
 ### `let` / `const` vs `var`
 
-`var` is function-scoped. `let` and `const` are block-scoped.
+`var` tiene scope de funcion. `let` y `const` tienen scope de bloque.
 
 ```js
 if (true) {
@@ -1145,22 +1145,22 @@ console.log(x); // 1
 console.log(y); // ReferenceError
 ```
 
-**Temporal dead zone**: `let` and `const` exist in their block from the start but cannot be accessed before their declaration line. Accessing them earlier throws a `ReferenceError`:
+**Zona muerta temporal (Temporal dead zone)**: `let` y `const` existen en su bloque desde el inicio pero no pueden ser accedidos antes de su linea de declaracion. Acceder a ellos antes lanza un `ReferenceError`:
 
 ```js
 console.log(name); // ReferenceError: Cannot access 'name' before initialization
 let name = 'Alice';
 ```
 
-`var` would silently return `undefined` here, which hides bugs. This is why `let`/`const` are better.
+`var` silenciosamente devolveria `undefined` aqui, lo cual oculta errores. Por eso `let`/`const` son mejores.
 
-**Rule**: Use `const` by default. Use `let` when you need to reassign. Never use `var`.
+**Regla**: Usa `const` por defecto. Usa `let` cuando necesites reasignar. Nunca uses `var`.
 
 ### Destructuring
 
-Extract values from objects and arrays into variables:
+Extrae valores de objetos y arrays en variables:
 
-**Object destructuring:**
+**Destructuring de objetos:**
 
 ```js
 const user = { name: 'Alice', age: 30, role: 'admin' };
@@ -1169,7 +1169,7 @@ const { role: userRole } = user;       // rename: userRole = 'admin'
 const { city = 'Unknown' } = user;     // default: city = 'Unknown'
 ```
 
-**Array destructuring:**
+**Destructuring de arrays:**
 
 ```js
 const [first, second] = [10, 20, 30];    // first = 10, second = 20
@@ -1177,7 +1177,7 @@ const [, , third] = [10, 20, 30];        // skip elements: third = 30
 const [head, ...rest] = [1, 2, 3, 4];    // head = 1, rest = [2, 3, 4]
 ```
 
-**Nested destructuring:**
+**Destructuring anidado:**
 
 ```js
 const response = { data: { users: [{ name: 'Alice' }] } };
@@ -1185,9 +1185,9 @@ const { data: { users: [{ name }] } } = response;
 // name = 'Alice'
 ```
 
-Use nested destructuring sparingly — deeply nested patterns become hard to read.
+Usa destructuring anidado con moderacion — los patrones profundamente anidados se vuelven dificiles de leer.
 
-**Function parameter destructuring:**
+**Destructuring en parametros de funcion:**
 
 ```js
 function greet({ name, greeting = 'Hello' }) {
@@ -1196,9 +1196,9 @@ function greet({ name, greeting = 'Hello' }) {
 greet({ name: 'Alice' }); // "Hello, Alice!"
 ```
 
-### Spread and Rest
+### Spread y Rest
 
-**Spread** (`...`) expands an iterable into individual elements:
+**Spread** (`...`) expande un iterable en elementos individuales:
 
 ```js
 // Arrays
@@ -1210,7 +1210,7 @@ const original = { x: 1, y: 2 };
 const copy = { ...original, y: 3 }; // { x: 1, y: 3 } — y overridden
 ```
 
-**Rest** (`...`) collects remaining elements into an array or object:
+**Rest** (`...`) recopila los elementos restantes en un array u objeto:
 
 ```js
 // Function parameters
@@ -1226,7 +1226,7 @@ const { id, ...attrs } = { id: 1, name: 'Alice', age: 30 };
 
 ### Template Literals
 
-String interpolation and multiline strings:
+Interpolacion de cadenas y cadenas multilinea:
 
 ```js
 const name = 'Alice';
@@ -1237,7 +1237,7 @@ const multiline = `
 `;
 ```
 
-**Tagged templates** — functions that process template literals:
+**Tagged templates** — funciones que procesan template literals:
 
 ```js
 function highlight(strings, ...values) {
@@ -1250,11 +1250,11 @@ highlight`Search results for ${query} in CSS`
 // "Search results for <mark>flexbox</mark> in CSS"
 ```
 
-Tagged templates are used by libraries like `styled-components` and `graphql-tag`.
+Los tagged templates son usados por librerias como `styled-components` y `graphql-tag`.
 
-### Optional Chaining (`?.`) and Nullish Coalescing (`??`)
+### Optional Chaining (`?.`) y Nullish Coalescing (`??`)
 
-**Optional chaining** safely accesses nested properties that might be `null` or `undefined`:
+**Optional chaining** accede de forma segura a propiedades anidadas que podrian ser `null` o `undefined`:
 
 ```js
 const user = { address: { city: 'Paris' } };
@@ -1267,7 +1267,7 @@ const result = obj.method?.();       // calls method if it exists
 const item = arr?.[0];               // accesses index if arr is not null
 ```
 
-**Nullish coalescing** provides a default only for `null` or `undefined` (not for `0`, `''`, or `false`):
+**Nullish coalescing** proporciona un valor por defecto solo para `null` o `undefined` (no para `0`, `''` o `false`):
 
 ```js
 const port = config.port ?? 3000;    // 3000 only if port is null/undefined
@@ -1279,11 +1279,11 @@ count ?? 10;  // 0 — correct, 0 is a valid count
 count || 10;  // 10 — wrong, treats 0 as falsy
 ```
 
-**Rule**: Use `??` when `0`, `''`, or `false` are valid values. Use `||` only when all falsy values should trigger the default.
+**Regla**: Usa `??` cuando `0`, `''` o `false` son valores validos. Usa `||` solo cuando todos los valores falsy deberian activar el valor por defecto.
 
 ### `async` / `await`
 
-Promises made readable:
+Promesas hechas legibles:
 
 ```js
 // Promise chain (harder to follow)
@@ -1304,7 +1304,7 @@ async function loadUserPosts(id) {
 }
 ```
 
-**Parallel execution** — when requests are independent:
+**Ejecucion en paralelo** — cuando las peticiones son independientes:
 
 ```js
 // Bad: sequential — each waits for the previous
@@ -1334,11 +1334,11 @@ results.forEach(r => {
 });
 ```
 
-Use `Promise.all` when you need all results to proceed. Use `Promise.allSettled` when some failures are acceptable (e.g., loading dashboard widgets independently).
+Usa `Promise.all` cuando necesitas todos los resultados para proceder. Usa `Promise.allSettled` cuando algunos fallos son aceptables (por ejemplo, cargar widgets de dashboard independientemente).
 
-### Array Methods
+### Metodos de Array
 
-These methods return new arrays — they do not modify the original.
+Estos metodos devuelven nuevos arrays — no modifican el original.
 
 ```js
 const numbers = [1, 2, 3, 4, 5];
@@ -1373,7 +1373,7 @@ numbers.reduce((sum, n) => sum + n, 0); // 15
 // ['hello', 'world', 'foo', 'bar']
 ```
 
-**Chain them** for data transformations:
+**Encadenarlos** para transformaciones de datos:
 
 ```js
 const activeAdmins = users
@@ -1384,7 +1384,7 @@ const activeAdmins = users
 
 ### Closures
 
-A closure is a function that remembers the variables from the scope where it was created, even after that scope has finished executing:
+Un closure es una funcion que recuerda las variables del scope donde fue creada, incluso despues de que ese scope haya terminado de ejecutarse:
 
 ```js
 function createCounter() {
@@ -1401,9 +1401,9 @@ counter.increment(); // 2
 counter.getCount();  // 2
 ```
 
-The inner functions `increment` and `getCount` "close over" the `count` variable. Each call to `createCounter()` creates a new, independent `count`.
+Las funciones internas `increment` y `getCount` "encierran" la variable `count`. Cada llamada a `createCounter()` crea un nuevo `count` independiente.
 
-**The stale closure bug in React:**
+**El error de closure obsoleto en React:**
 
 ```js
 function Timer() {
@@ -1420,21 +1420,21 @@ function Timer() {
 }
 ```
 
-The fix — use the function form of `setState`:
+La solucion — usar la forma de funcion de `setState`:
 
 ```js
 setCount(prev => prev + 1); // always uses the latest value
 ```
 
-This is the most common React bug, and it stems from not understanding closures.
+Este es el error mas comun en React, y se origina por no entender los closures.
 
-### The Event Loop
+### El Event Loop
 
-JavaScript is single-threaded. It executes code using a call stack and two queues:
+JavaScript es de un solo hilo (single-threaded). Ejecuta codigo usando un call stack y dos colas:
 
-1. **Call stack**: executes functions one at a time, synchronously.
-2. **Microtask queue**: promises (`.then`, `await`), `queueMicrotask`. Processed after each call stack item, before the next macrotask.
-3. **Task queue (macrotask queue)**: `setTimeout`, `setInterval`, DOM events. Processed one at a time, after the microtask queue is empty.
+1. **Call stack**: ejecuta funciones una a la vez, sincronamente.
+2. **Cola de microtareas (Microtask queue)**: promesas (`.then`, `await`), `queueMicrotask`. Se procesan despues de cada elemento del call stack, antes de la siguiente macrotarea.
+3. **Cola de tareas (Task queue / macrotask queue)**: `setTimeout`, `setInterval`, eventos del DOM. Se procesan una a la vez, despues de que la cola de microtareas este vacia.
 
 ```js
 console.log('1');                          // call stack
@@ -1448,15 +1448,15 @@ console.log('4');                          // call stack
 // Output: 1, 4, 3, 2
 ```
 
-Even `setTimeout(fn, 0)` is not instant. The callback goes to the task queue and waits until:
-1. The current call stack is empty
-2. All microtasks (promises) have been processed
+Incluso `setTimeout(fn, 0)` no es instantaneo. El callback va a la cola de tareas y espera hasta que:
+1. El call stack actual este vacio
+2. Todas las microtareas (promesas) hayan sido procesadas
 
-This is why "zero-delay" timeouts still run after promise callbacks.
+Por eso los timeouts de "cero retraso" aun se ejecutan despues de los callbacks de promesas.
 
 ### `Map`, `Set`, `WeakMap`, `WeakSet`
 
-**`Map`** — key-value pairs where keys can be any type (not just strings):
+**`Map`** — pares clave-valor donde las claves pueden ser de cualquier tipo (no solo strings):
 
 ```js
 const cache = new Map();
@@ -1466,7 +1466,7 @@ cache.has(userObj);                  // true
 cache.size;                         // 1
 ```
 
-**`Set`** — a collection of unique values:
+**`Set`** — una coleccion de valores unicos:
 
 ```js
 const unique = new Set([1, 2, 2, 3, 3]);
@@ -1477,7 +1477,7 @@ unique.has(2);    // true
 unique.delete(2); // removes 2
 ```
 
-**`WeakMap` / `WeakSet`** — same as Map/Set but keys (WeakMap) or values (WeakSet) are held weakly and garbage-collected when no other reference exists. Use them to associate metadata with objects without preventing garbage collection:
+**`WeakMap` / `WeakSet`** — igual que Map/Set pero las claves (WeakMap) o valores (WeakSet) se mantienen de forma debil y son recolectadas por el garbage collector cuando no existe otra referencia. Usalos para asociar metadatos con objetos sin prevenir la recoleccion de basura:
 
 ```js
 const metadata = new WeakMap();
@@ -1490,19 +1490,19 @@ function process(element) {
 // the metadata entry is automatically garbage collected.
 ```
 
-**When to use over plain objects/arrays:**
+**Cuando usar en lugar de objetos/arrays simples:**
 
-| Use case | Use |
+| Caso de uso | Usa |
 |----------|-----|
-| String-keyed simple lookups | Plain object `{}` |
-| Non-string keys, frequent add/delete, need `.size` | `Map` |
-| Deduplication | `Set` |
-| Private metadata that shouldn't prevent GC | `WeakMap` |
-| Tracking objects without memory leaks | `WeakSet` |
+| Busquedas simples con claves string | Objeto simple `{}` |
+| Claves no-string, agregar/eliminar frecuente, necesitas `.size` | `Map` |
+| Deduplicacion | `Set` |
+| Metadatos privados que no deben prevenir el GC | `WeakMap` |
+| Rastrear objetos sin fugas de memoria | `WeakSet` |
 
-### Common Pitfalls
+### Errores comunes
 
-**Mutating function arguments:**
+**Mutar argumentos de funciones:**
 
 ```js
 // Bad: caller's object is modified unexpectedly
@@ -1517,7 +1517,7 @@ function addAdmin(users) {
 }
 ```
 
-**Forgetting `await`:**
+**Olvidar `await`:**
 
 ```js
 // Bug: deleteUser returns a promise, doesn't actually wait
@@ -1533,7 +1533,7 @@ async function cleanup(userId) {
 }
 ```
 
-**`for...in` on arrays:**
+**`for...in` en arrays:**
 
 ```js
 const arr = ['a', 'b', 'c'];
@@ -1562,9 +1562,9 @@ null == undefined; // true
 0 === false;   // false
 ```
 
-Always use `===`. The only acceptable `==` is `value == null` to check for both `null` and `undefined` simultaneously, and even that is a stylistic choice.
+Siempre usa `===`. El unico `==` aceptable es `value == null` para verificar tanto `null` como `undefined` simultaneamente, e incluso eso es una eleccion de estilo.
 
-**Callback hell (nesting `.then` chains):**
+**Callback hell (anidar cadenas `.then`):**
 
 ```js
 // Bad: nested promises — just as bad as callback hell
@@ -1585,14 +1585,14 @@ async function loadData(id) {
 }
 ```
 
-**Using `var`:**
+**Usar `var`:**
 
-`var` is hoisted to the function scope and can be accessed before declaration (as `undefined`). This causes silent bugs. There is no reason to use `var` in modern JavaScript.
+`var` se eleva (hoisted) al scope de la funcion y puede ser accedido antes de su declaracion (como `undefined`). Esto causa errores silenciosos. No hay razon para usar `var` en JavaScript moderno.
 
-### Key Takeaways
+### Puntos clave
 
-- Use `const` by default, `let` when reassignment is needed, never `var`.
-- Destructuring and spread are not syntax sugar — they are how you work with props, state, and API responses in every framework.
-- `?.` and `??` eliminate defensive `if` chains. Use `??` instead of `||` when `0` or `''` are valid values.
-- `async`/`await` is syntactic sugar over promises. Use `Promise.all` for parallel operations, `Promise.allSettled` when partial failure is acceptable.
-- Closures capture variables by reference. In React hooks, this means stale values if your dependency array is wrong. Use the function form of `setState` when updating based on previous state.
+- Usa `const` por defecto, `let` cuando se necesite reasignacion, nunca `var`.
+- Destructuring y spread no son azucar sintactico — son la forma en que trabajas con props, state y respuestas de APIs en todos los frameworks.
+- `?.` y `??` eliminan cadenas defensivas de `if`. Usa `??` en lugar de `||` cuando `0` o `''` son valores validos.
+- `async`/`await` es azucar sintactico sobre promesas. Usa `Promise.all` para operaciones en paralelo, `Promise.allSettled` cuando el fallo parcial es aceptable.
+- Los closures capturan variables por referencia. En los hooks de React, esto significa valores obsoletos si tu array de dependencias es incorrecto. Usa la forma de funcion de `setState` al actualizar basandote en el estado previo.

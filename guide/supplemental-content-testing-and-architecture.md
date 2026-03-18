@@ -1,26 +1,26 @@
-# Supplemental Content: Testing, Code Review, and Micro-frontends
+# Contenido Suplementario: Testing, Code Review y Micro-frontends
 
-> Fills the "missing" gaps identified in the Content Map for Stage 7 (Testing & Quality) and Stage 8 (Architecture at Scale). This content covers how to write tests, how to test components and E2E flows, how to conduct code reviews, and a brief overview of micro-frontends.
+> Cubre las brechas "faltantes" identificadas en el Mapa de Contenido para la Etapa 7 (Testing y Calidad) y la Etapa 8 (Arquitectura a Escala). Este contenido abarca cómo escribir tests, cómo testear componentes y flujos E2E, cómo realizar code reviews y una breve descripción general de micro-frontends.
 
 ---
 
-## 1. Writing Good Tests --- Structure and Principles
+## 1. Escribir Buenos Tests --- Estructura y Principios
 
-### Why This Matters
+### Por Qué Esto Importa
 
-Tests are not bureaucracy. They are the only mechanism that lets you change code with confidence. A codebase without tests is a codebase where every change is a gamble. A codebase with bad tests is worse --- it gives false confidence while slowing you down.
+Los tests no son burocracia. Son el único mecanismo que te permite cambiar código con confianza. Un codebase sin tests es un codebase donde cada cambio es una apuesta. Un codebase con tests malos es peor --- da falsa confianza mientras te ralentiza.
 
-The purpose of tests:
+El propósito de los tests:
 
-1. **Document behavior.** Tests are executable specifications. A well-named test tells you what the code does without reading the implementation.
-2. **Prevent regressions.** When you fix a bug, a test ensures that bug never comes back.
-3. **Enable refactoring.** You cannot safely restructure code without tests that verify behavior is preserved.
+1. **Documentar comportamiento.** Los tests son especificaciones ejecutables. Un test bien nombrado te dice qué hace el código sin leer la implementación.
+2. **Prevenir regresiones.** Cuando corriges un bug, un test asegura que ese bug nunca regrese.
+3. **Habilitar refactoring.** No puedes reestructurar código de forma segura sin tests que verifiquen que el comportamiento se preserva.
 
-Tests do NOT exist to achieve coverage metrics. A test suite with 100% line coverage that only checks "component renders without crashing" tells you nothing. A test suite with 40% coverage that verifies every business rule and edge case is infinitely more valuable.
+Los tests NO existen para alcanzar métricas de coverage. Un test suite con 100% de line coverage que solo verifica "el componente renderiza sin errores" no te dice nada. Un test suite con 40% de coverage que verifica cada regla de negocio y caso extremo es infinitamente más valioso.
 
-### The Arrange-Act-Assert Pattern
+### El Patrón Arrange-Act-Assert
 
-Every test should have exactly three phases, clearly separated:
+Cada test debería tener exactamente tres fases, claramente separadas:
 
 ```typescript
 test('applies 20% discount when cart total exceeds $100', () => {
@@ -38,13 +38,13 @@ test('applies 20% discount when cart total exceeds $100', () => {
 });
 ```
 
-The three phases should be visually distinct. If you cannot tell where Arrange ends and Act begins, the test is doing too much.
+Las tres fases deben ser visualmente distintas. Si no puedes distinguir dónde termina Arrange y dónde comienza Act, el test está haciendo demasiado.
 
-When a test has no clear Act phase, you are testing setup, not behavior. When a test has multiple Act phases, split it into multiple tests.
+Cuando un test no tiene una fase Act clara, estás testeando la configuración, no el comportamiento. Cuando un test tiene múltiples fases Act, divídelo en múltiples tests.
 
-### Test Naming
+### Nombrado de Tests
 
-Describe the behavior, not the implementation. A test name should read like a sentence that a non-developer could understand.
+Describe el comportamiento, no la implementación. El nombre de un test debería leerse como una oración que una persona no desarrolladora podría entender.
 
 ```typescript
 // Good — describes what the user sees
@@ -60,11 +60,11 @@ test('invokes router.push with /dashboard', () => { /* ... */ });
 test('should work', () => { /* ... */ });
 ```
 
-A useful heuristic: if your test name includes a function name, variable name, or state property, you are probably testing implementation.
+Una heurística útil: si el nombre de tu test incluye un nombre de función, nombre de variable o propiedad de estado, probablemente estás testeando la implementación.
 
-### What to Test
+### Qué Testear
 
-**User-visible behavior.** What happens when I click, type, submit, navigate? If the user can see it or trigger it, test it.
+**Comportamiento visible para el usuario.** ¿Qué sucede cuando hago clic, escribo, envío, navego? Si el usuario puede verlo o activarlo, testéalo.
 
 ```typescript
 test('adds item to cart when "Add to Cart" button is clicked', () => {
@@ -76,7 +76,7 @@ test('adds item to cart when "Add to Cart" button is clicked', () => {
 });
 ```
 
-**Edge cases.** Empty input, boundary values, error states, zero-length arrays, null values, network failures.
+**Casos extremos.** Entrada vacía, valores límite, estados de error, arrays de longitud cero, valores nulos, fallos de red.
 
 ```typescript
 test('shows "No results" when search returns empty array', () => { /* ... */ });
@@ -85,7 +85,7 @@ test('displays error when API request fails', () => { /* ... */ });
 test('truncates display name longer than 50 characters', () => { /* ... */ });
 ```
 
-**Business logic.** Calculations, transformations, validation rules --- the core logic that makes your application correct.
+**Lógica de negocio.** Cálculos, transformaciones, reglas de validación --- la lógica central que hace que tu aplicación sea correcta.
 
 ```typescript
 test('calculates shipping as free for orders over $50', () => {
@@ -95,9 +95,9 @@ test('calculates shipping as free for orders over $50', () => {
 });
 ```
 
-### What NOT to Test
+### Qué NO Testear
 
-**Implementation details.** Internal state, private methods, specific function calls. If you refactor the internals without changing behavior, tests should not break.
+**Detalles de implementación.** Estado interno, métodos privados, llamadas a funciones específicas. Si refactorizas las partes internas sin cambiar el comportamiento, los tests no deberían romperse.
 
 ```typescript
 // Bad — testing implementation
@@ -113,15 +113,15 @@ test('shows loading spinner while fetching users', () => {
 });
 ```
 
-**Framework internals.** Do not test that React's `useState` works, that Vue's `ref` is reactive, or that Angular's change detection fires. The framework authors already test that.
+**Internos del framework.** No testees que `useState` de React funciona, que `ref` de Vue es reactivo, o que la detección de cambios de Angular se ejecuta. Los autores del framework ya testean eso.
 
-**Styling.** Do not assert on CSS classes, pixel positions, or computed styles. Styles change frequently and have no behavioral impact. Use visual regression testing (screenshots) for critical visual components instead.
+**Estilos.** No hagas assertions sobre clases CSS, posiciones en píxeles o estilos computados. Los estilos cambian frecuentemente y no tienen impacto en el comportamiento. Usa visual regression testing (capturas de pantalla) para componentes visuales críticos en su lugar.
 
-**Third-party library behavior.** If you are using a date library, do not test that it formats dates correctly. Test that *your code* passes the right date to the library.
+**Comportamiento de bibliotecas de terceros.** Si estás usando una biblioteca de fechas, no testees que formatea fechas correctamente. Testea que *tu código* le pasa la fecha correcta a la biblioteca.
 
-### Test Isolation
+### Aislamiento de Tests
 
-Each test must run independently. No shared mutable state. No test order dependencies.
+Cada test debe ejecutarse de forma independiente. Sin estado mutable compartido. Sin dependencias de orden de tests.
 
 ```typescript
 // Bad — shared mutable state between tests
@@ -157,25 +157,25 @@ test('calculates total for single item', () => {
 });
 ```
 
-Use `beforeEach` for common initialization that every test in the block needs. Use `afterEach` for cleanup (clearing mocks, restoring timers). Never use `beforeAll` to create state that tests mutate.
+Usa `beforeEach` para la inicialización común que cada test en el bloque necesita. Usa `afterEach` para limpieza (limpiar mocks, restaurar timers). Nunca uses `beforeAll` para crear estado que los tests mutan.
 
-### The Testing Spectrum
+### El Espectro de Testing
 
-From fastest and simplest to slowest and most comprehensive:
+De más rápido y simple a más lento y completo:
 
-| Level | What it tests | Speed | Confidence | Example |
-|-------|---------------|-------|------------|---------|
-| **Pure function** | Input → output | ~1ms | Low (isolated) | `calculateDiscount(100)` returns `80` |
-| **Hook/Composable** | Logic with state | ~5ms | Low-medium | `useCounter()` increments and decrements |
-| **Component** | Render + interact | ~50ms | Medium | `<LoginForm>` submits credentials |
-| **Integration** | Multiple units + API | ~200ms | Medium-high | `<UserDashboard>` fetches and renders data |
-| **E2E** | Full browser flow | ~5s | High | Login, navigate, complete checkout |
+| Nivel | Qué testea | Velocidad | Confianza | Ejemplo |
+|-------|------------|-----------|-----------|---------|
+| **Pure function** | Input → output | ~1ms | Baja (aislado) | `calculateDiscount(100)` retorna `80` |
+| **Hook/Composable** | Lógica con estado | ~5ms | Baja-media | `useCounter()` incrementa y decrementa |
+| **Component** | Renderizado + interacción | ~50ms | Media | `<LoginForm>` envía credenciales |
+| **Integration** | Múltiples unidades + API | ~200ms | Media-alta | `<UserDashboard>` obtiene y renderiza datos |
+| **E2E** | Flujo completo en navegador | ~5s | Alta | Login, navegar, completar checkout |
 
-The testing pyramid: many tests at the top of this table, few at the bottom. Most of your tests should be pure function and component tests. E2E tests cover only critical paths.
+La pirámide de testing: muchos tests en la parte superior de esta tabla, pocos en la parte inferior. La mayoría de tus tests deberían ser de pure function y componentes. Los tests E2E cubren solo rutas críticas.
 
-### Test File Organization
+### Organización de Archivos de Test
 
-Colocate tests next to the source code they test:
+Coloca los tests junto al código fuente que testean:
 
 ```
 src/
@@ -190,7 +190,7 @@ src/
     formatCurrency.test.ts     ← right next to the utility
 ```
 
-Not in a separate mirror tree:
+No en un árbol espejo separado:
 
 ```
 # Avoid this structure
@@ -202,47 +202,47 @@ __tests__/
     UserProfile.test.tsx      ← far from the source, easy to forget
 ```
 
-Colocating tests makes it obvious when a file lacks tests, makes it easy to find the test for any file, and keeps test and source in sync when moving or renaming files.
+Colocar los tests junto al código hace evidente cuándo un archivo carece de tests, facilita encontrar el test para cualquier archivo y mantiene test y código fuente sincronizados al mover o renombrar archivos.
 
-### Common Pitfalls
+### Errores Comunes
 
-- **Testing implementation details.** Your test breaks when you refactor from `useState` to `useReducer`, even though the component behaves identically. You are testing how it works, not what it does.
-- **Brittle tests.** Tests that break on any refactor provide negative value: they cost time to maintain without catching real bugs. If moving a function from one file to another breaks tests, something is wrong.
-- **Tests with no assertions.** A test that renders a component and checks nothing is theater. It exists only to inflate coverage numbers.
-- **Copy-pasting test code.** Duplicate setup across 20 tests becomes 20 places to update when the API changes. Extract test utilities and factory functions.
-- **Testing the mock.** If your test mocks a function and then asserts that the mock was called, you are testing your test setup, not your code. The mock should enable the test, not be the subject of it.
-- **`test("should work")` naming.** When this test fails in CI, the failure message tells you nothing. You have to open the file and read the test body to understand what broke.
-- **Excessive use of `describe` nesting.** Three or four levels of `describe` blocks make tests harder to read and maintain. One level of `describe` per function or component is usually enough.
+- **Testear detalles de implementación.** Tu test se rompe cuando refactorizas de `useState` a `useReducer`, aunque el componente se comporta de forma idéntica. Estás testeando cómo funciona, no qué hace.
+- **Tests frágiles.** Tests que se rompen con cualquier refactorización proporcionan valor negativo: cuestan tiempo de mantenimiento sin detectar bugs reales. Si mover una función de un archivo a otro rompe los tests, algo está mal.
+- **Tests sin assertions.** Un test que renderiza un componente y no verifica nada es teatro. Existe solo para inflar los números de coverage.
+- **Copiar y pegar código de test.** Setup duplicado en 20 tests se convierte en 20 lugares que actualizar cuando la API cambia. Extrae utilidades de test y funciones factory.
+- **Testear el mock.** Si tu test hace mock de una función y luego verifica que el mock fue llamado, estás testeando tu configuración de test, no tu código. El mock debería habilitar el test, no ser el sujeto del mismo.
+- **Nombrado `test("should work")`.** Cuando este test falla en CI, el mensaje de error no te dice nada. Tienes que abrir el archivo y leer el cuerpo del test para entender qué se rompió.
+- **Uso excesivo de anidamiento con `describe`.** Tres o cuatro niveles de bloques `describe` hacen que los tests sean más difíciles de leer y mantener. Un nivel de `describe` por función o componente usualmente es suficiente.
 
-### Key Takeaways
+### Puntos Clave
 
-- Tests document behavior, prevent regressions, and enable refactoring. Coverage metrics are a side effect, not a goal.
-- Every test follows Arrange-Act-Assert with clear separation between phases.
-- Name tests by behavior ("shows error when..."), not by implementation ("calls validateEmail").
-- Test what the user sees and does. Do not test internal state, framework internals, or third-party library behavior.
-- Each test must be independent --- no shared mutable state, no order dependencies.
+- Los tests documentan comportamiento, previenen regresiones y habilitan refactoring. Las métricas de coverage son un efecto secundario, no un objetivo.
+- Cada test sigue Arrange-Act-Assert con separación clara entre fases.
+- Nombra los tests por comportamiento ("shows error when..."), no por implementación ("calls validateEmail").
+- Testea lo que el usuario ve y hace. No testees estado interno, internos del framework o comportamiento de bibliotecas de terceros.
+- Cada test debe ser independiente --- sin estado mutable compartido, sin dependencias de orden.
 
 ---
 
-## 2. Component Testing Patterns
+## 2. Patrones de Component Testing
 
-### Why This Matters
+### Por Qué Esto Importa
 
-Components are the primary building block of modern frontends. If your component tests are well-written, they give you confidence that the UI works as users expect. If they are poorly written --- testing CSS classes, DOM structure, or internal state --- they break on every refactor and catch zero real bugs.
+Los componentes son el bloque de construcción principal de los frontends modernos. Si tus component tests están bien escritos, te dan confianza de que la UI funciona como los usuarios esperan. Si están mal escritos --- testeando clases CSS, estructura del DOM o estado interno --- se rompen con cada refactorización y no detectan ningún bug real.
 
-The guiding philosophy comes from Testing Library:
+La filosofía guía viene de Testing Library:
 
 > "The more your tests resemble the way your software is used, the more confidence they can give you."
 
-Users do not interact with CSS class names or React state. They see text, click buttons, fill forms, and read error messages. Test that.
+Los usuarios no interactúan con nombres de clases CSS o estado de React. Ven texto, hacen clic en botones, llenan formularios y leen mensajes de error. Testea eso.
 
-### Query Priority
+### Prioridad de Queries
 
-When finding elements in your rendered component, prefer queries that reflect how users and assistive technologies find elements. From most preferred to least:
+Al buscar elementos en tu componente renderizado, prefiere queries que reflejen cómo los usuarios y las tecnologías asistivas encuentran los elementos. De más preferido a menos:
 
-#### 1. `getByRole` --- Accessible Role + Name (Most Preferred)
+#### 1. `getByRole` --- Accessible Role + Name (Más Preferido)
 
-This is how screen readers navigate the page. If your element is not findable by role, it may not be accessible.
+Así es como los lectores de pantalla navegan la página. Si tu elemento no se puede encontrar por role, puede que no sea accesible.
 
 ```typescript
 // Buttons
@@ -263,9 +263,9 @@ screen.getByRole('navigation');
 screen.getByRole('link', { name: /sign up/i });
 ```
 
-#### 2. `getByLabelText` --- Form Inputs with Labels
+#### 2. `getByLabelText` --- Inputs de Formulario con Labels
 
-For form elements, querying by label text is the closest to how users identify inputs.
+Para elementos de formulario, buscar por texto de label es lo más cercano a cómo los usuarios identifican los inputs.
 
 ```typescript
 screen.getByLabelText(/email address/i);
@@ -273,17 +273,17 @@ screen.getByLabelText(/password/i);
 screen.getByLabelText(/date of birth/i);
 ```
 
-#### 3. `getByPlaceholderText` --- Inputs Without Visible Labels
+#### 3. `getByPlaceholderText` --- Inputs Sin Labels Visibles
 
-Use this only when an input genuinely has no visible label (search bars, for example). In most cases, add a label instead.
+Usa esto solo cuando un input genuinamente no tiene un label visible (barras de búsqueda, por ejemplo). En la mayoría de los casos, agrega un label en su lugar.
 
 ```typescript
 screen.getByPlaceholderText(/search\.\.\./i);
 ```
 
-#### 4. `getByText` --- Non-Interactive Text Content
+#### 4. `getByText` --- Contenido de Texto No Interactivo
 
-For text that is not inside an interactive element.
+Para texto que no está dentro de un elemento interactivo.
 
 ```typescript
 screen.getByText(/no results found/i);
@@ -291,20 +291,20 @@ screen.getByText(/welcome back, jane/i);
 screen.getByText('$42.99');
 ```
 
-#### 5. `getByTestId` --- Last Resort
+#### 5. `getByTestId` --- Último Recurso
 
-Use `data-testid` only when there is no accessible way to find the element. This is a red flag --- it usually means the element lacks proper accessible markup.
+Usa `data-testid` solo cuando no hay forma accesible de encontrar el elemento. Esto es una señal de alerta --- usualmente significa que el elemento carece de markup accesible apropiado.
 
 ```typescript
 // Only when there is truly no other option
 screen.getByTestId('map-container'); // a canvas element with no text
 ```
 
-If you find yourself reaching for `getByTestId`, ask whether the element needs an accessible name, a label, or an ARIA role.
+Si te encuentras recurriendo a `getByTestId`, pregúntate si el elemento necesita un accessible name, un label o un ARIA role.
 
-### User Interactions
+### Interacciones del Usuario
 
-Use `@testing-library/user-event` over `fireEvent`. `user-event` simulates real browser behavior: focus management, keydown/keyup sequences, clipboard events, and pointer events. `fireEvent` dispatches a single synthetic DOM event.
+Usa `@testing-library/user-event` en lugar de `fireEvent`. `user-event` simula el comportamiento real del navegador: gestión de focus, secuencias keydown/keyup, eventos del clipboard y eventos de puntero. `fireEvent` despacha un único evento DOM sintético.
 
 ```typescript
 import userEvent from '@testing-library/user-event';
@@ -329,7 +329,7 @@ test('submits the login form', async () => {
 });
 ```
 
-Common `userEvent` methods:
+Métodos comunes de `userEvent`:
 
 ```typescript
 await user.click(element);              // Click (with full pointer event sequence)
@@ -345,9 +345,9 @@ await user.upload(element, file);       // Upload a file
 await user.paste('text');              // Paste from clipboard
 ```
 
-### Testing Async Behavior
+### Testear Comportamiento Asíncrono
 
-Components often load data, show spinners, and update after async operations. Use `findBy` queries (which auto-retry) and `waitFor` for assertions.
+Los componentes frecuentemente cargan datos, muestran spinners y se actualizan después de operaciones asíncronas. Usa queries `findBy` (que reintentan automáticamente) y `waitFor` para assertions.
 
 ```typescript
 test('loads and displays user data', async () => {
@@ -386,11 +386,11 @@ test('removes item from list after deletion', async () => {
 });
 ```
 
-Key difference: `findBy` is for waiting for an element to appear. `waitFor` is for waiting for a condition to become true (including elements disappearing).
+Diferencia clave: `findBy` es para esperar que un elemento aparezca. `waitFor` es para esperar que una condición se vuelva verdadera (incluyendo que elementos desaparezcan).
 
-### Testing Hooks and Composables
+### Testear Hooks y Composables
 
-Test hooks in isolation when they contain significant logic. Use `renderHook` from Testing Library.
+Testea hooks de forma aislada cuando contienen lógica significativa. Usa `renderHook` de Testing Library.
 
 ```typescript
 import { renderHook, act } from '@testing-library/react';
@@ -424,7 +424,7 @@ test('useCounter does not go below zero', () => {
 });
 ```
 
-For hooks that depend on context, provide a wrapper:
+Para hooks que dependen de contexto, proporciona un wrapper:
 
 ```typescript
 test('useAuth returns current user', () => {
@@ -438,7 +438,7 @@ test('useAuth returns current user', () => {
 });
 ```
 
-For Vue composables, test utility functions directly or use a thin component wrapper:
+Para composables de Vue, testea las funciones de utilidad directamente o usa un wrapper de componente delgado:
 
 ```typescript
 // Vue composable test
@@ -455,9 +455,9 @@ test('useCounter increments', () => {
 });
 ```
 
-### Mocking Context and Providers
+### Mockear Contexto y Providers
 
-Components often depend on context (theme, auth, routing, internationalization). Create test wrappers that provide these dependencies.
+Los componentes frecuentemente dependen de contexto (tema, autenticación, enrutamiento, internacionalización). Crea wrappers de test que proporcionen estas dependencias.
 
 ```typescript
 // test-utils.tsx — shared across all component tests
@@ -494,7 +494,7 @@ export * from '@testing-library/react';
 export { renderWithProviders as render };
 ```
 
-Usage:
+Uso:
 
 ```typescript
 import { render, screen } from '../test-utils';
@@ -505,9 +505,9 @@ test('shows login button when not authenticated', () => {
 });
 ```
 
-### Testing Form Components
+### Testear Componentes de Formulario
 
-Forms are where the most important user interactions happen. Test the full user flow.
+Los formularios son donde ocurren las interacciones de usuario más importantes. Testea el flujo completo del usuario.
 
 ```typescript
 test('shows validation errors for invalid input', async () => {
@@ -547,9 +547,9 @@ test('submits valid form data', async () => {
 });
 ```
 
-### Testing Loading, Error, and Empty States
+### Testear Estados de Carga, Error y Vacío
 
-Use MSW (Mock Service Worker) to control API responses.
+Usa MSW (Mock Service Worker) para controlar las respuestas de API.
 
 ```typescript
 import { http, HttpResponse } from 'msw';
@@ -594,9 +594,9 @@ test('shows empty state when no users exist', async () => {
 
 ### Snapshot Testing
 
-Snapshots can be useful for small, focused outputs --- but they are easily abused.
+Los snapshots pueden ser útiles para outputs pequeños y enfocados --- pero se abusan fácilmente.
 
-**When snapshots work:**
+**Cuándo los snapshots funcionan:**
 
 ```typescript
 // Small, stable output — a serialized data structure
@@ -612,7 +612,7 @@ test('formats address correctly', () => {
 });
 ```
 
-**When snapshots are harmful:**
+**Cuándo los snapshots son dañinos:**
 
 ```typescript
 // Bad — a 200-line HTML dump that no one reviews
@@ -622,7 +622,7 @@ test('renders user profile', () => {
 });
 ```
 
-**The 10-second rule:** if you cannot review a snapshot diff in 10 seconds, the snapshot is too large. Replace it with specific assertions:
+**La regla de los 10 segundos:** si no puedes revisar un diff de snapshot en 10 segundos, el snapshot es demasiado grande. Reemplázalo con assertions específicas:
 
 ```typescript
 // Good — targeted assertions instead of a massive snapshot
@@ -639,9 +639,9 @@ test('renders user profile with all sections', () => {
 });
 ```
 
-### Example Patterns
+### Patrones de Ejemplo
 
-**Testing a button component:**
+**Testear un componente de botón:**
 
 ```typescript
 describe('Button', () => {
@@ -676,7 +676,7 @@ describe('Button', () => {
 });
 ```
 
-**Testing a list with empty and loading states:**
+**Testear una lista con estados vacío y de carga:**
 
 ```typescript
 describe('ProductList', () => {
@@ -703,47 +703,47 @@ describe('ProductList', () => {
 });
 ```
 
-### Common Pitfalls
+### Errores Comunes
 
-- **`getByTestId` as the default query.** Reaching for `data-testid` first bypasses accessible markup. If your tests cannot find elements by role or label, your UI probably is not accessible either.
-- **`fireEvent` instead of `userEvent`.** `fireEvent.click()` dispatches a single click event. Real clicks involve focus, pointerdown, mousedown, pointerup, mouseup, then click. `userEvent` catches bugs that `fireEvent` misses (event handler order, focus management, disabled state).
-- **Testing CSS classes.** `expect(element).toHaveClass('btn-primary')` breaks whenever you rename a class, change a design system, or migrate from CSS Modules to Tailwind. Test the visible outcome instead: is the button disabled? Is the text red? Use `toBeDisabled()`, `toBeVisible()`, or visual regression screenshots.
-- **Asserting on DOM structure.** `expect(container.querySelector('div > span.error')).toExist()` is fragile. If you wrap the span in a `<p>`, the test breaks despite identical behavior. Use `getByText` or `getByRole`.
-- **Not awaiting async operations.** Forgetting `await` on `findBy` or `userEvent` calls produces tests that pass by accident or fail intermittently. Every `userEvent` method and every `findBy` query returns a promise.
-- **Mocking the component under test.** If you mock the function you are testing, you are testing your mock. Mock *dependencies* (APIs, timers, external services), not the subject.
+- **`getByTestId` como query por defecto.** Recurrir a `data-testid` primero elude el markup accesible. Si tus tests no pueden encontrar elementos por role o label, tu UI probablemente tampoco es accesible.
+- **`fireEvent` en lugar de `userEvent`.** `fireEvent.click()` despacha un único evento de clic. Los clics reales involucran focus, pointerdown, mousedown, pointerup, mouseup y luego click. `userEvent` detecta bugs que `fireEvent` no detecta (orden de event handlers, gestión de focus, estado disabled).
+- **Testear clases CSS.** `expect(element).toHaveClass('btn-primary')` se rompe cuando renombras una clase, cambias un design system o migras de CSS Modules a Tailwind. Testea el resultado visible en su lugar: ¿está el botón deshabilitado? ¿Es el texto rojo? Usa `toBeDisabled()`, `toBeVisible()` o capturas de pantalla de visual regression.
+- **Hacer assertions sobre la estructura del DOM.** `expect(container.querySelector('div > span.error')).toExist()` es frágil. Si envuelves el span en un `<p>`, el test se rompe a pesar del comportamiento idéntico. Usa `getByText` o `getByRole`.
+- **No usar await en operaciones asíncronas.** Olvidar `await` en llamadas a `findBy` o `userEvent` produce tests que pasan por accidente o fallan de forma intermitente. Cada método de `userEvent` y cada query `findBy` retorna una promesa.
+- **Mockear el componente bajo prueba.** Si mockeas la función que estás testeando, estás testeando tu mock. Mockea *dependencias* (APIs, timers, servicios externos), no el sujeto.
 
-### Key Takeaways
+### Puntos Clave
 
-- Use Testing Library's query priority: `getByRole` first, `getByTestId` last.
-- Use `userEvent` over `fireEvent` for realistic user interaction simulation.
-- Test all three states: loading, success (with data), and failure (error + empty).
-- Use `findBy` for elements that appear after async operations. Use `waitFor` for conditions that change over time.
-- Extract test providers and utilities into a shared `test-utils` file to avoid repetition.
+- Usa la prioridad de queries de Testing Library: `getByRole` primero, `getByTestId` último.
+- Usa `userEvent` en lugar de `fireEvent` para simulación realista de interacciones de usuario.
+- Testea los tres estados: carga, éxito (con datos) y fallo (error + vacío).
+- Usa `findBy` para elementos que aparecen después de operaciones asíncronas. Usa `waitFor` para condiciones que cambian con el tiempo.
+- Extrae test providers y utilidades en un archivo compartido `test-utils` para evitar repetición.
 
 ---
 
-## 3. E2E Testing Patterns (Playwright)
+## 3. Patrones de E2E Testing (Playwright)
 
-### Why This Matters
+### Por Qué Esto Importa
 
-Component tests verify individual pieces in isolation. E2E tests verify that the entire system --- frontend, backend, database, authentication --- works together as a real user would experience it. They are the last line of defense before production.
+Los component tests verifican piezas individuales de forma aislada. Los tests E2E verifican que el sistema completo --- frontend, backend, base de datos, autenticación --- funciona junto como un usuario real lo experimentaría. Son la última línea de defensa antes de producción.
 
-But E2E tests are expensive: slow to run, hard to maintain, and prone to flakiness. The key is using them surgically: test only what cannot be tested any other way.
+Pero los tests E2E son costosos: lentos de ejecutar, difíciles de mantener y propensos a ser inconsistentes. La clave es usarlos de forma quirúrgica: testea solo lo que no se puede testear de otra manera.
 
-### What to E2E Test
+### Qué Testear con E2E
 
-Test **critical user paths** --- the flows that, if broken, mean your product is broken.
+Testea **rutas críticas del usuario** --- los flujos que, si se rompen, significan que tu producto está roto.
 
-- **Authentication:** sign up, log in, log out, password reset
-- **Core user journey:** the primary action your product exists for (search, purchase, create, share)
-- **Payment/checkout:** money-related flows must work
-- **Onboarding:** first-time user experience
+- **Autenticación:** registro, inicio de sesión, cierre de sesión, restablecimiento de contraseña
+- **Recorrido principal del usuario:** la acción principal para la que existe tu producto (buscar, comprar, crear, compartir)
+- **Pago/checkout:** los flujos relacionados con dinero deben funcionar
+- **Onboarding:** experiencia del usuario por primera vez
 
-Do NOT E2E test every edge case, every validation rule, or every empty state. That is what unit and component tests are for. If you have 500 E2E tests, you have a maintenance problem and a slow CI pipeline.
+NO hagas tests E2E de cada caso extremo, cada regla de validación o cada estado vacío. Para eso están los unit tests y component tests. Si tienes 500 tests E2E, tienes un problema de mantenimiento y un pipeline de CI lento.
 
 ### Page Object Model
 
-Encapsulate page interactions in classes. When the UI changes, update one place instead of 40 tests.
+Encapsula las interacciones de página en clases. Cuando la UI cambia, actualiza un solo lugar en vez de 40 tests.
 
 ```typescript
 // pages/login.page.ts
@@ -802,7 +802,7 @@ export class DashboardPage {
 }
 ```
 
-Usage in tests:
+Uso en tests:
 
 ```typescript
 // tests/auth.spec.ts
@@ -828,11 +828,11 @@ test('shows error for invalid credentials', async ({ page }) => {
 });
 ```
 
-When the login form changes (say the label changes from "Email" to "Email address"), you update `LoginPage` once. All tests that use it continue to work.
+Cuando el formulario de login cambia (digamos que el label cambia de "Email" a "Email address"), actualizas `LoginPage` una vez. Todos los tests que lo usan siguen funcionando.
 
-### Locator Strategy
+### Estrategia de Locators
 
-Playwright provides the same accessible query philosophy as Testing Library:
+Playwright proporciona la misma filosofía de queries accesibles que Testing Library:
 
 ```typescript
 // Preferred — accessible queries
@@ -848,9 +848,9 @@ page.locator('div > form > button');   // fragile, tied to DOM structure
 page.locator('xpath=//button[@id]');   // fragile, hard to read
 ```
 
-### Test Data Management
+### Gestión de Datos de Test
 
-Each test must create its own data and clean up after itself.
+Cada test debe crear sus propios datos y limpiar después de sí mismo.
 
 ```typescript
 // fixtures/users.ts — factory functions for test data
@@ -881,11 +881,11 @@ test('user can update their profile', async ({ page, request }) => {
 });
 ```
 
-Never hardcode test data like `jane@example.com` across multiple tests. If two tests run in parallel and use the same email, they will interfere with each other.
+Nunca codifiques datos de test como `jane@example.com` en múltiples tests. Si dos tests se ejecutan en paralelo y usan el mismo email, interferirán entre sí.
 
-### Handling Authentication
+### Manejo de Autenticación
 
-Logging in via the UI for every test wastes time. Log in via API and reuse the auth state.
+Iniciar sesión a través de la UI en cada test desperdicia tiempo. Inicia sesión a través de API y reutiliza el estado de autenticación.
 
 ```typescript
 // auth.setup.ts — runs once before all tests
@@ -926,11 +926,11 @@ export default defineConfig({
 });
 ```
 
-Now every test starts already logged in, saving 2-5 seconds per test.
+Ahora cada test comienza ya con la sesión iniciada, ahorrando 2-5 segundos por test.
 
-### Network Mocking in E2E
+### Network Mocking en E2E
 
-Use `page.route()` to intercept network requests when needed. But use it sparingly --- E2E tests should exercise real APIs whenever possible.
+Usa `page.route()` para interceptar peticiones de red cuando sea necesario. Pero úsalo con moderación --- los tests E2E deberían ejercitar APIs reales siempre que sea posible.
 
 ```typescript
 // Good use: simulating error states that are hard to trigger naturally
@@ -957,11 +957,11 @@ test('displays payment form', async ({ page }) => {
 });
 ```
 
-### Avoiding Flaky Tests
+### Evitar Tests Inconsistentes
 
-Flaky tests are worse than no tests. A test that passes 95% of the time gets ignored, and the 5% failure rate erodes trust in the entire suite.
+Los tests inconsistentes son peores que no tener tests. Un test que pasa el 95% del tiempo se ignora, y la tasa de fallo del 5% erosiona la confianza en todo el suite.
 
-**Use Playwright's auto-waiting.** Every locator action (`click`, `fill`, `check`) automatically waits for the element to be visible, enabled, and stable. Do not add manual waits before actions.
+**Usa el auto-waiting de Playwright.** Cada acción de locator (`click`, `fill`, `check`) espera automáticamente a que el elemento sea visible, esté habilitado y sea estable. No agregues esperas manuales antes de las acciones.
 
 ```typescript
 // Bad — arbitrary sleep
@@ -972,7 +972,7 @@ await page.getByRole('button', { name: /submit/i }).click();
 await page.getByRole('button', { name: /submit/i }).click();
 ```
 
-**Wait for specific conditions, not time.**
+**Espera condiciones específicas, no tiempo.**
 
 ```typescript
 // Bad — sleeping and hoping the data loaded
@@ -988,26 +988,26 @@ await expect(page.getByText('Data loaded')).toBeVisible();
 await page.waitForURL('/dashboard');
 ```
 
-**Use retry in CI as a safety net, not a fix.**
+**Usa retry en CI como red de seguridad, no como solución.**
 
 ```bash
 # playwright.config.ts — retries catch genuine flakiness from infra issues
 npx playwright test --retries=2
 ```
 
-If a test needs retries to pass consistently, fix the test. Retries are for infrastructure hiccups (network blips, container startup timing), not for test design problems.
+Si un test necesita retries para pasar consistentemente, corrige el test. Los retries son para problemas de infraestructura (intermitencias de red, timing de inicio de contenedores), no para problemas de diseño de tests.
 
-**Isolate every test.** Each test creates its own data and does not depend on any other test having run first.
+**Aísla cada test.** Cada test crea sus propios datos y no depende de que otro test se haya ejecutado primero.
 
-### Parallel Execution
+### Ejecución Paralela
 
-Playwright runs test files in parallel by default. Tests within a single file run sequentially by default but can be parallelized with `test.describe.configure({ mode: 'parallel' })`.
+Playwright ejecuta archivos de test en paralelo por defecto. Los tests dentro de un mismo archivo se ejecutan secuencialmente por defecto pero pueden ser paralelizados con `test.describe.configure({ mode: 'parallel' })`.
 
-Design every test to be fully independent. No test should assume that another test ran first, created certain data, or left the application in a specific state.
+Diseña cada test para ser completamente independiente. Ningún test debería asumir que otro test se ejecutó primero, creó ciertos datos o dejó la aplicación en un estado específico.
 
 ### Visual Regression Testing
 
-Playwright can capture and compare screenshots:
+Playwright puede capturar y comparar capturas de pantalla:
 
 ```typescript
 test('checkout page matches design', async ({ page }) => {
@@ -1017,15 +1017,15 @@ test('checkout page matches design', async ({ page }) => {
 });
 ```
 
-Use sparingly. Visual tests are brittle across environments (font rendering differences, browser versions) and create maintenance burden. Reserve them for:
+Úsalo con moderación. Los visual tests son frágiles entre entornos (diferencias en renderizado de fuentes, versiones de navegador) y crean carga de mantenimiento. Resérvalos para:
 
-- Critical landing pages
-- Design system component showcase
-- Complex visualizations (charts, graphs)
+- Páginas de aterrizaje críticas
+- Vitrina de componentes del design system
+- Visualizaciones complejas (gráficos, diagramas)
 
-Do not screenshot-test every page in your application.
+No hagas screenshot-test de cada página en tu aplicación.
 
-### CI Integration
+### Integración con CI
 
 ```yaml
 # .github/workflows/e2e.yml
@@ -1053,7 +1053,7 @@ e2e-tests:
         retention-days: 7
 ```
 
-For large test suites, shard across CI workers:
+Para suites de tests grandes, divide entre workers de CI:
 
 ```yaml
 strategy:
@@ -1063,117 +1063,117 @@ steps:
   - run: npx playwright test --shard=${{ matrix.shard }}
 ```
 
-### Common Pitfalls
+### Errores Comunes
 
-- **E2E testing every scenario.** 500 E2E tests running 10 seconds each = 83 minutes of CI time. Your pipeline becomes a bottleneck and developers stop waiting for it. Use E2E for critical paths (5-15 tests), unit/component tests for everything else.
-- **`page.waitForTimeout(5000)`.** Sleep-based waits are the number one cause of flaky tests. The page might load in 200ms or 8000ms depending on CI load. Wait for specific conditions instead.
-- **Login via UI in every test.** Filling email, password, and clicking submit adds 3-5 seconds per test. Authenticate via API and reuse `storageState`.
-- **Hardcoded test data.** `email: "test@test.com"` in every test means parallel tests collide. Use factory functions that generate unique data.
-- **Tests that depend on database state from other tests.** Test A creates a user, Test B assumes that user exists. When Test A is skipped, modified, or runs after Test B, everything breaks.
-- **Testing third-party services in E2E.** Do not test that Stripe's checkout form works or that Google Maps renders correctly. Mock third-party services and test only your integration with them.
+- **Hacer tests E2E de cada escenario.** 500 tests E2E ejecutándose 10 segundos cada uno = 83 minutos de tiempo de CI. Tu pipeline se convierte en un cuello de botella y los desarrolladores dejan de esperar. Usa E2E para rutas críticas (5-15 tests), unit/component tests para todo lo demás.
+- **`page.waitForTimeout(5000)`.** Las esperas basadas en sleep son la causa número uno de tests inconsistentes. La página puede cargar en 200ms o en 8000ms dependiendo de la carga del CI. Espera condiciones específicas en su lugar.
+- **Login a través de la UI en cada test.** Llenar email, contraseña y hacer clic en submit agrega 3-5 segundos por test. Autentícate a través de API y reutiliza `storageState`.
+- **Datos de test codificados.** `email: "test@test.com"` en cada test significa que los tests paralelos colisionan. Usa funciones factory que generen datos únicos.
+- **Tests que dependen del estado de la base de datos de otros tests.** Test A crea un usuario, Test B asume que ese usuario existe. Cuando Test A se omite, se modifica o se ejecuta después de Test B, todo se rompe.
+- **Testear servicios de terceros en E2E.** No testees que el formulario de checkout de Stripe funciona o que Google Maps renderiza correctamente. Mockea servicios de terceros y testea solo tu integración con ellos.
 
-### Key Takeaways
+### Puntos Clave
 
-- E2E tests cover critical user paths only: login, core workflow, payment, onboarding.
-- Use the Page Object Model to encapsulate page interactions. UI changes update one file.
-- Authenticate via API, not UI. Reuse auth state with `storageState`.
-- Never use `waitForTimeout`. Use Playwright's auto-waiting, `waitForResponse`, or `expect(locator).toBeVisible()`.
-- Design every test to be independent: own data, no order dependencies, parallel-safe.
+- Los tests E2E cubren solo rutas críticas del usuario: login, flujo principal, pago, onboarding.
+- Usa el Page Object Model para encapsular interacciones de página. Los cambios de UI actualizan un solo archivo.
+- Autentícate a través de API, no de la UI. Reutiliza el estado de autenticación con `storageState`.
+- Nunca uses `waitForTimeout`. Usa el auto-waiting de Playwright, `waitForResponse` o `expect(locator).toBeVisible()`.
+- Diseña cada test para ser independiente: datos propios, sin dependencias de orden, seguro para ejecución paralela.
 
 ---
 
-## 4. Code Review Practices
+## 4. Prácticas de Code Review
 
-### Why This Matters
+### Por Qué Esto Importa
 
-Code review is the highest-leverage activity on a team. A 30-minute review can prevent a bug that would cost a day to debug, spread knowledge that prevents three future mistakes, and improve a design that would cause pain for months.
+El code review es la actividad de mayor impacto en un equipo. Una revisión de 30 minutos puede prevenir un bug que costaría un día en depurar, compartir conocimiento que previene tres errores futuros y mejorar un diseño que causaría dolor durante meses.
 
-Code review is not gatekeeping. Its purposes:
+El code review no es gatekeeping. Sus propósitos:
 
-1. **Catch bugs** before they reach users.
-2. **Share knowledge** across the team (no single point of failure).
-3. **Enforce standards** so the codebase stays consistent.
-4. **Improve design** through collaborative thinking.
+1. **Detectar bugs** antes de que lleguen a los usuarios.
+2. **Compartir conocimiento** en todo el equipo (sin puntos únicos de fallo).
+3. **Hacer cumplir estándares** para que el codebase se mantenga consistente.
+4. **Mejorar el diseño** a través del pensamiento colaborativo.
 
-### What to Look For
+### Qué Buscar
 
-Review in this priority order. Do not spend 20 minutes debating variable names while missing a security hole.
+Revisa en este orden de prioridad. No dediques 20 minutos debatiendo nombres de variables mientras pasas por alto un agujero de seguridad.
 
-#### 1. Correctness
+#### 1. Correctitud
 
-Does the code actually do what it claims to do?
+¿El código realmente hace lo que dice hacer?
 
-- Does it handle edge cases? What happens with empty input, null values, zero-length arrays?
-- What happens when the network request fails? When the user double-clicks?
-- Are there off-by-one errors, race conditions, or missing `await` calls?
-- Does the happy path work AND do the unhappy paths degrade gracefully?
+- ¿Maneja casos extremos? ¿Qué sucede con entrada vacía, valores nulos, arrays de longitud cero?
+- ¿Qué sucede cuando la petición de red falla? ¿Cuando el usuario hace doble clic?
+- ¿Hay errores de off-by-one, condiciones de carrera o llamadas `await` faltantes?
+- ¿Funciona el happy path Y los unhappy paths degradan de forma elegante?
 
-#### 2. Security
+#### 2. Seguridad
 
-- Is user input sanitized before rendering? (`dangerouslySetInnerHTML`, `v-html`, `[innerHTML]`)
-- Are authentication and authorization checks in place? Can users access resources they should not?
-- Are API keys, tokens, or secrets exposed in client-side code?
-- Are CSRF tokens present on state-changing requests?
-- Is sensitive data (passwords, tokens) being logged or stored insecurely?
+- ¿Se sanitiza la entrada del usuario antes de renderizar? (`dangerouslySetInnerHTML`, `v-html`, `[innerHTML]`)
+- ¿Están los controles de autenticación y autorización en su lugar? ¿Pueden los usuarios acceder a recursos a los que no deberían?
+- ¿Hay API keys, tokens o secrets expuestos en código del lado del cliente?
+- ¿Están los tokens CSRF presentes en las peticiones que cambian estado?
+- ¿Se están registrando o almacenando de forma insegura datos sensibles (contraseñas, tokens)?
 
-#### 3. Design
+#### 3. Diseño
 
-- Are component boundaries right? Is this one component trying to do three things?
-- Is state in the right place? Is local state being lifted globally without reason?
-- Does this introduce tight coupling between features that should be independent?
-- Is the public API (props, functions, exports) minimal and clear?
-- Will this pattern scale, or will it cause pain at 10x the current usage?
+- ¿Son correctos los límites de los componentes? ¿Este componente está intentando hacer tres cosas?
+- ¿Está el estado en el lugar correcto? ¿Se está elevando estado local a global sin razón?
+- ¿Esto introduce acoplamiento fuerte entre features que deberían ser independientes?
+- ¿Es la API pública (props, funciones, exports) mínima y clara?
+- ¿Este patrón escalará, o causará dolor a 10x del uso actual?
 
-#### 4. Performance
+#### 4. Rendimiento
 
-- Are there unnecessary re-renders? Is an object or array being recreated on every render?
-- Is `useMemo` or `useCallback` missing where it would prevent expensive recalculations?
-- Does this PR add a large dependency? What is the bundle size impact?
-- Is there a rendering bottleneck (long lists without virtualization, synchronous heavy computation)?
+- ¿Hay re-renders innecesarios? ¿Se está recreando un objeto o array en cada render?
+- ¿Falta `useMemo` o `useCallback` donde prevendría recálculos costosos?
+- ¿Este PR agrega una dependencia grande? ¿Cuál es el impacto en el tamaño del bundle?
+- ¿Hay un cuello de botella de renderizado (listas largas sin virtualización, cómputo pesado síncrono)?
 
-#### 5. Accessibility
+#### 5. Accesibilidad
 
-- Is the HTML semantic? Buttons for actions, links for navigation, headings in order?
-- Can the feature be used with keyboard only? Tab order, Enter/Space activation, Escape to dismiss?
-- Are ARIA attributes correct? `aria-label` where there is no visible text, `aria-expanded` for collapsibles?
-- Do images have meaningful `alt` text?
+- ¿Es el HTML semántico? ¿Botones para acciones, links para navegación, headings en orden?
+- ¿Se puede usar la feature solo con teclado? ¿Orden de Tab, activación con Enter/Space, Escape para cerrar?
+- ¿Son correctos los atributos ARIA? ¿`aria-label` donde no hay texto visible, `aria-expanded` para colapsables?
+- ¿Las imágenes tienen texto `alt` significativo?
 
-#### 6. Readability
+#### 6. Legibilidad
 
-- Are names clear and descriptive? Can you understand `processUserData` without reading the implementation?
-- Is the complexity reasonable? A 200-line function should probably be split.
-- Are comments explaining *why*, not *what*? (The code says what. Comments should say why.)
-- Is the code consistent with the rest of the codebase?
+- ¿Los nombres son claros y descriptivos? ¿Puedes entender `processUserData` sin leer la implementación?
+- ¿Es razonable la complejidad? Una función de 200 líneas probablemente debería dividirse.
+- ¿Los comentarios explican el *por qué*, no el *qué*? (El código dice qué. Los comentarios deberían decir por qué.)
+- ¿Es el código consistente con el resto del codebase?
 
 #### 7. Tests
 
-- Are there tests? Do they test meaningful behavior, not just coverage?
-- Do the tests cover the important paths --- happy path, error states, edge cases?
-- Are the tests readable? Can you understand what is being tested from the test name alone?
-- For bug fixes: is there a regression test that would fail if the bug reappeared?
+- ¿Hay tests? ¿Testean comportamiento significativo, no solo coverage?
+- ¿Los tests cubren las rutas importantes --- happy path, estados de error, casos extremos?
+- ¿Son legibles los tests? ¿Puedes entender qué se está testeando solo por el nombre del test?
+- Para correcciones de bugs: ¿hay un regression test que fallaría si el bug reapareciera?
 
-### What NOT to Review For
+### Qué NO Revisar
 
-Do not waste review time on things that linters and formatters should handle:
+No desperdicies tiempo de revisión en cosas que linters y formateadores deberían manejar:
 
-- Formatting (line length, indentation, trailing commas)
-- Import ordering
-- Semicolons vs no semicolons
-- Single quotes vs double quotes
+- Formateo (largo de línea, indentación, comas finales)
+- Orden de imports
+- Punto y coma vs sin punto y coma
+- Comillas simples vs comillas dobles
 
-If your team debates these in PRs, you do not have a code style problem --- you have a tooling configuration problem. Set up ESLint/Biome and Prettier, run them in CI, and never discuss formatting in a review again.
+Si tu equipo debate estas cosas en PRs, no tienes un problema de estilo de código --- tienes un problema de configuración de herramientas. Configura ESLint/Biome y Prettier, ejecútalos en CI, y nunca más discutas formateo en una revisión.
 
-### PR Size
+### Tamaño de PR
 
-**Aim for fewer than 400 lines of actual changes** (excluding generated files, lockfiles, and test fixtures).
+**Apunta a menos de 400 líneas de cambios reales** (excluyendo archivos generados, lockfiles y fixtures de test).
 
-Why small PRs matter:
+Por qué importan los PRs pequeños:
 
-- A 200-line PR gets a thorough review in 20 minutes.
-- A 2000-line PR gets a superficial skim in 40 minutes. Bugs hide in plain sight.
-- Research consistently shows that review quality degrades sharply past 400 lines.
+- Un PR de 200 líneas recibe una revisión exhaustiva en 20 minutos.
+- Un PR de 2000 líneas recibe una lectura superficial en 40 minutos. Los bugs se esconden a plena vista.
+- Las investigaciones muestran consistentemente que la calidad de la revisión se degrada bruscamente más allá de 400 líneas.
 
-For large features, use **stacked PRs**:
+Para features grandes, usa **stacked PRs**:
 
 ```
 PR 1: Add API types and data fetching hook (120 lines)
@@ -1182,11 +1182,11 @@ PR 3: Add UserProfile page with routing and integration (150 lines)
 PR 4: Add tests for UserProfile flow (200 lines)
 ```
 
-Each PR is reviewable, deployable, and reverts cleanly.
+Cada PR es revisable, desplegable y se revierte limpiamente.
 
-### Giving Feedback
+### Dar Feedback
 
-#### Be Specific
+#### Sé Específico
 
 ```
 # Bad — vague concern
@@ -1198,7 +1198,7 @@ recreated each render. Consider `useMemo` with `[rawItems, filter]` as
 dependencies, or move the filtering into the `useItems` hook."
 ```
 
-#### Use "We" Not "You"
+#### Usa "Nosotros" en Vez de "Tú"
 
 ```
 # Confrontational
@@ -1209,7 +1209,7 @@ dependencies, or move the filtering into the `useItems` hook."
 component will render `undefined` as the user's name."
 ```
 
-#### Distinguish Blocking vs Non-Blocking
+#### Distingue Blocking vs Non-Blocking
 
 ```
 # Non-blocking suggestion — can be addressed later
@@ -1224,7 +1224,7 @@ blocking: This renders user-provided HTML without sanitization.
 Use DOMPurify.sanitize() or use textContent instead of innerHTML.
 ```
 
-#### Offer Alternatives
+#### Ofrece Alternativas
 
 ```
 # Bad — criticism without direction
@@ -1241,148 +1241,148 @@ Use DOMPurify.sanitize() or use textContent instead of innerHTML.
 Each state is handled explicitly and the render logic reads top-to-bottom."
 ```
 
-#### Approve with Minor Comments
+#### Aprueba con Comentarios Menores
 
-Not every comment needs to block the PR. When the code is sound but has minor improvements:
+No todo comentario necesita bloquear el PR. Cuando el código es sólido pero tiene mejoras menores:
 
 ```
 "LGTM — ship it. One nit: rename `handleClick` to `handleAddToCart`
 for clarity, but not blocking."
 ```
 
-### Receiving Feedback
+### Recibir Feedback
 
-- **Do not take it personally.** The code is being reviewed, not you. A comment saying "this has a bug" is not saying "you are a bad developer."
-- **Ask clarifying questions.** If feedback is unclear, ask: "Can you give an example of how this would fail?" or "What scenario are you concerned about?"
-- **Push back with reasoning.** If you disagree, explain why: "I considered `useMemo` here but profiled it --- the list is never more than 20 items and the filter runs in <1ms. The memoization overhead is not worth it." Reviewers are not infallible. Good pushback improves the team's understanding.
-- **Do not just comply.** Blindly accepting every suggestion without understanding produces worse code and prevents learning. Understand the reasoning, then decide.
+- **No lo tomes personal.** Se está revisando el código, no a ti. Un comentario que dice "esto tiene un bug" no está diciendo "eres un mal desarrollador."
+- **Haz preguntas aclaratorias.** Si el feedback no es claro, pregunta: "¿Puedes dar un ejemplo de cómo esto fallaría?" o "¿Qué escenario te preocupa?"
+- **Responde con razonamiento.** Si no estás de acuerdo, explica por qué: "Consideré `useMemo` aquí pero lo medí --- la lista nunca tiene más de 20 elementos y el filtro se ejecuta en <1ms. La sobrecarga de memoización no lo vale." Los revisores no son infalibles. Un buen cuestionamiento mejora el entendimiento del equipo.
+- **No solo cumplas.** Aceptar ciegamente cada sugerencia sin entender produce peor código y previene el aprendizaje. Entiende el razonamiento y luego decide.
 
-### Review Checklists by PR Type
+### Checklists de Revisión por Tipo de PR
 
-#### New Component
+#### Nuevo Componente
 
-- [ ] Props are fully typed (no `any`, no implicit types)
-- [ ] Component is keyboard navigable (Tab, Enter, Space, Escape)
-- [ ] Interactive elements have accessible names (visible text or `aria-label`)
-- [ ] Loading, error, and empty states are handled
-- [ ] Component works with different content lengths (long names, empty strings)
-- [ ] Tests cover the primary user interactions
-- [ ] No business logic in the component (extract to hooks/services)
+- [ ] Los props están completamente tipados (sin `any`, sin tipos implícitos)
+- [ ] El componente es navegable por teclado (Tab, Enter, Space, Escape)
+- [ ] Los elementos interactivos tienen nombres accesibles (texto visible o `aria-label`)
+- [ ] Los estados de carga, error y vacío están manejados
+- [ ] El componente funciona con diferentes longitudes de contenido (nombres largos, strings vacíos)
+- [ ] Los tests cubren las interacciones principales del usuario
+- [ ] No hay lógica de negocio en el componente (extraer a hooks/services)
 
-#### Bug Fix
+#### Corrección de Bug
 
-- [ ] Root cause is identified (not just the symptom patched)
-- [ ] A regression test is added that fails without the fix and passes with it
-- [ ] Related code is checked for the same bug pattern
-- [ ] The fix does not introduce new edge cases
-- [ ] The commit message or PR description explains what caused the bug
+- [ ] La causa raíz está identificada (no solo el síntoma parcheado)
+- [ ] Se agrega un regression test que falla sin la corrección y pasa con ella
+- [ ] Se revisa código relacionado por el mismo patrón de bug
+- [ ] La corrección no introduce nuevos casos extremos
+- [ ] El mensaje de commit o la descripción del PR explica qué causó el bug
 
 #### Refactor
 
-- [ ] Behavior is unchanged (same inputs produce same outputs)
-- [ ] All existing tests pass without modification
-- [ ] No feature changes are mixed in (refactor and feature changes are separate PRs)
-- [ ] The refactor improves clarity, reduces duplication, or simplifies architecture
-- [ ] No scope creep (refactoring the world when fixing one module)
+- [ ] El comportamiento no cambia (las mismas entradas producen las mismas salidas)
+- [ ] Todos los tests existentes pasan sin modificación
+- [ ] No se mezclan cambios de features (refactor y cambios de features son PRs separados)
+- [ ] El refactor mejora la claridad, reduce duplicación o simplifica la arquitectura
+- [ ] Sin scope creep (refactorizar el mundo cuando se arregla un módulo)
 
-#### Dependency Update
+#### Actualización de Dependencia
 
-- [ ] CHANGELOG or migration guide is reviewed for breaking changes
-- [ ] Bundle size impact is checked (before and after `npm run build`)
-- [ ] Security advisories are checked (`npm audit`)
-- [ ] New dependency version is compatible with other dependencies
-- [ ] Application is smoke-tested with the new version
+- [ ] Se revisa el CHANGELOG o guía de migración por breaking changes
+- [ ] Se verifica el impacto en el tamaño del bundle (antes y después de `npm run build`)
+- [ ] Se revisan avisos de seguridad (`npm audit`)
+- [ ] La nueva versión de la dependencia es compatible con otras dependencias
+- [ ] Se hace smoke-test de la aplicación con la nueva versión
 
-### Common Pitfalls
+### Errores Comunes
 
-- **Rubber-stamping.** Approving without reading. "LGTM" with no comments on a 500-line PR means nobody actually reviewed it. If you do not have time to review properly, say so and let someone else review.
-- **Bikeshedding.** Spending 30 minutes debating whether a variable should be named `userData` or `userInfo` while a race condition goes unnoticed three lines below. Review in priority order.
-- **Blocking on personal preference.** "I would have written this differently" is not a reason to block a PR. Block only for correctness, security, or established team standards. Taste is not a merge criterion.
-- **Reviewing 2000-line PRs.** You will miss bugs. You will skim. The author should have broken this into smaller PRs. Ask them to split it before reviewing.
-- **No review comments.** If you reviewed a PR and found nothing to comment on, either the code is perfect (unlikely) or you did not review carefully. Even a "I like how you handled the error state here" comment shows engagement.
-- **Reviewing only the diff.** The diff shows what changed, but not the context. If a function is modified, read the callers. If a component's props change, check where it is used. The surrounding code matters.
-- **Nitpicking without labeling.** If you have 15 minor suggestions and 1 critical issue, the critical issue drowns. Label your comments: `nit:`, `suggestion:`, `blocking:`, `question:`.
+- **Aprobar sin revisar.** Aprobar sin leer. "LGTM" sin comentarios en un PR de 500 líneas significa que nadie lo revisó realmente. Si no tienes tiempo para revisar correctamente, dilo y deja que otra persona revise.
+- **Bikeshedding.** Dedicar 30 minutos debatiendo si una variable debería llamarse `userData` o `userInfo` mientras una condición de carrera pasa desapercibida tres líneas más abajo. Revisa en orden de prioridad.
+- **Bloquear por preferencia personal.** "Yo lo habría escrito diferente" no es razón para bloquear un PR. Bloquea solo por correctitud, seguridad o estándares establecidos del equipo. El gusto no es un criterio de merge.
+- **Revisar PRs de 2000 líneas.** Te perderás bugs. Leerás por encima. El autor debería haber dividido esto en PRs más pequeños. Pídele que lo divida antes de revisar.
+- **Sin comentarios de revisión.** Si revisaste un PR y no encontraste nada que comentar, o el código es perfecto (poco probable) o no revisaste cuidadosamente. Incluso un comentario como "Me gusta cómo manejas el estado de error aquí" demuestra compromiso.
+- **Revisar solo el diff.** El diff muestra qué cambió, pero no el contexto. Si se modifica una función, lee los callers. Si cambian los props de un componente, verifica dónde se usa. El código circundante importa.
+- **Hacer nitpicking sin etiquetar.** Si tienes 15 sugerencias menores y 1 problema crítico, el problema crítico se ahoga. Etiqueta tus comentarios: `nit:`, `suggestion:`, `blocking:`, `question:`.
 
-### Key Takeaways
+### Puntos Clave
 
-- Review in priority order: correctness, security, design, performance, accessibility, readability, tests.
-- Keep PRs under 400 lines. Large PRs get shallow reviews.
-- Be specific in feedback: name the problem, explain why, and offer an alternative.
-- Label comments as `nit:`, `suggestion:`, `blocking:`, or `question:` so the author knows what to prioritize.
-- Receiving feedback: separate your ego from your code. Ask questions. Push back with reasoning when you disagree.
+- Revisa en orden de prioridad: correctitud, seguridad, diseño, rendimiento, accesibilidad, legibilidad, tests.
+- Mantén los PRs bajo 400 líneas. Los PRs grandes reciben revisiones superficiales.
+- Sé específico en el feedback: nombra el problema, explica por qué y ofrece una alternativa.
+- Etiqueta los comentarios como `nit:`, `suggestion:`, `blocking:` o `question:` para que el autor sepa qué priorizar.
+- Recibir feedback: separa tu ego de tu código. Haz preguntas. Responde con razonamiento cuando no estés de acuerdo.
 
 ---
 
-## 5. Micro-frontends --- A Brief Overview
+## 5. Micro-frontends --- Una Breve Descripción General
 
-### Why This Matters
+### Por Qué Esto Importa
 
-Micro-frontends come up in architecture discussions, job interviews, and tech blog posts. You need to know what they are, when they make sense, and --- more importantly --- when they do not. This is not a how-to guide. It is a map so you can navigate the conversation.
+Los micro-frontends aparecen en discusiones de arquitectura, entrevistas de trabajo y publicaciones de blogs de tecnología. Necesitas saber qué son, cuándo tienen sentido y --- más importante --- cuándo no lo tienen. Esta no es una guía práctica. Es un mapa para que puedas navegar la conversación.
 
-### What Are Micro-frontends?
+### ¿Qué Son los Micro-frontends?
 
-Micro-frontends apply the microservices pattern to frontend development: **independently developed, tested, and deployed frontend applications** that are composed into a single user-facing product.
+Los micro-frontends aplican el patrón de microservices al desarrollo frontend: **aplicaciones frontend desarrolladas, testeadas y desplegadas de forma independiente** que se componen en un solo producto de cara al usuario.
 
-Instead of one large frontend codebase owned by one team, multiple teams each own a slice of the UI. Team A owns search, Team B owns the product page, Team C owns checkout. Each team deploys independently.
+En lugar de un gran codebase frontend propiedad de un equipo, múltiples equipos poseen cada uno una porción de la UI. El Equipo A es dueño de la búsqueda, el Equipo B de la página de producto, el Equipo C del checkout. Cada equipo despliega de forma independiente.
 
-### When Micro-frontends Make Sense
+### Cuándo los Micro-frontends Tienen Sentido
 
-- **Large organizations** with 5+ teams working on different product areas simultaneously. Independent deployment cycles become a real need when Team A's release schedule should not block Team B.
-- **Acquisitions or mergers** where different products built with different frameworks need to be unified under a single user experience.
-- **Legacy migration** where you need to incrementally replace an old frontend while keeping it running. The new framework handles new features while the old framework serves existing ones.
+- **Organizaciones grandes** con 5+ equipos trabajando en diferentes áreas del producto simultáneamente. Los ciclos de deployment independientes se convierten en una necesidad real cuando el calendario de lanzamiento del Equipo A no debería bloquear al Equipo B.
+- **Adquisiciones o fusiones** donde diferentes productos construidos con diferentes frameworks necesitan unificarse bajo una única experiencia de usuario.
+- **Migración de legacy** donde necesitas reemplazar incrementalmente un frontend antiguo mientras lo mantienes funcionando. El nuevo framework maneja las features nuevas mientras el framework antiguo sirve las existentes.
 
-### When Micro-frontends Do NOT Make Sense
+### Cuándo los Micro-frontends NO Tienen Sentido
 
-- **Small to medium teams** (under 20-30 frontend developers). The coordination overhead of micro-frontends exceeds the benefit.
-- **Single product with a single framework.** If everyone uses React and works in the same repo, you do not need architecture to isolate frameworks.
-- **"Netflix does it" reasoning.** Netflix has hundreds of frontend engineers. You probably do not. Technology choices should match your organizational reality, not your aspirations.
+- **Equipos pequeños a medianos** (menos de 20-30 desarrolladores frontend). La sobrecarga de coordinación de micro-frontends excede el beneficio.
+- **Un solo producto con un solo framework.** Si todos usan React y trabajan en el mismo repo, no necesitas arquitectura para aislar frameworks.
+- **Razonamiento de "Netflix lo hace".** Netflix tiene cientos de ingenieros frontend. Tú probablemente no. Las decisiones tecnológicas deberían coincidir con tu realidad organizacional, no con tus aspiraciones.
 
-### Implementation Approaches
+### Enfoques de Implementación
 
-| Approach | How It Works | Trade-offs |
-|----------|-------------|------------|
-| **Module Federation** (webpack/Vite) | Remote modules loaded at runtime from different bundles | Mature, shared dependencies possible, complex config |
-| **iframe-based** | Each micro-frontend in an iframe | Simple isolation, terrible UX (no shared routing, styling, accessibility) |
-| **Server-side composition** | Server stitches HTML fragments from different services (SSI, edge includes) | Good performance, limited client-side interaction between fragments |
-| **Build-time integration** | Micro-frontends as npm packages composed at build time | Simplest, but requires coordinated builds --- loses independent deployment |
+| Enfoque | Cómo Funciona | Compensaciones |
+|---------|---------------|----------------|
+| **Module Federation** (webpack/Vite) | Módulos remotos cargados en tiempo de ejecución desde diferentes bundles | Maduro, dependencias compartidas posibles, configuración compleja |
+| **Basado en iframe** | Cada micro-frontend en un iframe | Aislamiento simple, terrible UX (sin enrutamiento compartido, estilos, accesibilidad) |
+| **Composición del lado del servidor** | El servidor ensambla fragmentos HTML de diferentes servicios (SSI, edge includes) | Buen rendimiento, interacción limitada del lado del cliente entre fragmentos |
+| **Integración en tiempo de build** | Micro-frontends como paquetes npm compuestos en tiempo de build | Lo más simple, pero requiere builds coordinados --- pierde el deployment independiente |
 
-### Trade-offs
+### Compensaciones
 
-**Benefits:**
+**Beneficios:**
 
-- **Team autonomy.** Teams choose their own tools, release schedules, and coding standards.
-- **Independent deployment.** Ship the checkout fix without waiting for the search team's release.
-- **Technology diversity.** Team A can use React, Team B can use Vue, Team C can keep Angular. (Whether this is a benefit or a curse depends on your organization.)
-- **Fault isolation.** A crash in the search micro-frontend does not bring down checkout.
+- **Autonomía del equipo.** Los equipos eligen sus propias herramientas, calendarios de lanzamiento y estándares de codificación.
+- **Deployment independiente.** Envía la corrección del checkout sin esperar el lanzamiento del equipo de búsqueda.
+- **Diversidad tecnológica.** El Equipo A puede usar React, el Equipo B puede usar Vue, el Equipo C puede mantener Angular. (Si esto es un beneficio o una maldición depende de tu organización.)
+- **Aislamiento de fallos.** Un crash en el micro-frontend de búsqueda no tumba el checkout.
 
-**Costs:**
+**Costos:**
 
-- **Performance overhead.** If each micro-frontend bundles its own copy of React, you ship React four times. Shared dependency management is possible but adds complexity.
-- **UX inconsistency.** Without a shared design system enforced across all micro-frontends, the product feels like four different apps stitched together.
-- **Shared state complexity.** When the search micro-frontend needs to update the cart micro-frontend, you need a communication mechanism (custom events, shared state store, URL parameters). This gets messy fast.
-- **Testing difficulty.** Integration testing across micro-frontend boundaries requires a composed environment. Unit tests within a micro-frontend are easy; verifying the whole product works together is hard.
-- **Operational complexity.** Instead of one build pipeline, you have N pipelines. Instead of one deployment, N deployments. Instead of one monitoring dashboard, N dashboards.
+- **Sobrecarga de rendimiento.** Si cada micro-frontend agrupa su propia copia de React, envías React cuatro veces. La gestión de dependencias compartidas es posible pero agrega complejidad.
+- **Inconsistencia de UX.** Sin un design system compartido aplicado en todos los micro-frontends, el producto se siente como cuatro apps diferentes pegadas.
+- **Complejidad de estado compartido.** Cuando el micro-frontend de búsqueda necesita actualizar el micro-frontend del carrito, necesitas un mecanismo de comunicación (custom events, store de estado compartido, parámetros de URL). Esto se complica rápidamente.
+- **Dificultad de testing.** El integration testing a través de los límites de micro-frontends requiere un entorno compuesto. Los unit tests dentro de un micro-frontend son fáciles; verificar que todo el producto funciona junto es difícil.
+- **Complejidad operacional.** En lugar de un pipeline de build, tienes N pipelines. En lugar de un deployment, N deployments. En lugar de un dashboard de monitoreo, N dashboards.
 
-### The Honest Assessment
+### La Evaluación Honesta
 
-Most teams that adopt micro-frontends would be better served by a well-structured monolith with feature-based folder organization.
+La mayoría de los equipos que adoptan micro-frontends estarían mejor servidos por un monolith bien estructurado con organización de carpetas basada en features.
 
-Micro-frontends solve **organizational problems** (teams stepping on each other, deployment bottlenecks, framework migration), not technical ones. If your problem is "our codebase is messy," the answer is better architecture within a monolith, not splitting into multiple messy codebases.
+Los micro-frontends resuelven **problemas organizacionales** (equipos pisándose entre sí, cuellos de botella de deployment, migración de frameworks), no técnicos. Si tu problema es "nuestro codebase está desordenado", la respuesta es mejor arquitectura dentro de un monolith, no dividir en múltiples codebases desordenados.
 
-The teams that benefit from micro-frontends are large enough that the organizational coordination cost of a monolith exceeds the technical coordination cost of a distributed frontend. For most teams, that threshold is never reached.
+Los equipos que se benefician de los micro-frontends son lo suficientemente grandes como para que el costo de coordinación organizacional de un monolith exceda el costo de coordinación técnica de un frontend distribuido. Para la mayoría de los equipos, ese umbral nunca se alcanza.
 
-### Common Pitfalls
+### Errores Comunes
 
-- **Micro-frontends for a team of 5.** You are adding distributed systems complexity to a problem that a folder structure can solve. The overhead of independent builds, deployments, and cross-app communication is not justified.
-- **Sharing state via global events.** If micro-frontends communicate through a global event bus or window-level events, you have recreated a distributed monolith. You have all the coupling of a monolith plus all the complexity of distribution.
-- **No shared design system.** Without enforced visual consistency, users notice the seams: different button styles, inconsistent spacing, mismatched typography. A design system with shared tokens is non-negotiable.
-- **Duplicating React across 4 micro-frontends.** If each micro-frontend bundles its own React (120KB gzipped), you are shipping 480KB of just React. Module Federation supports shared dependencies, but configuring it correctly is non-trivial.
-- **Choosing micro-frontends for the resume.** Architectural decisions should be driven by organizational needs, not technology trends. The best architecture is the simplest one that solves your actual problems.
+- **Micro-frontends para un equipo de 5.** Estás agregando complejidad de sistemas distribuidos a un problema que una estructura de carpetas puede resolver. La sobrecarga de builds independientes, deployments y comunicación entre apps no está justificada.
+- **Compartir estado a través de eventos globales.** Si los micro-frontends se comunican a través de un event bus global o eventos a nivel de window, has recreado un monolith distribuido. Tienes todo el acoplamiento de un monolith más toda la complejidad de la distribución.
+- **Sin design system compartido.** Sin consistencia visual aplicada, los usuarios notan las costuras: diferentes estilos de botones, espaciado inconsistente, tipografía que no coincide. Un design system con tokens compartidos es innegociable.
+- **Duplicar React en 4 micro-frontends.** Si cada micro-frontend agrupa su propio React (120KB gzipped), estás enviando 480KB de solo React. Module Federation soporta dependencias compartidas, pero configurarlo correctamente no es trivial.
+- **Elegir micro-frontends para el currículum.** Las decisiones de arquitectura deberían ser impulsadas por necesidades organizacionales, no por tendencias tecnológicas. La mejor arquitectura es la más simple que resuelve tus problemas reales.
 
-### Key Takeaways
+### Puntos Clave
 
-- Micro-frontends are independently deployable frontend apps composed into one product. They solve organizational scaling problems.
-- Consider them only when you have multiple teams (5+) that need independent deployment cycles or are migrating between frameworks.
-- A well-structured monolith with feature-based organization serves most teams better. Simpler architecture wins until proven otherwise.
-- If you adopt micro-frontends, a shared design system and careful dependency management are non-negotiable.
-- The question is not "can we use micro-frontends?" but "do we have the organizational problem that micro-frontends solve?"
+- Los micro-frontends son apps frontend desplegables de forma independiente compuestas en un solo producto. Resuelven problemas de escalamiento organizacional.
+- Considéralos solo cuando tengas múltiples equipos (5+) que necesiten ciclos de deployment independientes o estén migrando entre frameworks.
+- Un monolith bien estructurado con organización basada en features sirve mejor a la mayoría de los equipos. La arquitectura más simple gana hasta que se demuestre lo contrario.
+- Si adoptas micro-frontends, un design system compartido y una gestión cuidadosa de dependencias son innegociables.
+- La pregunta no es "¿podemos usar micro-frontends?" sino "¿tenemos el problema organizacional que los micro-frontends resuelven?"

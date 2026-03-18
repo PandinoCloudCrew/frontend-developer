@@ -1,204 +1,204 @@
-# Software Development Principles & Usability Best Practices for Frontend Development
+# Principios de Desarrollo de Software y Mejores Prácticas de Usabilidad para Desarrollo Frontend
 
-> Comprehensive, framework-agnostic reference covering SOLID, component design, state management, usability, performance, security, accessibility, and more. Compiled March 2026 from authoritative and current sources.
+> Referencia completa y agnóstica de framework que cubre SOLID, diseño de componentes, gestión de estado, usabilidad, rendimiento, seguridad, accesibilidad y más. Compilado en marzo de 2026 a partir de fuentes autorizadas y actuales.
 
 ---
 
-## Table of Contents
+## Tabla de Contenidos
 
-1. [SOLID Principles in Frontend](#1-solid-principles-in-frontend)
+1. [Principios SOLID en Frontend](#1-solid-principles-in-frontend)
    - 1.1 [Single Responsibility Principle (SRP)](#11-single-responsibility-principle-srp)
    - 1.2 [Open/Closed Principle (OCP)](#12-openclosed-principle-ocp)
    - 1.3 [Liskov Substitution Principle (LSP)](#13-liskov-substitution-principle-lsp)
    - 1.4 [Interface Segregation Principle (ISP)](#14-interface-segregation-principle-isp)
    - 1.5 [Dependency Inversion Principle (DIP)](#15-dependency-inversion-principle-dip)
-   - [Common Pitfalls & Anti-patterns](#common-pitfalls--anti-patterns)
-2. [Component Design Principles](#2-component-design-principles)
+   - [Errores Comunes y Anti-patterns](#common-pitfalls--anti-patterns)
+2. [Principios de Diseño de Componentes](#2-component-design-principles)
    - 2.1 [Composition Over Inheritance](#21-composition-over-inheritance)
    - 2.2 [Container/Presentational Pattern](#22-containerpresentational-pattern-and-its-evolution)
    - 2.3 [Compound Components](#23-compound-components)
    - 2.4 [Render Props / Slots Pattern](#24-render-props--slots-pattern)
    - 2.5 [Higher-Order Components vs. Hooks/Composables](#25-higher-order-components-vs-hookscomposables)
    - 2.6 [Atomic Design](#26-atomic-design)
-   - [Common Pitfalls & Anti-patterns](#common-pitfalls--anti-patterns-1)
-3. [Separation of Concerns in Frontend](#3-separation-of-concerns-in-frontend)
-   - 3.1 [UI Logic vs. Business Logic vs. Data Fetching](#31-ui-logic-vs-business-logic-vs-data-fetching)
-   - 3.2 [Custom Hooks/Composables as the Universal Abstraction](#32-custom-hookscomposables-as-the-universal-abstraction)
-   - 3.3 [Service Layer Patterns](#33-service-layer-patterns)
-   - [Common Pitfalls & Anti-patterns](#common-pitfalls--anti-patterns-2)
-4. [State Management Principles](#4-state-management-principles)
+   - [Errores Comunes y Anti-patterns](#common-pitfalls--anti-patterns-1)
+3. [Separación de Responsabilidades en Frontend](#3-separation-of-concerns-in-frontend)
+   - 3.1 [Lógica de UI vs. Lógica de Negocio vs. Obtención de Datos](#31-ui-logic-vs-business-logic-vs-data-fetching)
+   - 3.2 [Custom Hooks/Composables como la Abstracción Universal](#32-custom-hookscomposables-as-the-universal-abstraction)
+   - 3.3 [Patrones de Service Layer](#33-service-layer-patterns)
+   - [Errores Comunes y Anti-patterns](#common-pitfalls--anti-patterns-2)
+4. [Principios de State Management](#4-state-management-principles)
    - 4.1 [Local vs. Global State](#41-local-vs-global-state)
    - 4.2 [Server State vs. Client State](#42-server-state-vs-client-state)
    - 4.3 [Derived/Computed State](#43-derivedcomputed-state)
    - 4.4 [State Machines (XState)](#44-state-machines-xstate)
    - 4.5 [Unidirectional Data Flow](#45-unidirectional-data-flow)
    - 4.6 [Immutability](#46-immutability)
-   - [Common Pitfalls & Anti-patterns](#common-pitfalls--anti-patterns-3)
-5. [Usability Principles](#5-usability-principles)
-   - 5.1 [Nielsen's 10 Heuristics Applied to Web](#51-nielsens-10-heuristics-applied-to-web)
-   - 5.2 [Fitts's Law](#52-fittss-law)
-   - 5.3 [Hick's Law](#53-hicks-law)
-   - 5.4 [Gestalt Principles in UI](#54-gestalt-principles-in-ui)
+   - [Errores Comunes y Anti-patterns](#common-pitfalls--anti-patterns-3)
+5. [Principios de Usabilidad](#5-usability-principles)
+   - 5.1 [Las 10 Heurísticas de Nielsen Aplicadas a la Web](#51-nielsens-10-heuristics-applied-to-web)
+   - 5.2 [Ley de Fitts](#52-fittss-law)
+   - 5.3 [Ley de Hick](#53-hicks-law)
+   - 5.4 [Principios Gestalt en UI](#54-gestalt-principles-in-ui)
    - 5.5 [Progressive Disclosure](#55-progressive-disclosure)
-   - 5.6 [Cognitive Load Reduction](#56-cognitive-load-reduction)
-   - 5.7 [Mobile-First Design](#57-mobile-first-design)
-   - 5.8 [Responsive Design Principles](#58-responsive-design-principles)
-   - [Common Pitfalls & Anti-patterns](#common-pitfalls--anti-patterns-4)
-6. [Performance Principles](#6-performance-principles)
-   - 6.1 [RAIL Model](#61-rail-model)
-   - 6.2 [Lazy Loading Strategies](#62-lazy-loading-strategies)
+   - 5.6 [Reducción de Carga Cognitiva](#56-cognitive-load-reduction)
+   - 5.7 [Diseño Mobile-First](#57-mobile-first-design)
+   - 5.8 [Principios de Diseño Responsive](#58-responsive-design-principles)
+   - [Errores Comunes y Anti-patterns](#common-pitfalls--anti-patterns-4)
+6. [Principios de Rendimiento](#6-performance-principles)
+   - 6.1 [Modelo RAIL](#61-rail-model)
+   - 6.2 [Estrategias de Lazy Loading](#62-lazy-loading-strategies)
    - 6.3 [Virtualization](#63-virtualization)
-   - 6.4 [Memoization and When to Use It](#64-memoization-and-when-to-use-it)
-   - 6.5 [Bundle Optimization](#65-bundle-optimization)
-   - [Common Pitfalls & Anti-patterns](#common-pitfalls--anti-patterns-5)
-7. [Error Handling Patterns](#7-error-handling-patterns)
+   - 6.4 [Memoization y Cuándo Usarla](#64-memoization-and-when-to-use-it)
+   - 6.5 [Optimización de Bundles](#65-bundle-optimization)
+   - [Errores Comunes y Anti-patterns](#common-pitfalls--anti-patterns-5)
+7. [Patrones de Manejo de Errores](#7-error-handling-patterns)
    - 7.1 [Error Boundaries](#71-error-boundaries)
    - 7.2 [Graceful Degradation](#72-graceful-degradation)
    - 7.3 [Optimistic Updates](#73-optimistic-updates)
-   - 7.4 [Retry Strategies](#74-retry-strategies)
-   - [Common Pitfalls & Anti-patterns](#common-pitfalls--anti-patterns-6)
-8. [Security in Frontend](#8-security-in-frontend)
-   - 8.1 [XSS Prevention](#81-xss-prevention)
-   - 8.2 [CSRF Protection](#82-csrf-protection)
+   - 7.4 [Estrategias de Reintento](#74-retry-strategies)
+   - [Errores Comunes y Anti-patterns](#common-pitfalls--anti-patterns-6)
+8. [Seguridad en Frontend](#8-security-in-frontend)
+   - 8.1 [Prevención de XSS](#81-xss-prevention)
+   - 8.2 [Protección contra CSRF](#82-csrf-protection)
    - 8.3 [Content Security Policy (CSP)](#83-content-security-policy-csp)
-   - 8.4 [Input Sanitization](#84-input-sanitization)
-   - 8.5 [Secure Authentication Patterns](#85-secure-authentication-patterns)
-   - [Common Pitfalls & Anti-patterns](#common-pitfalls--anti-patterns-7)
-9. [Clean Code in Frontend](#9-clean-code-in-frontend)
-   - 9.1 [Naming Conventions](#91-naming-conventions)
-   - 9.2 [File/Folder Organization Patterns](#92-filefolder-organization-patterns)
-   - 9.3 [Code Splitting Strategies](#93-code-splitting-strategies)
-   - 9.4 [DRY vs. WET in Components](#94-dry-vs-wet-in-components)
-   - [Common Pitfalls & Anti-patterns](#common-pitfalls--anti-patterns-8)
-10. [Accessibility as a Principle](#10-accessibility-as-a-principle)
-    - 10.1 [Semantic HTML First](#101-semantic-html-first)
-    - 10.2 [ARIA When Needed](#102-aria-when-needed)
-    - 10.3 [Keyboard Navigation](#103-keyboard-navigation)
-    - 10.4 [Focus Management](#104-focus-management)
-    - 10.5 [Screen Reader Considerations](#105-screen-reader-considerations)
-    - [Common Pitfalls & Anti-patterns](#common-pitfalls--anti-patterns-9)
-11. [Summary of Key Themes](#summary-of-key-themes)
-12. [Sources](#sources)
+   - 8.4 [Sanitización de Entradas](#84-input-sanitization)
+   - 8.5 [Patrones de Autenticación Segura](#85-secure-authentication-patterns)
+   - [Errores Comunes y Anti-patterns](#common-pitfalls--anti-patterns-7)
+9. [Código Limpio en Frontend](#9-clean-code-in-frontend)
+   - 9.1 [Convenciones de Nombres](#91-naming-conventions)
+   - 9.2 [Patrones de Organización de Archivos/Carpetas](#92-filefolder-organization-patterns)
+   - 9.3 [Estrategias de Code Splitting](#93-code-splitting-strategies)
+   - 9.4 [DRY vs. WET en Componentes](#94-dry-vs-wet-in-components)
+   - [Errores Comunes y Anti-patterns](#common-pitfalls--anti-patterns-8)
+10. [Accesibilidad como Principio](#10-accessibility-as-a-principle)
+    - 10.1 [HTML Semántico Primero](#101-semantic-html-first)
+    - 10.2 [ARIA Cuando Sea Necesario](#102-aria-when-needed)
+    - 10.3 [Navegación por Teclado](#103-keyboard-navigation)
+    - 10.4 [Gestión del Focus](#104-focus-management)
+    - 10.5 [Consideraciones para Lectores de Pantalla](#105-screen-reader-considerations)
+    - [Errores Comunes y Anti-patterns](#common-pitfalls--anti-patterns-9)
+11. [Resumen de Temas Clave](#summary-of-key-themes)
+12. [Fuentes](#sources)
 
 ---
 
-## 1. SOLID Principles in Frontend
+## 1. Principios SOLID en Frontend
 
-Though originally formulated for object-oriented programming, the SOLID principles translate remarkably well to component-based frontend architectures. Apply them where complexity justifies the structure -- not everywhere reflexively -- starting with components that are complex, frequently modified, or widely reused.
+Aunque fueron formulados originalmente para la programación orientada a objetos, los principios SOLID se traducen notablemente bien a las arquitecturas frontend basadas en componentes. Aplícalos donde la complejidad justifique la estructura -- no de forma reflexiva en todas partes -- comenzando con componentes que sean complejos, frecuentemente modificados o ampliamente reutilizados.
 
 ### 1.1 Single Responsibility Principle (SRP)
 
-**Definition:** A component should have one reason to change -- it should do one thing and do it well.
+**Definición:** Un componente debe tener una sola razón para cambiar -- debe hacer una cosa y hacerla bien.
 
-**Frontend Application:**
-- Each component handles exactly one concern: rendering a form, displaying a card, managing a modal.
-- Separate UI rendering from data fetching and business logic. A `UserProfile` component renders the profile; a `useUserProfile` hook fetches and manages the data.
-- If a component file exceeds ~200 lines or handles multiple unrelated concerns, it likely violates SRP.
-- Applies equally to hooks/composables: `useFormValidation` should validate forms, not also manage API calls.
+**Aplicación en Frontend:**
+- Cada componente maneja exactamente una responsabilidad: renderizar un formulario, mostrar una tarjeta, gestionar un modal.
+- Separa el renderizado de UI de la obtención de datos y la lógica de negocio. Un componente `UserProfile` renderiza el perfil; un hook `useUserProfile` obtiene y gestiona los datos.
+- Si un archivo de componente excede ~200 líneas o maneja múltiples responsabilidades no relacionadas, probablemente viola SRP.
+- Se aplica igualmente a hooks/composables: `useFormValidation` debería validar formularios, no también gestionar llamadas a APIs.
 
-**Practical Guidance:**
-- Ask: "What is the single reason this component would need to change?"
-- Extract side effects (API calls, subscriptions, timers) into custom hooks or services.
-- Split "god components" into smaller, focused sub-components.
+**Guía Práctica:**
+- Pregúntate: "¿Cuál es la única razón por la que este componente necesitaría cambiar?"
+- Extrae los efectos secundarios (llamadas a APIs, suscripciones, temporizadores) en custom hooks o servicios.
+- Divide los "componentes dios" en sub-componentes más pequeños y enfocados.
 
 ### 1.2 Open/Closed Principle (OCP)
 
-**Definition:** Software entities should be open for extension but closed for modification.
+**Definición:** Las entidades de software deben estar abiertas a extensión pero cerradas a modificación.
 
-**Frontend Application:**
-- Use **composition** to extend components rather than modifying their internals. A `Card` component accepts `children`, `header`, and `footer` slots/props rather than having conditional logic for every card variant.
-- **Render props and slot patterns** allow consumers to inject custom rendering behavior without touching the base component.
-- Design component APIs with sensible defaults that can be overridden via props.
-- Configuration objects and strategy patterns allow behavioral extension without source changes.
+**Aplicación en Frontend:**
+- Usa **composición** para extender componentes en lugar de modificar sus internos. Un componente `Card` acepta `children`, `header` y `footer` como slots/props en lugar de tener lógica condicional para cada variante de tarjeta.
+- Los patrones de **render props y slots** permiten a los consumidores inyectar comportamiento de renderizado personalizado sin tocar el componente base.
+- Diseña las APIs de componentes con valores predeterminados sensatos que puedan ser sobrescritos mediante props.
+- Los objetos de configuración y los patrones de estrategia permiten la extensión de comportamiento sin cambios en el código fuente.
 
-**Practical Guidance:**
-- Favor `children` and render props over boolean flags that multiply internal branches.
-- Use the compound component pattern (see Section 2) to allow composition of new behaviors.
-- Design component libraries where new variants are created by composing existing primitives, not by adding `if/else` chains.
+**Guía Práctica:**
+- Prefiere `children` y render props sobre flags booleanos que multiplican las ramas internas.
+- Usa el patrón de Compound Components (ver Sección 2) para permitir la composición de nuevos comportamientos.
+- Diseña bibliotecas de componentes donde las nuevas variantes se crean componiendo primitivas existentes, no añadiendo cadenas `if/else`.
 
 ### 1.3 Liskov Substitution Principle (LSP)
 
-**Definition:** Derived types must be substitutable for their base types without altering correctness.
+**Definición:** Los tipos derivados deben ser sustituibles por sus tipos base sin alterar la corrección.
 
-**Frontend Application:**
-- Component variants (`ArticleCard`, `FeaturedArticleCard`, `CompactArticleCard`) should all implement the same core interface. Anywhere that accepts an `ArticleCard` should accept any variant without breaking.
-- LSP functions as an unwritten **contract** between components, functions, and hooks: extending or modifying something must not break existing behavior.
-- Derived components must support the same props, methods, and expected behaviors as the base component, while potentially adding additional features.
+**Aplicación en Frontend:**
+- Las variantes de componentes (`ArticleCard`, `FeaturedArticleCard`, `CompactArticleCard`) deben implementar todas la misma interfaz central. Cualquier lugar que acepte un `ArticleCard` debería aceptar cualquier variante sin romperse.
+- LSP funciona como un **contrato** no escrito entre componentes, funciones y hooks: extender o modificar algo no debe romper el comportamiento existente.
+- Los componentes derivados deben soportar los mismos props, métodos y comportamientos esperados que el componente base, mientras que potencialmente añaden funcionalidades adicionales.
 
-**Practical Guidance:**
-- When creating specialized versions of a component, ensure they accept (at minimum) the same props as the base.
-- TypeScript/generics help enforce this: extend the base props interface rather than creating an unrelated one.
-- Wrapper components should forward all relevant props and refs to the underlying component.
-- Test substitutability: replace a base component with a derived one in existing usage sites; nothing should break.
+**Guía Práctica:**
+- Al crear versiones especializadas de un componente, asegúrate de que acepten (como mínimo) los mismos props que el base.
+- TypeScript/generics ayudan a imponer esto: extiende la interfaz de props base en lugar de crear una no relacionada.
+- Los componentes wrapper deben reenviar todos los props y refs relevantes al componente subyacente.
+- Prueba la sustituibilidad: reemplaza un componente base con uno derivado en los sitios de uso existentes; nada debería romperse.
 
 ### 1.4 Interface Segregation Principle (ISP)
 
-**Definition:** Clients should not be forced to depend on interfaces they do not use.
+**Definición:** Los clientes no deben ser forzados a depender de interfaces que no usan.
 
-**Frontend Application:**
-- Keep prop interfaces minimal and focused. An `ArticleCard` only requires article data and optional handlers -- it should not know about filters, pagination, or loading states.
-- Avoid "mega-props" objects that force consumers to provide irrelevant data.
-- Split large component APIs into smaller, composable pieces.
+**Aplicación en Frontend:**
+- Mantén las interfaces de props mínimas y enfocadas. Un `ArticleCard` solo requiere datos del artículo y handlers opcionales -- no debería conocer filtros, paginación o estados de carga.
+- Evita objetos de "mega-props" que fuerzan a los consumidores a proporcionar datos irrelevantes.
+- Divide las APIs de componentes grandes en piezas más pequeñas y componibles.
 
-**Practical Guidance:**
-- If a component accepts more than 7-10 props, consider whether it is doing too much (SRP violation) or whether props should be grouped into logical sub-interfaces.
-- Use TypeScript's `Pick`, `Omit`, and intersection types to create focused prop interfaces from shared base types.
-- Prefer multiple small hooks over one monolithic hook with many return values.
+**Guía Práctica:**
+- Si un componente acepta más de 7-10 props, considera si está haciendo demasiado (violación de SRP) o si los props deberían agruparse en sub-interfaces lógicas.
+- Usa `Pick`, `Omit` y tipos de intersección de TypeScript para crear interfaces de props enfocadas a partir de tipos base compartidos.
+- Prefiere múltiples hooks pequeños sobre un único hook monolítico con muchos valores de retorno.
 
 ### 1.5 Dependency Inversion Principle (DIP)
 
-**Definition:** High-level modules should not depend on low-level modules; both should depend on abstractions.
+**Definición:** Los módulos de alto nivel no deben depender de módulos de bajo nivel; ambos deben depender de abstracciones.
 
-**Frontend Application:**
-- A user list component should not contain logic to fetch users directly. Instead, it depends on an abstract hook like `useUsers()` or receives users via props/state management.
-- Framework-specific implementations across React, Vue, and Angular:
-  - **React:** Dependencies wired via props, hooks, and Context. A `Login` component depends on an `authService` abstraction, not a specific API method.
-  - **Vue:** `provide()` and `inject()` pass dependencies down the component tree.
-  - **Angular:** `@Injectable()` services with hierarchical injectors; the most mature DI system in frontend.
-- Replacing a low-level `axios` request with `fetch` or adding a caching layer with SWR/TanStack Query should not require refactoring the consumer component.
+**Aplicación en Frontend:**
+- Un componente de lista de usuarios no debería contener la lógica para obtener usuarios directamente. En su lugar, depende de un hook abstracto como `useUsers()` o recibe los usuarios mediante props/state management.
+- Implementaciones específicas de framework en React, Vue y Angular:
+  - **React:** Las dependencias se conectan mediante props, hooks y Context. Un componente `Login` depende de una abstracción `authService`, no de un método de API específico.
+  - **Vue:** `provide()` e `inject()` pasan dependencias hacia abajo en el árbol de componentes.
+  - **Angular:** Servicios `@Injectable()` con inyectores jerárquicos; el sistema de DI más maduro en frontend.
+- Reemplazar una petición `axios` de bajo nivel con `fetch` o añadir una capa de caché con SWR/TanStack Query no debería requerir refactorizar el componente consumidor.
 
-**Practical Guidance:**
-- Define service interfaces (TypeScript interfaces or duck-typed contracts) that components depend on.
-- Use React Context, Vue's provide/inject, or Angular's DI to inject implementations.
-- This makes testing dramatically easier: inject mocks instead of mocking HTTP libraries globally.
-- Libraries like `@wroud/di` (with `@wroud/di-react`) provide reflection-free IoC containers for JavaScript.
+**Guía Práctica:**
+- Define interfaces de servicio (interfaces de TypeScript o contratos de duck typing) de las que los componentes dependan.
+- Usa React Context, provide/inject de Vue o el DI de Angular para inyectar implementaciones.
+- Esto facilita dramáticamente las pruebas: inyecta mocks en lugar de hacer mocking de bibliotecas HTTP globalmente.
+- Bibliotecas como `@wroud/di` (con `@wroud/di-react`) proporcionan contenedores IoC sin reflexión para JavaScript.
 
-### Common Pitfalls & Anti-patterns
+### Errores Comunes y Anti-patterns
 
-- **Over-engineering SOLID in simple apps.** Applying DIP with full interface-implementation-factory layers for a single API endpoint creates indirection with no benefit. SOLID is a tool for managing complexity -- if the complexity is not there, neither should the structure be.
-- **SRP taken to extremes: nano-components.** Splitting a component into `ButtonWrapper`, `ButtonLabel`, `ButtonIcon`, and `ButtonClickHandler` makes the code harder to follow than a single, moderately-sized `Button` component. SRP means one *reason to change*, not one *line of code*.
-- **OCP used to justify premature generalization.** Building an extensible plugin architecture for a card component before a second variant exists wastes effort. You cannot design the right extension points without knowing what the actual extensions will be. Wait for at least two concrete use cases.
-- **Cargo-culting service layers.** Creating `IUserRepository` + `UserRepositoryImpl` + `UserRepositoryFactory` to wrap a single `fetch('/api/users')` call adds three files of boilerplate with no testability or flexibility gain. Abstract when you have a reason to swap implementations, not before.
-- **LSP violations through partial interface implementation.** A component variant that accepts a prop from its base interface but silently ignores it violates substitutability. If `CompactArticleCard` accepts `onExpand` but never calls it, consumers are misled and bugs will follow.
-- **ISP violation through "options bag" props.** Passing a single `options` object that bundles unrelated concerns (pagination config, theme overrides, analytics hooks) forces consumers to know about -- and potentially provide -- properties they do not use. Split into focused, composable prop groups.
+- **Sobre-ingeniería de SOLID en aplicaciones simples.** Aplicar DIP con capas completas de interfaz-implementación-factory para un único endpoint de API crea indirección sin beneficio. SOLID es una herramienta para gestionar complejidad -- si la complejidad no existe, la estructura tampoco debería existir.
+- **SRP llevado al extremo: nano-componentes.** Dividir un componente en `ButtonWrapper`, `ButtonLabel`, `ButtonIcon` y `ButtonClickHandler` hace que el código sea más difícil de seguir que un único componente `Button` de tamaño moderado. SRP significa una *razón para cambiar*, no una *línea de código*.
+- **OCP usado para justificar generalización prematura.** Construir una arquitectura de plugins extensible para un componente de tarjeta antes de que exista una segunda variante desperdicia esfuerzo. No puedes diseñar los puntos de extensión correctos sin saber cuáles serán las extensiones reales. Espera a tener al menos dos casos de uso concretos.
+- **Copiar ciegamente las capas de servicio.** Crear `IUserRepository` + `UserRepositoryImpl` + `UserRepositoryFactory` para envolver una única llamada `fetch('/api/users')` añade tres archivos de boilerplate sin ganancia en testabilidad ni flexibilidad. Abstrae cuando tengas una razón para intercambiar implementaciones, no antes.
+- **Violaciones de LSP por implementación parcial de interfaces.** Una variante de componente que acepta un prop de su interfaz base pero lo ignora silenciosamente viola la sustituibilidad. Si `CompactArticleCard` acepta `onExpand` pero nunca lo llama, los consumidores son engañados y los bugs seguirán.
+- **Violación de ISP mediante props de tipo "bolsa de opciones".** Pasar un único objeto `options` que agrupa responsabilidades no relacionadas (configuración de paginación, sobrescrituras de tema, hooks de analytics) fuerza a los consumidores a conocer -- y potencialmente proporcionar -- propiedades que no usan. Divide en grupos de props enfocados y componibles.
 
 ---
 
-## 2. Component Design Principles
+## 2. Principios de Diseño de Componentes
 
 ### 2.1 Composition Over Inheritance
 
-**Core Principle:** Build complex UI from small, reusable pieces composed together, rather than through class hierarchies.
+**Principio Central:** Construye UI compleja a partir de piezas pequeñas y reutilizables compuestas juntas, en lugar de a través de jerarquías de clases.
 
-- In frontend, inheritance of components leads to rigid hierarchies that are hard to refactor.
-- Composition via `children`, slots, render props, and hooks allows flexible assembly of UI and behavior.
-- Every major framework endorses composition: React's explicit recommendation, Vue's slots and Composition API, Angular's content projection, Svelte's slots.
+- En frontend, la herencia de componentes lleva a jerarquías rígidas que son difíciles de refactorizar.
+- La composición mediante `children`, slots, render props y hooks permite un ensamblaje flexible de UI y comportamiento.
+- Todos los frameworks principales respaldan la composición: la recomendación explícita de React, los slots y la Composition API de Vue, la proyección de contenido de Angular y los slots de Svelte.
 
-### 2.2 Container/Presentational Pattern (and Its Evolution)
+### 2.2 Container/Presentational Pattern (y su Evolución)
 
-**Classic Pattern:**
-- **Container (Smart) Components:** Concerned with *how things work*. Handle data fetching, state management, and side effects. Provide data and callbacks to presentational components.
-- **Presentational (Dumb) Components:** Concerned with *how things look*. Receive everything via props. Purely render UI. Easy to test and reuse.
+**Patrón Clásico:**
+- **Componentes Container (Smart):** Se ocupan de *cómo funcionan las cosas*. Manejan la obtención de datos, la gestión de estado y los efectos secundarios. Proporcionan datos y callbacks a los componentes presentacionales.
+- **Componentes Presentational (Dumb):** Se ocupan de *cómo se ven las cosas*. Reciben todo mediante props. Renderizan UI de forma pura. Fáciles de probar y reutilizar.
 
-**Evolution (2025):**
-- With hooks (React) and composables (Vue 3), the rigid boundary between container and presentational components has blurred.
-- Custom hooks encapsulate the "container" logic, making separate container components often unnecessary.
-- **Still valuable in enterprise-scale applications:** Keeping logic separate from UI enables teams to swap UIs without touching underlying logic, simplifies testing (presentational components are pure), and aids reusability.
-- **Guideline:** Do not force this structure on every component. Use it where the separation provides clear benefits -- typically in complex features with significant data/logic requirements.
+**Evolución (2025):**
+- Con hooks (React) y composables (Vue 3), la frontera rígida entre componentes container y presentational se ha difuminado.
+- Los custom hooks encapsulan la lógica del "container", haciendo que los componentes container separados sean a menudo innecesarios.
+- **Sigue siendo valioso en aplicaciones a escala empresarial:** Mantener la lógica separada de la UI permite a los equipos intercambiar UIs sin tocar la lógica subyacente, simplifica las pruebas (los componentes presentacionales son puros) y ayuda a la reutilización.
+- **Directriz:** No fuerces esta estructura en cada componente. Úsala donde la separación proporcione beneficios claros -- típicamente en funcionalidades complejas con requisitos significativos de datos/lógica.
 
 ### 2.3 Compound Components
 
-**Pattern:** Multiple components share implicit state through context, forming a cohesive unit where the parent manages state and children consume it.
+**Patrón:** Múltiples componentes comparten estado implícito a través de context, formando una unidad cohesiva donde el padre gestiona el estado y los hijos lo consumen.
 
 ```
 <Select>
@@ -210,519 +210,519 @@ Though originally formulated for object-oriented programming, the SOLID principl
 </Select>
 ```
 
-- Used extensively by component libraries like Radix UI, Headless UI, and Reach UI.
-- Provides flexibility: consumers control structure and rendering while the compound component manages behavior.
-- Complements Atomic Design by enabling flexible, customizable components within a structured hierarchy.
+- Utilizado extensamente por bibliotecas de componentes como Radix UI, Headless UI y Reach UI.
+- Proporciona flexibilidad: los consumidores controlan la estructura y el renderizado mientras el compound component gestiona el comportamiento.
+- Complementa Atomic Design al permitir componentes flexibles y personalizables dentro de una jerarquía estructurada.
 
 ### 2.4 Render Props / Slots Pattern
 
-- **Render Props (React):** A component accepts a function as a prop that returns JSX, delegating rendering decisions to the consumer while managing state internally.
-- **Slots (Vue/Svelte/Web Components):** Named and scoped slots allow parent components to inject content into specific areas of a child component, with the child providing data to the slot.
-- Both patterns enable the Open/Closed Principle: base components can be extended without modification.
-- **Modern status:** While hooks have replaced many render prop use cases, render props remain useful for components where the rendering delegation pattern is the primary concern (e.g., headless UI libraries, virtualized lists).
+- **Render Props (React):** Un componente acepta una función como prop que retorna JSX, delegando las decisiones de renderizado al consumidor mientras gestiona el estado internamente.
+- **Slots (Vue/Svelte/Web Components):** Los slots con nombre y con alcance permiten a los componentes padres inyectar contenido en áreas específicas de un componente hijo, con el hijo proporcionando datos al slot.
+- Ambos patrones habilitan el Open/Closed Principle: los componentes base pueden ser extendidos sin modificación.
+- **Estado moderno:** Aunque los hooks han reemplazado muchos casos de uso de render props, los render props siguen siendo útiles para componentes donde el patrón de delegación de renderizado es la preocupación principal (por ejemplo, bibliotecas headless UI, listas virtualizadas).
 
 ### 2.5 Higher-Order Components vs. Hooks/Composables
 
-**HOC Era (Legacy):**
-- HOCs wrap components to inject props or behavior (e.g., `withAuth`, `withTheme`).
-- Problems: wrapper hell (deeply nested component trees), prop collision, difficult debugging, obscured component hierarchy.
+**Era de los HOC (Legacy):**
+- Los HOCs envuelven componentes para inyectar props o comportamiento (por ejemplo, `withAuth`, `withTheme`).
+- Problemas: wrapper hell (árboles de componentes profundamente anidados), colisión de props, depuración difícil, jerarquía de componentes oscurecida.
 
-**Modern Era -- Hooks and Composables:**
-- **React Hooks / Vue Composables / Svelte Stores:** Encapsulate reusable stateful logic without wrapping components.
-- Hooks compose linearly (no nesting), are explicit about their dependencies, and are easier to type with TypeScript.
-- Custom hooks have largely replaced HOCs and many render prop use cases.
-- **When HOCs still apply:** Cross-cutting concerns that need to wrap the component itself (e.g., error boundaries, providers, layout wrappers).
+**Era Moderna -- Hooks y Composables:**
+- **React Hooks / Vue Composables / Svelte Stores:** Encapsulan lógica con estado reutilizable sin envolver componentes.
+- Los hooks se componen linealmente (sin anidamiento), son explícitos sobre sus dependencias y son más fáciles de tipar con TypeScript.
+- Los custom hooks han reemplazado en gran medida a los HOCs y muchos casos de uso de render props.
+- **Cuándo los HOCs aún aplican:** Responsabilidades transversales que necesitan envolver el componente en sí (por ejemplo, error boundaries, providers, wrappers de layout).
 
 ### 2.6 Atomic Design
 
-**Brad Frost's Five Levels:**
+**Los Cinco Niveles de Brad Frost:**
 
-| Level | Description | Examples |
+| Nivel | Descripción | Ejemplos |
 |-------|-------------|----------|
-| **Atoms** | Basic UI building blocks | Button, Input, Icon, Label |
-| **Molecules** | Groups of atoms functioning together | Search bar (input + button), Form field (label + input + error) |
-| **Organisms** | Complex UI sections composed of molecules | Navigation bar, Product card grid, Registration form |
-| **Templates** | Page-level layouts without real data | Dashboard layout, Article page layout |
-| **Pages** | Templates populated with real content | Actual dashboard with live data |
+| **Atoms** | Bloques de construcción básicos de UI | Button, Input, Icon, Label |
+| **Molecules** | Grupos de atoms funcionando juntos | Barra de búsqueda (input + button), Campo de formulario (label + input + error) |
+| **Organisms** | Secciones de UI complejas compuestas de molecules | Barra de navegación, Cuadrícula de tarjetas de producto, Formulario de registro |
+| **Templates** | Layouts a nivel de página sin datos reales | Layout de dashboard, Layout de página de artículo |
+| **Pages** | Templates poblados con contenido real | Dashboard real con datos en vivo |
 
-**2025 Perspective:**
-- For **UI-heavy projects with little business complexity**, Atomic Design works well as an organizational methodology.
-- For **complex applications with significant business logic**, methodologies like **Feature-Sliced Design** or **Modular Architecture** are better suited because they organize by business domain rather than just UI granularity.
-- Atomic Design and Compound Components are complementary -- Atomic Design provides structure and hierarchy, while Compound Components enhance flexibility.
-- Many teams use a hybrid: Atomic Design for the shared design system/component library, feature-based organization for application code.
+**Perspectiva 2025:**
+- Para **proyectos centrados en UI con poca complejidad de negocio**, Atomic Design funciona bien como metodología organizativa.
+- Para **aplicaciones complejas con lógica de negocio significativa**, metodologías como **Feature-Sliced Design** o **Modular Architecture** son más adecuadas porque organizan por dominio de negocio en lugar de solo por granularidad de UI.
+- Atomic Design y Compound Components son complementarios -- Atomic Design proporciona estructura y jerarquía, mientras que Compound Components mejoran la flexibilidad.
+- Muchos equipos usan un enfoque híbrido: Atomic Design para el design system/biblioteca de componentes compartida, organización basada en features para el código de la aplicación.
 
-### Common Pitfalls & Anti-patterns
+### Errores Comunes y Anti-patterns
 
-- **God components disguised as "containers."** A container component with 15 hooks, 40 props, and 500 lines of orchestration logic is not a container -- it is a god object. Break it into smaller composable pieces, each managing a focused concern.
-- **Compound component overuse.** When a simple component with 3 props (`label`, `value`, `onChange`) would suffice, forcing a compound pattern (`<Field><Field.Label /><Field.Input /><Field.Error /></Field>`) adds API surface and cognitive overhead for no flexibility gain. Use compound components when consumers genuinely need structural control.
-- **Prop drilling panic.** Jumping to Context or global state the moment you pass a prop through two levels is premature. Try component composition first: pass entire components as children or props to skip intermediate layers. Context has re-render costs and hides data flow.
-- **Atomic Design level ambiguity causing bikeshedding.** Teams lose hours debating whether a component is a "molecule" or an "organism." If the classification is not obvious, the distinction is not adding value. Use Atomic Design as a loose mental model, not a rigid taxonomy.
-- **Render props creating callback hell.** Deeply nested render functions (`<Auth>{user => <Data user={user}>{data => <Theme>{theme => ...}</Theme>}</Data>}</Auth>`) are unreadable. If you have more than one level of render prop nesting, refactor to hooks.
-- **Premature abstraction of "reusable" components.** Building a fully generic, configurable `<DataTable>` before understanding all the actual table variants leads to a wrong abstraction that every consumer fights against. Build the concrete versions first, then extract what is genuinely shared.
+- **Componentes dios disfrazados de "containers".** Un componente container con 15 hooks, 40 props y 500 líneas de lógica de orquestación no es un container -- es un objeto dios. Divídelo en piezas más pequeñas y componibles, cada una gestionando una responsabilidad enfocada.
+- **Uso excesivo de Compound Components.** Cuando un componente simple con 3 props (`label`, `value`, `onChange`) sería suficiente, forzar un patrón compound (`<Field><Field.Label /><Field.Input /><Field.Error /></Field>`) añade superficie de API y sobrecarga cognitiva sin ganancia en flexibilidad. Usa Compound Components cuando los consumidores genuinamente necesiten control estructural.
+- **Pánico por prop drilling.** Saltar a Context o estado global en el momento en que pasas un prop a través de dos niveles es prematuro. Prueba primero la composición de componentes: pasa componentes completos como children o props para saltar las capas intermedias. Context tiene costos de re-render y oculta el flujo de datos.
+- **Ambigüedad en los niveles de Atomic Design causando debates interminables.** Los equipos pierden horas debatiendo si un componente es un "molecule" u un "organism". Si la clasificación no es obvia, la distinción no está añadiendo valor. Usa Atomic Design como un modelo mental flexible, no como una taxonomía rígida.
+- **Render props creando callback hell.** Funciones de render profundamente anidadas (`<Auth>{user => <Data user={user}>{data => <Theme>{theme => ...}</Theme>}</Data>}</Auth>`) son ilegibles. Si tienes más de un nivel de anidamiento de render props, refactoriza a hooks.
+- **Abstracción prematura de componentes "reutilizables".** Construir un `<DataTable>` totalmente genérico y configurable antes de entender todas las variantes reales de tablas lleva a una abstracción incorrecta contra la que cada consumidor lucha. Construye primero las versiones concretas, luego extrae lo que genuinamente se comparte.
 
 ---
 
-## 3. Separation of Concerns in Frontend
+## 3. Separación de Responsabilidades en Frontend
 
-### 3.1 UI Logic vs. Business Logic vs. Data Fetching
+### 3.1 Lógica de UI vs. Lógica de Negocio vs. Obtención de Datos
 
-Modern frontend architecture benefits from clear layering:
+La arquitectura frontend moderna se beneficia de una estratificación clara:
 
-| Layer | Responsibility | Example |
-|-------|---------------|---------|
-| **UI/Presentation** | Rendering, styling, user interaction, animation | React components, Vue templates, CSS |
-| **Business Logic** | Domain rules, validation, computation, transformations | Pure functions, domain models, validation schemas |
-| **Data/Infrastructure** | API calls, caching, persistence, external service communication | Fetch wrappers, API clients, storage adapters |
+| Capa | Responsabilidad | Ejemplo |
+|------|-----------------|---------|
+| **UI/Presentación** | Renderizado, estilos, interacción del usuario, animación | Componentes React, templates de Vue, CSS |
+| **Lógica de Negocio** | Reglas de dominio, validación, computación, transformaciones | Funciones puras, modelos de dominio, esquemas de validación |
+| **Datos/Infraestructura** | Llamadas a APIs, caché, persistencia, comunicación con servicios externos | Wrappers de fetch, clientes API, adaptadores de almacenamiento |
 
-**Key Insight:** Business logic should be **framework-agnostic** -- pure functions and classes that can be tested independently and potentially shared across platforms (web, mobile, server).
+**Idea Clave:** La lógica de negocio debe ser **agnóstica de framework** -- funciones puras y clases que puedan ser probadas independientemente y potencialmente compartidas entre plataformas (web, móvil, servidor).
 
-### 3.2 Custom Hooks/Composables as the Universal Abstraction
+### 3.2 Custom Hooks/Composables como la Abstracción Universal
 
-Custom hooks (React), composables (Vue 3), and reactive stores (Svelte) have emerged as the dominant abstraction for separating concerns:
+Los custom hooks (React), composables (Vue 3) y reactive stores (Svelte) han emergido como la abstracción dominante para separar responsabilidades:
 
-- **Encapsulation:** A `useCheckout()` hook contains all checkout-related state, validation, and API orchestration. The component just calls it and renders.
-- **Composability:** Hooks compose with other hooks. `useCheckout` can internally use `useCart`, `usePayment`, and `useShipping`.
-- **Testability:** Hooks can be tested in isolation from the UI.
-- **Reusability:** The same hook works in different visual contexts.
+- **Encapsulación:** Un hook `useCheckout()` contiene todo el estado, validación y orquestación de API relacionados con el checkout. El componente simplemente lo llama y renderiza.
+- **Componibilidad:** Los hooks se componen con otros hooks. `useCheckout` puede usar internamente `useCart`, `usePayment` y `useShipping`.
+- **Testabilidad:** Los hooks pueden ser probados de forma aislada de la UI.
+- **Reutilización:** El mismo hook funciona en diferentes contextos visuales.
 
-**Recommended Architecture:**
+**Arquitectura Recomendada:**
 ```
 src/
-  components/        # Purely presentational code
-  hooks/ (or composables/)  # Stateful UI logic
-  use-cases/         # Framework-agnostic business logic
-  services/          # API clients, external integrations
-  lib/               # Integration points, utilities
+  components/        # Código puramente presentacional
+  hooks/ (or composables/)  # Lógica de UI con estado
+  use-cases/         # Lógica de negocio agnóstica de framework
+  services/          # Clientes API, integraciones externas
+  lib/               # Puntos de integración, utilidades
 ```
 
-### 3.3 Service Layer Patterns
+### 3.3 Patrones de Service Layer
 
-**Clean Architecture / Hexagonal Architecture in Frontend:**
-- **Domain Layer:** Framework-agnostic models and pure business logic functions.
-- **Application Layer (Use Cases):** Orchestrates domain logic and service calls.
-- **Infrastructure Layer:** API clients, storage adapters, third-party integrations. Swapping an API provider only touches this layer.
-- **Presentation Layer:** Components and hooks that consume the application layer.
+**Clean Architecture / Hexagonal Architecture en Frontend:**
+- **Domain Layer:** Modelos agnósticos de framework y funciones puras de lógica de negocio.
+- **Application Layer (Use Cases):** Orquesta la lógica de dominio y las llamadas a servicios.
+- **Infrastructure Layer:** Clientes API, adaptadores de almacenamiento, integraciones con terceros. Cambiar un proveedor de API solo afecta esta capa.
+- **Presentation Layer:** Componentes y hooks que consumen la capa de aplicación.
 
-**Dependency Inversion in the Service Layer:**
-- Components depend on hooks, hooks depend on use-case abstractions, use cases depend on service port interfaces.
-- Concrete implementations (axios adapter, fetch adapter) are injected, not imported directly.
+**Dependency Inversion en el Service Layer:**
+- Los componentes dependen de hooks, los hooks dependen de abstracciones de use cases, los use cases dependen de interfaces de puertos de servicio.
+- Las implementaciones concretas (adaptador de axios, adaptador de fetch) se inyectan, no se importan directamente.
 
-**Backend for Frontend (BFF) Pattern:**
-- An intermediary server layer aggregates microservice calls, simplifying the frontend's data-fetching logic.
-- Provides a single API tailored to frontend needs, reducing client-side complexity.
+**Patrón Backend for Frontend (BFF):**
+- Una capa de servidor intermediaria que agrega llamadas a microservicios, simplificando la lógica de obtención de datos del frontend.
+- Proporciona una API única adaptada a las necesidades del frontend, reduciendo la complejidad del lado del cliente.
 
-**Four-Layer Frontend Architecture (emerging pattern):**
-1. Presentation (components)
-2. Application (hooks/composables orchestrating use cases)
-3. Domain (business rules, models)
-4. Infrastructure (APIs, storage, external SDKs)
+**Arquitectura Frontend de Cuatro Capas (patrón emergente):**
+1. Presentation (componentes)
+2. Application (hooks/composables orquestando use cases)
+3. Domain (reglas de negocio, modelos)
+4. Infrastructure (APIs, almacenamiento, SDKs externos)
 
-### Common Pitfalls & Anti-patterns
+### Errores Comunes y Anti-patterns
 
-- **Over-layering / architecture astronautics.** Implementing a full four-layer Clean Architecture with ports, adapters, use-case interactors, and domain models for a five-screen CRUD app is pure overhead. Match architectural complexity to application complexity.
-- **Service layers that are pure pass-through.** A `UserService` that calls `UserRepository.getUser()` and returns the result unchanged adds a file, an import, and a mental indirection hop for zero value. Add a service layer when it actually orchestrates, transforms, or enforces business rules.
-- **Hooks/composables becoming god objects.** A 500-line `useCheckout` hook managing 15 pieces of state, 8 side effects, and 6 derived values is a god component in disguise. Decompose it into focused, composable hooks (`useCartItems`, `useShipping`, `usePayment`).
-- **Framework-agnostic purity taken too far.** Abstracting every React-specific API behind a framework-agnostic interface when you only target one platform (and have no plans to change) adds complexity without benefit. Write framework-agnostic *business logic*; let UI integration code use the framework idiomatically.
-- **BFF pattern without justification.** Adding a Backend for Frontend layer introduces a separate deployment unit, a second codebase to maintain, and an extra network hop of latency. Only adopt BFF when you genuinely need to aggregate multiple microservices, handle auth token exchange, or tailor data shapes that the backend team cannot provide.
-- **Scattering colocated concerns across directories.** Placing a component in `components/`, its hook in `hooks/`, its types in `types/`, and its tests in `__tests__/` when they always change together forces developers to touch four directories for every modification. Colocate files that change together.
+- **Sobre-estratificación / astronáutica de arquitectura.** Implementar una Clean Architecture completa de cuatro capas con ports, adapters, interactors de use cases y modelos de dominio para una aplicación CRUD de cinco pantallas es pura sobrecarga. Ajusta la complejidad arquitectónica a la complejidad de la aplicación.
+- **Capas de servicio que son puro paso directo.** Un `UserService` que llama a `UserRepository.getUser()` y retorna el resultado sin cambios añade un archivo, un import y un salto de indirección mental por valor cero. Añade una capa de servicio cuando realmente orqueste, transforme o imponga reglas de negocio.
+- **Hooks/composables convirtiéndose en objetos dios.** Un hook `useCheckout` de 500 líneas gestionando 15 piezas de estado, 8 efectos secundarios y 6 valores derivados es un componente dios disfrazado. Descompónlo en hooks enfocados y componibles (`useCartItems`, `useShipping`, `usePayment`).
+- **Pureza agnóstica de framework llevada demasiado lejos.** Abstraer cada API específica de React detrás de una interfaz agnóstica de framework cuando solo apuntas a una plataforma (y no tienes planes de cambiar) añade complejidad sin beneficio. Escribe *lógica de negocio* agnóstica de framework; deja que el código de integración de UI use el framework de forma idiomática.
+- **Patrón BFF sin justificación.** Añadir una capa Backend for Frontend introduce una unidad de despliegue separada, un segundo código base que mantener y un salto de red adicional de latencia. Solo adopta BFF cuando genuinamente necesites agregar múltiples microservicios, manejar intercambio de tokens de autenticación o adaptar formas de datos que el equipo de backend no puede proporcionar.
+- **Dispersar responsabilidades colocadas entre directorios.** Colocar un componente en `components/`, su hook en `hooks/`, sus tipos en `types/` y sus tests en `__tests__/` cuando siempre cambian juntos fuerza a los desarrolladores a tocar cuatro directorios por cada modificación. Coloca juntos los archivos que cambian juntos.
 
 ---
 
-## 4. State Management Principles
+## 4. Principios de State Management
 
 ### 4.1 Local vs. Global State
 
-| Aspect | Local State | Global State |
-|--------|------------|--------------|
-| **Scope** | Single component or small subtree | Entire app or large feature area |
-| **Examples** | Form input values, toggle states, UI animations | Authenticated user, theme, shopping cart |
-| **Tools** | `useState`, `ref()`, component state | Redux, Zustand, Pinia, NgRx, Svelte stores |
-| **Guideline** | Default to local; lift only when needed | Use sparingly; only for truly shared state |
+| Aspecto | Local State | Global State |
+|---------|------------|--------------|
+| **Alcance** | Componente individual o pequeño subárbol | Aplicación completa o área de funcionalidad grande |
+| **Ejemplos** | Valores de input de formulario, estados de toggle, animaciones de UI | Usuario autenticado, tema, carrito de compras |
+| **Herramientas** | `useState`, `ref()`, estado del componente | Redux, Zustand, Pinia, NgRx, Svelte stores |
+| **Directriz** | Predeterminar a local; elevar solo cuando sea necesario | Usar con moderación; solo para estado genuinamente compartido |
 
-**Modern Principle (2026):** Most of the time you do not need a "state management library" at all. The days of putting everything into Redux are over. Break your state into different concerns -- this yields better solutions than any "generic" state management library.
+**Principio Moderno (2026):** La mayoría del tiempo no necesitas una "biblioteca de state management" en absoluto. Los días de poner todo en Redux han terminado. Divide tu estado en diferentes responsabilidades -- esto produce mejores soluciones que cualquier biblioteca de state management "genérica".
 
 ### 4.2 Server State vs. Client State
 
-One of the biggest paradigm shifts in recent years: **server data and UI state are fundamentally different concerns**.
+Uno de los cambios de paradigma más grandes en los últimos años: **los datos del servidor y el estado de UI son responsabilidades fundamentalmente diferentes**.
 
-| Aspect | Server State | Client State |
-|--------|-------------|--------------|
-| **Nature** | Asynchronous, shared, potentially stale | Synchronous, local, always current |
-| **Concerns** | Caching, deduplication, invalidation, retries, pagination, optimistic updates | UI toggles, form state, navigation |
-| **Tools** | TanStack Query, SWR, RTK Query, Apollo Client | useState, Zustand, Jotai, Pinia, Signals |
+| Aspecto | Server State | Client State |
+|---------|-------------|--------------|
+| **Naturaleza** | Asíncrono, compartido, potencialmente desactualizado | Síncrono, local, siempre actual |
+| **Responsabilidades** | Caching, deduplicación, invalidación, reintentos, paginación, optimistic updates | Toggles de UI, estado de formulario, navegación |
+| **Herramientas** | TanStack Query, SWR, RTK Query, Apollo Client | useState, Zustand, Jotai, Pinia, Signals |
 
-**Key Insight:** Data-fetching libraries like TanStack Query or SWR solve caching, deduplication, invalidation, retries, pagination, and optimistic updates out of the box. Treating server data with a generic state manager (like vanilla Redux) duplicates work that these libraries handle better.
+**Idea Clave:** Las bibliotecas de obtención de datos como TanStack Query o SWR resuelven caching, deduplicación, invalidación, reintentos, paginación y optimistic updates de forma nativa. Tratar los datos del servidor con un gestor de estado genérico (como Redux vanilla) duplica trabajo que estas bibliotecas manejan mejor.
 
 ### 4.3 Derived/Computed State
 
-**Principle:** Never store state that can be computed from other state. Derive it.
+**Principio:** Nunca almacenes estado que pueda ser computado a partir de otro estado. Derívalo.
 
-- **React:** `useMemo` for expensive computations; plain variables in render for cheap ones.
-- **Vue:** `computed()` properties automatically track dependencies and cache results.
-- **Angular:** Computed Signals (`computed()`) derive state declaratively. NgRx Signal Store combines NgRx structure with Signal performance.
-- **Svelte:** Reactive declarations (`$:`) derive state automatically.
-- **Libraries:** Jotai's atoms and selectors create graph-based derived state. Recoil pioneered this pattern.
+- **React:** `useMemo` para computaciones costosas; variables simples en el render para las baratas.
+- **Vue:** Las propiedades `computed()` rastrean dependencias automáticamente y cachean resultados.
+- **Angular:** Computed Signals (`computed()`) derivan estado declarativamente. NgRx Signal Store combina la estructura de NgRx con el rendimiento de Signals.
+- **Svelte:** Las declaraciones reactivas (`$:`) derivan estado automáticamente.
+- **Bibliotecas:** Los atoms y selectors de Jotai crean estado derivado basado en grafos. Recoil fue pionero en este patrón.
 
-**Benefit:** Eliminates state synchronization bugs. One source of truth, many derived views.
+**Beneficio:** Elimina bugs de sincronización de estado. Una única fuente de verdad, muchas vistas derivadas.
 
 ### 4.4 State Machines (XState)
 
-**Principle:** Model complex state transitions explicitly to avoid invalid states.
+**Principio:** Modela las transiciones de estado complejas explícitamente para evitar estados inválidos.
 
-- State machines enumerate every possible state and the transitions between them.
-- **XState** provides state machines and statecharts for explicit, testable flows.
-- Particularly valuable for: multi-step forms, authentication flows, complex UI interactions (drag-and-drop), payment processes.
-- Events serve as the source of truth; state transitions are pure functions; side effects are declared, not embedded.
+- Las state machines enumeran cada estado posible y las transiciones entre ellos.
+- **XState** proporciona state machines y statecharts para flujos explícitos y testeables.
+- Particularmente valiosas para: formularios de múltiples pasos, flujos de autenticación, interacciones de UI complejas (drag-and-drop), procesos de pago.
+- Los eventos sirven como fuente de verdad; las transiciones de estado son funciones puras; los efectos secundarios se declaran, no se incrustan.
 
-**When to Use:**
-- When a feature has more than 3-4 states with non-trivial transitions.
-- When "impossible states" are a recurring bug source (e.g., a form that is both "submitting" and "editing").
-- When you need a visual diagram of the state flow for communication with non-developers.
+**Cuándo Usar:**
+- Cuando una funcionalidad tiene más de 3-4 estados con transiciones no triviales.
+- Cuando los "estados imposibles" son una fuente recurrente de bugs (por ejemplo, un formulario que está simultáneamente "enviando" y "editando").
+- Cuando necesitas un diagrama visual del flujo de estado para comunicación con personas no desarrolladoras.
 
 ### 4.5 Unidirectional Data Flow
 
-**Principle:** Data flows in one direction: from state, through the view, to actions that update state.
+**Principio:** Los datos fluyen en una dirección: desde el estado, a través de la vista, hacia acciones que actualizan el estado.
 
 ```
 State --> View --> User Action --> State Update --> State --> View ...
 ```
 
-- Enforced by centralizing state and ensuring updates occur in a linear, controlled manner.
-- Core to Redux/Flux architecture, Angular's component tree, and Vue's props-down/events-up pattern.
-- **Benefits:** Predictable behavior, easier debugging (time-travel debugging), clear data provenance.
-- All major frameworks enforce or strongly encourage this: React's one-way data binding, Angular's unidirectional data flow checks, Vue's props-down/events-up.
+- Se impone centralizando el estado y asegurando que las actualizaciones ocurran de manera lineal y controlada.
+- Central en la arquitectura Redux/Flux, el árbol de componentes de Angular y el patrón props-down/events-up de Vue.
+- **Beneficios:** Comportamiento predecible, depuración más fácil (time-travel debugging), procedencia de datos clara.
+- Todos los frameworks principales imponen o recomiendan fuertemente esto: el data binding unidireccional de React, las verificaciones de flujo de datos unidireccional de Angular, el patrón props-down/events-up de Vue.
 
 ### 4.6 Immutability
 
-**Principle:** State objects must not be directly mutated. Every change creates a new copy.
+**Principio:** Los objetos de estado no deben ser mutados directamente. Cada cambio crea una nueva copia.
 
-- Enables change detection (React's re-render optimization, Redux's shallow equality checks).
-- Makes state changes explicit and auditable.
-- Simplifies debugging: compare previous and next state objects.
-- **Tools:** Immer (structural sharing for ergonomic immutable updates), native spread operators, `Object.freeze()` for development-time enforcement.
-- Angular Signals and Vue's reactivity system handle this internally, but the principle still applies at the architectural level.
+- Habilita la detección de cambios (optimización de re-render de React, verificaciones de igualdad superficial de Redux).
+- Hace que los cambios de estado sean explícitos y auditables.
+- Simplifica la depuración: compara los objetos de estado anterior y siguiente.
+- **Herramientas:** Immer (structural sharing para actualizaciones inmutables ergonómicas), operadores nativos de spread, `Object.freeze()` para imposición en tiempo de desarrollo.
+- Angular Signals y el sistema de reactividad de Vue manejan esto internamente, pero el principio sigue aplicándose a nivel arquitectónico.
 
-### Common Pitfalls & Anti-patterns
+### Errores Comunes y Anti-patterns
 
-- **Derived state chains becoming circular or stale.** When A derives B, B derives C, C derives D, and D somehow influences A, you get cascading re-renders and subtle staleness bugs. Keep derivation graphs acyclic and shallow. If a chain has more than two levels, reconsider the state shape.
-- **`useMemo` with incorrect dependency arrays.** Missing a dependency silently returns stale cached values; including an unstable reference (inline object, unsaved function) defeats memoization entirely. Lint rules (`react-hooks/exhaustive-deps`) exist for a reason -- do not suppress them without a clear justification.
-- **State machine overkill.** Reaching for XState to manage a boolean toggle or a two-state loading flag adds significant learning curve and boilerplate for something `useState(false)` handles perfectly. State machines earn their weight for flows with 4+ states and non-trivial transitions.
-- **Immutability performance traps.** Spreading large objects on every frame (`{...bigObject, x: newX}`) at 60fps creates garbage collection pressure. For animation-frequency updates, use mutable refs or dedicated animation libraries (Framer Motion, GSAP) that bypass React's render cycle.
-- **URL state neglected.** Filters, pagination, sort order, and active tabs belong in the URL so users can share, bookmark, and use browser back/forward. Storing these only in component state breaks fundamental web expectations.
-- **Unidirectional flow violated by `useRef` mutations.** Mutating a ref's `.current` value to store state that affects rendering without triggering a re-render creates invisible state that the UI does not reflect. Refs are for values that do *not* affect output; for everything else, use state.
-- **"Just put it in the store" anti-pattern.** Form input values, modal open/close booleans, and ephemeral UI state do not belong in global state. Global stores should hold data that is genuinely shared across distant parts of the application. Local state is the default.
+- **Cadenas de estado derivado volviéndose circulares o desactualizadas.** Cuando A deriva B, B deriva C, C deriva D, y D de alguna manera influye en A, obtienes re-renders en cascada y bugs sutiles de desactualización. Mantén los grafos de derivación acíclicos y poco profundos. Si una cadena tiene más de dos niveles, reconsidera la forma del estado.
+- **`useMemo` con arrays de dependencias incorrectos.** Omitir una dependencia retorna silenciosamente valores cacheados desactualizados; incluir una referencia inestable (objeto inline, función no guardada) anula la memoization completamente. Las reglas de linting (`react-hooks/exhaustive-deps`) existen por una razón -- no las suprimas sin una justificación clara.
+- **State machines en exceso.** Recurrir a XState para gestionar un toggle booleano o un flag de carga de dos estados añade una curva de aprendizaje significativa y boilerplate para algo que `useState(false)` maneja perfectamente. Las state machines justifican su peso para flujos con 4+ estados y transiciones no triviales.
+- **Trampas de rendimiento de Immutability.** Hacer spread de objetos grandes en cada frame (`{...bigObject, x: newX}`) a 60fps crea presión de garbage collection. Para actualizaciones a frecuencia de animación, usa refs mutables o bibliotecas de animación dedicadas (Framer Motion, GSAP) que evitan el ciclo de render de React.
+- **Estado de URL descuidado.** Los filtros, la paginación, el orden de clasificación y las pestañas activas pertenecen a la URL para que los usuarios puedan compartir, marcar como favorito y usar adelante/atrás del navegador. Almacenar estos solo en estado del componente rompe expectativas fundamentales de la web.
+- **Flujo unidireccional violado por mutaciones de `useRef`.** Mutar el valor `.current` de un ref para almacenar estado que afecta el renderizado sin disparar un re-render crea estado invisible que la UI no refleja. Los refs son para valores que *no* afectan la salida; para todo lo demás, usa state.
+- **Anti-pattern de "simplemente ponlo en el store".** Los valores de input de formulario, los booleanos de abrir/cerrar modales y el estado efímero de UI no pertenecen al estado global. Los stores globales deben contener datos que son genuinamente compartidos entre partes distantes de la aplicación. El estado local es el predeterminado.
 
 ---
 
-## 5. Usability Principles
+## 5. Principios de Usabilidad
 
-### 5.1 Nielsen's 10 Heuristics Applied to Web
+### 5.1 Las 10 Heurísticas de Nielsen Aplicadas a la Web
 
-Jakob Nielsen's 10 usability heuristics remain the most widely referenced framework for evaluating interface design:
+Las 10 heurísticas de usabilidad de Jakob Nielsen siguen siendo el marco de referencia más ampliamente citado para evaluar el diseño de interfaces:
 
-| # | Heuristic | Web Application |
-|---|-----------|-----------------|
-| 1 | **Visibility of System Status** | Loading indicators, progress bars, toast notifications, save confirmations |
-| 2 | **Match Between System and Real World** | Use familiar terminology, natural language labels, intuitive iconography |
-| 3 | **User Control and Freedom** | Undo/redo, clear "back" navigation, easy-to-dismiss modals, "Cancel" buttons |
-| 4 | **Consistency and Standards** | Follow platform conventions, consistent component behavior, predictable navigation |
-| 5 | **Error Prevention** | Confirmations for destructive actions, input constraints, disabled buttons for invalid states |
-| 6 | **Recognition Rather Than Recall** | Visible navigation, recent searches, autocomplete, contextual help |
-| 7 | **Flexibility and Efficiency of Use** | Keyboard shortcuts, customizable dashboards, quick actions for power users |
-| 8 | **Aesthetic and Minimalist Design** | Remove unnecessary elements, clear visual hierarchy, focused content |
-| 9 | **Help Users Recognize, Diagnose, and Recover from Errors** | Clear error messages with remediation steps, inline validation, highlighted problem fields |
-| 10 | **Help and Documentation** | Searchable help, onboarding tours, contextual tooltips |
+| # | Heurística | Aplicación Web |
+|---|-----------|----------------|
+| 1 | **Visibilidad del Estado del Sistema** | Indicadores de carga, barras de progreso, notificaciones toast, confirmaciones de guardado |
+| 2 | **Correspondencia entre el Sistema y el Mundo Real** | Usar terminología familiar, etiquetas en lenguaje natural, iconografía intuitiva |
+| 3 | **Control y Libertad del Usuario** | Deshacer/rehacer, navegación "atrás" clara, modales fáciles de cerrar, botones "Cancelar" |
+| 4 | **Consistencia y Estándares** | Seguir convenciones de plataforma, comportamiento consistente de componentes, navegación predecible |
+| 5 | **Prevención de Errores** | Confirmaciones para acciones destructivas, restricciones de entrada, botones deshabilitados para estados inválidos |
+| 6 | **Reconocimiento antes que Recuerdo** | Navegación visible, búsquedas recientes, autocompletado, ayuda contextual |
+| 7 | **Flexibilidad y Eficiencia de Uso** | Atajos de teclado, dashboards personalizables, acciones rápidas para usuarios avanzados |
+| 8 | **Diseño Estético y Minimalista** | Eliminar elementos innecesarios, jerarquía visual clara, contenido enfocado |
+| 9 | **Ayudar a los Usuarios a Reconocer, Diagnosticar y Recuperarse de Errores** | Mensajes de error claros con pasos de remediación, validación inline, campos problemáticos resaltados |
+| 10 | **Ayuda y Documentación** | Ayuda con búsqueda, tours de onboarding, tooltips contextuales |
 
-### 5.2 Fitts's Law
+### 5.2 Ley de Fitts
 
-**The time to acquire a target is a function of the distance to and size of the target.**
+**El tiempo para alcanzar un objetivo es una función de la distancia al objetivo y su tamaño.**
 
-- **Make clickable targets large enough** -- minimum 44x44px for touch targets (Apple HIG), 48x48dp (Material Design).
-- **Place frequently-used actions within easy reach** -- primary actions in the thumb zone on mobile, near the current focus area on desktop.
-- **Reduce distance** between related actions (e.g., a "Save" button near the form it saves).
-- Especially critical for mobile design where precise interactions are challenging.
-- **Edge and corner advantage:** Buttons at screen edges or corners are effectively infinitely deep targets (the cursor stops at the edge), making them faster to acquire.
+- **Haz los objetivos clicables lo suficientemente grandes** -- mínimo 44x44px para targets táctiles (Apple HIG), 48x48dp (Material Design).
+- **Coloca las acciones de uso frecuente al alcance fácil** -- acciones primarias en la zona del pulgar en móvil, cerca del área de foco actual en escritorio.
+- **Reduce la distancia** entre acciones relacionadas (por ejemplo, un botón "Guardar" cerca del formulario que guarda).
+- Especialmente crítico para el diseño móvil donde las interacciones precisas son desafiantes.
+- **Ventaja de bordes y esquinas:** Los botones en los bordes o esquinas de la pantalla son efectivamente targets de profundidad infinita (el cursor se detiene en el borde), haciéndolos más rápidos de alcanzar.
 
-### 5.3 Hick's Law
+### 5.3 Ley de Hick
 
-**The time to make a decision increases with the number and complexity of choices.**
+**El tiempo para tomar una decisión aumenta con el número y la complejidad de las opciones.**
 
-- **Reduce choices:** Group related options, use progressive disclosure, limit visible navigation items.
-- **Simplify navigation** by categorizing and chunking options.
-- **Decision aids:** Recommend defaults, highlight popular choices, provide comparison tools.
-- **Search and filter** as alternatives to scanning long lists.
+- **Reduce las opciones:** Agrupa opciones relacionadas, usa progressive disclosure, limita los elementos de navegación visibles.
+- **Simplifica la navegación** categorizando y agrupando opciones.
+- **Ayudas de decisión:** Recomienda valores predeterminados, resalta opciones populares, proporciona herramientas de comparación.
+- **Búsqueda y filtros** como alternativas a escanear listas largas.
 
-### 5.4 Gestalt Principles in UI
+### 5.4 Principios Gestalt en UI
 
-Gestalt psychology principles describe how humans naturally perceive and group visual elements:
+Los principios de la psicología Gestalt describen cómo los humanos perciben y agrupan naturalmente los elementos visuales:
 
-| Principle | Application in UI |
-|-----------|-------------------|
-| **Proximity** | Group related items close together (form labels near inputs, related actions together) |
-| **Similarity** | Consistent styling for similar elements (all links one color, all buttons one shape) |
-| **Closure** | Users complete incomplete shapes (progress indicators, card layouts with clipped content) |
-| **Continuity** | Align elements to create visual flow (grids, timelines, breadcrumbs) |
-| **Common Region** | Use borders, backgrounds, or cards to group related content |
-| **Figure/Ground** | Clear contrast between primary content and background; modal overlays |
+| Principio | Aplicación en UI |
+|-----------|------------------|
+| **Proximidad** | Agrupa elementos relacionados cerca entre sí (etiquetas de formulario cerca de los inputs, acciones relacionadas juntas) |
+| **Similitud** | Estilo consistente para elementos similares (todos los enlaces de un color, todos los botones de una forma) |
+| **Cierre** | Los usuarios completan formas incompletas (indicadores de progreso, layouts de tarjetas con contenido recortado) |
+| **Continuidad** | Alinea elementos para crear flujo visual (cuadrículas, líneas de tiempo, breadcrumbs) |
+| **Región Común** | Usa bordes, fondos o tarjetas para agrupar contenido relacionado |
+| **Figura/Fondo** | Contraste claro entre contenido principal y fondo; overlays de modales |
 
 ### 5.5 Progressive Disclosure
 
-**Reveal information and options only when they are needed, keeping interfaces clean and focused.**
+**Revela información y opciones solo cuando son necesarias, manteniendo las interfaces limpias y enfocadas.**
 
-- Main interface shows essential actions; secondary content is accessible through tabs, expandable sections, or modal windows.
-- **Limit disclosure levels to fewer than three.** If a design requires more, reorganize the content.
-- Common implementations: accordion sections, "Show more" links, wizard/step-by-step flows, expandable menus.
-- Reduces cognitive overload by presenting only the most relevant data at each step.
-- Especially important on mobile where screen real estate is limited.
+- La interfaz principal muestra acciones esenciales; el contenido secundario es accesible a través de pestañas, secciones expandibles o ventanas modales.
+- **Limita los niveles de disclosure a menos de tres.** Si un diseño requiere más, reorganiza el contenido.
+- Implementaciones comunes: secciones accordion, enlaces "Mostrar más", flujos wizard/paso-a-paso, menús expandibles.
+- Reduce la sobrecarga cognitiva presentando solo los datos más relevantes en cada paso.
+- Especialmente importante en móvil donde el espacio de pantalla es limitado.
 
-### 5.6 Cognitive Load Reduction
+### 5.6 Reducción de Carga Cognitiva
 
-- **Chunk information:** Break long forms into logical steps, paginate long lists, group related settings.
-- **Sensible defaults:** Pre-fill forms with intelligent defaults to reduce required decisions.
-- **Visual hierarchy:** Use size, color, contrast, and spacing to guide attention to what matters most.
-- **Consistent patterns:** Once users learn an interaction pattern, reuse it across the application.
-- **Eliminate unnecessary decisions:** Auto-detect when possible (timezone, locale, currency).
+- **Agrupa la información:** Divide formularios largos en pasos lógicos, pagina listas largas, agrupa configuraciones relacionadas.
+- **Valores predeterminados sensatos:** Pre-rellena formularios con valores predeterminados inteligentes para reducir las decisiones requeridas.
+- **Jerarquía visual:** Usa tamaño, color, contraste y espaciado para guiar la atención hacia lo que más importa.
+- **Patrones consistentes:** Una vez que los usuarios aprenden un patrón de interacción, reutilízalo a través de la aplicación.
+- **Elimina decisiones innecesarias:** Auto-detecta cuando sea posible (zona horaria, idioma, moneda).
 
-### 5.7 Mobile-First Design
+### 5.7 Diseño Mobile-First
 
-**Design for the smallest, most constrained viewport first, then progressively enhance for larger screens.**
+**Diseña primero para la ventana gráfica más pequeña y con más restricciones, luego mejora progresivamente para pantallas más grandes.**
 
-- Forces prioritization of essential content and features.
-- CSS: write base styles for mobile, then use `min-width` media queries to add complexity for larger screens.
-- Touch targets: minimum 44x44px, with adequate spacing between interactive elements.
-- Navigation: hamburger menus for secondary navigation, but keep critical navigation visible.
-- Performance: mobile networks are slower; optimize assets and defer non-essential loading.
+- Fuerza la priorización del contenido y las funcionalidades esenciales.
+- CSS: escribe estilos base para móvil, luego usa media queries `min-width` para añadir complejidad para pantallas más grandes.
+- Targets táctiles: mínimo 44x44px, con espaciado adecuado entre elementos interactivos.
+- Navegación: menús hamburguesa para navegación secundaria, pero mantén la navegación crítica visible.
+- Rendimiento: las redes móviles son más lentas; optimiza los assets y difiere la carga no esencial.
 
-### 5.8 Responsive Design Principles
+### 5.8 Principios de Diseño Responsive
 
-- **Fluid layouts:** Use relative units (%, vw, vh, rem, em) and CSS Grid/Flexbox over fixed pixel widths.
-- **Breakpoints based on content, not devices.** Add breakpoints where the layout breaks, not at arbitrary device widths.
-- **Responsive images:** `srcset`, `<picture>`, and CSS `object-fit` for appropriate image sizing.
-- **Container queries (modern CSS):** Style components based on their container's size, not the viewport -- enabling truly modular responsive components.
-- **Typography:** Fluid type scales using `clamp()` for smooth scaling across viewports.
+- **Layouts fluidos:** Usa unidades relativas (%, vw, vh, rem, em) y CSS Grid/Flexbox en lugar de anchos fijos en píxeles.
+- **Breakpoints basados en contenido, no en dispositivos.** Añade breakpoints donde el layout se rompe, no en anchos arbitrarios de dispositivos.
+- **Imágenes responsive:** `srcset`, `<picture>` y CSS `object-fit` para dimensionamiento apropiado de imágenes.
+- **Container queries (CSS moderno):** Estiliza componentes basándote en el tamaño de su contenedor, no de la ventana gráfica -- habilitando componentes responsive verdaderamente modulares.
+- **Tipografía:** Escalas de tipo fluido usando `clamp()` para escalado suave entre ventanas gráficas.
 
-### Common Pitfalls & Anti-patterns
+### Errores Comunes y Anti-patterns
 
-- **Dark patterns.** Confirm-shaming ("No thanks, I don't want to save money"), forced continuity (auto-enrolling trials without clear cancellation), hidden costs revealed at checkout, and misdirection (visually emphasizing the option that benefits the business, not the user) erode trust and may violate regulations. Design for the user's benefit, not against them.
-- **Progressive disclosure hiding critical features.** If users cannot find a feature because it is buried behind three levels of disclosure, the feature effectively does not exist. Progressively disclose *secondary* options, not primary workflows. User research and analytics should validate what belongs at each level.
-- **Mobile-first that ignores desktop.** Designing for 375px first is good practice, but shipping a single-column layout on a 27-inch monitor wastes screen real estate and frustrates desktop users. Mobile-first means *start* with mobile, then *enhance* for larger viewports -- not stop at mobile.
-- **Toast notification fatigue.** Showing a toast for every minor action ("Settings saved," "Item added," "Profile updated") trains users to ignore all notifications, including important ones. Reserve toasts for outcomes that are uncertain, asynchronous, or require attention. For expected, synchronous results, subtle inline confirmation is sufficient.
-- **Misapplying Fitts's Law to justify massive buttons everywhere.** Fitts's Law describes *relative* target acquisition time, not an instruction to make every element oversized. Enormous buttons crowd out content, break visual hierarchy, and do not improve usability when there is no precision challenge.
-- **Hick's Law used to remove features instead of organizing them.** Reducing choices does not mean deleting features users need. It means grouping, categorizing, providing defaults, and using progressive disclosure to manage complexity without sacrificing capability.
-- **Inconsistency disguised as creativity.** Custom scrollbars, non-standard form controls, novel navigation patterns, and reimagined checkboxes force users to relearn interactions they already know. Platform conventions exist because users have already learned them. Deviate only when the UX gain clearly outweighs the learning cost.
-- **Responsive breakpoints based on specific device widths.** Breakpoints at 375px, 768px, and 1024px target today's popular devices but break on tomorrow's. Set breakpoints where *your content* breaks, not where current devices happen to measure.
+- **Dark patterns.** Confirm-shaming ("No gracias, no quiero ahorrar dinero"), continuidad forzada (inscripción automática en pruebas sin cancelación clara), costos ocultos revelados en el checkout y misdirection (enfatizar visualmente la opción que beneficia al negocio, no al usuario) erosionan la confianza y pueden violar regulaciones. Diseña para el beneficio del usuario, no en su contra.
+- **Progressive disclosure ocultando funcionalidades críticas.** Si los usuarios no pueden encontrar una funcionalidad porque está enterrada detrás de tres niveles de disclosure, la funcionalidad efectivamente no existe. Aplica progressive disclosure a opciones *secundarias*, no a flujos de trabajo principales. La investigación de usuarios y la analítica deben validar qué pertenece a cada nivel.
+- **Mobile-first que ignora escritorio.** Diseñar primero para 375px es una buena práctica, pero entregar un layout de una sola columna en un monitor de 27 pulgadas desperdicia espacio de pantalla y frustra a los usuarios de escritorio. Mobile-first significa *empezar* con móvil, luego *mejorar* para ventanas gráficas más grandes -- no detenerse en móvil.
+- **Fatiga de notificaciones toast.** Mostrar un toast para cada acción menor ("Configuración guardada," "Elemento añadido," "Perfil actualizado") entrena a los usuarios a ignorar todas las notificaciones, incluidas las importantes. Reserva los toasts para resultados que son inciertos, asíncronos o requieren atención. Para resultados esperados y síncronos, una confirmación inline sutil es suficiente.
+- **Malinterpretar la Ley de Fitts para justificar botones masivos en todas partes.** La Ley de Fitts describe el tiempo *relativo* de adquisición de objetivo, no es una instrucción para hacer cada elemento de tamaño excesivo. Botones enormes desplazan el contenido, rompen la jerarquía visual y no mejoran la usabilidad cuando no hay desafío de precisión.
+- **Ley de Hick usada para eliminar funcionalidades en vez de organizarlas.** Reducir opciones no significa eliminar funcionalidades que los usuarios necesitan. Significa agrupar, categorizar, proporcionar valores predeterminados y usar progressive disclosure para gestionar la complejidad sin sacrificar capacidad.
+- **Inconsistencia disfrazada de creatividad.** Scrollbars personalizados, controles de formulario no estándar, patrones de navegación novedosos y checkboxes reimaginados fuerzan a los usuarios a reaprender interacciones que ya conocen. Las convenciones de plataforma existen porque los usuarios ya las han aprendido. Desvíate solo cuando la ganancia de UX supere claramente el costo de aprendizaje.
+- **Breakpoints responsive basados en anchos de dispositivos específicos.** Breakpoints en 375px, 768px y 1024px apuntan a los dispositivos populares de hoy pero se rompen con los de mañana. Establece breakpoints donde *tu contenido* se rompe, no donde los dispositivos actuales casualmente miden.
 
 ---
 
-## 6. Performance Principles
+## 6. Principios de Rendimiento
 
-### 6.1 RAIL Model
+### 6.1 Modelo RAIL
 
-Google's user-centric performance model. While the industry has shifted toward Core Web Vitals as the primary measurement standard, RAIL remains a valuable mental framework:
+El modelo de rendimiento centrado en el usuario de Google. Aunque la industria ha cambiado hacia Core Web Vitals como el estándar de medición principal, RAIL sigue siendo un marco mental valioso:
 
-| Metric | Target | Description |
-|--------|--------|-------------|
-| **Response** | < 100ms | Respond to user input (clicks, taps, key presses) within 100ms |
-| **Animation** | < 16ms per frame | Produce each frame in under 16ms for 60fps animations |
-| **Idle** | < 50ms chunks | Use idle time for deferred work; keep individual tasks under 50ms to remain responsive |
-| **Load** | < 1000ms | Deliver interactive content within 1 second on mid-range mobile devices |
+| Métrica | Objetivo | Descripción |
+|---------|----------|-------------|
+| **Response** | < 100ms | Responder a la entrada del usuario (clics, toques, pulsaciones de tecla) dentro de 100ms |
+| **Animation** | < 16ms por frame | Producir cada frame en menos de 16ms para animaciones a 60fps |
+| **Idle** | < 50ms por tarea | Usar el tiempo idle para trabajo diferido; mantener las tareas individuales por debajo de 50ms para seguir siendo responsive |
+| **Load** | < 1000ms | Entregar contenido interactivo dentro de 1 segundo en dispositivos móviles de gama media |
 
-**Core Web Vitals (current measurement standard):**
-- **LCP (Largest Contentful Paint):** < 2.5 seconds
+**Core Web Vitals (estándar de medición actual):**
+- **LCP (Largest Contentful Paint):** < 2.5 segundos
 - **INP (Interaction to Next Paint):** < 200ms
 - **CLS (Cumulative Layout Shift):** < 0.1
 
-### 6.2 Lazy Loading Strategies
+### 6.2 Estrategias de Lazy Loading
 
-- **Route-based code splitting:** Load code for each route/page only when the user navigates to it. Supported natively by all major frameworks and bundlers.
-- **Component-level lazy loading:** `React.lazy()`, Vue's `defineAsyncComponent()`, Angular's lazy-loaded modules.
-- **Image lazy loading:** Native `loading="lazy"` attribute, Intersection Observer for custom implementations.
-- **Below-the-fold content:** Defer loading of content not visible in the initial viewport.
-- **Prioritize the critical rendering path:** Load what is needed for the initial view first; defer everything else to idle time.
+- **Code splitting basado en rutas:** Carga el código de cada ruta/página solo cuando el usuario navega a ella. Soportado nativamente por todos los frameworks y bundlers principales.
+- **Lazy loading a nivel de componente:** `React.lazy()`, `defineAsyncComponent()` de Vue, módulos lazy-loaded de Angular.
+- **Lazy loading de imágenes:** Atributo nativo `loading="lazy"`, Intersection Observer para implementaciones personalizadas.
+- **Contenido debajo del fold:** Difiere la carga de contenido no visible en la ventana gráfica inicial.
+- **Prioriza la ruta de renderizado crítica:** Carga primero lo necesario para la vista inicial; difiere todo lo demás al tiempo idle.
 
 ### 6.3 Virtualization
 
-**Render only visible items in the viewport** for large lists and tables.
+**Renderiza solo los elementos visibles en la ventana gráfica** para listas y tablas grandes.
 
-- Dramatically reduces DOM nodes (from potentially thousands to tens).
-- Libraries: `react-window`, `react-virtualized`, `@tanstack/virtual`, Vue Virtual Scroller, Angular CDK Virtual Scroll.
-- **When to use:** Lists exceeding ~100 items, data tables, infinite scroll feeds.
-- **Trade-offs:** Adds complexity, may affect accessibility (screen readers cannot see off-screen items), requires fixed or estimable item heights for best performance.
+- Reduce dramáticamente los nodos del DOM (de potencialmente miles a decenas).
+- Bibliotecas: `react-window`, `react-virtualized`, `@tanstack/virtual`, Vue Virtual Scroller, Angular CDK Virtual Scroll.
+- **Cuándo usar:** Listas que excedan ~100 elementos, tablas de datos, feeds con scroll infinito.
+- **Compromisos:** Añade complejidad, puede afectar la accesibilidad (los lectores de pantalla no pueden ver los elementos fuera de pantalla), requiere alturas de elementos fijas o estimables para el mejor rendimiento.
 
-### 6.4 Memoization and When to Use It
+### 6.4 Memoization y Cuándo Usarla
 
-**Memoization caches the result of expensive computations or prevents unnecessary re-renders.**
+**Memoization cachea el resultado de computaciones costosas o previene re-renders innecesarios.**
 
-- **React:** `React.memo()` for component memoization, `useMemo` for computed values, `useCallback` for stable function references.
-- **Vue:** Computed properties are automatically memoized. `v-memo` for template-level memoization.
-- **Angular:** `OnPush` change detection strategy, pure pipes.
+- **React:** `React.memo()` para memoization de componentes, `useMemo` para valores computados, `useCallback` para referencias de funciones estables.
+- **Vue:** Las propiedades computed son automáticamente memoizadas. `v-memo` para memoization a nivel de template.
+- **Angular:** Estrategia de change detection `OnPush`, pipes puros.
 
-**When to Use:**
-- Expensive calculations that would re-run on every render.
-- Components that receive complex props and render large subtrees.
-- Stable callback references needed for child component optimization or effect dependencies.
+**Cuándo Usar:**
+- Cálculos costosos que se re-ejecutarían en cada render.
+- Componentes que reciben props complejos y renderizan subárboles grandes.
+- Referencias de callback estables necesarias para la optimización de componentes hijos o dependencias de efectos.
 
-**When NOT to Use:**
-- Simple calculations (the memoization overhead exceeds the computation cost).
-- Components that re-render infrequently anyway.
-- Premature optimization -- profile first, then memoize proven bottlenecks.
+**Cuándo NO Usar:**
+- Cálculos simples (la sobrecarga de memoization excede el costo de la computación).
+- Componentes que se re-renderizan infrecuentemente de todos modos.
+- Optimización prematura -- primero haz profiling, luego memoiza los cuellos de botella comprobados.
 
-### 6.5 Bundle Optimization
+### 6.5 Optimización de Bundles
 
-- **Tree shaking:** Import only what you use. Modern bundlers (Vite, webpack 5, Rollup, esbuild) eliminate unused exports.
-- **Code splitting:** Route-based and dynamic `import()` to create smaller initial bundles.
-- **Dependency analysis:** Regularly audit bundle size with tools like `webpack-bundle-analyzer`, `source-map-explorer`, or Vite's built-in analysis.
-- **Externalize large dependencies:** Consider CDN-hosted versions of large, stable libraries.
-- **Modern syntax targets:** Ship ES2020+ to modern browsers (smaller output), with legacy bundles only for browsers that need them.
-- **Compression:** Brotli (preferred) or gzip for all text-based assets.
-- Bundle size directly impacts First Contentful Paint (FCP) and Largest Contentful Paint (LCP).
+- **Tree shaking:** Importa solo lo que usas. Los bundlers modernos (Vite, webpack 5, Rollup, esbuild) eliminan las exportaciones no utilizadas.
+- **Code splitting:** Basado en rutas y `import()` dinámico para crear bundles iniciales más pequeños.
+- **Análisis de dependencias:** Audita regularmente el tamaño del bundle con herramientas como `webpack-bundle-analyzer`, `source-map-explorer` o el análisis integrado de Vite.
+- **Externalizar dependencias grandes:** Considera versiones alojadas en CDN de bibliotecas grandes y estables.
+- **Targets de sintaxis moderna:** Envía ES2020+ a navegadores modernos (salida más pequeña), con bundles legacy solo para navegadores que los necesiten.
+- **Compresión:** Brotli (preferido) o gzip para todos los assets basados en texto.
+- El tamaño del bundle impacta directamente en First Contentful Paint (FCP) y Largest Contentful Paint (LCP).
 
-### Common Pitfalls & Anti-patterns
+### Errores Comunes y Anti-patterns
 
-- **Premature optimization.** Spending hours optimizing a render path that accounts for 1% of total render time while ignoring the unoptimized 60% is wasted effort. Profile first with browser DevTools, React Profiler, or framework-specific tools. Optimize the measured bottleneck, not the suspected one.
-- **`React.memo()` everywhere with broken memoization.** Wrapping every component in `React.memo()` while passing inline objects (`style={{ color: 'red' }}`), inline functions (`onClick={() => ...}`), or new arrays as props silently defeats memoization on every render. The component re-renders anyway, but now with the added overhead of a shallow comparison. Stabilize references before memoizing.
-- **Premature code splitting.** Lazy-loading a 5KB component introduces a loading state, a network round trip, and layout shift -- costs that exceed the bytes saved. Code-split at meaningful boundaries (routes, heavy features like charting libraries) where the chunk is large enough to justify the trade-off.
-- **`loading="lazy"` on hero/LCP images.** Applying lazy loading to the largest image in the initial viewport *delays* the Largest Contentful Paint because the browser waits until the image enters the viewport intersection before fetching. Eagerly load above-the-fold images; lazy-load only below-the-fold content.
-- **Tree shaking broken by CommonJS or side-effectful barrel files.** A barrel file (`index.ts`) that re-exports everything from a package forces the bundler to include the entire package if *any* export is used. CommonJS (`require`) is not statically analyzable and defeats tree shaking entirely. Use ES modules and mark packages as `sideEffects: false` in `package.json`.
-- **Over-splitting vendor bundles to CDNs.** Loading libraries from third-party CDNs introduces a single point of failure (CDN outage breaks your app), negates HTTP/2 multiplexing gains, and modern browsers partition caches by origin so cross-site caching no longer works. Self-host and bundle your dependencies.
-- **CLS from lazy-loaded components without skeleton placeholders.** Lazy-loading a component that pushes content down when it appears causes Cumulative Layout Shift. Reserve the space with a skeleton, placeholder, or explicit dimensions before the component loads.
+- **Optimización prematura.** Pasar horas optimizando una ruta de render que representa el 1% del tiempo total de renderizado mientras se ignora el 60% no optimizado es esfuerzo desperdiciado. Primero haz profiling con DevTools del navegador, React Profiler o herramientas específicas del framework. Optimiza el cuello de botella medido, no el sospechado.
+- **`React.memo()` en todas partes con memoization rota.** Envolver cada componente en `React.memo()` mientras se pasan objetos inline (`style={{ color: 'red' }}`), funciones inline (`onClick={() => ...}`) o arrays nuevos como props anula silenciosamente la memoization en cada render. El componente se re-renderiza de todas formas, pero ahora con la sobrecarga añadida de una comparación superficial. Estabiliza las referencias antes de memoizar.
+- **Code splitting prematuro.** Hacer lazy loading de un componente de 5KB introduce un estado de carga, un viaje de red y layout shift -- costos que exceden los bytes ahorrados. Haz code splitting en límites significativos (rutas, funcionalidades pesadas como bibliotecas de gráficos) donde el chunk sea lo suficientemente grande para justificar el compromiso.
+- **`loading="lazy"` en imágenes hero/LCP.** Aplicar lazy loading a la imagen más grande en la ventana gráfica inicial *retrasa* el Largest Contentful Paint porque el navegador espera hasta que la imagen entre en la intersección de la ventana gráfica antes de obtenerla. Carga con eager las imágenes above-the-fold; aplica lazy loading solo al contenido below-the-fold.
+- **Tree shaking roto por CommonJS o barrel files con efectos secundarios.** Un barrel file (`index.ts`) que re-exporta todo de un paquete fuerza al bundler a incluir el paquete completo si se usa *cualquier* exportación. CommonJS (`require`) no es analizable estáticamente y anula el tree shaking completamente. Usa ES modules y marca los paquetes como `sideEffects: false` en `package.json`.
+- **Sobre-dividir bundles de vendor a CDNs.** Cargar bibliotecas desde CDNs de terceros introduce un punto único de fallo (la caída del CDN rompe tu aplicación), niega las ganancias de multiplexación de HTTP/2, y los navegadores modernos particionan cachés por origen, así que el caching entre sitios ya no funciona. Auto-aloja y empaqueta tus dependencias.
+- **CLS por componentes lazy-loaded sin placeholders skeleton.** Hacer lazy loading de un componente que empuja el contenido hacia abajo cuando aparece causa Cumulative Layout Shift. Reserva el espacio con un skeleton, placeholder o dimensiones explícitas antes de que el componente cargue.
 
 ---
 
-## 7. Error Handling Patterns
+## 7. Patrones de Manejo de Errores
 
 ### 7.1 Error Boundaries
 
-- **React Error Boundaries:** Class components (or libraries like `react-error-boundary`) that catch JavaScript errors anywhere in their child component tree, log them, and display a fallback UI instead of crashing the entire application.
-- **Strategic placement:** Place error boundaries around independent feature areas so a failure in one area (e.g., a date-picker in a booking flow) does not take down the entire page.
-- **Vue:** `errorCaptured` lifecycle hook and `onErrorCaptured` Composition API.
-- **Angular:** Global `ErrorHandler` class for centralized error handling.
-- **Svelte:** Does not have built-in error boundaries; use try-catch in load functions and `{#await}` blocks.
+- **React Error Boundaries:** Componentes de clase (o bibliotecas como `react-error-boundary`) que capturan errores de JavaScript en cualquier parte de su árbol de componentes hijos, los registran y muestran una UI de respaldo en lugar de hacer crash a toda la aplicación.
+- **Ubicación estratégica:** Coloca error boundaries alrededor de áreas de funcionalidad independientes para que un fallo en un área (por ejemplo, un date-picker en un flujo de reserva) no derrumbe toda la página.
+- **Vue:** Hook del ciclo de vida `errorCaptured` y `onErrorCaptured` de la Composition API.
+- **Angular:** Clase global `ErrorHandler` para manejo centralizado de errores.
+- **Svelte:** No tiene error boundaries integrados; usa try-catch en funciones de carga y bloques `{#await}`.
 
 ### 7.2 Graceful Degradation
 
-- When a feature fails, **reduce functionality rather than crashing entirely**.
-- If an API call fails, display cached data with a stale-data indicator rather than an empty screen.
-- If a third-party widget fails to load, show a fallback or hide the widget rather than breaking the page.
-- **Feature detection** (not browser detection): check if an API/feature is available before using it, and provide alternatives when it is not.
-- Progressive enhancement is the complementary approach: start with a baseline experience, then enhance for capable environments.
+- Cuando una funcionalidad falla, **reduce la funcionalidad en lugar de hacer crash completamente**.
+- Si una llamada a API falla, muestra datos cacheados con un indicador de datos desactualizados en lugar de una pantalla vacía.
+- Si un widget de terceros no carga, muestra un respaldo u oculta el widget en lugar de romper la página.
+- **Detección de funcionalidades** (no detección de navegador): verifica si una API/funcionalidad está disponible antes de usarla y proporciona alternativas cuando no lo está.
+- La mejora progresiva es el enfoque complementario: comienza con una experiencia base, luego mejora para entornos capaces.
 
 ### 7.3 Optimistic Updates
 
-- **Immediately update the UI** as if the operation succeeded, then confirm with the server in the background.
-- If the server operation fails, **automatically rollback** the UI to the previous state and notify the user.
-- Common use cases: liking/favoriting, adding to cart, toggling settings, sending messages.
-- **Critical rule:** Only use optimistic updates for operations that are very likely to succeed. For risky operations (payments, bookings), use loading states instead.
-- TanStack Query, SWR, and Apollo Client have built-in support for optimistic updates with automatic rollback.
+- **Actualiza la UI inmediatamente** como si la operación hubiera tenido éxito, luego confirma con el servidor en segundo plano.
+- Si la operación del servidor falla, **revierte automáticamente** la UI al estado anterior y notifica al usuario.
+- Casos de uso comunes: dar like/favorito, añadir al carrito, cambiar configuraciones, enviar mensajes.
+- **Regla crítica:** Solo usa optimistic updates para operaciones que tienen muy alta probabilidad de éxito. Para operaciones riesgosas (pagos, reservas), usa estados de carga en su lugar.
+- TanStack Query, SWR y Apollo Client tienen soporte integrado para optimistic updates con rollback automático.
 
-### 7.4 Retry Strategies
+### 7.4 Estrategias de Reintento
 
-- **Exponential backoff:** Wait an exponentially increasing amount of time between retries (e.g., 1s, 2s, 4s, 8s) to avoid overwhelming a struggling service.
-- **Jitter:** Add random variation (typically plus or minus 20%) to backoff intervals to prevent "thundering herd" problems where all clients retry simultaneously.
-- **Limit retries:** Typically 3-5 attempts before giving up and showing an error.
-- **Idempotency is critical:** Only retry idempotent operations (GET, read operations). For non-idempotent operations (payments, orders), use idempotency keys so the backend can protect against duplicates.
-- TanStack Query and SWR have configurable retry strategies built in.
+- **Backoff exponencial:** Espera un tiempo exponencialmente creciente entre reintentos (por ejemplo, 1s, 2s, 4s, 8s) para evitar sobrecargar un servicio en dificultades.
+- **Jitter:** Añade variación aleatoria (típicamente más o menos 20%) a los intervalos de backoff para prevenir problemas de "thundering herd" donde todos los clientes reintentan simultáneamente.
+- **Limita los reintentos:** Típicamente 3-5 intentos antes de rendirse y mostrar un error.
+- **La idempotencia es crítica:** Solo reintenta operaciones idempotentes (GET, operaciones de lectura). Para operaciones no idempotentes (pagos, pedidos), usa claves de idempotencia para que el backend pueda proteger contra duplicados.
+- TanStack Query y SWR tienen estrategias de reintento configurables integradas.
 
-### Common Pitfalls & Anti-patterns
+### Errores Comunes y Anti-patterns
 
-- **Swallowing errors silently.** Empty `catch` blocks (`catch (e) {}`) or `console.log`-only catches hide failures from users and developers alike. Every caught error should either be surfaced to the user, reported to an error tracking service, or have a documented reason for being intentionally ignored.
-- **Error boundaries hiding bugs during development.** A friendly "Something went wrong" fallback in development masks the actual error and stack trace, slowing debugging. Configure error boundaries to show full error details in development and friendly fallbacks only in production.
-- **Generic error messages for every failure.** Showing "Something went wrong" for a network timeout, a validation failure, and a 403 Forbidden gives users no path to resolution. Map error types to specific, actionable messages: "Connection lost -- check your network," "You don't have permission to view this," etc.
-- **Retry without user visibility.** Silently retrying a failed POST request can cause duplicate side effects (double charges, duplicate submissions). Make retries visible to the user, or ensure the operation is idempotent before retrying automatically.
-- **Optimistic update rollback without notification.** The UI shows a "like" succeeded, then silently reverts it seconds later when the server rejects the request. Users lose trust when actions appear to succeed then quietly undo themselves. Always notify users when a rollback occurs.
-- **Catching errors at the wrong granularity.** A single error boundary at the app root means any failure in any component replaces the entire application with a fallback. Conversely, wrapping every small component is excessive. Place boundaries around independent feature areas so a failure in one section does not take down unrelated sections.
-- **Unhandled promise rejections in `useEffect`.** Async functions inside `useEffect` that lack `.catch()` handling or try/catch wrappers produce unhandled promise rejections. These are silent in many environments and can leave the UI in an inconsistent state. Always handle the error path of every async operation.
+- **Tragarse errores silenciosamente.** Bloques `catch` vacíos (`catch (e) {}`) o catches con solo `console.log` ocultan fallos tanto de usuarios como de desarrolladores. Cada error capturado debe ser mostrado al usuario, reportado a un servicio de seguimiento de errores, o tener una razón documentada para ser intencionalmente ignorado.
+- **Error boundaries ocultando bugs durante el desarrollo.** Un respaldo amigable de "Algo salió mal" en desarrollo enmascara el error real y el stack trace, ralentizando la depuración. Configura los error boundaries para mostrar detalles completos del error en desarrollo y respaldos amigables solo en producción.
+- **Mensajes de error genéricos para cada fallo.** Mostrar "Algo salió mal" para un timeout de red, un fallo de validación y un 403 Forbidden no da a los usuarios ningún camino a la resolución. Mapea los tipos de error a mensajes específicos y accionables: "Conexión perdida -- verifica tu red," "No tienes permiso para ver esto," etc.
+- **Reintento sin visibilidad para el usuario.** Reintentar silenciosamente una petición POST fallida puede causar efectos secundarios duplicados (dobles cobros, envíos duplicados). Haz los reintentos visibles para el usuario, o asegura que la operación sea idempotente antes de reintentar automáticamente.
+- **Rollback de optimistic updates sin notificación.** La UI muestra que un "like" tuvo éxito, luego silenciosamente lo revierte segundos después cuando el servidor rechaza la petición. Los usuarios pierden confianza cuando las acciones parecen tener éxito y luego se deshacen silenciosamente. Siempre notifica a los usuarios cuando ocurre un rollback.
+- **Capturar errores con la granularidad incorrecta.** Un único error boundary en la raíz de la aplicación significa que cualquier fallo en cualquier componente reemplaza toda la aplicación con un respaldo. Por el contrario, envolver cada componente pequeño es excesivo. Coloca boundaries alrededor de áreas de funcionalidad independientes para que un fallo en una sección no derrumbe secciones no relacionadas.
+- **Rechazos de promesas no manejados en `useEffect`.** Las funciones async dentro de `useEffect` que carecen de manejo `.catch()` o wrappers try/catch producen rechazos de promesas no manejados. Estos son silenciosos en muchos entornos y pueden dejar la UI en un estado inconsistente. Siempre maneja la ruta de error de cada operación asíncrona.
 
 ---
 
-## 8. Security in Frontend
+## 8. Seguridad en Frontend
 
-### 8.1 XSS Prevention
+### 8.1 Prevención de XSS
 
-**Cross-Site Scripting (XSS) remains one of the most prevalent web vulnerabilities.**
+**Cross-Site Scripting (XSS) sigue siendo una de las vulnerabilidades web más prevalentes.**
 
-- **Framework auto-escaping:** React, Vue, Angular, and Svelte automatically escape data rendered in templates/JSX. This is your first line of defense.
-- **Dangerous APIs to avoid:** React's `dangerouslySetInnerHTML`, Vue's `v-html`, Angular's `bypassSecurityTrust*`, and any direct `innerHTML` manipulation. When unavoidable, sanitize with DOMPurify.
-- **Never trust user input:** Validate and sanitize on both client and server.
-- **Avoid `eval()`, `new Function()`, and inline event handlers** constructed from user data.
+- **Auto-escaping del framework:** React, Vue, Angular y Svelte escapan automáticamente los datos renderizados en templates/JSX. Esta es tu primera línea de defensa.
+- **APIs peligrosas a evitar:** `dangerouslySetInnerHTML` de React, `v-html` de Vue, `bypassSecurityTrust*` de Angular y cualquier manipulación directa de `innerHTML`. Cuando sea inevitable, sanitiza con DOMPurify.
+- **Nunca confíes en la entrada del usuario:** Valida y sanitiza tanto en el cliente como en el servidor.
+- **Evita `eval()`, `new Function()` y event handlers inline** construidos a partir de datos del usuario.
 
-### 8.2 CSRF Protection
+### 8.2 Protección contra CSRF
 
-- **Anti-CSRF tokens:** Include a unique, unpredictable token with every state-changing request; validate on the server.
-- **SameSite cookies:** Set `SameSite=Strict` or `SameSite=Lax` on session cookies to prevent cross-site request inclusion.
-- **Validate Origin and Referer headers** on the server for state-changing requests.
-- **Framework support:** Use built-in CSRF protection if available (Angular includes it by default with `HttpClient`).
+- **Tokens anti-CSRF:** Incluye un token único e impredecible con cada petición que cambie estado; valida en el servidor.
+- **Cookies SameSite:** Establece `SameSite=Strict` o `SameSite=Lax` en las cookies de sesión para prevenir la inclusión de peticiones cross-site.
+- **Valida los headers Origin y Referer** en el servidor para peticiones que cambien estado.
+- **Soporte del framework:** Usa la protección CSRF integrada si está disponible (Angular la incluye por defecto con `HttpClient`).
 
 ### 8.3 Content Security Policy (CSP)
 
-- A strong CSP restricts what scripts, styles, images, and connections are allowed on your page.
-- Even if malicious code is injected, CSP can prevent it from running or exfiltrating data.
-- **Start restrictive, then loosen as needed.** Begin with `default-src 'self'` and add specific allowances.
-- Avoid `'unsafe-inline'` and `'unsafe-eval'` where possible; use nonce-based or hash-based approaches for inline scripts when necessary.
-- CSP reporting endpoints help monitor and detect violations in production.
+- Una CSP fuerte restringe qué scripts, estilos, imágenes y conexiones están permitidos en tu página.
+- Incluso si se inyecta código malicioso, CSP puede prevenir su ejecución o la exfiltración de datos.
+- **Comienza restrictivo, luego afloja según sea necesario.** Empieza con `default-src 'self'` y añade permisos específicos.
+- Evita `'unsafe-inline'` y `'unsafe-eval'` donde sea posible; usa enfoques basados en nonce o hash para scripts inline cuando sea necesario.
+- Los endpoints de reporte de CSP ayudan a monitorear y detectar violaciones en producción.
 
-### 8.4 Input Sanitization
+### 8.4 Sanitización de Entradas
 
-- **Input validation:** Ensure user-submitted data conforms to expected formats, types, and constraints before processing.
-- **Sanitization:** Clean or neutralize data, removing potentially malicious characters or code snippets.
-- **Defense in depth:** Sanitize on the client for immediate feedback, but **always validate and sanitize on the server** -- client-side validation is easily bypassed.
-- Use established libraries (DOMPurify, validator.js) rather than custom regex for sanitization.
+- **Validación de entradas:** Asegura que los datos enviados por el usuario se ajusten a los formatos, tipos y restricciones esperados antes del procesamiento.
+- **Sanitización:** Limpia o neutraliza datos, eliminando caracteres potencialmente maliciosos o fragmentos de código.
+- **Defensa en profundidad:** Sanitiza en el cliente para retroalimentación inmediata, pero **siempre valida y sanitiza en el servidor** -- la validación del lado del cliente es fácilmente evitable.
+- Usa bibliotecas establecidas (DOMPurify, validator.js) en lugar de regex personalizado para sanitización.
 
-### 8.5 Secure Authentication Patterns
+### 8.5 Patrones de Autenticación Segura
 
-**Token Storage:**
-- **Never** store JWTs or sensitive tokens in `localStorage` (vulnerable to XSS).
-- **Recommended:** Store refresh tokens in `HttpOnly`, `Secure`, `SameSite` cookies. Store access tokens in memory (JavaScript variables) only.
-- Use short-lived access tokens (e.g., 15 minutes) with refresh token rotation.
+**Almacenamiento de Tokens:**
+- **Nunca** almacenes JWTs o tokens sensibles en `localStorage` (vulnerable a XSS).
+- **Recomendado:** Almacena refresh tokens en cookies `HttpOnly`, `Secure`, `SameSite`. Almacena access tokens solo en memoria (variables JavaScript).
+- Usa access tokens de corta duración (por ejemplo, 15 minutos) con rotación de refresh tokens.
 
-**OAuth 2.0 for SPAs:**
-- Use the **Authorization Code Grant with PKCE** (Proof Key for Code Exchange) -- the current recommended flow for browser-based applications.
-- Use the `state` parameter to protect against CSRF and authorization code swap attacks.
-- The **Backend for Frontend (BFF) pattern** provides the strongest security: a server-side component handles tokens, and the SPA uses HTTP-only session cookies to communicate with its BFF.
+**OAuth 2.0 para SPAs:**
+- Usa el **Authorization Code Grant con PKCE** (Proof Key for Code Exchange) -- el flujo actualmente recomendado para aplicaciones basadas en navegador.
+- Usa el parámetro `state` para proteger contra CSRF y ataques de intercambio de authorization code.
+- El **patrón Backend for Frontend (BFF)** proporciona la seguridad más fuerte: un componente del lado del servidor maneja los tokens, y la SPA usa cookies de sesión HTTP-only para comunicarse con su BFF.
 
-**General Principles:**
-- Implement HTTPS everywhere.
-- Enforce secure cookie attributes: `HttpOnly`, `Secure`, `SameSite`.
-- Apply the principle of least privilege to API scopes and permissions.
-- Log authentication events for auditing.
+**Principios Generales:**
+- Implementa HTTPS en todas partes.
+- Impón atributos seguros de cookies: `HttpOnly`, `Secure`, `SameSite`.
+- Aplica el principio de menor privilegio a los scopes y permisos de las APIs.
+- Registra eventos de autenticación para auditoría.
 
-### Common Pitfalls & Anti-patterns
+### Errores Comunes y Anti-patterns
 
-- **Client-side-only validation as security.** Form validation in JavaScript is a UX convenience, not a security measure. Any validation in the browser can be bypassed with DevTools, curl, or a modified request. All security-critical validation (auth, authorization, input sanitization, business rules) must happen on the server.
-- **Security theater.** A Content Security Policy set to `default-src *` blocks nothing. HTTPS with secrets in query parameters logs those secrets in browser history, server logs, and referrer headers. These measures create a false sense of security while providing no actual protection. Audit security configurations for real effectiveness.
-- **Exposing API keys and secrets in frontend bundles.** Any value embedded in JavaScript shipped to the browser is visible to every user via DevTools or source maps. API keys, internal endpoints, and secrets must live on the server. Use environment-specific server-side proxies for sensitive integrations.
-- **CORS misconfiguration.** Setting `Access-Control-Allow-Origin: *` on authenticated API endpoints allows any website to make credentialed requests to your API. Allowlist specific, trusted origins. For authenticated endpoints, `*` is never appropriate.
-- **Sensitive data in client-side state.** Full user records, payment details, or internal IDs stored in Redux/Zustand/Pinia are visible through browser DevTools. Minimize sensitive data in client state; fetch it on demand and do not persist it longer than needed.
-- **Third-party scripts with full DOM and cookie access.** Analytics, chat widgets, and ad scripts loaded via `<script>` tags have the same privileges as your own code -- they can read the DOM, access cookies, and exfiltrate data. Audit third-party scripts, use CSP to constrain them, load them with `async`/`defer`, and consider sandboxing with iframes where possible.
-- **Clickjacking without X-Frame-Options or CSP frame-ancestors.** Without `X-Frame-Options: DENY` (or `Content-Security-Policy: frame-ancestors 'none'`), your application can be embedded in a malicious iframe and users can be tricked into clicking hidden elements. Set frame restriction headers on all authenticated pages.
-- **Open redirect vulnerabilities from unvalidated URL parameters.** Redirecting users to a URL taken from a query parameter (`?redirect=https://evil.com`) without validation enables phishing attacks. Validate redirect URLs against an allowlist of trusted domains or restrict to relative paths.
+- **Validación solo del lado del cliente como seguridad.** La validación de formularios en JavaScript es una conveniencia de UX, no una medida de seguridad. Cualquier validación en el navegador puede ser evitada con DevTools, curl o una petición modificada. Toda validación crítica de seguridad (autenticación, autorización, sanitización de entrada, reglas de negocio) debe ocurrir en el servidor.
+- **Teatro de seguridad.** Una Content Security Policy configurada como `default-src *` no bloquea nada. HTTPS con secretos en parámetros de query registra esos secretos en el historial del navegador, logs del servidor y headers referer. Estas medidas crean una falsa sensación de seguridad sin proporcionar protección real. Audita las configuraciones de seguridad para verificar su efectividad real.
+- **Exponer API keys y secretos en bundles de frontend.** Cualquier valor embebido en JavaScript enviado al navegador es visible para cada usuario mediante DevTools o source maps. Las API keys, endpoints internos y secretos deben vivir en el servidor. Usa proxies del lado del servidor específicos del entorno para integraciones sensibles.
+- **Mala configuración de CORS.** Establecer `Access-Control-Allow-Origin: *` en endpoints de API autenticados permite que cualquier sitio web haga peticiones con credenciales a tu API. Haz una lista blanca de orígenes específicos y confiables. Para endpoints autenticados, `*` nunca es apropiado.
+- **Datos sensibles en el estado del lado del cliente.** Registros completos de usuarios, detalles de pago o IDs internos almacenados en Redux/Zustand/Pinia son visibles a través de DevTools del navegador. Minimiza los datos sensibles en el estado del cliente; obténlos bajo demanda y no los persistas más tiempo del necesario.
+- **Scripts de terceros con acceso completo al DOM y cookies.** Los scripts de analytics, widgets de chat y scripts de publicidad cargados mediante etiquetas `<script>` tienen los mismos privilegios que tu propio código -- pueden leer el DOM, acceder a cookies y exfiltrar datos. Audita los scripts de terceros, usa CSP para restringirlos, cárgalos con `async`/`defer` y considera sandboxing con iframes donde sea posible.
+- **Clickjacking sin X-Frame-Options o CSP frame-ancestors.** Sin `X-Frame-Options: DENY` (o `Content-Security-Policy: frame-ancestors 'none'`), tu aplicación puede ser embebida en un iframe malicioso y los usuarios pueden ser engañados para hacer clic en elementos ocultos. Establece headers de restricción de frames en todas las páginas autenticadas.
+- **Vulnerabilidades de open redirect por parámetros de URL no validados.** Redirigir usuarios a una URL tomada de un parámetro de query (`?redirect=https://evil.com`) sin validación habilita ataques de phishing. Valida las URLs de redirección contra una lista blanca de dominios confiables o restringe a rutas relativas.
 
 ---
 
-## 9. Clean Code in Frontend
+## 9. Código Limpio en Frontend
 
-### 9.1 Naming Conventions
+### 9.1 Convenciones de Nombres
 
-| Entity | Convention | Examples |
-|--------|-----------|----------|
-| **Components** | PascalCase | `UserProfile`, `NavigationBar`, `ProductCard` |
-| **Files (component)** | Match the component name | `UserProfile.tsx`, `NavigationBar.vue` |
-| **Hooks/Composables** | camelCase with `use` prefix | `useAuth`, `useFormValidation`, `useDebounce` |
-| **Variables/functions** | camelCase | `userName`, `totalAmount`, `handleClick` |
-| **Constants** | UPPER_SNAKE_CASE | `MAX_RETRIES`, `API_BASE_URL` |
-| **CSS classes** | kebab-case or BEM | `nav-bar`, `card__title--active` |
-| **TypeScript interfaces/types** | PascalCase (no `I` prefix in modern TS) | `UserProfile`, `CartItem`, `ApiResponse` |
-| **Boolean props/variables** | `is`, `has`, `should`, `can` prefix | `isLoading`, `hasError`, `canSubmit` |
-| **Event handlers** | `handle` or `on` prefix | `handleClick`, `onSubmit`, `handleChange` |
+| Entidad | Convención | Ejemplos |
+|---------|-----------|----------|
+| **Componentes** | PascalCase | `UserProfile`, `NavigationBar`, `ProductCard` |
+| **Archivos (componente)** | Coincide con el nombre del componente | `UserProfile.tsx`, `NavigationBar.vue` |
+| **Hooks/Composables** | camelCase con prefijo `use` | `useAuth`, `useFormValidation`, `useDebounce` |
+| **Variables/funciones** | camelCase | `userName`, `totalAmount`, `handleClick` |
+| **Constantes** | UPPER_SNAKE_CASE | `MAX_RETRIES`, `API_BASE_URL` |
+| **Clases CSS** | kebab-case o BEM | `nav-bar`, `card__title--active` |
+| **Interfaces/tipos TypeScript** | PascalCase (sin prefijo `I` en TS moderno) | `UserProfile`, `CartItem`, `ApiResponse` |
+| **Props/variables booleanos** | Prefijo `is`, `has`, `should`, `can` | `isLoading`, `hasError`, `canSubmit` |
+| **Event handlers** | Prefijo `handle` o `on` | `handleClick`, `onSubmit`, `handleChange` |
 
-**Key Rules:**
-- Avoid generic names like `index.ts`, `styles.css`, `utils.ts` even if it is the only file in a directory.
-- Names should reveal intent: `getUserById` not `getData`, `isAuthenticated` not `flag`.
-- Be consistent within a project -- consistency matters more than any specific convention.
+**Reglas Clave:**
+- Evita nombres genéricos como `index.ts`, `styles.css`, `utils.ts` incluso si es el único archivo en un directorio.
+- Los nombres deben revelar intención: `getUserById` no `getData`, `isAuthenticated` no `flag`.
+- Sé consistente dentro de un proyecto -- la consistencia importa más que cualquier convención específica.
 
-### 9.2 File/Folder Organization Patterns
+### 9.2 Patrones de Organización de Archivos/Carpetas
 
-**Feature-Based (Recommended for Applications):**
+**Basado en Features (Recomendado para Aplicaciones):**
 ```
 src/
   features/
@@ -748,15 +748,15 @@ src/
 **Feature-Sliced Design (FSD):**
 ```
 src/
-  app/        # App-wide setup, providers, routing
-  pages/      # Page-level components (compose features)
-  widgets/    # Large composite UI blocks
-  features/   # User interactions (add-to-cart, login)
-  entities/   # Business entities (user, product, order)
-  shared/     # Reusable utilities, UI kit, API clients
+  app/        # Configuración a nivel de app, providers, routing
+  pages/      # Componentes a nivel de página (componen features)
+  widgets/    # Bloques de UI compuestos grandes
+  features/   # Interacciones del usuario (add-to-cart, login)
+  entities/   # Entidades de negocio (user, product, order)
+  shared/     # Utilidades reutilizables, UI kit, clientes API
 ```
 
-**Domain-Driven:**
+**Basado en Dominio:**
 ```
 src/
   domains/
@@ -771,138 +771,138 @@ src/
     layouts/
 ```
 
-**Practical Guidelines:**
-- Limit directory nesting to 3-4 levels maximum.
-- Colocate related files (component + styles + tests + types) in the same directory.
-- Index files for public API: each feature exports only what other features need to consume.
-- A file should be findable by its name alone.
+**Guías Prácticas:**
+- Limita el anidamiento de directorios a 3-4 niveles máximo.
+- Coloca archivos relacionados (componente + estilos + tests + tipos) en el mismo directorio.
+- Archivos index para API pública: cada feature exporta solo lo que otras features necesitan consumir.
+- Un archivo debería poder encontrarse solo por su nombre.
 
-### 9.3 Code Splitting Strategies
+### 9.3 Estrategias de Code Splitting
 
-- **Route-based splitting:** The most impactful and lowest-effort approach. Each page/route is a separate bundle.
-- **Feature-based splitting:** Large features (e.g., admin dashboard, analytics) loaded only when accessed.
-- **Component-level splitting:** Heavy components (charts, rich text editors, maps) loaded on demand.
-- **Library splitting:** Vendor libraries in separate chunks for better caching (they change less frequently than application code).
-- **Prefetching:** Speculatively load bundles for likely-next navigation targets (e.g., preload the product detail page bundle when hovering over a product link).
+- **Splitting basado en rutas:** El enfoque de mayor impacto y menor esfuerzo. Cada página/ruta es un bundle separado.
+- **Splitting basado en features:** Funcionalidades grandes (por ejemplo, dashboard de administración, analytics) cargadas solo cuando se acceden.
+- **Splitting a nivel de componente:** Componentes pesados (gráficos, editores de texto enriquecido, mapas) cargados bajo demanda.
+- **Splitting de bibliotecas:** Bibliotecas de vendor en chunks separados para mejor caching (cambian con menos frecuencia que el código de la aplicación).
+- **Prefetching:** Carga especulativamente bundles para los probables próximos destinos de navegación (por ejemplo, precarga el bundle de la página de detalle de producto al hacer hover sobre un enlace de producto).
 
-### 9.4 DRY vs. WET in Components
+### 9.4 DRY vs. WET en Componentes
 
 **DRY (Don't Repeat Yourself):**
-- Every piece of knowledge should have a single, unambiguous, authoritative representation.
-- Reduces the surface area for bugs when logic needs to change.
+- Cada pieza de conocimiento debe tener una representación única, inequívoca y autoritativa.
+- Reduce la superficie para bugs cuando la lógica necesita cambiar.
 
 **WET (Write Everything Twice) / AHA (Avoid Hasty Abstractions):**
-- Challenges overzealous DRY by embracing mindful duplication to avoid premature, fragile abstractions.
-- **The Rule of Three:** Abstract code when you see the same pattern three times, not before. Two instances of similar code is a coincidence; three is a pattern.
+- Desafía el DRY excesivo al abrazar la duplicación consciente para evitar abstracciones prematuras y frágiles.
+- **La Regla de Tres:** Abstrae código cuando veas el mismo patrón tres veces, no antes. Dos instancias de código similar es una coincidencia; tres es un patrón.
 
-**Frontend-Specific Guidance:**
-- **Premature abstraction is worse than duplication.** A wrong abstraction forces all consumers to work around it, whereas duplicated code can be independently evolved.
-- Extract shared components only when the pattern is stable and well-understood.
-- It is acceptable to have two similar-looking components that serve different business domains, because they are likely to diverge over time.
-- Shared utilities and hooks (validation, formatting, API calls) are usually safe to DRY up early.
-- UI components that look similar but belong to different features should remain separate until proven to be truly identical.
+**Guía Específica para Frontend:**
+- **La abstracción prematura es peor que la duplicación.** Una abstracción incorrecta fuerza a todos los consumidores a trabajar en torno a ella, mientras que el código duplicado puede evolucionar independientemente.
+- Extrae componentes compartidos solo cuando el patrón sea estable y bien comprendido.
+- Es aceptable tener dos componentes de apariencia similar que sirven a diferentes dominios de negocio, porque es probable que diverjan con el tiempo.
+- Las utilidades y hooks compartidos (validación, formateo, llamadas a APIs) generalmente son seguros para aplicar DRY tempranamente.
+- Los componentes de UI que se ven similares pero pertenecen a diferentes features deben permanecer separados hasta que se demuestre que son verdaderamente idénticos.
 
-### Common Pitfalls & Anti-patterns
+### Errores Comunes y Anti-patterns
 
-- **Over-DRYing across feature boundaries.** Extracting a shared `<Card>` component used by both "Products" and "User Profiles" couples two unrelated features. When Products needs a layout change, User Profiles breaks. Duplication between features is often healthier than premature shared abstractions. DRY within a feature; tolerate WET across features until the pattern is proven stable.
-- **Barrel file proliferation defeating tree shaking and slowing tooling.** An `index.ts` that re-exports everything from a directory forces bundlers to parse every module in the directory even if only one export is used. It also slows IDE auto-import, TypeScript compilation, and test runners. Use barrel files sparingly and only for true public APIs.
-- **Folder structure as bureaucracy.** Creating `components/`, `hooks/`, `services/`, `types/`, `utils/`, and `__tests__/` directories for a feature with one component, one hook, and one test produces 6 files across 4+ directories. Colocate small features in a single directory; add structure when the feature grows to justify it.
-- **Naming conventions without automated enforcement.** Agreeing on `camelCase` for variables and `PascalCase` for components in a meeting is meaningless if no linter rule enforces it. Within weeks, drift creeps in. Use ESLint rules (`naming-convention` in `@typescript-eslint`), Prettier for formatting, and commit hooks to enforce conventions automatically.
-- **Code splitting without loading states.** A user clicks a link, the lazy chunk loads, and nothing visually happens for 1-3 seconds. Always pair code-split points with a loading indicator (spinner, skeleton, or progress bar) so users know the app is responding.
-- **YAGNI violations: building for hypothetical requirements.** Implementing a plugin system, multi-tenancy support, or internationalization infrastructure for a single-tenant, English-only MVP wastes development time and adds complexity. Build what is needed now; refactor when -- and only when -- the requirement materializes.
-- **30 files named `index.ts`.** When every directory exports through `index.ts`, git blame shows a wall of identically-named files, stack traces are unreadable ("Error in index.ts at line 42" -- which one?), and editor tabs are indistinguishable. Name files after what they contain: `UserProfile.tsx`, `useAuth.ts`, `cartService.ts`.
-
----
-
-## 10. Accessibility as a Principle
-
-### 10.1 Semantic HTML First
-
-**The single most impactful thing you can do for accessibility is use the correct HTML elements.**
-
-- Semantic elements carry implicit meaning, keyboard behavior, and screen reader announcements:
-  - `<button>` is focusable, activated with Enter/Space, announced as "button."
-  - `<nav>` creates a navigation landmark.
-  - `<main>`, `<header>`, `<footer>`, `<aside>` create document landmarks.
-  - `<h1>`-`<h6>` create a navigable heading structure.
-  - `<table>`, `<th>`, `<td>` create accessible data tables.
-- **Native elements provide behavior for free.** A `<div>` with an `onClick` handler is not a button -- it lacks keyboard support, focus management, and screen reader semantics.
-- **Rule:** Exhaust native HTML options before reaching for ARIA or JavaScript-based solutions.
-
-### 10.2 ARIA When Needed
-
-**The First Rule of ARIA:** "If you can use a native HTML element with the semantics and behavior you require already built in, instead of re-purposing an element and adding ARIA, then do so."
-
-- WebAim's million-page study found that **pages with ARIA present averaged 41% more detected errors** than those without ARIA. More ARIA does not mean more accessible -- misused ARIA actively harms accessibility.
-- **When ARIA is appropriate:**
-  - Custom widgets with no native HTML equivalent (tab panels, tree views, comboboxes).
-  - Live regions (`aria-live`) to announce dynamic content changes.
-  - Labeling relationships (`aria-labelledby`, `aria-describedby`) when visible labels are insufficient.
-  - State communication (`aria-expanded`, `aria-selected`, `aria-disabled`) for custom interactive elements.
-
-### 10.3 Keyboard Navigation
-
-**Every interactive element must be operable with a keyboard alone** -- this is a hard requirement for WCAG Level A.
-
-- **Tab order:** Follows DOM order by default. Use logical source order rather than CSS-based visual reordering.
-- **Interactive elements:** All must be reachable via Tab and operable with Enter, Space, Escape, and arrow keys as appropriate.
-- **Avoid positive `tabindex`:** Only use `tabindex="0"` (add to tab order) and `tabindex="-1"` (programmatically focusable but not in tab order). Never use `tabindex="1"` or higher.
-- **Skip links:** Provide a "Skip to main content" link as the first focusable element.
-- **Custom widgets:** Follow WAI-ARIA Authoring Practices for keyboard interaction patterns (e.g., arrow keys within tab panels, Escape to close modals).
-
-### 10.4 Focus Management
-
-- **Modal dialogs:** When opened, move focus into the modal. Trap focus within the modal while open. When closed, return focus to the triggering element.
-- **Route changes (SPAs):** Manage focus on navigation. Move focus to the new page's main heading or main content region.
-- **Dynamic content:** When content is added or removed, ensure focus is not lost. If a focused element is removed, move focus to a logical successor.
-- **Focus indicators:** Never remove focus outlines (`outline: none`) without providing an equally visible alternative. Use `:focus-visible` for keyboard-only focus styles.
-
-### 10.5 Screen Reader Considerations
-
-- **Alt text for images:** Descriptive for informational images, empty `alt=""` for decorative images.
-- **Form labels:** Every input must have an associated `<label>` (using `for`/`id` or wrapping).
-- **Error announcements:** Use `aria-live="assertive"` or `role="alert"` for error messages so they are announced immediately.
-- **Heading structure:** Maintain a logical heading hierarchy (do not skip levels). Screen reader users navigate by headings more than any other method.
-- **Link text:** Avoid "click here" and "read more." Links should make sense out of context.
-- **Testing:** Test with actual screen readers (VoiceOver on macOS, NVDA on Windows, TalkBack on Android). Automated tools catch only ~30% of accessibility issues.
-
-**Testing First Steps:**
-1. Unplug your mouse and try to use the entire application with only a keyboard.
-2. If you cannot complete every task with Tab, Enter, Space, Escape, and arrow keys, you have a problem.
-3. Run automated tools (axe, Lighthouse) for quick wins, then test manually with a screen reader.
-
-### Common Pitfalls & Anti-patterns
-
-- **Accessibility overlays as a fix.** Products like AccessiBe, UserWay, and similar overlay widgets do not fix underlying accessibility issues. They often interfere with real assistive technology, create false legal confidence, and have been widely criticized by the disability community. Fix the source code; do not layer a widget on top.
-- **Redundant ARIA on native elements.** Adding `role="button"` to a `<button>`, `role="link"` to an `<a href>`, or `role="navigation"` to a `<nav>` is unnecessary noise. Native HTML elements already carry these semantics. Redundant ARIA adds maintenance burden and risks creating conflicting information if the role drifts from the element's actual behavior.
-- **Meaningless accessible names.** `aria-label="button"`, `aria-label="icon"`, or `aria-label="link"` tells a screen reader user nothing useful. Accessible names must describe *what the element does*: `aria-label="Close dialog"`, `aria-label="Search products"`, `aria-label="Remove item from cart"`.
-- **Color as the only state indicator.** Using red vs. green to indicate errors vs. success fails for approximately 8% of men (and 0.5% of women) who have color vision deficiency. WCAG 1.4.1 requires that color is not the sole visual means of conveying information. Supplement with icons, text labels, patterns, or other non-color indicators.
-- **Automated testing treated as sufficient.** A Lighthouse score of 100 or zero axe violations does not mean your application is accessible. Automated tools catch only about 30% of WCAG issues. They cannot detect logical heading order problems, poor focus management, misleading alt text, or unusable keyboard interactions. Automated checks are the starting point, not the finish line.
-- **Excessive visually-hidden text cluttering screen reader experience.** Adding long blocks of screen-reader-only text to "explain" the interface creates a verbose, frustrating experience for screen reader users. Use concise, targeted labeling. If the UI needs lengthy explanation for assistive technology, the UI design itself likely needs improvement.
-- **Animations triggering vestibular disorders.** Parallax scrolling, auto-playing animations, zooming transitions, and continuous motion can cause nausea, dizziness, and disorientation for people with vestibular disorders. Respect the `prefers-reduced-motion` media query: reduce or eliminate motion when the user has requested it. This is a WCAG 2.1 Level AAA criterion (2.3.3) but widely recommended at all levels.
-- **Disabled buttons without explanation.** A grayed-out submit button with no indication of *why* it is disabled leaves all users guessing and screen reader users completely blocked. Provide a visible hint (tooltip, inline text) explaining what must be completed before the action becomes available, or keep the button enabled and show validation errors on activation.
+- **Exceso de DRY entre límites de features.** Extraer un componente compartido `<Card>` usado tanto por "Productos" como por "Perfiles de Usuario" acopla dos features no relacionadas. Cuando Productos necesita un cambio de layout, Perfiles de Usuario se rompe. La duplicación entre features es a menudo más saludable que las abstracciones compartidas prematuras. Aplica DRY dentro de una feature; tolera WET entre features hasta que el patrón sea comprobadamente estable.
+- **Proliferación de barrel files anulando tree shaking y ralentizando las herramientas.** Un `index.ts` que re-exporta todo de un directorio fuerza a los bundlers a parsear cada módulo en el directorio incluso si solo se usa una exportación. También ralentiza el auto-import del IDE, la compilación de TypeScript y los test runners. Usa barrel files con moderación y solo para APIs públicas verdaderas.
+- **Estructura de carpetas como burocracia.** Crear directorios `components/`, `hooks/`, `services/`, `types/`, `utils/` y `__tests__/` para una feature con un componente, un hook y un test produce 6 archivos en 4+ directorios. Coloca features pequeñas en un solo directorio; añade estructura cuando la feature crezca para justificarlo.
+- **Convenciones de nombres sin cumplimiento automatizado.** Acordar `camelCase` para variables y `PascalCase` para componentes en una reunión no tiene sentido si ninguna regla de linter lo impone. En semanas, la deriva se instala. Usa reglas de ESLint (`naming-convention` en `@typescript-eslint`), Prettier para formateo, y commit hooks para imponer convenciones automáticamente.
+- **Code splitting sin estados de carga.** Un usuario hace clic en un enlace, el chunk lazy carga, y nada pasa visualmente durante 1-3 segundos. Siempre acompaña los puntos de code splitting con un indicador de carga (spinner, skeleton o barra de progreso) para que los usuarios sepan que la aplicación está respondiendo.
+- **Violaciones de YAGNI: construir para requisitos hipotéticos.** Implementar un sistema de plugins, soporte multi-tenant o infraestructura de internacionalización para un MVP de un solo tenant y solo en inglés desperdicia tiempo de desarrollo y añade complejidad. Construye lo que se necesita ahora; refactoriza cuando -- y solo cuando -- el requisito se materialice.
+- **30 archivos llamados `index.ts`.** Cuando cada directorio exporta a través de `index.ts`, git blame muestra un muro de archivos con nombres idénticos, los stack traces son ilegibles ("Error in index.ts at line 42" -- ¿cuál de ellos?), y las pestañas del editor son indistinguibles. Nombra los archivos por lo que contienen: `UserProfile.tsx`, `useAuth.ts`, `cartService.ts`.
 
 ---
 
-## Summary of Key Themes
+## 10. Accesibilidad como Principio
 
-1. **Separation is the foundation:** Separate UI from logic, client state from server state, business rules from infrastructure. This principle appears across SOLID, component design, state management, and architecture.
+### 10.1 HTML Semántico Primero
 
-2. **Composition over configuration:** Prefer composing small, focused pieces over configuring large, monolithic ones. This applies to components, hooks, state management, and even CSS.
+**Lo más impactante que puedes hacer por la accesibilidad es usar los elementos HTML correctos.**
 
-3. **Abstractions should be earned, not imposed:** Apply the Rule of Three before abstracting. Premature abstraction (over-DRYing) is worse than duplication.
+- Los elementos semánticos llevan significado implícito, comportamiento de teclado y anuncios para lectores de pantalla:
+  - `<button>` es enfocable, se activa con Enter/Space, se anuncia como "button".
+  - `<nav>` crea un landmark de navegación.
+  - `<main>`, `<header>`, `<footer>`, `<aside>` crean landmarks de documento.
+  - `<h1>`-`<h6>` crean una estructura de encabezados navegable.
+  - `<table>`, `<th>`, `<td>` crean tablas de datos accesibles.
+- **Los elementos nativos proporcionan comportamiento gratis.** Un `<div>` con un handler `onClick` no es un botón -- carece de soporte de teclado, gestión de foco y semántica para lectores de pantalla.
+- **Regla:** Agota las opciones nativas de HTML antes de recurrir a ARIA o soluciones basadas en JavaScript.
 
-4. **User-centric design is non-negotiable:** Usability heuristics, accessibility, performance, and error handling are not optional polish -- they are core quality attributes that must be designed in from the start.
+### 10.2 ARIA Cuando Sea Necesario
 
-5. **Security is a layered defense:** No single measure suffices. Combine framework auto-escaping, CSP, secure token management, input validation, and HTTPS.
+**La Primera Regla de ARIA:** "Si puedes usar un elemento HTML nativo con la semántica y el comportamiento que necesitas ya incorporados, en lugar de reutilizar un elemento y añadir ARIA, hazlo."
 
-6. **Framework-agnostic thinking pays dividends:** Business logic, validation rules, and domain models should be pure functions that work independently of React, Vue, Angular, or Svelte. Only the presentation and integration layers should be framework-specific.
+- El estudio de un millón de páginas de WebAim encontró que **las páginas con ARIA presente tenían en promedio un 41% más de errores detectados** que las que no tenían ARIA. Más ARIA no significa más accesible -- el ARIA mal utilizado daña activamente la accesibilidad.
+- **Cuándo ARIA es apropiado:**
+  - Widgets personalizados sin equivalente nativo en HTML (paneles de pestañas, vistas de árbol, comboboxes).
+  - Regiones en vivo (`aria-live`) para anunciar cambios de contenido dinámico.
+  - Relaciones de etiquetado (`aria-labelledby`, `aria-describedby`) cuando las etiquetas visibles son insuficientes.
+  - Comunicación de estado (`aria-expanded`, `aria-selected`, `aria-disabled`) para elementos interactivos personalizados.
+
+### 10.3 Navegación por Teclado
+
+**Cada elemento interactivo debe ser operable solo con un teclado** -- esto es un requisito obligatorio para WCAG Nivel A.
+
+- **Orden de tabulación:** Sigue el orden del DOM por defecto. Usa un orden de fuente lógico en lugar de reordenamiento visual basado en CSS.
+- **Elementos interactivos:** Todos deben ser alcanzables mediante Tab y operables con Enter, Space, Escape y teclas de flecha según corresponda.
+- **Evita `tabindex` positivo:** Solo usa `tabindex="0"` (añadir al orden de tabulación) y `tabindex="-1"` (enfocable programáticamente pero no en el orden de tabulación). Nunca uses `tabindex="1"` o superior.
+- **Skip links:** Proporciona un enlace "Saltar al contenido principal" como el primer elemento enfocable.
+- **Widgets personalizados:** Sigue las WAI-ARIA Authoring Practices para patrones de interacción por teclado (por ejemplo, teclas de flecha dentro de paneles de pestañas, Escape para cerrar modales).
+
+### 10.4 Gestión del Focus
+
+- **Diálogos modales:** Al abrirse, mueve el foco dentro del modal. Atrapa el foco dentro del modal mientras está abierto. Al cerrarse, devuelve el foco al elemento que lo activó.
+- **Cambios de ruta (SPAs):** Gestiona el foco en la navegación. Mueve el foco al encabezado principal o la región de contenido principal de la nueva página.
+- **Contenido dinámico:** Cuando se añade o elimina contenido, asegura que el foco no se pierda. Si un elemento enfocado se elimina, mueve el foco a un sucesor lógico.
+- **Indicadores de foco:** Nunca elimines los contornos de foco (`outline: none`) sin proporcionar una alternativa igualmente visible. Usa `:focus-visible` para estilos de foco solo por teclado.
+
+### 10.5 Consideraciones para Lectores de Pantalla
+
+- **Texto alternativo para imágenes:** Descriptivo para imágenes informativas, `alt=""` vacío para imágenes decorativas.
+- **Etiquetas de formulario:** Cada input debe tener un `<label>` asociado (usando `for`/`id` o envolviendo).
+- **Anuncios de errores:** Usa `aria-live="assertive"` o `role="alert"` para mensajes de error para que sean anunciados inmediatamente.
+- **Estructura de encabezados:** Mantén una jerarquía lógica de encabezados (no saltes niveles). Los usuarios de lectores de pantalla navegan por encabezados más que por cualquier otro método.
+- **Texto de enlaces:** Evita "haz clic aquí" y "leer más". Los enlaces deben tener sentido fuera de contexto.
+- **Pruebas:** Prueba con lectores de pantalla reales (VoiceOver en macOS, NVDA en Windows, TalkBack en Android). Las herramientas automatizadas capturan solo ~30% de los problemas de accesibilidad.
+
+**Primeros Pasos para Pruebas:**
+1. Desconecta tu ratón e intenta usar toda la aplicación solo con el teclado.
+2. Si no puedes completar cada tarea con Tab, Enter, Space, Escape y teclas de flecha, tienes un problema.
+3. Ejecuta herramientas automatizadas (axe, Lighthouse) para ganancias rápidas, luego prueba manualmente con un lector de pantalla.
+
+### Errores Comunes y Anti-patterns
+
+- **Overlays de accesibilidad como solución.** Productos como AccessiBe, UserWay y widgets overlay similares no arreglan los problemas subyacentes de accesibilidad. A menudo interfieren con la tecnología asistiva real, crean falsa confianza legal y han sido ampliamente criticados por la comunidad de personas con discapacidad. Arregla el código fuente; no añadas un widget encima.
+- **ARIA redundante en elementos nativos.** Añadir `role="button"` a un `<button>`, `role="link"` a un `<a href>`, o `role="navigation"` a un `<nav>` es ruido innecesario. Los elementos HTML nativos ya llevan esta semántica. El ARIA redundante añade carga de mantenimiento y riesgo de crear información conflictiva si el role diverge del comportamiento real del elemento.
+- **Nombres accesibles sin significado.** `aria-label="button"`, `aria-label="icon"` o `aria-label="link"` no dice nada útil a un usuario de lector de pantalla. Los nombres accesibles deben describir *qué hace el elemento*: `aria-label="Close dialog"`, `aria-label="Search products"`, `aria-label="Remove item from cart"`.
+- **Color como único indicador de estado.** Usar rojo vs. verde para indicar errores vs. éxito falla para aproximadamente el 8% de los hombres (y 0.5% de las mujeres) que tienen deficiencia en la visión del color. WCAG 1.4.1 requiere que el color no sea el único medio visual de transmitir información. Complementa con íconos, etiquetas de texto, patrones u otros indicadores no basados en color.
+- **Pruebas automatizadas tratadas como suficientes.** Un puntaje de Lighthouse de 100 o cero violaciones de axe no significa que tu aplicación sea accesible. Las herramientas automatizadas capturan solo alrededor del 30% de los problemas de WCAG. No pueden detectar problemas de orden lógico de encabezados, mala gestión de foco, texto alt engañoso o interacciones de teclado inutilizables. Las verificaciones automatizadas son el punto de partida, no la meta.
+- **Texto oculto visualmente en exceso saturando la experiencia del lector de pantalla.** Añadir bloques largos de texto solo para lectores de pantalla para "explicar" la interfaz crea una experiencia verbosa y frustrante para los usuarios de lectores de pantalla. Usa etiquetado conciso y dirigido. Si la UI necesita una explicación extensa para tecnología asistiva, es probable que el diseño de la UI en sí necesite mejoras.
+- **Animaciones que provocan trastornos vestibulares.** El parallax scrolling, las animaciones que se reproducen automáticamente, las transiciones de zoom y el movimiento continuo pueden causar náuseas, mareos y desorientación en personas con trastornos vestibulares. Respeta la media query `prefers-reduced-motion`: reduce o elimina el movimiento cuando el usuario lo ha solicitado. Este es un criterio WCAG 2.1 Nivel AAA (2.3.3) pero ampliamente recomendado en todos los niveles.
+- **Botones deshabilitados sin explicación.** Un botón de enviar gris sin indicación de *por qué* está deshabilitado deja a todos los usuarios adivinando y a los usuarios de lectores de pantalla completamente bloqueados. Proporciona una pista visible (tooltip, texto inline) explicando qué debe completarse antes de que la acción esté disponible, o mantén el botón habilitado y muestra errores de validación al activarlo.
 
 ---
 
-## Sources
+## Resumen de Temas Clave
 
-### SOLID Principles in Frontend
+1. **La separación es la base:** Separa la UI de la lógica, el client state del server state, las reglas de negocio de la infraestructura. Este principio aparece a través de SOLID, diseño de componentes, state management y arquitectura.
+
+2. **Composición sobre configuración:** Prefiere componer piezas pequeñas y enfocadas sobre configurar piezas grandes y monolíticas. Esto aplica a componentes, hooks, state management e incluso CSS.
+
+3. **Las abstracciones deben ganarse, no imponerse:** Aplica la Regla de Tres antes de abstraer. La abstracción prematura (exceso de DRY) es peor que la duplicación.
+
+4. **El diseño centrado en el usuario no es negociable:** Las heurísticas de usabilidad, la accesibilidad, el rendimiento y el manejo de errores no son pulido opcional -- son atributos de calidad fundamentales que deben diseñarse desde el inicio.
+
+5. **La seguridad es una defensa por capas:** Ninguna medida única es suficiente. Combina auto-escaping del framework, CSP, gestión segura de tokens, validación de entradas y HTTPS.
+
+6. **Pensar de forma agnóstica al framework da dividendos:** La lógica de negocio, las reglas de validación y los modelos de dominio deben ser funciones puras que funcionen independientemente de React, Vue, Angular o Svelte. Solo las capas de presentación e integración deben ser específicas del framework.
+
+---
+
+## Fuentes
+
+### Principios SOLID en Frontend
 - [SOLID Principle for Front End - Medium](https://medium.com/@syazantri/solid-principle-for-front-end-85e2a2d2be40)
 - [Things About SOLID & KISS Principles No One Tells You - JavaScript in Plain English](https://javascript.plainenglish.io/things-about-solid-kiss-principles-no-one-tells-you-and-why-they-matter-in-frontend-fb300a3f1f72)
 - [Understanding SOLID Principles in Frontend Development - DEV Community](https://dev.to/debugdiariesbyswethap/understanding-solid-principles-in-frontend-development-with-react-examples-7ao)
@@ -913,7 +913,7 @@ src/
 - [Dependency Inversion Principle (DIP) in React - CreoWis](https://www.creowis.com/blog/dependency-inversion-principle-dip-in-react)
 - [Dependency Injection in React - LogRocket](https://blog.logrocket.com/dependency-injection-react/)
 
-### Component Design Principles
+### Principios de Diseño de Componentes
 - [Atomic Design and Its Relevance in Frontend in 2025 - DEV Community](https://dev.to/m_midas/atomic-design-and-its-relevance-in-frontend-in-2025-32e9)
 - [Atomic Design Methodology - Brad Frost](https://atomicdesign.bradfrost.com/chapter-2/)
 - [Building a Component Library: Integrating Atomic Design and Compound Components - Medium](https://iamrajatsingh.medium.com/building-a-component-library-integrating-atomic-design-and-the-compound-component-pattern-5ee9b1a1a8df)
@@ -923,7 +923,7 @@ src/
 - [The Evolution of React Design Patterns: From HOCs to Hooks - DEV Community](https://dev.to/samabaasi/the-evolution-of-react-design-patterns-from-hocs-to-hooks-and-custom-hooks-44a)
 - [Container Vs Presentational Components: Still Relevant In 2025?](https://allinsightlab.com/container-vs-presentational-components-still-relevant-in-2025/)
 
-### Separation of Concerns
+### Separación de Responsabilidades
 - [Separation of Concerns with React Hooks - Felix Gerschau](https://felixgerschau.com/react-hooks-separation-of-concerns/)
 - [7 Frontend Design Patterns - Feature-Sliced Design](https://feature-sliced.design/blog/frontend-design-patterns)
 - [React Architecture: Business Logic Separation - Profy.dev](https://profy.dev/article/react-architecture-business-logic-and-dependency-injection)
@@ -940,7 +940,7 @@ src/
 - [MVVM with Unidirectional Data Flow - Medium](https://medium.com/@b9915034/mvvm-with-unidirectional-data-flow-improving-state-management-651ae73b1fd1)
 - [Frontend Architectures 2025: Modularity, Performance, and Scalability](https://blog.madrigan.com/en/blog/202512041139/)
 
-### Usability Principles
+### Principios de Usabilidad
 - [The 21 Laws of UX: A Comprehensive Guide - Looppanel](https://www.looppanel.com/blog/laws-of-ux)
 - [31 Laws of UX and Design Principles (2025) - UXness](https://www.uxness.in/2024/03/12-laws-of-ux-designing-with-principles.html)
 - [Nielsen's Heuristics - The Decision Lab](https://thedecisionlab.com/reference-guide/design/nielsens-heuristics)
@@ -949,18 +949,18 @@ src/
 - [Progressive Disclosure in UX Design - LogRocket](https://blog.logrocket.com/ux-design/progressive-disclosure-ux-types-use-cases/)
 - [Mobile-First Responsive Design Best Practices 2025 - Groto](https://www.letsgroto.com/blog/mobile-first-responsive-design-best-practices)
 
-### Performance
+### Rendimiento
 - [RAIL Performance Model - web.dev](https://web.dev/rail/)
 - [RAIL Performance Model - KeyCDN](https://www.keycdn.com/blog/rail-performance-model)
 - [React Performance Optimization: 15 Best Practices for 2025 - DEV Community](https://dev.to/alex_bobes/react-performance-optimization-15-best-practices-for-2025-17l9)
 - [Optimizing React Performance: Virtualization, Lazy Loading, and Memoization - Medium](https://medium.com/@bilalazam751/optimizing-react-performance-virtualization-lazy-loading-and-memoization-9a402006c5e8)
 
-### Error Handling
+### Manejo de Errores
 - [Designing a Resilient UI: Handling Failures Gracefully - DEV Community](https://dev.to/istealersn_dev/designing-a-resilient-ui-handling-failures-gracefully-in-frontend-applications-1p9l)
 - [Designing Resilient Frontend Systems - Medium](https://beyondthecode.medium.com/designing-resilient-frontend-systems-handling-failures-gracefully-10c3c3a2d1b4)
 - [Graceful Degradation - Mailchimp](https://mailchimp.com/resources/graceful-degradation/)
 
-### Security
+### Seguridad
 - [Front-End Security Best Practices - SecureFlag](https://blog.secureflag.com/2025/11/17/front-end-security-best-practices/)
 - [Modern Frontend Security: Beyond XSS and CSRF in 2025 - Capture The Bug](https://capturethebug.xyz/Blogs/Modern-Frontend-Security-Protecting-Your-Application-Beyond-XSS-and-CSRF-in-2025)
 - [CSRF Prevention - OWASP Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html)
@@ -968,14 +968,14 @@ src/
 - [Securing SPAs: Authentication & Authorization Best Practices - SecureCodeCards](https://securecodecards.com/articles/securing-single-page-applications-authentication-authorization-best-practices)
 - [Security Threats in SPAs - WorkOS](https://workos.com/blog/security-threats-in-spas-and-how-to-defend-against-them)
 
-### Clean Code
+### Código Limpio
 - [Frontend Coding Conventions - PostHog Handbook](https://posthog.com/handbook/engineering/conventions/frontend-coding)
 - [Naming Conventions: The Foundation of Clean Code - DEV Community](https://dev.to/sathishskdev/part-1-naming-conventions-the-foundation-of-clean-code-51ng)
 - [Writing Clean Code in Front-end: KISS, DRY, YAGNI, and Beyond - DEV Community](https://dev.to/miasalazar/writing-clean-code-in-front-end-kiss-dry-yaign-and-beyond-54ok)
 - [Principles of Clean Frontend Code: DRY, KISS, and SOLID - Code With Seb](https://www.codewithseb.com/blog/principles-of-clean-frontend-code-dry-kiss-solid)
 - [Stop Trying to Be So DRY, Write Everything Twice - DEV Community](https://dev.to/wuz/stop-trying-to-be-so-dry-instead-write-everything-twice-wet-5g33)
 
-### Accessibility
+### Accesibilidad
 - [Web Accessibility: ARIA and Semantic HTML - Grizzly Peak Software](https://www.grizzlypeaksoftware.com/library/web-accessibility-aria-and-semantic-html-qaad5qe6)
 - [ARIA - MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA)
 - [ARIA Accessibility: Best Practices - Accessibility Checker](https://www.accessibilitychecker.org/blog/aria-accessibility/)

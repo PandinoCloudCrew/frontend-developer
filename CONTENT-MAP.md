@@ -1,224 +1,224 @@
-# Content Distribution Map
+# Mapa de Distribución de Contenido
 
-> Maps existing research content to guide stages. Identifies what's covered, what's missing, and what needs to be written fresh for each stage.
+> Mapea el contenido de investigación existente a las etapas de la guía. Identifica qué está cubierto, qué falta y qué necesita escribirse desde cero para cada etapa.
 
-## How to read this document
+## Cómo leer este documento
 
-- **Source**: Reference to existing content in the research files
-  - `P:` = `frontend-principles-and-best-practices.md` (section.subsection)
-  - `E:` = `frontend-ecosystem-2026.md` (section)
-- **Status**: Coverage level of existing content for the stage's needs
-  - `covered` = Content exists and can be adapted directly
-  - `partial` = Content exists but needs expansion for the stage's depth/angle
-  - `missing` = Must be written from scratch
-
----
-
-## Stage 1: Foundations
-
-> The platform before the framework. Student must master HTML, CSS, JS, TypeScript, and accessibility basics without any framework.
-
-| Topic | Source | Status | Notes |
-|-------|--------|--------|-------|
-| **Semantic HTML & DOM** | — | **missing** | No research doc covers HTML fundamentals. Need: document structure, semantic elements, forms, `<head>` metadata, DOM mental model. |
-| **CSS Box Model** | — | **missing** | No research covers CSS basics. Need: content-box vs border-box, margin collapse, display modes. |
-| **CSS Flexbox** | — | **missing** | Need: axis model, justify/align, wrapping, common layouts. |
-| **CSS Grid** | — | **missing** | Need: explicit/implicit grids, fr units, minmax, auto-fill/auto-fit, named areas. |
-| **Responsive Units** | P:5.8 | partial | Responsive principles covered but not the units themselves (rem, em, vw, dvh, clamp). |
-| **CSS Custom Properties** | E:5 (native CSS) | partial | Mentioned as a feature, not taught. Need: syntax, cascading, theming patterns. |
-| **JavaScript ES2020+** | — | **missing** | No research covers JS fundamentals. Need: modules, destructuring, async/await, array methods, closures. |
-| **TypeScript Basics** | E:6, P:1.5 | partial | Adoption/best practices covered, but not a teaching introduction. Need: type annotations, interfaces, strict mode, unions, as vs unknown. |
-| **TypeScript Anti-patterns** | E:6 anti-patterns | covered | `as` casting, over-engineered types, @ts-ignore, runtime boundaries, enums. |
-| **Accessibility Fundamentals** | P:10.1–10.3 | covered | Semantic HTML first, ARIA rules, keyboard navigation well covered. |
-| **Accessibility Anti-patterns** | P:10 anti-patterns | covered | Overlays, redundant ARIA, color-only, disabled buttons without explanation. |
-| **Developer Environment** | E:12 (DX) | partial | Tools mentioned but not as a setup guide. Need: editor config, DevTools walkthrough, terminal basics. |
-| **Mobile-First CSS** | P:5.7 | covered | Design principle covered. |
-| **CSS Anti-patterns** | E:5 anti-patterns | covered | Tailwind abuse, nesting depth, mixed approaches, token sprawl. |
-
-**Summary Stage 1**: 5 topics missing entirely (HTML, CSS box model, Flexbox, Grid, JavaScript). These are foundations not covered by either research doc because they focused on principles and ecosystem, not teaching basics.
+- **Source**: Referencia al contenido existente en los archivos de investigación
+  - `P:` = `frontend-principles-and-best-practices.md` (sección.subsección)
+  - `E:` = `frontend-ecosystem-2026.md` (sección)
+- **Status**: Nivel de cobertura del contenido existente para las necesidades de la etapa
+  - `covered` = El contenido existe y puede adaptarse directamente
+  - `partial` = El contenido existe pero necesita expansión para la profundidad/enfoque de la etapa
+  - `missing` = Debe escribirse desde cero
 
 ---
 
-## Stage 2: Component Architecture
+## Etapa 1: Fundamentos
 
-| Topic | Source | Status | Notes |
-|-------|--------|--------|-------|
-| **What is a Component?** | — | **missing** | No research defines the component concept from scratch. Need: mental model (input→output), encapsulation, lifecycle concept. |
-| **SRP in Components** | P:1.1 | covered | Defined with practical guidance and line-count heuristic. |
-| **OCP via Composition** | P:1.2 | covered | Slots/children over boolean flags, extension via composition. |
-| **LSP for Variants** | P:1.3 | covered | Component substitutability, prop contracts. |
-| **ISP for Props** | P:1.4 | covered | Minimal prop interfaces, no mega-props. |
-| **DIP with Hooks/Context/DI** | P:1.5 | covered | Framework-specific DI patterns (React Context, Vue provide/inject, Angular DI). |
-| **SOLID Anti-patterns** | P:1 anti-patterns | covered | Over-engineering, nano-components, premature generalization, cargo-culted layers. |
-| **Composition over Inheritance** | P:2.1 | covered | Children, slots, render props. |
-| **Container/Presentational** | P:2.2 | covered | Classic pattern + evolution with hooks. |
-| **Compound Components** | P:2.3 | covered | Pattern description with examples. |
-| **Render Props / Slots** | P:2.4 | covered | Cross-framework pattern. |
-| **HOCs vs Hooks** | P:2.5 | covered | Evolution from HOCs to hooks/composables. |
-| **Atomic Design** | P:2.6 | covered | Five levels, 2025 perspective, hybrid recommendation. |
-| **Component Anti-patterns** | P:2 anti-patterns | covered | God containers, compound overuse, prop drilling panic, bikeshedding, callback hell. |
-| **Headless Component Pattern** | E:10 | partial | Libraries described but not the pattern as a teaching concept. |
-| **Component API Design** | — | **missing** | No doc teaches how to design a good component API: required vs optional props, defaults, event callbacks, forwarding refs/attrs. |
+> La plataforma antes del framework. El estudiante debe dominar HTML, CSS, JS, TypeScript y conceptos básicos de accesibilidad sin ningún framework.
 
-**Summary Stage 2**: Strongest coverage. Only 2 gaps: component mental model intro and API design guide.
+| Tema | Source | Status | Notas |
+|------|--------|--------|-------|
+| **Semantic HTML y DOM** | — | **missing** | Ningún documento de investigación cubre los fundamentos de HTML. Se necesita: estructura del documento, elementos semánticos, formularios, metadatos de `<head>`, modelo mental del DOM. |
+| **CSS Box Model** | — | **missing** | Ninguna investigación cubre los fundamentos de CSS. Se necesita: content-box vs border-box, margin collapse, modos de display. |
+| **CSS Flexbox** | — | **missing** | Se necesita: modelo de ejes, justify/align, wrapping, layouts comunes. |
+| **CSS Grid** | — | **missing** | Se necesita: grids explícitos/implícitos, unidades fr, minmax, auto-fill/auto-fit, named areas. |
+| **Unidades Responsivas** | P:5.8 | partial | Los principios responsivos están cubiertos pero no las unidades en sí (rem, em, vw, dvh, clamp). |
+| **CSS Custom Properties** | E:5 (native CSS) | partial | Mencionado como característica, no enseñado. Se necesita: sintaxis, cascada, patrones de tematización. |
+| **JavaScript ES2020+** | — | **missing** | Ninguna investigación cubre los fundamentos de JS. Se necesita: módulos, destructuring, async/await, métodos de arrays, closures. |
+| **TypeScript Básico** | E:6, P:1.5 | partial | Adopción/mejores prácticas cubiertas, pero no como introducción didáctica. Se necesita: type annotations, interfaces, strict mode, unions, as vs unknown. |
+| **Anti-patterns de TypeScript** | E:6 anti-patterns | covered | Casting con `as`, tipos sobre-diseñados, @ts-ignore, runtime boundaries, enums. |
+| **Fundamentos de Accesibilidad** | P:10.1–10.3 | covered | HTML semántico primero, reglas de ARIA, navegación por teclado bien cubiertos. |
+| **Anti-patterns de Accesibilidad** | P:10 anti-patterns | covered | Overlays, ARIA redundante, solo color, botones deshabilitados sin explicación. |
+| **Entorno de Desarrollo** | E:12 (DX) | partial | Herramientas mencionadas pero no como guía de configuración. Se necesita: configuración del editor, recorrido por DevTools, conceptos básicos de terminal. |
+| **Mobile-First CSS** | P:5.7 | covered | Principio de diseño cubierto. |
+| **Anti-patterns de CSS** | E:5 anti-patterns | covered | Abuso de Tailwind, profundidad de anidamiento, enfoques mixtos, proliferación de tokens. |
 
----
-
-## Stage 3: State & Data Flow
-
-| Topic | Source | Status | Notes |
-|-------|--------|--------|-------|
-| **Local vs Global State** | P:4.1 | covered | Decision table with scope, examples, tools, guideline. |
-| **Server State vs Client State** | P:4.2, E:2 | covered | Both docs cover this paradigm shift with tool recommendations. |
-| **Unidirectional Data Flow** | P:4.5 | covered | State→View→Action→State cycle, framework examples. |
-| **Derived/Computed State** | P:4.3 | covered | Framework-specific examples (useMemo, computed, signals). |
-| **Immutability** | P:4.6 | covered | Why mutation breaks detection, Immer, spread. |
-| **State Machines (XState)** | P:4.4 | covered | When to use, examples of value (multi-step forms, auth flows). |
-| **Data Fetching Patterns** | — | **missing** | Neither doc teaches loading/error/success/empty states as a pattern with code examples. P:7 covers error handling in general but not the UI state pattern specifically. |
-| **URL State** | P:4 anti-patterns | partial | Mentioned as a neglected anti-pattern but not taught as a positive pattern with implementation guidance. |
-| **State Anti-patterns** | P:4 anti-patterns, E:2 anti-patterns | covered | Circular derivation, stale closures, global store abuse, state machine overkill, etc. |
-| **TanStack Query / SWR Patterns** | E:2 | partial | Tools mentioned with download stats but not taught (caching strategies, invalidation, optimistic updates). |
-| **Form State** | — | **missing** | No doc covers form state management as a distinct topic (React Hook Form, controlled vs uncontrolled, validation timing). |
-
-**Summary Stage 3**: Good foundation but 3 gaps: data fetching UI patterns, URL state as a positive pattern, form state management.
+**Resumen Etapa 1**: 5 temas completamente ausentes (HTML, CSS box model, Flexbox, Grid, JavaScript). Son fundamentos no cubiertos por ninguno de los documentos de investigación porque se enfocaron en principios y ecosistema, no en enseñar lo básico.
 
 ---
 
-## Stage 4: Usability & Design Principles
+## Etapa 2: Arquitectura de Componentes
 
-| Topic | Source | Status | Notes |
-|-------|--------|--------|-------|
-| **Nielsen's 10 Heuristics** | P:5.1 | covered | All 10 mapped to web with examples. |
-| **Fitts's Law** | P:5.2 | covered | Touch targets, placement, edge advantage. |
-| **Hick's Law** | P:5.3 | covered | Choice reduction, decision aids. |
-| **Gestalt Principles** | P:5.4 | covered | 6 principles with UI applications. |
-| **Progressive Disclosure** | P:5.5 | covered | Max 2 levels, common implementations. |
-| **Cognitive Load Reduction** | P:5.6 | covered | Chunking, defaults, visual hierarchy, consistency. |
-| **Mobile-First Design** | P:5.7 | covered | Prioritization, min-width queries, touch targets. |
-| **Responsive Design** | P:5.8 | covered | Fluid layouts, content breakpoints, container queries, fluid type. |
-| **Usability Anti-patterns** | P:5 anti-patterns | covered | Dark patterns, toast fatigue, mobile-only, Fitts/Hick misuse, device breakpoints. |
-| **Typography & Visual Hierarchy** | — | **missing** | No doc covers type scales, font pairing, line height/measure, whitespace rhythm, contrast ratios for readability. |
-| **Color Theory for UI** | — | **missing** | No doc covers color systems (HSL, Oklch), palette construction, semantic colors, dark mode principles. |
-| **Spacing Systems** | — | **missing** | No doc covers spacing scales (4px/8px grid), consistent spacing patterns, spacing tokens. |
-| **Form Design Patterns** | — | **missing** | No doc covers form UX: label placement, inline vs on-submit validation, multi-step forms, field grouping, error message patterns. |
-| **Heuristic Violation Examples** | — | **missing** | Need concrete before/after examples for each heuristic (this is where mockups come in). |
+| Tema | Source | Status | Notas |
+|------|--------|--------|-------|
+| **¿Qué es un Componente?** | — | **missing** | Ninguna investigación define el concepto de componente desde cero. Se necesita: modelo mental (entrada→salida), encapsulación, concepto de ciclo de vida. |
+| **SRP en Componentes** | P:1.1 | covered | Definido con guía práctica y heurística de conteo de líneas. |
+| **OCP vía Composición** | P:1.2 | covered | Slots/children sobre boolean flags, extensión vía composición. |
+| **LSP para Variantes** | P:1.3 | covered | Sustituibilidad de componentes, contratos de props. |
+| **ISP para Props** | P:1.4 | covered | Interfaces de props mínimas, sin mega-props. |
+| **DIP con Hooks/Context/DI** | P:1.5 | covered | Patrones de DI específicos de framework (React Context, Vue provide/inject, Angular DI). |
+| **Anti-patterns de SOLID** | P:1 anti-patterns | covered | Sobre-ingeniería, nano-componentes, generalización prematura, capas por cargo cult. |
+| **Composición sobre Herencia** | P:2.1 | covered | Children, slots, render props. |
+| **Container/Presentational** | P:2.2 | covered | Patrón clásico + evolución con hooks. |
+| **Compound Components** | P:2.3 | covered | Descripción del patrón con ejemplos. |
+| **Render Props / Slots** | P:2.4 | covered | Patrón cross-framework. |
+| **HOCs vs Hooks** | P:2.5 | covered | Evolución de HOCs a hooks/composables. |
+| **Atomic Design** | P:2.6 | covered | Cinco niveles, perspectiva 2025, recomendación híbrida. |
+| **Anti-patterns de Componentes** | P:2 anti-patterns | covered | Contenedores dios, sobreuso de compound, pánico por prop drilling, bikeshedding, callback hell. |
+| **Patrón de Headless Components** | E:10 | partial | Bibliotecas descritas pero no el patrón como concepto didáctico. |
+| **Diseño de API de Componentes** | — | **missing** | Ningún documento enseña cómo diseñar una buena API de componente: props requeridas vs opcionales, valores por defecto, event callbacks, forwarding de refs/attrs. |
 
-**Summary Stage 4**: Principles well covered, but visual design fundamentals (typography, color, spacing) and form UX are missing entirely. These are critical for a frontend guide.
-
----
-
-## Stage 5: Performance
-
-| Topic | Source | Status | Notes |
-|-------|--------|--------|-------|
-| **Core Web Vitals** | P:6.1, E:8 | covered | LCP, INP, CLS with thresholds. INP replacing FID noted. |
-| **RAIL Model** | P:6.1 | covered | Response, Animation, Idle, Load with targets. |
-| **Lazy Loading** | P:6.2, E:8 | covered | Route, component, image strategies. |
-| **Code Splitting** | P:9.3, E:8 | covered | Route, feature, component, vendor splitting. |
-| **Virtualization** | P:6.3 | covered | When to use, libraries, trade-offs. |
-| **Memoization** | P:6.4 | covered | When to use AND when not to. Best section for anti-patterns. |
-| **Bundle Optimization** | P:6.5 | covered | Tree shaking, dependency analysis, compression. |
-| **Image Optimization** | E:8 | partial | Formats (AVIF, WebP) mentioned but not taught: srcset, sizes, picture element, fetchpriority. |
-| **Performance Anti-patterns** | P:6 anti-patterns, E:8 anti-patterns | covered | Premature optimization, lazy LCP images, over-splitting, broken tree shaking, CDN false confidence. |
-| **Measuring Performance** | E:8 | partial | CrUX/RUM vs Lighthouse distinction mentioned but not taught as a workflow (DevTools Performance panel, bundle analyzer, RUM setup). |
-| **Streaming SSR** | E:4, E:8 | partial | Mentioned as strategy but not taught with implementation guidance. |
-| **Third-party Script Impact** | E:8 anti-patterns | partial | Noted as "largest unaddressed bottleneck" but no mitigation strategies taught. |
-
-**Summary Stage 5**: Strong coverage. Minor gaps in image optimization teaching and performance measurement workflow.
+**Resumen Etapa 2**: Cobertura más fuerte. Solo 2 brechas: introducción al modelo mental de componentes y guía de diseño de API.
 
 ---
 
-## Stage 6: Security & Resilience
+## Etapa 3: Estado y Flujo de Datos
 
-| Topic | Source | Status | Notes |
-|-------|--------|--------|-------|
-| **XSS Prevention** | P:8.1 | covered | Auto-escaping, dangerous APIs, DOMPurify. |
-| **CSRF Protection** | P:8.2 | covered | Tokens, SameSite, Origin/Referer. |
-| **CSP** | P:8.3 | covered | Start restrictive, avoid unsafe-inline. |
-| **Input Sanitization** | P:8.4 | covered | Client for UX, server for security. |
-| **Secure Auth (JWT, OAuth, BFF)** | P:8.5 | covered | Token storage, PKCE, BFF, refresh rotation. |
-| **Error Boundaries** | P:7.1 | covered | Cross-framework, strategic placement. |
-| **Graceful Degradation** | P:7.2 | covered | Feature detection, cached data, fallbacks. |
-| **Optimistic Updates** | P:7.3 | covered | When to use, rollback, TanStack Query support. |
-| **Retry Strategies** | P:7.4 | covered | Exponential backoff, jitter, idempotency. |
-| **Security Anti-patterns** | P:8 anti-patterns | covered | Client-only validation, security theater, exposed keys, CORS, clickjacking, open redirects. |
-| **Error Handling Anti-patterns** | P:7 anti-patterns | covered | Swallowed errors, hidden dev bugs, generic messages, invisible retry, silent rollback. |
-| **Runtime Type Validation** | E:6 anti-patterns | partial | Mentioned (Zod, Valibot) but not taught as a pattern with examples. |
-| **HTTPS & Cookie Security** | P:8.5 | partial | HttpOnly, Secure, SameSite mentioned but not a teaching section on cookie security model. |
+| Tema | Source | Status | Notas |
+|------|--------|--------|-------|
+| **Estado Local vs Global** | P:4.1 | covered | Tabla de decisión con alcance, ejemplos, herramientas, directriz. |
+| **Server State vs Client State** | P:4.2, E:2 | covered | Ambos documentos cubren este cambio de paradigma con recomendaciones de herramientas. |
+| **Flujo de Datos Unidireccional** | P:4.5 | covered | Ciclo State→View→Action→State, ejemplos por framework. |
+| **Estado Derivado/Computado** | P:4.3 | covered | Ejemplos específicos por framework (useMemo, computed, signals). |
+| **Inmutabilidad** | P:4.6 | covered | Por qué la mutación rompe la detección, Immer, spread. |
+| **Máquinas de Estado (XState)** | P:4.4 | covered | Cuándo usar, ejemplos de valor (formularios multi-paso, flujos de auth). |
+| **Patrones de Data Fetching** | — | **missing** | Ningún documento enseña los estados de loading/error/success/empty como patrón con ejemplos de código. P:7 cubre el manejo de errores en general pero no el patrón de estados de UI específicamente. |
+| **Estado en URL** | P:4 anti-patterns | partial | Mencionado como anti-pattern descuidado pero no enseñado como patrón positivo con guía de implementación. |
+| **Anti-patterns de Estado** | P:4 anti-patterns, E:2 anti-patterns | covered | Derivación circular, stale closures, abuso de store global, sobreuso de máquinas de estado, etc. |
+| **Patrones de TanStack Query / SWR** | E:2 | partial | Herramientas mencionadas con estadísticas de descargas pero no enseñadas (estrategias de caching, invalidación, optimistic updates). |
+| **Estado de Formularios** | — | **missing** | Ningún documento cubre la gestión de estado de formularios como tema independiente (React Hook Form, controlled vs uncontrolled, temporalidad de validación). |
 
-**Summary Stage 6**: Best covered stage. Only minor gaps in runtime validation teaching and cookie security.
+**Resumen Etapa 3**: Buena base pero 3 brechas: patrones de UI para data fetching, estado en URL como patrón positivo, gestión de estado de formularios.
 
 ---
 
-## Stage 7: Testing & Quality
+## Etapa 4: Usabilidad y Principios de Diseño
 
-| Topic | Source | Status | Notes |
-|-------|--------|--------|-------|
-| **Testing Pyramid** | E:7 | partial | Recommended stack listed but pyramid concept not taught (why many unit, some integration, few E2E). |
-| **Testing Library** | E:7 | partial | Purpose described but not taught (query priorities, user-event, async patterns). |
-| **MSW for API Mocking** | E:7 | partial | Mentioned in CI context but not taught as a pattern. |
-| **Accessibility Testing** | E:9, P:10 | covered | Automated tools (axe, Pa11y) + manual testing described. |
-| **Linting (ESLint/Biome)** | E:12 | covered | Tool comparison with migration guidance. |
-| **CI Pipeline Strategy** | E:7 | covered | Split pipelines: fast first, E2E second. |
-| **Testing Anti-patterns** | E:7 anti-patterns | covered | Implementation details, over-mocking, snapshot abuse, inverted pyramid, coverage worship, MSW drift. |
-| **Writing Good Tests** | — | **missing** | No doc teaches how to structure a test: Arrange-Act-Assert, test naming, what to test vs what not to, test isolation. |
-| **Component Testing Patterns** | — | **missing** | Need: how to test components with Testing Library, mocking context/providers, testing hooks in isolation. |
-| **E2E Test Patterns** | — | **missing** | Need: page objects, test data management, avoiding flaky tests, parallel execution. |
-| **Code Review Practices** | — | **missing** | Not covered in either doc. Need: what to look for, giving actionable feedback, PR size, review checklists. |
+| Tema | Source | Status | Notas |
+|------|--------|--------|-------|
+| **Las 10 Heurísticas de Nielsen** | P:5.1 | covered | Las 10 mapeadas a la web con ejemplos. |
+| **Ley de Fitts** | P:5.2 | covered | Touch targets, ubicación, ventaja de bordes. |
+| **Ley de Hick** | P:5.3 | covered | Reducción de opciones, ayudas de decisión. |
+| **Principios de Gestalt** | P:5.4 | covered | 6 principios con aplicaciones a UI. |
+| **Progressive Disclosure** | P:5.5 | covered | Máximo 2 niveles, implementaciones comunes. |
+| **Reducción de Carga Cognitiva** | P:5.6 | covered | Chunking, valores por defecto, jerarquía visual, consistencia. |
+| **Diseño Mobile-First** | P:5.7 | covered | Priorización, media queries con min-width, touch targets. |
+| **Diseño Responsivo** | P:5.8 | covered | Layouts fluidos, breakpoints de contenido, container queries, tipografía fluida. |
+| **Anti-patterns de Usabilidad** | P:5 anti-patterns | covered | Dark patterns, fatiga de toasts, solo móvil, mal uso de Fitts/Hick, breakpoints de dispositivo. |
+| **Tipografía y Jerarquía Visual** | — | **missing** | Ningún documento cubre escalas tipográficas, combinación de fuentes, line height/measure, ritmo de espacios en blanco, ratios de contraste para legibilidad. |
+| **Teoría del Color para UI** | — | **missing** | Ningún documento cubre sistemas de color (HSL, Oklch), construcción de paletas, colores semánticos, principios de dark mode. |
+| **Sistemas de Espaciado** | — | **missing** | Ningún documento cubre escalas de espaciado (grid de 4px/8px), patrones de espaciado consistente, spacing tokens. |
+| **Patrones de Diseño de Formularios** | — | **missing** | Ningún documento cubre UX de formularios: ubicación de labels, validación inline vs on-submit, formularios multi-paso, agrupación de campos, patrones de mensajes de error. |
+| **Ejemplos de Violación de Heurísticas** | — | **missing** | Se necesitan ejemplos concretos de antes/después para cada heurística (aquí es donde entran los mockups). |
 
-**Summary Stage 7**: Weakest stage for existing content. Anti-patterns are strong but positive teaching content for how to actually write tests is largely missing.
-
----
-
-## Stage 8: Architecture at Scale
-
-| Topic | Source | Status | Notes |
-|-------|--------|--------|-------|
-| **Feature-Based Organization** | P:9.2 | covered | Three patterns (feature-based, FSD, domain-driven) with directory examples. |
-| **Feature-Sliced Design** | P:9.2 | covered | FSD structure described. |
-| **Clean Architecture / Hexagonal** | P:3.3 | covered | 4 layers, domain/application/infrastructure/presentation. |
-| **Separation of Concerns** | P:3.1–3.3 | covered | 3-layer separation, hooks as abstraction, service layer patterns. |
-| **Design Systems** | E:10 | covered | Headless UI, shadcn/ui, design tokens W3C standard. |
-| **API Patterns (REST/GraphQL/tRPC)** | E:11 | covered | Multi-protocol reality, decision framework, BFF. |
-| **Build Tools (Vite)** | E:3 | covered | Vite 8, Turbopack, Rspack comparison. |
-| **Meta-frameworks & Rendering** | E:4 | covered | SSR/SSG/ISR/streaming strategy table. |
-| **Architecture Anti-patterns** | P:3 anti-patterns, E:10–12 anti-patterns | covered | Over-layering, premature design systems, folder bureaucracy, tooling churn, monorepo complexity. |
-| **Monorepos** | E:12 anti-patterns | partial | Complexity warned about but not taught: when to use, Nx/Turborepo, shared packages. |
-| **Design Token Implementation** | E:10 | partial | W3C spec described but not taught as an implementation guide. |
-| **Micro-frontends** | — | **missing** | Not covered. May be out of scope for this guide, but should be mentioned as a pattern with trade-offs. |
-
-**Summary Stage 8**: Good coverage from both docs combined. Minor gaps in monorepo teaching and token implementation.
+**Resumen Etapa 4**: Principios bien cubiertos, pero los fundamentos de diseño visual (tipografía, color, espaciado) y UX de formularios faltan por completo. Son críticos para una guía de frontend.
 
 ---
 
-## Gap Summary (Updated)
+## Etapa 5: Rendimiento
 
-All previously missing content has been written. 20 new topics across 4 supplemental files (5,422 lines).
+| Tema | Source | Status | Notas |
+|------|--------|--------|-------|
+| **Core Web Vitals** | P:6.1, E:8 | covered | LCP, INP, CLS con umbrales. INP reemplazando FID anotado. |
+| **Modelo RAIL** | P:6.1 | covered | Response, Animation, Idle, Load con objetivos. |
+| **Lazy Loading** | P:6.2, E:8 | covered | Estrategias por ruta, componente, imagen. |
+| **Code Splitting** | P:9.3, E:8 | covered | Splitting por ruta, feature, componente, vendor. |
+| **Virtualización** | P:6.3 | covered | Cuándo usar, bibliotecas, trade-offs. |
+| **Memoización** | P:6.4 | covered | Cuándo usar Y cuándo no. Mejor sección para anti-patterns. |
+| **Optimización de Bundle** | P:6.5 | covered | Tree shaking, análisis de dependencias, compresión. |
+| **Optimización de Imágenes** | E:8 | partial | Formatos (AVIF, WebP) mencionados pero no enseñados: srcset, sizes, elemento picture, fetchpriority. |
+| **Anti-patterns de Rendimiento** | P:6 anti-patterns, E:8 anti-patterns | covered | Optimización prematura, lazy loading de imagen LCP, splitting excesivo, tree shaking roto, falsa confianza en CDN. |
+| **Medición de Rendimiento** | E:8 | partial | Distinción CrUX/RUM vs Lighthouse mencionada pero no enseñada como flujo de trabajo (panel Performance de DevTools, bundle analyzer, configuración de RUM). |
+| **Streaming SSR** | E:4, E:8 | partial | Mencionado como estrategia pero no enseñado con guía de implementación. |
+| **Impacto de Scripts de Terceros** | E:8 anti-patterns | partial | Anotado como "el mayor cuello de botella sin abordar" pero sin estrategias de mitigación enseñadas. |
 
-| Stage | Covered | Partial | Missing | Status |
+**Resumen Etapa 5**: Cobertura sólida. Brechas menores en la enseñanza de optimización de imágenes y flujo de trabajo de medición de rendimiento.
+
+---
+
+## Etapa 6: Seguridad y Resiliencia
+
+| Tema | Source | Status | Notas |
+|------|--------|--------|-------|
+| **Prevención de XSS** | P:8.1 | covered | Auto-escaping, APIs peligrosas, DOMPurify. |
+| **Protección CSRF** | P:8.2 | covered | Tokens, SameSite, Origin/Referer. |
+| **CSP** | P:8.3 | covered | Comenzar restrictivo, evitar unsafe-inline. |
+| **Sanitización de Entradas** | P:8.4 | covered | Cliente para UX, servidor para seguridad. |
+| **Auth Seguro (JWT, OAuth, BFF)** | P:8.5 | covered | Almacenamiento de tokens, PKCE, BFF, rotación de refresh. |
+| **Error Boundaries** | P:7.1 | covered | Cross-framework, ubicación estratégica. |
+| **Degradación Elegante** | P:7.2 | covered | Feature detection, datos cacheados, fallbacks. |
+| **Optimistic Updates** | P:7.3 | covered | Cuándo usar, rollback, soporte de TanStack Query. |
+| **Estrategias de Retry** | P:7.4 | covered | Exponential backoff, jitter, idempotency. |
+| **Anti-patterns de Seguridad** | P:8 anti-patterns | covered | Validación solo en cliente, teatro de seguridad, claves expuestas, CORS, clickjacking, open redirects. |
+| **Anti-patterns de Manejo de Errores** | P:7 anti-patterns | covered | Errores tragados, bugs ocultos de desarrollo, mensajes genéricos, retry invisible, rollback silencioso. |
+| **Validación de Tipos en Runtime** | E:6 anti-patterns | partial | Mencionado (Zod, Valibot) pero no enseñado como patrón con ejemplos. |
+| **HTTPS y Seguridad de Cookies** | P:8.5 | partial | HttpOnly, Secure, SameSite mencionados pero no como sección didáctica sobre el modelo de seguridad de cookies. |
+
+**Resumen Etapa 6**: Etapa mejor cubierta. Solo brechas menores en enseñanza de validación en runtime y seguridad de cookies.
+
+---
+
+## Etapa 7: Testing y Calidad
+
+| Tema | Source | Status | Notas |
+|------|--------|--------|-------|
+| **Pirámide de Testing** | E:7 | partial | Stack recomendado listado pero concepto de pirámide no enseñado (por qué muchos unit, algunos de integración, pocos E2E). |
+| **Testing Library** | E:7 | partial | Propósito descrito pero no enseñado (prioridades de consulta, user-event, patrones async). |
+| **MSW para API Mocking** | E:7 | partial | Mencionado en contexto de CI pero no enseñado como patrón. |
+| **Testing de Accesibilidad** | E:9, P:10 | covered | Herramientas automatizadas (axe, Pa11y) + testing manual descrito. |
+| **Linting (ESLint/Biome)** | E:12 | covered | Comparación de herramientas con guía de migración. |
+| **Estrategia de Pipeline de CI** | E:7 | covered | Pipelines divididos: rápido primero, E2E segundo. |
+| **Anti-patterns de Testing** | E:7 anti-patterns | covered | Detalles de implementación, sobre-mocking, abuso de snapshots, pirámide invertida, adoración de cobertura, drift de MSW. |
+| **Escribir Buenos Tests** | — | **missing** | Ningún documento enseña cómo estructurar un test: Arrange-Act-Assert, nombrado de tests, qué testear vs qué no, aislamiento de tests. |
+| **Patrones de Testing de Componentes** | — | **missing** | Se necesita: cómo testear componentes con Testing Library, mocking de context/providers, testing de hooks aislados. |
+| **Patrones de Tests E2E** | — | **missing** | Se necesita: page objects, gestión de datos de prueba, evitar tests flaky, ejecución paralela. |
+| **Prácticas de Code Review** | — | **missing** | No cubierto en ningún documento. Se necesita: qué buscar, dar feedback accionable, tamaño de PRs, checklists de revisión. |
+
+**Resumen Etapa 7**: Etapa más débil en contenido existente. Los anti-patterns son fuertes pero el contenido didáctico positivo sobre cómo escribir tests está ampliamente ausente.
+
+---
+
+## Etapa 8: Arquitectura a Escala
+
+| Tema | Source | Status | Notas |
+|------|--------|--------|-------|
+| **Organización Basada en Features** | P:9.2 | covered | Tres patrones (basado en features, FSD, domain-driven) con ejemplos de directorios. |
+| **Feature-Sliced Design** | P:9.2 | covered | Estructura FSD descrita. |
+| **Clean Architecture / Hexagonal** | P:3.3 | covered | 4 capas, domain/application/infrastructure/presentation. |
+| **Separación de Responsabilidades** | P:3.1–3.3 | covered | Separación en 3 capas, hooks como abstracción, patrones de capa de servicio. |
+| **Design Systems** | E:10 | covered | Headless UI, shadcn/ui, design tokens estándar W3C. |
+| **Patrones de API (REST/GraphQL/tRPC)** | E:11 | covered | Realidad multi-protocolo, marco de decisión, BFF. |
+| **Build Tools (Vite)** | E:3 | covered | Vite 8, Turbopack, comparación con Rspack. |
+| **Meta-frameworks y Renderizado** | E:4 | covered | Tabla de estrategias SSR/SSG/ISR/streaming. |
+| **Anti-patterns de Arquitectura** | P:3 anti-patterns, E:10–12 anti-patterns | covered | Sobre-capas, design systems prematuros, burocracia de carpetas, rotación de herramientas, complejidad de monorepo. |
+| **Monorepos** | E:12 anti-patterns | partial | Complejidad advertida pero no enseñada: cuándo usar, Nx/Turborepo, paquetes compartidos. |
+| **Implementación de Design Tokens** | E:10 | partial | Especificación W3C descrita pero no enseñada como guía de implementación. |
+| **Micro-frontends** | — | **missing** | No cubierto. Puede estar fuera del alcance de esta guía, pero debe mencionarse como patrón con trade-offs. |
+
+**Resumen Etapa 8**: Buena cobertura combinando ambos documentos. Brechas menores en enseñanza de monorepos e implementación de tokens.
+
+---
+
+## Resumen de Brechas (Actualizado)
+
+Todo el contenido previamente faltante ha sido escrito. 20 nuevos temas en 4 archivos suplementarios (5,422 líneas).
+
+| Etapa | Covered | Partial | Missing | Status |
 |-------|---------|---------|---------|--------|
-| **1: Foundations** | 14 | 0 | 0 | **All gaps filled** |
-| **2: Components** | 16 | 0 | 0 | **All gaps filled** |
-| **3: State** | 12 | 0 | 0 | **All gaps filled** |
-| **4: Usability** | 14 | 0 | 0 | **All gaps filled** |
-| **5: Performance** | 8 | 4 | 0 | Partial items are depth expansions, not blockers |
-| **6: Security** | 11 | 2 | 0 | Partial items are depth expansions, not blockers |
-| **7: Testing** | 11 | 0 | 0 | **All gaps filled** |
-| **8: Architecture** | 11 | 1 | 0 | **All gaps filled** |
+| **1: Fundamentos** | 14 | 0 | 0 | **Todas las brechas cubiertas** |
+| **2: Componentes** | 16 | 0 | 0 | **Todas las brechas cubiertas** |
+| **3: Estado** | 12 | 0 | 0 | **Todas las brechas cubiertas** |
+| **4: Usabilidad** | 14 | 0 | 0 | **Todas las brechas cubiertas** |
+| **5: Rendimiento** | 8 | 4 | 0 | Los elementos parciales son expansiones de profundidad, no bloqueantes |
+| **6: Seguridad** | 11 | 2 | 0 | Los elementos parciales son expansiones de profundidad, no bloqueantes |
+| **7: Testing** | 11 | 0 | 0 | **Todas las brechas cubiertas** |
+| **8: Arquitectura** | 11 | 1 | 0 | **Todas las brechas cubiertas** |
 
-### New content files
+### Nuevos archivos de contenido
 
-| File | Lines | Covers | Fills gaps for |
-|------|-------|--------|----------------|
-| `guide/stage-1-foundations/foundations-reference.md` | 1,598 | Semantic HTML, CSS Box Model, Flexbox, Grid, JavaScript ES2020+ | Stage 1 (5 topics) |
-| `guide/supplemental-content-components-and-state.md` | 1,321 | Component mental model, API design, data fetching UI patterns, URL state, form state | Stage 2 (2 topics), Stage 3 (3 topics) |
-| `guide/supplemental-content-visual-design.md` | 1,115 | Typography, color theory, spacing systems, form design patterns, heuristic violation examples | Stage 4 (5 topics) |
-| `guide/supplemental-content-testing-and-architecture.md` | 1,388 | Writing tests, component testing, E2E patterns, code review, micro-frontends | Stage 7 (4 topics), Stage 8 (1 topic) |
+| Archivo | Líneas | Cubre | Llena brechas de |
+|---------|--------|-------|------------------|
+| `guide/stage-1-foundations/foundations-reference.md` | 1,598 | Semantic HTML, CSS Box Model, Flexbox, Grid, JavaScript ES2020+ | Etapa 1 (5 temas) |
+| `guide/supplemental-content-components-and-state.md` | 1,321 | Modelo mental de componentes, diseño de API, patrones de UI para data fetching, estado en URL, estado de formularios | Etapa 2 (2 temas), Etapa 3 (3 temas) |
+| `guide/supplemental-content-visual-design.md` | 1,115 | Tipografía, teoría del color, sistemas de espaciado, patrones de diseño de formularios, ejemplos de violación de heurísticas | Etapa 4 (5 temas) |
+| `guide/supplemental-content-testing-and-architecture.md` | 1,388 | Escritura de tests, testing de componentes, patrones E2E, code review, micro-frontends | Etapa 7 (4 temas), Etapa 8 (1 tema) |
 
-### Remaining partial items (not blocking, expand during stage writing)
+### Elementos parciales restantes (no bloqueantes, expandir durante la escritura de cada etapa)
 
-- **Stage 5**: Image optimization (srcset/sizes/picture teaching depth), performance measurement workflow (DevTools walkthrough), streaming SSR implementation, third-party script mitigation
-- **Stage 6**: Runtime type validation with Zod/Valibot (code examples), cookie security model (teaching walkthrough)
-- **Stage 8**: Monorepo teaching (Nx/Turborepo when/why), design token implementation guide
+- **Etapa 5**: Optimización de imágenes (profundidad didáctica de srcset/sizes/picture), flujo de trabajo de medición de rendimiento (recorrido por DevTools), implementación de streaming SSR, mitigación de scripts de terceros
+- **Etapa 6**: Validación de tipos en runtime con Zod/Valibot (ejemplos de código), modelo de seguridad de cookies (recorrido didáctico)
+- **Etapa 8**: Enseñanza de monorepos (Nx/Turborepo cuándo/por qué), guía de implementación de design tokens
 
-These partial items have the concepts mentioned in the research docs but need deeper teaching examples. They can be expanded inline when writing each stage's chapter.
+Estos elementos parciales tienen los conceptos mencionados en los documentos de investigación pero necesitan ejemplos didácticos más profundos. Pueden expandirse en línea al escribir el capítulo de cada etapa.

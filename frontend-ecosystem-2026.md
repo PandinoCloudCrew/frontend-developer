@@ -1,176 +1,176 @@
-# Frontend Development Ecosystem - State of the Art (Early 2026)
+# Ecosistema de Desarrollo Frontend - Estado del Arte (Principios de 2026)
 
-> Current state of the frontend development ecosystem as of early 2026. Covers frameworks, tools, patterns, and their trade-offs. Compiled from 60+ authoritative sources.
+> Estado actual del ecosistema de desarrollo frontend a principios de 2026. Cubre frameworks, herramientas, patrones y sus compromisos. Compilado a partir de más de 60 fuentes autorizadas.
 
 ---
 
-## Table of Contents
+## Tabla de Contenidos
 
-1. [Major Frameworks & Libraries](#1-major-frameworks--libraries) — React 19, Angular 19, Vue 3.6, Svelte 5, Solid, Qwik
-2. [State Management](#2-state-management) — Server/client split, TanStack Query, Zustand, Pinia, Signals
-3. [Build Tools & Bundlers](#3-build-tools--bundlers) — Vite 8, Turbopack, Rspack, Bun, esbuild
+1. [Frameworks y Bibliotecas Principales](#1-frameworks-y-bibliotecas-principales) — React 19, Angular 19, Vue 3.6, Svelte 5, Solid, Qwik
+2. [Gestión de Estado](#2-gestión-de-estado) — Server/client split, TanStack Query, Zustand, Pinia, Signals
+3. [Herramientas de Compilación y Bundlers](#3-herramientas-de-compilación-y-bundlers) — Vite 8, Turbopack, Rspack, Bun, esbuild
 4. [Meta-frameworks](#4-meta-frameworks) — Next.js, Remix, Nuxt, SvelteKit, Astro, Analog
-5. [CSS & Styling](#5-css--styling) — Tailwind v4, native CSS, CSS-in-JS decline, Panda CSS
-6. [TypeScript](#6-typescript) — Adoption, role, best practices
-7. [Testing](#7-testing) — Vitest, Playwright, Cypress, Testing Library, CI strategy
-8. [Performance](#8-performance) — Core Web Vitals, optimization strategies
-9. [Accessibility (a11y)](#9-accessibility-a11y) — WCAG 2.2, EAA, automated testing
-10. [Design Systems & Component Libraries](#10-design-systems--component-libraries) — Headless UI, shadcn/ui, design tokens
-11. [API Patterns](#11-api-patterns) — REST, tRPC, GraphQL, BFF
-12. [Developer Experience](#12-developer-experience) — Biome, ESLint, HMR, package managers
-13. [Cross-Cutting Principles](#cross-cutting-principles-framework-agnostic) — 10 framework-agnostic principles + meta anti-patterns
+5. [CSS y Estilos](#5-css-y-estilos) — Tailwind v4, CSS nativo, declive de CSS-in-JS, Panda CSS
+6. [TypeScript](#6-typescript) — Adopción, rol, mejores prácticas
+7. [Testing](#7-testing) — Vitest, Playwright, Cypress, Testing Library, estrategia de CI
+8. [Rendimiento](#8-rendimiento) — Core Web Vitals, estrategias de optimización
+9. [Accesibilidad (a11y)](#9-accesibilidad-a11y) — WCAG 2.2, EAA, testing automatizado
+10. [Sistemas de Diseño y Bibliotecas de Componentes](#10-sistemas-de-diseño-y-bibliotecas-de-componentes) — Headless UI, shadcn/ui, design tokens
+11. [Patrones de API](#11-patrones-de-api) — REST, tRPC, GraphQL, BFF
+12. [Experiencia del Desarrollador](#12-experiencia-del-desarrollador) — Biome, ESLint, HMR, gestores de paquetes
+13. [Principios Transversales](#principios-transversales-agnósticos-del-framework) — 10 principios agnósticos del framework + meta anti-patrones
 
 ---
 
-## 1. Major Frameworks & Libraries
+## 1. Frameworks y Bibliotecas Principales
 
-### Market Overview
+### Panorama del Mercado
 
-React maintains its dominant position with approximately 60% of new JavaScript project starts. Angular holds 12-15%, Vue 12-15%, with Svelte and others splitting the remainder. By company segment: startups favor React (~70%), mid-size companies diversify (React 55%, Angular 20%, Vue 15%), and enterprises lean toward Angular (35%) and React (45%).
+React mantiene su posición dominante con aproximadamente el 60% de los nuevos inicios de proyectos JavaScript. Angular tiene entre el 12-15%, Vue entre el 12-15%, y Svelte junto con otros se reparten el resto. Por segmento de empresa: las startups favorecen React (~70%), las empresas medianas diversifican (React 55%, Angular 20%, Vue 15%), y las grandes empresas se inclinan hacia Angular (35%) y React (45%).
 
 ### React (19.x)
 
-React 19 shipped December 2024 and is now fully stable with version 19.2.4 (January 2026). Key features:
+React 19 se lanzó en diciembre de 2024 y ahora es completamente estable con la versión 19.2.4 (enero de 2026). Características principales:
 
-- **Server Components & Server Actions**: Fully standardized (no longer experimental). Components can run on the server, reducing client-side JavaScript.
-- **React Compiler**: Automatically optimizes components into efficient JavaScript, reducing unnecessary re-renders and largely eliminating the need for manual `useMemo`/`useCallback`.
-- **New Hooks**: `useActionState` (async action tracking), `useOptimistic` (optimistic UI updates), `useFormStatus` (form state without prop drilling), `useEvent` (stable event handler references).
-- **Partial Pre-rendering (19.2)**: Pre-renders static parts from a CDN, then resumes rendering dynamic content on the client.
-- **Document Metadata**: Native `<title>`, `<link>`, and `<meta>` hoisting to `<head>` without third-party libraries.
+- **Server Components & Server Actions**: Completamente estandarizados (ya no son experimentales). Los componentes pueden ejecutarse en el servidor, reduciendo el JavaScript del lado del cliente.
+- **React Compiler**: Optimiza automáticamente los componentes en JavaScript eficiente, reduciendo re-renders innecesarios y eliminando en gran medida la necesidad de `useMemo`/`useCallback` manuales.
+- **Nuevos Hooks**: `useActionState` (seguimiento de acciones asíncronas), `useOptimistic` (actualizaciones optimistas de la UI), `useFormStatus` (estado del formulario sin prop drilling), `useEvent` (referencias estables de event handlers).
+- **Partial Pre-rendering (19.2)**: Pre-renderiza las partes estáticas desde un CDN, luego reanuda el renderizado del contenido dinámico en el cliente.
+- **Document Metadata**: Soporte nativo de `<title>`, `<link>` y `<meta>` con hoisting al `<head>` sin bibliotecas de terceros.
 
 ### Angular (19+)
 
-Angular 19 represents a fundamental architecture shift:
+Angular 19 representa un cambio fundamental de arquitectura:
 
-- **Standalone by default**: All components, directives, and pipes are standalone by default. NgModules are optional/legacy.
-- **Signals**: The recommended reactivity model. Signal-based components with `input()`, `output()`, and `model()` replace `@Input()`/`@Output()` decorators.
-- **Zoneless change detection**: Effects run as part of the component change detection cycle, removing the need for Zone.js.
-- **Experimental features**: Nitro integration, selectorless components on the horizon.
+- **Standalone por defecto**: Todos los componentes, directivas y pipes son standalone por defecto. Los NgModules son opcionales/legacy.
+- **Signals**: El modelo de reactividad recomendado. Componentes basados en signals con `input()`, `output()` y `model()` reemplazan los decoradores `@Input()`/`@Output()`.
+- **Detección de cambios sin Zone.js**: Los effects se ejecutan como parte del ciclo de detección de cambios del componente, eliminando la necesidad de Zone.js.
+- **Características experimentales**: Integración con Nitro, componentes sin selector en el horizonte.
 
 ### Vue (3.x + Vapor Mode)
 
-- **Vue 3.6 Vapor Mode** (stabilizing mid-2026): Compiles single-file components to direct DOM operations, bypassing the Virtual DOM entirely. Under 10KB baseline bundles. Opt-in per-component, allowing mixed VDOM and Vapor trees.
-- Current limitation: Vapor remains beta quality, lacks Suspense support, and only works with `<script setup>` syntax.
+- **Vue 3.6 Vapor Mode** (estabilizándose a mediados de 2026): Compila componentes single-file a operaciones directas del DOM, evitando completamente el Virtual DOM. Bundles base de menos de 10KB. Opt-in por componente, permitiendo árboles mixtos de VDOM y Vapor.
+- Limitación actual: Vapor sigue siendo de calidad beta, carece de soporte para Suspense y solo funciona con la sintaxis `<script setup>`.
 
 ### Svelte (5.x)
 
-- **Runes system** (`$state`, `$derived`, `$effect`): Replaces implicit top-level reactivity with explicit signals that work anywhere - inside components, stores, or utility functions.
-- Growing enterprise adoption expected through 2026. Smaller bundle sizes and simpler mental model are key differentiators.
-- Limitation: Runes only work in `.svelte` or `.svelte.ts` files, unlike Vue/Solid which allow reactivity in any JS file.
+- **Sistema de Runes** (`$state`, `$derived`, `$effect`): Reemplaza la reactividad implícita de nivel superior con signals explícitos que funcionan en cualquier lugar: dentro de componentes, stores o funciones utilitarias.
+- Se espera una creciente adopción empresarial durante 2026. Los tamaños de bundle más pequeños y el modelo mental más simple son los diferenciadores clave.
+- Limitación: Las Runes solo funcionan en archivos `.svelte` o `.svelte.ts`, a diferencia de Vue/Solid que permiten reactividad en cualquier archivo JS.
 
 ### Solid.js
 
-- **Solid 1.9.x** is the current stable release; **Solid 2.0** is in experimental development with concurrent transitions, pull-based SSR, and self-healing error boundaries.
-- **SolidStart 2.0** in alpha (February 2026), replacing Vinxi with a pure Vite-based architecture.
-- Solid's fine-grained reactivity/signals paradigm has influenced Angular, Vue, and React, and is a TC39 candidate for the JavaScript language itself.
+- **Solid 1.9.x** es la versión estable actual; **Solid 2.0** está en desarrollo experimental con transiciones concurrentes, SSR basado en pull y error boundaries auto-reparables.
+- **SolidStart 2.0** en alpha (febrero de 2026), reemplazando Vinxi con una arquitectura pura basada en Vite.
+- El paradigma de reactividad granular/signals de Solid ha influenciado a Angular, Vue y React, y es candidato del TC39 para el propio lenguaje JavaScript.
 
 ### Qwik
 
-- At version 2.0.0-beta.29 (March 2026). Core innovation is **resumability**: the server serializes application state and the client resumes without hydration, achieving near-zero initial JavaScript.
-- Growing adoption in performance-obsessed e-commerce and content sites.
-- Challenges: smaller ecosystem, dollar-sign syntax learning curve, requires mental model shift from hydration-based frameworks.
+- En la versión 2.0.0-beta.29 (marzo de 2026). La innovación central es la **resumability**: el servidor serializa el estado de la aplicación y el cliente lo reanuda sin hydration, logrando JavaScript inicial cercano a cero.
+- Adopción creciente en sitios de e-commerce y contenido obsesionados con el rendimiento.
+- Desafíos: ecosistema más pequeño, curva de aprendizaje de la sintaxis con signo de dólar, requiere un cambio de modelo mental respecto a los frameworks basados en hydration.
 
-### Convergence Trend
+### Tendencia de Convergencia
 
-All major frameworks are converging toward fine-grained reactivity (signals), compiler-driven optimizations, and server-first rendering. The philosophical differences are shrinking while DX and ecosystem maturity remain the primary differentiators.
+Todos los frameworks principales están convergiendo hacia reactividad granular (signals), optimizaciones impulsadas por compilador y renderizado server-first. Las diferencias filosóficas se están reduciendo mientras que la DX y la madurez del ecosistema siguen siendo los diferenciadores principales.
 
-### Common Pitfalls & Anti-patterns
+### Errores Comunes y Anti-patrones
 
-- **Premature framework switching based on benchmarks or hype.** Migrating a production codebase to the latest "fastest framework" based on synthetic benchmarks wastes months and delivers marginal real-world gains. Evaluate frameworks on ecosystem maturity, hiring pool, and team expertise — not conference demos.
-- **Applying patterns from one framework in another.** Angular-style service injection in React, React-style hooks thinking in Svelte, or Vue-style two-way binding assumptions in Solid all produce unidiomatic, hard-to-maintain code. Learn the mental model of the framework you chose.
-- **Building production on pre-stable APIs.** Solid 2.0 is experimental, Vue Vapor is beta, Qwik is beta — these are fine for experimentation and side projects, not for production launches with deadlines. Wait for stable releases or accept the full cost of being an early adopter (breaking changes, missing docs, sparse community answers).
-- **Treating React Compiler as a fix for bad component design.** The compiler optimizes already-correct code by memoizing stable references automatically. It does not fix components that fetch data in render, mutate state during render, or have deeply coupled prop chains. Fix the architecture first.
-- **Over-using `"use client"` in React 19.** Marking every component as a client component defeats the entire purpose of Server Components. Default to server components; only add `"use client"` at the lowest boundary where interactivity is actually needed (event handlers, hooks, browser APIs).
+- **Cambio prematuro de framework basado en benchmarks o hype.** Migrar un codebase en producción al último "framework más rápido" basándose en benchmarks sintéticos desperdicia meses y ofrece ganancias marginales en el mundo real. Evalúa los frameworks por la madurez del ecosistema, el pool de contratación y la experiencia del equipo, no por demos de conferencias.
+- **Aplicar patrones de un framework en otro.** La inyección de servicios al estilo Angular en React, el pensamiento de hooks al estilo React en Svelte, o las suposiciones de two-way binding al estilo Vue en Solid producen código no idiomático y difícil de mantener. Aprende el modelo mental del framework que elegiste.
+- **Construir producción sobre APIs pre-estables.** Solid 2.0 es experimental, Vue Vapor es beta, Qwik es beta: estos son adecuados para experimentación y proyectos secundarios, no para lanzamientos en producción con plazos de entrega. Espera a las versiones estables o acepta el costo completo de ser un adoptante temprano (breaking changes, documentación faltante, respuestas escasas de la comunidad).
+- **Tratar React Compiler como una solución para mal diseño de componentes.** El compilador optimiza código que ya es correcto memorizando referencias estables automáticamente. No arregla componentes que hacen fetch de datos en el render, mutan estado durante el render o tienen cadenas de props profundamente acopladas. Arregla la arquitectura primero.
+- **Uso excesivo de `"use client"` en React 19.** Marcar cada componente como componente de cliente derrota el propósito entero de Server Components. Usa server components por defecto; solo agrega `"use client"` en el límite más bajo donde la interactividad realmente se necesita (event handlers, hooks, APIs del navegador).
 
 ---
 
-## 2. State Management
+## 2. Gestión de Estado
 
-### The Server State / Client State Split
+### La Separación entre Server State y Client State
 
-The most significant shift in state management: **server state and client state are now clearly separated disciplines**.
+El cambio más significativo en la gestión de estado: **server state y client state son ahora disciplinas claramente separadas**.
 
-- **Server state** (data from APIs/databases): Handled by **TanStack Query** (~5M weekly downloads) or **SWR**. These manage caching, refetching, background updates, and loading/error states.
-- **Client state** (UI state, user preferences, auth tokens): Handled by lighter-weight stores.
+- **Server state** (datos de APIs/bases de datos): Manejado por **TanStack Query** (~5M descargas semanales) o **SWR**. Estos gestionan caching, refetching, actualizaciones en segundo plano y estados de loading/error.
+- **Client state** (estado de la UI, preferencias del usuario, tokens de autenticación): Manejado por stores más ligeros.
 
-### React Ecosystem
+### Ecosistema React
 
-| Library | Weekly Downloads | Best For |
+| Biblioteca | Descargas Semanales | Mejor Para |
 |---------|-----------------|----------|
-| Redux Toolkit | ~4M | Large enterprise apps with strict patterns, time-travel debugging |
-| Zustand | ~4M (30%+ YoY growth) | General client state, simple API, minimal boilerplate |
-| Jotai | Growing | Atomic state, complex interdependent state, form state |
-| TanStack Query | ~5M | Server state (caching, fetching, synchronization) |
+| Redux Toolkit | ~4M | Grandes aplicaciones empresariales con patrones estrictos, time-travel debugging |
+| Zustand | ~4M (crecimiento >30% interanual) | Client state general, API simple, boilerplate mínimo |
+| Jotai | Creciendo | Estado atómico, estado complejo interdependiente, estado de formularios |
+| TanStack Query | ~5M | Server state (caching, fetching, sincronización) |
 
-**Recommended stack for most apps in 2026**: TanStack Query + Zustand + React Hook Form. This covers 90%+ of state management needs.
+**Stack recomendado para la mayoría de las aplicaciones en 2026**: TanStack Query + Zustand + React Hook Form. Esto cubre más del 90% de las necesidades de gestión de estado.
 
-Redux Toolkit is still dominant in large enterprise apps but is rarely chosen for new projects.
+Redux Toolkit sigue siendo dominante en grandes aplicaciones empresariales, pero rara vez se elige para proyectos nuevos.
 
-### Vue Ecosystem
+### Ecosistema Vue
 
-- **Pinia**: The official Vue state manager. Simple, type-safe, devtools-integrated.
+- **Pinia**: El gestor de estado oficial de Vue. Simple, type-safe, integrado con devtools.
 
-### Angular Ecosystem
+### Ecosistema Angular
 
-- **Signals**: First-class reactivity primitive, increasingly replacing NgRx for local/component state.
-- **NgRx**: Still used for complex enterprise state management with Redux-like patterns.
+- **Signals**: Primitiva de reactividad de primera clase, reemplazando cada vez más a NgRx para estado local/de componentes.
+- **NgRx**: Todavía se usa para gestión de estado empresarial compleja con patrones tipo Redux.
 
-### Performance Comparison
+### Comparación de Rendimiento
 
-Signals achieve ~3ms direct DOM updates versus Zustand at ~12ms, Jotai at ~14ms, and Redux Toolkit at ~18ms.
+Signals logra actualizaciones directas del DOM en ~3ms frente a Zustand con ~12ms, Jotai con ~14ms y Redux Toolkit con ~18ms.
 
-### Common Pitfalls & Anti-patterns
+### Errores Comunes y Anti-patrones
 
-- **Putting everything in global state.** Form field values, UI toggle states, hover states, and other ephemeral data do not belong in Zustand, Redux, or any global store. Use local `useState` or form libraries for transient state. Global state should be reserved for data that genuinely needs to be shared across distant parts of the component tree.
-- **Duplicating server state in client stores.** Fetching API data and manually storing it in Redux or Zustand means you are reimplementing caching, invalidation, refetching, and race condition handling — poorly. Use TanStack Query or SWR for server state; they solve these problems out of the box.
-- **Adding a state library when `useState` suffices.** Zustand, Jotai, and Redux are tools for specific problems. A small app with a handful of shared values does not need them. Adding a state library to a simple app introduces indirection with no benefit. Start with React's built-in state; add a library when you feel the pain.
-- **Using React Context for frequently-updating state.** Context re-renders every consumer on every change, with no way to subscribe to partial updates. Using it for values that change often (e.g., mouse position, animation frames, rapidly updating counters) causes cascading re-renders. Use Zustand or Jotai for high-frequency shared state.
-- **Cargo-culting signals based on benchmark numbers.** The 3ms vs. 18ms difference in micro-benchmarks is irrelevant for most applications. Users cannot perceive differences below ~100ms. Choose your state model based on developer ergonomics and your framework's idioms, not synthetic update benchmarks.
-- **Not modeling loading and error states explicitly.** Representing async data as `data | null` without tracking `isLoading`, `isError`, and `error` leads to impossible states, blank screens, and silent failures. Use discriminated unions (`{ status: 'loading' } | { status: 'success', data: T } | { status: 'error', error: E }`) or let TanStack Query model these for you.
-- **Stale closure bugs in React hooks.** Referencing state or props inside `useEffect`, `useCallback`, or event handlers without including them in dependency arrays captures stale values. This produces subtle bugs where the UI shows outdated data or handlers act on old state. The React Compiler mitigates this, but understanding closures remains essential.
+- **Poner todo en el estado global.** Los valores de campos de formulario, estados de toggle de la UI, estados de hover y otros datos efímeros no pertenecen a Zustand, Redux ni a ningún store global. Usa `useState` local o bibliotecas de formularios para estado transitorio. El estado global debería reservarse para datos que genuinamente necesitan compartirse entre partes distantes del árbol de componentes.
+- **Duplicar server state en stores del cliente.** Hacer fetch de datos de la API y almacenarlos manualmente en Redux o Zustand significa que estás reimplementando caching, invalidación, refetching y manejo de race conditions, y lo haces pobremente. Usa TanStack Query o SWR para server state; resuelven estos problemas de forma nativa.
+- **Agregar una biblioteca de estado cuando `useState` es suficiente.** Zustand, Jotai y Redux son herramientas para problemas específicos. Una aplicación pequeña con un puñado de valores compartidos no los necesita. Agregar una biblioteca de estado a una aplicación simple introduce indirección sin beneficio. Comienza con el estado integrado de React; agrega una biblioteca cuando sientas el dolor.
+- **Usar React Context para estado que se actualiza frecuentemente.** Context re-renderiza cada consumidor en cada cambio, sin forma de suscribirse a actualizaciones parciales. Usarlo para valores que cambian a menudo (p. ej., posición del mouse, frames de animación, contadores que se actualizan rápidamente) causa re-renders en cascada. Usa Zustand o Jotai para estado compartido de alta frecuencia.
+- **Copiar ciegamente signals basándose en números de benchmarks.** La diferencia de 3ms vs. 18ms en micro-benchmarks es irrelevante para la mayoría de las aplicaciones. Los usuarios no pueden percibir diferencias por debajo de ~100ms. Elige tu modelo de estado basándote en la ergonomía del desarrollador y los idiomas de tu framework, no en benchmarks sintéticos de actualización.
+- **No modelar los estados de loading y error explícitamente.** Representar datos asíncronos como `data | null` sin rastrear `isLoading`, `isError` y `error` lleva a estados imposibles, pantallas en blanco y fallos silenciosos. Usa uniones discriminadas (`{ status: 'loading' } | { status: 'success', data: T } | { status: 'error', error: E }`) o deja que TanStack Query modele estos por ti.
+- **Bugs de stale closure en React hooks.** Referenciar estado o props dentro de `useEffect`, `useCallback` o event handlers sin incluirlos en los arrays de dependencias captura valores obsoletos. Esto produce bugs sutiles donde la UI muestra datos desactualizados o los handlers actúan sobre estado antiguo. React Compiler mitiga esto, pero entender closures sigue siendo esencial.
 
 ---
 
-## 3. Build Tools & Bundlers
+## 3. Herramientas de Compilación y Bundlers
 
-### Vite (Dominant Default)
+### Vite (Estándar Dominante)
 
-- **Vite 8** shipped March 12, 2026, replacing Rollup with **Rolldown** (Rust-based), achieving 10-30x faster production builds.
-- Sub-50ms HMR updates regardless of application size via native ES modules.
-- 800+ plugins. Powers every major frontend framework (React, Vue, Svelte, Solid, Angular via Analog).
-- The community standard for new projects.
+- **Vite 8** se lanzó el 12 de marzo de 2026, reemplazando Rollup con **Rolldown** (basado en Rust), logrando builds de producción 10-30x más rápidos.
+- Actualizaciones de HMR en menos de 50ms independientemente del tamaño de la aplicación mediante ES modules nativos.
+- Más de 800 plugins. Potencia todos los frameworks frontend principales (React, Vue, Svelte, Solid, Angular vía Analog).
+- El estándar de la comunidad para nuevos proyectos.
 
 ### Turbopack
 
-- Vercel's Rust-based successor to Webpack. Sub-10ms HMR updates.
-- Still primarily optimized for Next.js. Beta maturity for general use.
-- Excellent cold start times.
+- Sucesor de Webpack basado en Rust de Vercel. Actualizaciones de HMR en menos de 10ms.
+- Todavía optimizado principalmente para Next.js. Madurez beta para uso general.
+- Excelentes tiempos de arranque en frío.
 
 ### Rspack
 
-- Rust-based, Webpack-compatible bundler. 5-10x faster builds than Webpack.
-- Best choice for teams migrating large Webpack codebases that need config compatibility.
-- HMR in 50-200ms range.
+- Bundler basado en Rust, compatible con Webpack. Builds 5-10x más rápidos que Webpack.
+- La mejor opción para equipos que migran grandes codebases de Webpack que necesitan compatibilidad de configuración.
+- HMR en el rango de 50-200ms.
 
 ### Bun
 
-- Not a direct competitor to Vite but a complementary layer. The recommended 2026 setup is **Bun + Vite together**: Bun as the package manager and runtime, Vite as the build tool.
+- No es un competidor directo de Vite sino una capa complementaria. La configuración recomendada en 2026 es **Bun + Vite juntos**: Bun como gestor de paquetes y runtime, Vite como herramienta de compilación.
 
 ### esbuild
 
-- Remains important as Vite's internal transform engine. Rarely used standalone for full applications.
+- Sigue siendo importante como el motor de transformación interno de Vite. Rara vez se usa de forma independiente para aplicaciones completas.
 
-### Recommendation
+### Recomendación
 
-**Start with Vite for any new frontend project**. Use Rspack if migrating a Webpack codebase. Turbopack if locked into the Next.js ecosystem.
+**Comienza con Vite para cualquier nuevo proyecto frontend**. Usa Rspack si estás migrando un codebase de Webpack. Turbopack si estás atado al ecosistema de Next.js.
 
-### Common Pitfalls & Anti-patterns
+### Errores Comunes y Anti-patrones
 
-- **Over-configuring build tools.** The default Vite config works for 90% of projects. Adding custom Rollup options, manual chunk splitting, and bespoke resolve aliases before you have a real problem creates fragile builds that are hard to upgrade. Start with zero config and add only what measured problems demand.
-- **Plugin hell.** Installing dozens of Vite/Webpack plugins leads to version conflicts, abandoned plugins that block upgrades, and a maintenance burden that compounds over time. Every plugin is a dependency with its own release cycle. Audit your plugin list regularly and remove anything that is not actively solving a current problem.
-- **Barrel files (`index.ts` re-exports) defeating tree-shaking.** A barrel file that re-exports everything from a directory forces the bundler to include the entire module graph behind it, even if you import a single function. This inflates bundle sizes and slows builds. Import directly from the source file instead.
-- **Treating the bundler as a black box.** When builds fail or bundles are unexpectedly large, developers who never learned how their bundler works are unable to diagnose the issue. Understand the basics: entry points, loaders/transforms, chunk splitting, and the module graph. Use `vite-bundle-visualizer` or `webpack-bundle-analyzer` to inspect output.
-- **Premature Webpack-to-Vite migration for large codebases.** Migrating a large, heavily-customized Webpack project to Vite can take months due to plugin incompatibilities, custom loader replacements, and edge cases in module resolution. If the existing Webpack build works, consider Rspack (Webpack-compatible, 5-10x faster) as a lower-risk path before a full Vite migration.
+- **Sobre-configurar las herramientas de compilación.** La configuración por defecto de Vite funciona para el 90% de los proyectos. Agregar opciones personalizadas de Rollup, división manual de chunks y alias de resolución a medida antes de tener un problema real crea builds frágiles difíciles de actualizar. Comienza con cero configuración y agrega solo lo que los problemas medidos demanden.
+- **Infierno de plugins.** Instalar docenas de plugins de Vite/Webpack lleva a conflictos de versiones, plugins abandonados que bloquean actualizaciones y una carga de mantenimiento que se acumula con el tiempo. Cada plugin es una dependencia con su propio ciclo de lanzamiento. Audita tu lista de plugins regularmente y elimina todo lo que no esté resolviendo activamente un problema actual.
+- **Archivos barrel (`index.ts` con re-exports) que derrotan el tree-shaking.** Un archivo barrel que re-exporta todo desde un directorio fuerza al bundler a incluir todo el grafo de módulos detrás de él, incluso si importas una sola función. Esto infla los tamaños de bundle y ralentiza los builds. Importa directamente desde el archivo fuente en su lugar.
+- **Tratar el bundler como una caja negra.** Cuando los builds fallan o los bundles son inesperadamente grandes, los desarrolladores que nunca aprendieron cómo funciona su bundler no pueden diagnosticar el problema. Entiende los fundamentos: entry points, loaders/transforms, chunk splitting y el grafo de módulos. Usa `vite-bundle-visualizer` o `webpack-bundle-analyzer` para inspeccionar la salida.
+- **Migración prematura de Webpack a Vite para codebases grandes.** Migrar un proyecto grande y muy personalizado de Webpack a Vite puede tomar meses debido a incompatibilidades de plugins, reemplazos de loaders personalizados y casos extremos en la resolución de módulos. Si el build existente de Webpack funciona, considera Rspack (compatible con Webpack, 5-10x más rápido) como un camino de menor riesgo antes de una migración completa a Vite.
 
 ---
 
@@ -178,417 +178,417 @@ Signals achieve ~3ms direct DOM updates versus Zustand at ~12ms, Jotai at ~14ms,
 
 ### Next.js (15-16)
 
-- **67% market share** among meta-frameworks. App Router is the standard.
-- Next.js 16 stabilized Turbopack for production builds and graduated Partial Prerendering toward GA.
-- Server Components + Server Actions are the default mental model.
-- Best for: full-stack React applications, enterprise teams, Vercel deployments.
+- **67% de cuota de mercado** entre los meta-frameworks. App Router es el estándar.
+- Next.js 16 estabilizó Turbopack para builds de producción y graduó Partial Prerendering hacia GA.
+- Server Components + Server Actions son el modelo mental por defecto.
+- Mejor para: aplicaciones React full-stack, equipos empresariales, despliegues en Vercel.
 
 ### Remix / React Router v7
 
-- Remix merged into React Router v7, bringing its server-first data loading patterns to the broader React ecosystem.
-- Remix 3 is being reimagined as a batteries-included, bundler-free framework.
-- Best for: web-standards-focused React projects, progressive enhancement.
+- Remix se fusionó en React Router v7, trayendo sus patrones de carga de datos server-first al ecosistema React más amplio.
+- Remix 3 está siendo reimaginado como un framework con baterías incluidas y sin bundler.
+- Mejor para: proyectos React enfocados en estándares web, progressive enhancement.
 
 ### Nuxt (3.x)
 
-- The Vue meta-framework. Full SSR/SSG/ISR support, auto-imports, file-based routing.
-- Best for: Vue teams needing a full-stack solution.
+- El meta-framework de Vue. Soporte completo de SSR/SSG/ISR, auto-imports, enrutamiento basado en archivos.
+- Mejor para: equipos Vue que necesitan una solución full-stack.
 
 ### SvelteKit
 
-- Matured with Svelte 5's runes system. Gaining enterprise contracts.
-- Reduces JavaScript shipped by 50%+ versus Next.js, halving interactivity delay.
-- Best for: performance-sensitive SaaS applications.
+- Maduró con el sistema de runes de Svelte 5. Obteniendo contratos empresariales.
+- Reduce el JavaScript enviado en más de un 50% en comparación con Next.js, reduciendo a la mitad el retraso de interactividad.
+- Mejor para: aplicaciones SaaS sensibles al rendimiento.
 
 ### Astro (5.x)
 
-- **Cloudflare acquired Astro in January 2026**, fundamentally changing its trajectory.
-- Content-first architecture. Static sites load in under 500ms with LCP metrics 40-70% lower than SSG-optimized Next.js.
-- Island architecture: ships zero JS by default, hydrates only interactive components.
-- Best for: content-driven sites, marketing pages, blogs, documentation.
+- **Cloudflare adquirió Astro en enero de 2026**, cambiando fundamentalmente su trayectoria.
+- Arquitectura orientada al contenido. Los sitios estáticos cargan en menos de 500ms con métricas de LCP un 40-70% más bajas que Next.js optimizado con SSG.
+- Arquitectura de islands: no envía JS por defecto, solo hidrata los componentes interactivos.
+- Mejor para: sitios orientados al contenido, páginas de marketing, blogs, documentación.
 
 ### Analog (2.0)
 
-- Angular's meta-framework. Powered by Vite and Nitro.
-- File-based routing, API routes, server-side data fetching.
-- Supports Angular v17-v20 (v21 upcoming), Vite 6.x/7.x including Rolldown-Vite.
+- El meta-framework de Angular. Potenciado por Vite y Nitro.
+- Enrutamiento basado en archivos, rutas de API, carga de datos del lado del servidor.
+- Soporta Angular v17-v20 (v21 próximamente), Vite 6.x/7.x incluyendo Rolldown-Vite.
 
-### Rendering Strategy Summary
+### Resumen de Estrategias de Renderizado
 
-| Strategy | When to Use |
+| Estrategia | Cuándo Usar |
 |----------|-------------|
-| **SSG** (Static Site Generation) | Content that rarely changes. Best LCP. |
-| **SSR** (Server-Side Rendering) | Personalized content, authenticated pages. |
-| **ISR** (Incremental Static Regeneration) | Content that changes periodically. Best of both worlds. |
-| **Streaming SSR** | Long pages where above-the-fold content can ship immediately. |
-| **Partial Prerendering** | Static shell + dynamic holes. Next.js 16+ specific. |
+| **SSG** (Static Site Generation) | Contenido que rara vez cambia. Mejor LCP. |
+| **SSR** (Server-Side Rendering) | Contenido personalizado, páginas autenticadas. |
+| **ISR** (Incremental Static Regeneration) | Contenido que cambia periódicamente. Lo mejor de ambos mundos. |
+| **Streaming SSR** | Páginas largas donde el contenido above-the-fold puede enviarse inmediatamente. |
+| **Partial Prerendering** | Shell estático + huecos dinámicos. Específico de Next.js 16+. |
 
-### Common Pitfalls & Anti-patterns
+### Errores Comunes y Anti-patrones
 
-- **Using a meta-framework when you don't need SSR.** Internal dashboards, admin panels, and apps behind authentication do not benefit from server-side rendering (no SEO, no public-facing first-load concern). A plain Vite SPA is simpler, faster to develop, and easier to deploy. Do not add the complexity of SSR, server infrastructure, and hydration bugs for an app only employees use.
-- **Next.js vendor lock-in with Vercel-specific features.** Relying on Vercel-specific optimizations (edge middleware, image optimization service, analytics integration) makes it expensive or difficult to migrate to other hosting providers. If platform portability matters, stick to standard Next.js features and avoid Vercel-only APIs.
-- **Misapplying rendering strategies.** Using SSG for data that changes every few minutes means stale content or constant rebuilds. Using SSR for a marketing page that never changes wastes server resources. Match the rendering strategy to the data's actual update frequency and personalization requirements using the strategy table above.
-- **Over-engineering with streaming SSR.** Streaming SSR adds significant complexity (Suspense boundaries, loading states, error boundaries, shell design) and is only beneficial when a page has a clear above-the-fold/below-the-fold split with slow data dependencies. For most pages that load in under 1-2 seconds with standard SSR, streaming adds complexity without noticeable improvement.
-- **Astro island architecture breaking down when most of the page is interactive.** Astro excels when a page is mostly static content with a few interactive widgets. If your page is 80% interactive components (dashboards, rich editors, real-time features), islands become the majority rather than the exception, and you lose Astro's core advantage while fighting its content-first assumptions. Use a full SPA framework instead.
+- **Usar un meta-framework cuando no necesitas SSR.** Los dashboards internos, paneles de administración y aplicaciones detrás de autenticación no se benefician del server-side rendering (sin SEO, sin preocupación de primera carga pública). Una SPA simple con Vite es más sencilla, más rápida de desarrollar y más fácil de desplegar. No agregues la complejidad de SSR, infraestructura de servidor y bugs de hydration para una aplicación que solo usan empleados.
+- **Vendor lock-in de Next.js con características específicas de Vercel.** Depender de optimizaciones específicas de Vercel (edge middleware, servicio de optimización de imágenes, integración de analytics) hace costoso o difícil migrar a otros proveedores de hosting. Si la portabilidad de plataforma importa, quédate con las características estándar de Next.js y evita las APIs exclusivas de Vercel.
+- **Aplicar mal las estrategias de renderizado.** Usar SSG para datos que cambian cada pocos minutos significa contenido obsoleto o rebuilds constantes. Usar SSR para una página de marketing que nunca cambia desperdicia recursos del servidor. Ajusta la estrategia de renderizado a la frecuencia real de actualización de los datos y los requisitos de personalización usando la tabla de estrategias anterior.
+- **Sobre-ingeniería con streaming SSR.** Streaming SSR agrega complejidad significativa (Suspense boundaries, estados de loading, error boundaries, diseño del shell) y solo es beneficioso cuando una página tiene una división clara entre above-the-fold y below-the-fold con dependencias de datos lentas. Para la mayoría de las páginas que cargan en menos de 1-2 segundos con SSR estándar, streaming agrega complejidad sin mejora perceptible.
+- **La arquitectura de islands de Astro se desmorona cuando la mayor parte de la página es interactiva.** Astro sobresale cuando una página es mayormente contenido estático con algunos widgets interactivos. Si tu página es un 80% de componentes interactivos (dashboards, editores ricos, características en tiempo real), las islands se convierten en la mayoría en lugar de la excepción, y pierdes la ventaja central de Astro mientras luchas contra sus suposiciones orientadas al contenido. Usa un framework SPA completo en su lugar.
 
 ---
 
-## 5. CSS & Styling
+## 5. CSS y Estilos
 
 ### Tailwind CSS v4
 
-Tailwind CSS v4 is the dominant utility-first CSS framework:
+Tailwind CSS v4 es el framework CSS utility-first dominante:
 
-- **Oxide Engine**: Rust-based incremental compiler (Lightning CSS). Full rebuilds under 100ms (down from 3.5s in v3). Incremental builds in single-digit milliseconds.
-- **CSS-first configuration**: All theme configuration via `@theme` directives in CSS. No JavaScript config files required.
-- **Breaking changes**: `bg-linear-to-*` replaces `bg-gradient-to-*`; dark mode defaults to `prefers-color-scheme` instead of class-based.
-- **Migration**: `npx @tailwindcss/upgrade` handles ~90% of mechanical changes automatically.
+- **Oxide Engine**: Compilador incremental basado en Rust (Lightning CSS). Rebuilds completos en menos de 100ms (antes 3.5s en v3). Builds incrementales en milisegundos de un solo dígito.
+- **Configuración CSS-first**: Toda la configuración del tema mediante directivas `@theme` en CSS. No se requieren archivos de configuración JavaScript.
+- **Breaking changes**: `bg-linear-to-*` reemplaza a `bg-gradient-to-*`; dark mode usa por defecto `prefers-color-scheme` en lugar de basado en clases.
+- **Migración**: `npx @tailwindcss/upgrade` maneja ~90% de los cambios mecánicos automáticamente.
 
-### Native CSS (Production-Ready)
+### CSS Nativo (Listo para Producción)
 
-Major CSS features now supported in all evergreen browsers (94%+ global coverage):
+Características importantes de CSS ahora soportadas en todos los navegadores evergreen (94%+ de cobertura global):
 
-- **Container Queries**: Components respond to their container's size, not viewport. 85-95% global support.
-- **`:has()` selector**: Parent selectors that eliminated hundreds of lines of JavaScript for class toggling.
-- **Native nesting**: Sass-like nesting without preprocessors. Chrome 120+, Firefox 117+, Safari 17.2+.
-- **`@layer`**: Cascade layers for managing specificity.
-- **`color-mix()`**: Dynamic color manipulation in CSS.
-- **Scroll-driven animations**: CSS-native scroll-linked animations without JavaScript.
+- **Container Queries**: Los componentes responden al tamaño de su contenedor, no del viewport. 85-95% de soporte global.
+- **Selector `:has()`**: Selectores de padre que eliminaron cientos de líneas de JavaScript para toggling de clases.
+- **Nesting nativo**: Anidamiento tipo Sass sin preprocesadores. Chrome 120+, Firefox 117+, Safari 17.2+.
+- **`@layer`**: Capas de cascade para gestionar especificidad.
+- **`color-mix()`**: Manipulación dinámica de colores en CSS.
+- **Scroll-driven animations**: Animaciones vinculadas al scroll nativas de CSS sin JavaScript.
 
-### CSS-in-JS Landscape
+### Panorama de CSS-in-JS
 
-- **Runtime CSS-in-JS declining**: Styled Components and Emotion are losing ground due to runtime performance overhead and React Server Component incompatibility.
-- **Zero-runtime alternatives gaining**:
-  - **Panda CSS**: Build-time CSS-in-JS from the Chakra UI team. Type-safe, framework-agnostic, structured design tokens. ~5.8K GitHub stars.
-  - **vanilla-extract**: Zero-runtime, TypeScript-first CSS. Good design token support.
-- **CSS Modules**: Still a solid, framework-agnostic zero-runtime option.
+- **CSS-in-JS con runtime en declive**: Styled Components y Emotion están perdiendo terreno debido al overhead de rendimiento en runtime y la incompatibilidad con React Server Components.
+- **Alternativas de zero-runtime en crecimiento**:
+  - **Panda CSS**: CSS-in-JS en tiempo de compilación del equipo de Chakra UI. Type-safe, agnóstico del framework, design tokens estructurados. ~5.8K estrellas en GitHub.
+  - **vanilla-extract**: Zero-runtime, TypeScript-first CSS. Buen soporte de design tokens.
+- **CSS Modules**: Sigue siendo una opción sólida, agnóstica del framework y zero-runtime.
 
-### Recommendation
+### Recomendación
 
-Tailwind CSS v4 for most projects. Native CSS features for simple sites. Panda CSS or vanilla-extract if you need type-safe styling with design tokens. Avoid new projects with runtime CSS-in-JS.
+Tailwind CSS v4 para la mayoría de los proyectos. Características nativas de CSS para sitios simples. Panda CSS o vanilla-extract si necesitas estilos type-safe con design tokens. Evita nuevos proyectos con CSS-in-JS con runtime.
 
-### Common Pitfalls & Anti-patterns
+### Errores Comunes y Anti-patrones
 
-- **Tailwind class proliferation.** When a single element has 15+ utility classes, readability collapses and maintenance becomes guesswork. Extract repeated patterns into components (the React/Vue/Svelte component is the abstraction layer), or use `@theme` with custom utilities. The readability cliff is real — if you can't scan an element's styling in 2 seconds, refactor.
-- **The `@apply` anti-pattern.** Using `@apply` extensively to compose Tailwind classes into CSS classes defeats the utility-first purpose. You end up with a bespoke CSS framework that is harder to maintain than vanilla CSS. If you find yourself writing `@apply` in most components, you may not actually want utility-first CSS.
-- **Mixing multiple styling approaches in the same project.** Tailwind for some components, CSS Modules for others, and inline styles for a third set creates cognitive overhead and inconsistency. Pick one primary approach and use it consistently. A secondary approach is acceptable for edge cases, but three or more creates confusion.
-- **CSS nesting depth.** Native CSS nesting and Sass nesting have the same problem: deeply nested selectors (4+ levels) become brittle, overly specific, and hard to override. Keep nesting to 2-3 levels maximum. If you need more, your component is probably too large and should be decomposed.
-- **Design token sprawl.** Creating a token for every pixel value, color shade, and spacing increment produces a token system that is as hard to navigate as raw CSS values. Tokens should represent meaningful design decisions (brand colors, spacing scale steps, type scale), not exhaustive pixel-level mappings. Constrain the token set to what the design system actually uses.
+- **Proliferación de clases de Tailwind.** Cuando un solo elemento tiene más de 15 clases utilitarias, la legibilidad colapsa y el mantenimiento se convierte en adivinanza. Extrae patrones repetidos en componentes (el componente de React/Vue/Svelte es la capa de abstracción), o usa `@theme` con utilidades personalizadas. El precipicio de legibilidad es real: si no puedes escanear el estilo de un elemento en 2 segundos, refactoriza.
+- **El anti-patrón `@apply`.** Usar `@apply` extensivamente para componer clases de Tailwind en clases CSS derrota el propósito utility-first. Terminas con un framework CSS a medida que es más difícil de mantener que CSS vanilla. Si te encuentras escribiendo `@apply` en la mayoría de los componentes, quizás realmente no quieres CSS utility-first.
+- **Mezclar múltiples enfoques de estilos en el mismo proyecto.** Tailwind para algunos componentes, CSS Modules para otros y estilos inline para un tercer conjunto crea sobrecarga cognitiva e inconsistencia. Elige un enfoque principal y úsalo consistentemente. Un enfoque secundario es aceptable para casos extremos, pero tres o más crean confusión.
+- **Profundidad de anidamiento CSS.** El anidamiento nativo de CSS y el anidamiento de Sass tienen el mismo problema: los selectores profundamente anidados (4+ niveles) se vuelven frágiles, excesivamente específicos y difíciles de sobrescribir. Mantén el anidamiento a 2-3 niveles máximo. Si necesitas más, tu componente probablemente es demasiado grande y debería descomponerse.
+- **Proliferación de design tokens.** Crear un token para cada valor en píxeles, tono de color e incremento de espaciado produce un sistema de tokens que es tan difícil de navegar como los valores CSS crudos. Los tokens deberían representar decisiones de diseño significativas (colores de marca, pasos de escala de espaciado, escala tipográfica), no mapeos exhaustivos a nivel de píxel. Limita el conjunto de tokens a lo que el sistema de diseño realmente usa.
 
 ---
 
 ## 6. TypeScript
 
-### Adoption
+### Adopción
 
-- **48.8% of all professional developers** use TypeScript (Stack Overflow 2025).
-- **84.1% satisfaction rate** among current users.
-- **78% adoption in React projects** specifically.
-- **82% of frontend job listings** require or prefer TypeScript.
-- TypeScript surpassed Python and JavaScript to become **the most-used language on GitHub** in August 2025.
+- **El 48.8% de todos los desarrolladores profesionales** usan TypeScript (Stack Overflow 2025).
+- **Tasa de satisfacción del 84.1%** entre los usuarios actuales.
+- **78% de adopción en proyectos React** específicamente.
+- **El 82% de las ofertas de trabajo frontend** requieren o prefieren TypeScript.
+- TypeScript superó a Python y JavaScript para convertirse en **el lenguaje más usado en GitHub** en agosto de 2025.
 
-### Role in 2026
+### Rol en 2026
 
-TypeScript is the baseline for professional frontend development. Writing plain JavaScript for production is considered a legacy approach. Key aspects:
+TypeScript es la línea base para el desarrollo frontend profesional. Escribir JavaScript plano para producción se considera un enfoque legacy. Aspectos clave:
 
-- **End-to-end type safety**: TypeScript connects frontend and backend via tools like tRPC, providing full type inference across API boundaries.
-- **React Compiler integration**: The React Compiler understands TypeScript types for better optimization.
-- **Framework alignment**: Every major framework (React, Angular, Vue, Svelte, Solid) has first-class TypeScript support.
+- **Type safety de extremo a extremo**: TypeScript conecta frontend y backend mediante herramientas como tRPC, proporcionando inferencia de tipos completa a través de los límites de la API.
+- **Integración con React Compiler**: React Compiler entiende los tipos de TypeScript para una mejor optimización.
+- **Alineación con frameworks**: Todos los frameworks principales (React, Angular, Vue, Svelte, Solid) tienen soporte de primera clase para TypeScript.
 
-### Best Practices
+### Mejores Prácticas
 
-- Use `strict: true` in `tsconfig.json`.
-- Prefer type inference over explicit annotations where types are obvious.
-- Use discriminated unions for state modeling.
-- Leverage `satisfies` operator for type checking without widening.
-- Use template literal types for string pattern validation.
-- Avoid `any`; use `unknown` when the type is genuinely unknown.
+- Usa `strict: true` en `tsconfig.json`.
+- Prefiere la inferencia de tipos sobre las anotaciones explícitas donde los tipos son obvios.
+- Usa uniones discriminadas para el modelado de estado.
+- Aprovecha el operador `satisfies` para verificación de tipos sin widening.
+- Usa template literal types para validación de patrones de cadenas.
+- Evita `any`; usa `unknown` cuando el tipo es genuinamente desconocido.
 
-### Common Pitfalls & Anti-patterns
+### Errores Comunes y Anti-patrones
 
-- **`as` type assertions as a crutch to silence errors.** Writing `data as User` tells the compiler "trust me" without any runtime validation. If the data does not match the type, you get runtime errors with no compile-time warning — the worst of both worlds. Use type guards, validation libraries (Zod, Valibot), or proper type narrowing instead.
-- **Over-engineering generic types.** A type signature like `type Merge<T extends object, U extends object> = Omit<T, keyof U> & U extends infer O ? { [K in keyof O]: O[K] } : never` may be technically correct but is unreadable to most team members. If a generic type requires a PhD to understand, simplify it or add thorough documentation. Readability beats cleverness.
-- **`@ts-ignore` / `@ts-expect-error` proliferation.** Each suppression is a hole in your type safety net. A codebase with dozens of these directives has traded TypeScript's value for TypeScript's overhead. Track these as tech debt, fix them incrementally, and block new ones in code review unless accompanied by a justification comment.
-- **Trusting types at runtime boundaries.** TypeScript types are erased at runtime. Data from APIs, `localStorage`, URL parameters, `JSON.parse`, and `postMessage` is `unknown` at runtime regardless of what your types say. Validate external data at the boundary using Zod, Valibot, or Arktype, then let TypeScript infer the validated type.
-- **Enum quirks — prefer `as const` or string literal unions.** TypeScript enums have surprising behavior: numeric enums allow reverse mapping and accept any number, `const enum` is incompatible with `isolatedModules`, and enums are nominal (not structurally compatible). Use `as const` objects or string literal union types (`type Status = 'active' | 'inactive'`) for simpler, more predictable behavior.
-- **Not enabling `strict: true` from the start.** Retrofitting strict mode onto an existing codebase means fixing hundreds or thousands of errors at once, which teams inevitably defer forever. Start every new project with `strict: true` in `tsconfig.json`. The cost of strictness is low when adopted from day one; it is enormous when retrofitted.
+- **Aserciones de tipo con `as` como muleta para silenciar errores.** Escribir `data as User` le dice al compilador "confía en mí" sin ninguna validación en runtime. Si los datos no coinciden con el tipo, obtienes errores en runtime sin advertencia en tiempo de compilación: lo peor de ambos mundos. Usa type guards, bibliotecas de validación (Zod, Valibot) o narrowing de tipos adecuado en su lugar.
+- **Sobre-ingeniería de tipos genéricos.** Una firma de tipo como `type Merge<T extends object, U extends object> = Omit<T, keyof U> & U extends infer O ? { [K in keyof O]: O[K] } : never` puede ser técnicamente correcta pero es ilegible para la mayoría de los miembros del equipo. Si un tipo genérico requiere un doctorado para entenderse, simplifícalo o agrega documentación exhaustiva. La legibilidad supera a la astucia.
+- **Proliferación de `@ts-ignore` / `@ts-expect-error`.** Cada supresión es un agujero en tu red de seguridad de tipos. Un codebase con docenas de estas directivas ha cambiado el valor de TypeScript por la sobrecarga de TypeScript. Registra estos como deuda técnica, corrígelos incrementalmente y bloquea nuevos en la revisión de código a menos que vayan acompañados de un comentario de justificación.
+- **Confiar en los tipos en los límites del runtime.** Los tipos de TypeScript se borran en runtime. Los datos de APIs, `localStorage`, parámetros de URL, `JSON.parse` y `postMessage` son `unknown` en runtime independientemente de lo que digan tus tipos. Valida los datos externos en el límite usando Zod, Valibot o Arktype, y luego deja que TypeScript infiera el tipo validado.
+- **Peculiaridades de Enum: prefiere `as const` o uniones de string literals.** Los enums de TypeScript tienen comportamiento sorprendente: los enums numéricos permiten mapeo inverso y aceptan cualquier número, `const enum` es incompatible con `isolatedModules`, y los enums son nominales (no estructuralmente compatibles). Usa objetos `as const` o tipos de unión de string literals (`type Status = 'active' | 'inactive'`) para un comportamiento más simple y predecible.
+- **No habilitar `strict: true` desde el inicio.** Adaptar el modo estricto a un codebase existente significa corregir cientos o miles de errores de una vez, lo que los equipos inevitablemente posponen para siempre. Comienza cada nuevo proyecto con `strict: true` en `tsconfig.json`. El costo de la estrictez es bajo cuando se adopta desde el primer día; es enorme cuando se adapta retroactivamente.
 
 ---
 
 ## 7. Testing
 
-### Recommended Stack
+### Stack Recomendado
 
-| Layer | Tool | Purpose |
+| Capa | Herramienta | Propósito |
 |-------|------|---------|
-| **Unit tests** | Vitest | Business logic, utilities, hooks |
-| **Component tests** | Vitest + Testing Library | UI component behavior |
-| **Integration tests** | Vitest + MSW | API integration with mocked services |
-| **E2E tests** | Playwright | Critical user paths, cross-browser |
+| **Tests unitarios** | Vitest | Lógica de negocio, utilidades, hooks |
+| **Tests de componentes** | Vitest + Testing Library | Comportamiento de componentes de UI |
+| **Tests de integración** | Vitest + MSW | Integración con API con servicios mockeados |
+| **Tests E2E** | Playwright | Rutas críticas del usuario, cross-browser |
 
 ### Vitest
 
-- The standard unit/component test runner for Vite-based projects. Near-instant execution with HMR support.
-- Component testing in Browser Mode runs tests in real browsers using Playwright or WebdriverIO.
-- Compatible with Jest API, making migration straightforward.
+- El test runner estándar para tests unitarios/de componentes en proyectos basados en Vite. Ejecución casi instantánea con soporte de HMR.
+- Los tests de componentes en Browser Mode ejecutan tests en navegadores reales usando Playwright o WebdriverIO.
+- Compatible con la API de Jest, haciendo la migración directa.
 
 ### Playwright
 
-- Microsoft's E2E framework. Multi-browser support (Chromium, Firefox, WebKit).
-- Advanced network interception for mocking, modifying, and blocking HTTP requests.
-- Better for cross-browser testing and complex E2E scenarios.
+- El framework E2E de Microsoft. Soporte multi-navegador (Chromium, Firefox, WebKit).
+- Intercepción de red avanzada para mockear, modificar y bloquear peticiones HTTP.
+- Mejor para testing cross-browser y escenarios E2E complejos.
 
 ### Cypress
 
-- Still strong for teams prioritizing developer experience and visual debugging.
-- Best for SPA-heavy applications with JavaScript-centric teams.
-- Slower than Playwright for CI pipelines.
+- Sigue siendo fuerte para equipos que priorizan la experiencia del desarrollador y la depuración visual.
+- Mejor para aplicaciones SPA-heavy con equipos centrados en JavaScript.
+- Más lento que Playwright para pipelines de CI.
 
 ### Testing Library
 
-- Framework-agnostic (@testing-library/react, /vue, /svelte, etc.).
-- Encourages testing from the user's perspective (queries by role, label, text).
-- The standard for component testing across all frameworks.
+- Agnóstico del framework (@testing-library/react, /vue, /svelte, etc.).
+- Fomenta el testing desde la perspectiva del usuario (consultas por rol, etiqueta, texto).
+- El estándar para testing de componentes en todos los frameworks.
 
-### CI Strategy
+### Estrategia de CI
 
-Split pipelines: fast unit/integration tests (Vitest, Testing Library, MSW) in the first job, slower E2E tests (Playwright) in a second job that only runs if the first passes.
+Divide los pipelines: tests rápidos unitarios/de integración (Vitest, Testing Library, MSW) en el primer job, tests E2E más lentos (Playwright) en un segundo job que solo se ejecuta si el primero pasa.
 
-### Common Pitfalls & Anti-patterns
+### Errores Comunes y Anti-patrones
 
-- **Testing implementation details instead of user behavior.** Testing that a specific internal function was called, that state was set to a particular value, or that a CSS class was toggled couples tests to implementation. When you refactor, every test breaks even though behavior is unchanged. Test what the user sees and does: rendered text, form submissions, navigation outcomes.
-- **Over-mocking.** When every dependency is mocked, tests pass in isolation but the app is broken in production because the mocks do not match reality. Mock only what you must (network calls, timers, third-party services) and let the rest run as real code. Integration tests with MSW are preferable to unit tests with 15 mocked imports.
-- **Snapshot testing abuse.** Large component snapshots become rubber-stamped noise — developers run `--update` without reviewing the diff. Snapshots are useful for small, stable output (serialized data, error messages). For UI components, use assertion-based tests that check specific elements and text content.
-- **Inverted testing pyramid.** Having many slow E2E tests and few fast unit tests means the test suite takes 30+ minutes, developers stop running it locally, and CI becomes a bottleneck. Most tests should be fast unit and component tests. E2E tests should cover only critical user journeys (signup, checkout, core workflows).
-- **Flaky tests from timing dependencies and async races.** Tests that use `setTimeout`, `waitFor` with insufficient timeouts, or depend on animation frames are inherently flaky. Use Testing Library's `findBy` queries (which poll the DOM), Playwright's built-in auto-waiting, and deterministic timers (`vi.useFakeTimers`) instead of arbitrary delays.
-- **Chasing coverage metrics instead of testing meaningful behavior.** 100% code coverage does not mean correct code — it means every line was executed, not that every behavior was verified. A test that renders a component and asserts it does not throw achieves coverage without testing anything. Focus on testing business logic, edge cases, and error handling.
-- **MSW mocks drifting from actual API contracts.** If your MSW handlers return data shapes that no longer match the real API, your tests become a fiction. Validate MSW mocks against OpenAPI specs or shared schema definitions. When the API changes, tests should fail because the mocks are updated first.
+- **Testear detalles de implementación en lugar de comportamiento del usuario.** Testear que una función interna específica fue llamada, que el estado se estableció a un valor particular o que una clase CSS fue toggled acopla los tests a la implementación. Cuando refactorizas, cada test se rompe aunque el comportamiento no cambió. Testea lo que el usuario ve y hace: texto renderizado, envío de formularios, resultados de navegación.
+- **Sobre-mockeo.** Cuando cada dependencia está mockeada, los tests pasan en aislamiento pero la aplicación está rota en producción porque los mocks no coinciden con la realidad. Mockea solo lo que debes (llamadas de red, timers, servicios de terceros) y deja que el resto se ejecute como código real. Los tests de integración con MSW son preferibles a tests unitarios con 15 imports mockeados.
+- **Abuso del snapshot testing.** Los snapshots grandes de componentes se convierten en ruido que se aprueba mecánicamente: los desarrolladores ejecutan `--update` sin revisar el diff. Los snapshots son útiles para output pequeño y estable (datos serializados, mensajes de error). Para componentes de UI, usa tests basados en aserciones que verifican elementos y contenido de texto específicos.
+- **Pirámide de testing invertida.** Tener muchos tests E2E lentos y pocos tests unitarios rápidos significa que la suite de tests toma más de 30 minutos, los desarrolladores dejan de ejecutarla localmente y el CI se convierte en un cuello de botella. La mayoría de los tests deberían ser tests rápidos unitarios y de componentes. Los tests E2E deberían cubrir solo los recorridos críticos del usuario (registro, checkout, flujos principales).
+- **Tests inestables por dependencias de timing y race conditions asíncronas.** Los tests que usan `setTimeout`, `waitFor` con timeouts insuficientes o dependen de animation frames son inherentemente inestables. Usa las consultas `findBy` de Testing Library (que sondean el DOM), la auto-espera integrada de Playwright y timers deterministas (`vi.useFakeTimers`) en lugar de delays arbitrarios.
+- **Perseguir métricas de cobertura en lugar de testear comportamiento significativo.** 100% de cobertura de código no significa código correcto: significa que cada línea fue ejecutada, no que cada comportamiento fue verificado. Un test que renderiza un componente y asevera que no lanza una excepción logra cobertura sin testear nada. Enfócate en testear lógica de negocio, casos extremos y manejo de errores.
+- **Mocks de MSW que se desvían de los contratos reales de la API.** Si tus handlers de MSW retornan formas de datos que ya no coinciden con la API real, tus tests se convierten en ficción. Valida los mocks de MSW contra especificaciones OpenAPI o definiciones de esquema compartidas. Cuando la API cambia, los tests deberían fallar porque los mocks se actualizan primero.
 
 ---
 
-## 8. Performance
+## 8. Rendimiento
 
 ### Core Web Vitals (2026)
 
-| Metric | What It Measures | Good Threshold |
+| Métrica | Qué Mide | Umbral Bueno |
 |--------|-----------------|----------------|
-| **LCP** (Largest Contentful Paint) | Loading speed | < 2.5s |
-| **INP** (Interaction to Next Paint) | Responsiveness | < 200ms |
-| **CLS** (Cumulative Layout Shift) | Visual stability | < 0.1 |
+| **LCP** (Largest Contentful Paint) | Velocidad de carga | < 2.5s |
+| **INP** (Interaction to Next Paint) | Capacidad de respuesta | < 200ms |
+| **CLS** (Cumulative Layout Shift) | Estabilidad visual | < 0.1 |
 
-**INP has fully replaced FID** as a Core Web Vital, measuring responsiveness across the entire page visit rather than just the first interaction.
+**INP ha reemplazado completamente a FID** como Core Web Vital, midiendo la capacidad de respuesta durante toda la visita a la página en lugar de solo la primera interacción.
 
-### Key Optimization Strategies
+### Estrategias Clave de Optimización
 
-**Rendering**:
-- SSR/SSG reduces LCP dramatically (from ~4s to ~1.5s in real-world migrations).
-- Streaming SSR serves above-the-fold content immediately while the rest loads.
-- Partial Pre-rendering (Next.js) combines static shell with dynamic content holes.
+**Renderizado**:
+- SSR/SSG reduce el LCP drásticamente (de ~4s a ~1.5s en migraciones del mundo real).
+- Streaming SSR sirve el contenido above-the-fold inmediatamente mientras el resto carga.
+- Partial Pre-rendering (Next.js) combina un shell estático con huecos de contenido dinámico.
 
 **Code Splitting**:
-- Route-based splitting is the baseline. Every meta-framework does this automatically.
-- Component-level lazy loading via `React.lazy()`, dynamic `import()`, or framework equivalents.
+- La división basada en rutas es la línea base. Todos los meta-frameworks lo hacen automáticamente.
+- Lazy loading a nivel de componente mediante `React.lazy()`, `import()` dinámico o equivalentes del framework.
 
-**Images**:
-- Modern formats: AVIF and WebP2 deliver 40-60% smaller files than JPEG/PNG.
-- `loading="lazy"` for below-the-fold images (native browser support).
-- `fetchpriority="high"` for above-the-fold hero images.
-- Responsive images with `srcset` and `sizes` attributes.
+**Imágenes**:
+- Formatos modernos: AVIF y WebP2 entregan archivos 40-60% más pequeños que JPEG/PNG.
+- `loading="lazy"` para imágenes below-the-fold (soporte nativo del navegador).
+- `fetchpriority="high"` para imágenes hero above-the-fold.
+- Imágenes responsive con atributos `srcset` y `sizes`.
 
 **JavaScript**:
-- Ship less JavaScript. Astro ships zero by default. Qwik uses resumability.
-- Tree-shaking via modern bundlers eliminates dead code.
-- React Compiler reduces re-renders automatically.
+- Envía menos JavaScript. Astro no envía nada por defecto. Qwik usa resumability.
+- Tree-shaking mediante bundlers modernos elimina código muerto.
+- React Compiler reduce los re-renders automáticamente.
 
-### Common Pitfalls & Anti-patterns
+### Errores Comunes y Anti-patrones
 
-- **Premature optimization — profile before optimizing.** Memoizing every component, splitting every route, and virtualizing every list without profiling first wastes development time on non-bottlenecks. Use browser DevTools Performance panel, React DevTools Profiler, or Lighthouse to identify actual bottlenecks before writing optimization code.
-- **`loading="lazy"` on above-the-fold images.** Lazy-loading the hero image or LCP element delays its fetch until the browser's intersection observer fires, directly hurting your Largest Contentful Paint score. Above-the-fold images should use `fetchpriority="high"` and eager loading (the default). Reserve `loading="lazy"` for images below the fold.
-- **Over-splitting code (waterfall of small chunks).** Aggressive code splitting creates a waterfall: the browser fetches chunk A, which imports chunk B, which imports chunk C. Each round-trip adds latency. One 80KB bundle loads faster than four 20KB bundles fetched sequentially. Split by route, not by component. Use your bundler's analyzer to detect chunk waterfalls.
-- **Synthetic benchmarks (Lighthouse) vs. real-user metrics (CrUX/RUM).** A Lighthouse score of 100 on your development machine tells you nothing about real users on slow phones and congested networks. Use Chrome UX Report (CrUX) data and Real User Monitoring (web-vitals library, your analytics platform) to understand actual performance. Optimize for real-user P75, not synthetic lab scores.
-- **Third-party scripts as the largest unaddressed performance bottleneck.** Analytics, chat widgets, A/B testing, ad scripts, and social embeds often contribute more to poor performance than your application code. Audit third-party impact with Chrome DevTools' "Third-party" badge, load non-critical scripts with `async`/`defer` or behind user interaction, and remove scripts nobody uses.
-- **Layout shift causes: images without dimensions, dynamically injected content, font loading.** Always set `width` and `height` attributes (or `aspect-ratio` in CSS) on images and videos. Reserve space for ads and embeds with explicit containers. Use `font-display: swap` with `size-adjust` or `font-display: optional` to prevent layout shifts from web font loading.
-- **React Compiler is not a magic bullet for bad architecture.** The compiler optimizes render performance by auto-memoizing, but it cannot fix fundamentally flawed component hierarchies, unnecessary re-renders caused by context misuse, or data fetching in render paths. Profile first, fix architecture issues, then let the compiler optimize what remains.
+- **Optimización prematura: perfila antes de optimizar.** Memorizar cada componente, dividir cada ruta y virtualizar cada lista sin perfilar primero desperdicia tiempo de desarrollo en no-cuellos de botella. Usa el panel de Performance de las DevTools del navegador, React DevTools Profiler o Lighthouse para identificar los cuellos de botella reales antes de escribir código de optimización.
+- **`loading="lazy"` en imágenes above-the-fold.** Aplicar lazy-loading a la imagen hero o al elemento LCP retrasa su descarga hasta que el intersection observer del navegador se dispara, perjudicando directamente tu puntuación de Largest Contentful Paint. Las imágenes above-the-fold deberían usar `fetchpriority="high"` y carga eager (el valor por defecto). Reserva `loading="lazy"` para imágenes below-the-fold.
+- **Sobre-dividir el código (cascada de chunks pequeños).** La división agresiva de código crea una cascada: el navegador descarga el chunk A, que importa el chunk B, que importa el chunk C. Cada round-trip agrega latencia. Un bundle de 80KB carga más rápido que cuatro bundles de 20KB descargados secuencialmente. Divide por ruta, no por componente. Usa el analizador de tu bundler para detectar cascadas de chunks.
+- **Benchmarks sintéticos (Lighthouse) vs. métricas de usuarios reales (CrUX/RUM).** Una puntuación de Lighthouse de 100 en tu máquina de desarrollo no dice nada sobre usuarios reales en teléfonos lentos y redes congestionadas. Usa datos del Chrome UX Report (CrUX) y Real User Monitoring (biblioteca web-vitals, tu plataforma de analytics) para entender el rendimiento real. Optimiza para el P75 de usuarios reales, no para puntuaciones sintéticas de laboratorio.
+- **Scripts de terceros como el mayor cuello de botella de rendimiento sin abordar.** Analytics, widgets de chat, A/B testing, scripts de anuncios y embeds sociales a menudo contribuyen más al rendimiento deficiente que el código de tu aplicación. Audita el impacto de terceros con la insignia "Third-party" de Chrome DevTools, carga scripts no críticos con `async`/`defer` o tras la interacción del usuario, y elimina scripts que nadie usa.
+- **Causas de layout shift: imágenes sin dimensiones, contenido inyectado dinámicamente, carga de fuentes.** Siempre establece los atributos `width` y `height` (o `aspect-ratio` en CSS) en imágenes y videos. Reserva espacio para anuncios y embeds con contenedores explícitos. Usa `font-display: swap` con `size-adjust` o `font-display: optional` para prevenir layout shifts por la carga de fuentes web.
+- **React Compiler no es una bala mágica para mala arquitectura.** El compilador optimiza el rendimiento de renderizado auto-memorizando, pero no puede arreglar jerarquías de componentes fundamentalmente defectuosas, re-renders innecesarios causados por mal uso de context o data fetching en rutas de renderizado. Perfila primero, corrige los problemas de arquitectura, y luego deja que el compilador optimice lo que queda.
 
 ---
 
-## 9. Accessibility (a11y)
+## 9. Accesibilidad (a11y)
 
-### Standards Landscape
+### Panorama de Estándares
 
-- **WCAG 2.2** (October 2023): The current W3C standard. 9 new success criteria improving accessibility for cognitive disabilities, low vision, and mobile users.
-- **European Accessibility Act (EAA)**: EU-wide enforcement began June 28, 2025. Requires conformance with EN 301 549 (being updated to include WCAG 2.2).
-- **WCAG 3.0**: In development (expected 2026+). Renamed to "W3C Accessibility Guidelines" to cover more than web content. Introduces a new conformance model with foundational and supplemental requirements.
+- **WCAG 2.2** (octubre de 2023): El estándar actual del W3C. 9 nuevos criterios de éxito mejorando la accesibilidad para discapacidades cognitivas, baja visión y usuarios móviles.
+- **European Accessibility Act (EAA)**: La aplicación a nivel de la UE comenzó el 28 de junio de 2025. Requiere conformidad con EN 301 549 (que se está actualizando para incluir WCAG 2.2).
+- **WCAG 3.0**: En desarrollo (esperado para 2026+). Renombrado a "W3C Accessibility Guidelines" para cubrir más que contenido web. Introduce un nuevo modelo de conformidad con requisitos fundamentales y suplementarios.
 
-### Automated Testing Tools
+### Herramientas de Testing Automatizado
 
-| Tool | Type | Best For |
+| Herramienta | Tipo | Mejor Para |
 |------|------|----------|
-| **axe DevTools** | Browser extension / CI | In-browser WCAG checks, axe-core library |
-| **Playwright + axe** | CI integration | Automated a11y checks in E2E tests |
-| **Pa11y** | CLI / CI | Continuous monitoring, dashboards |
-| **Accessibility Insights** | Microsoft toolkit | Guided manual assessments |
-| **WAVE** | Browser extension | Visual accessibility evaluation |
-| **Storybook a11y addon** | Component-level | Accessibility testing during development |
+| **axe DevTools** | Extensión de navegador / CI | Verificaciones WCAG en el navegador, biblioteca axe-core |
+| **Playwright + axe** | Integración CI | Verificaciones de a11y automatizadas en tests E2E |
+| **Pa11y** | CLI / CI | Monitoreo continuo, dashboards |
+| **Accessibility Insights** | Toolkit de Microsoft | Evaluaciones manuales guiadas |
+| **WAVE** | Extensión de navegador | Evaluación visual de accesibilidad |
+| **Storybook a11y addon** | A nivel de componente | Testing de accesibilidad durante el desarrollo |
 
-### Best Practices
+### Mejores Prácticas
 
-- Run automated a11y checks on every PR in CI (catches ~30-40% of issues).
-- Supplement with structured manual testing using Accessibility Insights.
-- Test with real assistive technologies: NVDA, JAWS, VoiceOver.
-- Use semantic HTML elements over generic `<div>` with ARIA roles.
-- Ensure keyboard navigability for all interactive elements.
-- Maintain color contrast ratios (4.5:1 for normal text, 3:1 for large text).
+- Ejecuta verificaciones automatizadas de a11y en cada PR en CI (captura ~30-40% de los problemas).
+- Complementa con testing manual estructurado usando Accessibility Insights.
+- Testea con tecnologías asistivas reales: NVDA, JAWS, VoiceOver.
+- Usa elementos HTML semánticos en lugar de `<div>` genéricos con roles ARIA.
+- Asegura la navegabilidad por teclado para todos los elementos interactivos.
+- Mantén ratios de contraste de color (4.5:1 para texto normal, 3:1 para texto grande).
 
-### Common Pitfalls & Anti-patterns
+### Errores Comunes y Anti-patrones
 
-- **ARIA misuse is worse than no ARIA.** Adding incorrect ARIA roles, states, or properties actively confuses screen readers and makes the experience worse than having no ARIA at all. The first rule of ARIA is: do not use ARIA if a native HTML element provides the semantics you need. Use `<button>` instead of `<div role="button">`, `<nav>` instead of `<div role="navigation">`.
-- **Accessibility overlays (AccessiBe, UserWay) do not work and can make things worse.** These tools claim to fix accessibility automatically via a JavaScript widget. In practice, they break existing accessibility features, confuse screen readers, and do not achieve WCAG compliance. The National Federation of the Blind and other disability organizations have publicly opposed them. Fix your actual markup instead.
-- **Focus management failures in SPAs.** When a single-page app changes routes, opens modals, or dynamically loads content, focus often stays on the previous element or gets lost entirely. Screen reader users are stranded. Manage focus explicitly: move focus to the new page heading on route change, trap focus inside modals, and return focus to the trigger element when modals close.
-- **Color-only information conveyance.** Using color alone to indicate errors (red border), status (green = success), or required fields fails for colorblind users (~8% of males). Always supplement color with text, icons, or patterns. Error messages should be explicit text, not just a red border on an input.
-- **`outline: none` without a visible focus alternative.** Removing the default focus outline for aesthetic reasons makes the interface unusable for keyboard-only users who cannot see which element is focused. If you remove the default outline, you must provide a custom visible focus indicator (e.g., `outline: 2px solid`, box-shadow, or a visible border change on `:focus-visible`).
-- **Not testing with real disabled users.** Automated tools catch 30-40% of accessibility issues. Developer manual testing catches more but misses the lived experience. Budget for usability testing with real screen reader users, keyboard-only users, and users with motor impairments at least once per major feature release. Their feedback reveals problems no tool can detect.
+- **El mal uso de ARIA es peor que no usar ARIA.** Agregar roles, estados o propiedades ARIA incorrectos confunde activamente a los lectores de pantalla y empeora la experiencia respecto a no tener ARIA en absoluto. La primera regla de ARIA es: no uses ARIA si un elemento HTML nativo proporciona la semántica que necesitas. Usa `<button>` en lugar de `<div role="button">`, `<nav>` en lugar de `<div role="navigation">`.
+- **Los overlays de accesibilidad (AccessiBe, UserWay) no funcionan y pueden empeorar las cosas.** Estas herramientas afirman corregir la accesibilidad automáticamente mediante un widget JavaScript. En la práctica, rompen las características de accesibilidad existentes, confunden a los lectores de pantalla y no logran conformidad con WCAG. La National Federation of the Blind y otras organizaciones de discapacidad se han opuesto públicamente a ellos. Corrige tu markup real en su lugar.
+- **Fallos en la gestión del foco en SPAs.** Cuando una single-page app cambia de rutas, abre modales o carga contenido dinámicamente, el foco a menudo se queda en el elemento anterior o se pierde por completo. Los usuarios de lectores de pantalla quedan abandonados. Gestiona el foco explícitamente: mueve el foco al encabezado de la nueva página en el cambio de ruta, atrapa el foco dentro de los modales y devuelve el foco al elemento disparador cuando los modales se cierran.
+- **Transmisión de información solo mediante color.** Usar color solo para indicar errores (borde rojo), estado (verde = éxito) o campos obligatorios falla para los usuarios daltónicos (~8% de los hombres). Siempre complementa el color con texto, iconos o patrones. Los mensajes de error deberían ser texto explícito, no solo un borde rojo en un input.
+- **`outline: none` sin una alternativa de foco visible.** Eliminar el outline de foco por defecto por razones estéticas hace la interfaz inutilizable para usuarios que solo usan teclado y no pueden ver qué elemento tiene el foco. Si eliminas el outline por defecto, debes proporcionar un indicador de foco visible personalizado (p. ej., `outline: 2px solid`, box-shadow, o un cambio de borde visible en `:focus-visible`).
+- **No testear con usuarios reales con discapacidades.** Las herramientas automatizadas capturan el 30-40% de los problemas de accesibilidad. El testing manual del desarrollador captura más pero pierde la experiencia vivida. Presupuesta pruebas de usabilidad con usuarios reales de lectores de pantalla, usuarios que solo usan teclado y usuarios con discapacidades motoras al menos una vez por lanzamiento de característica importante. Su feedback revela problemas que ninguna herramienta puede detectar.
 
 ---
 
-## 10. Design Systems & Component Libraries
+## 10. Sistemas de Diseño y Bibliotecas de Componentes
 
-### Headless UI Pattern
+### Patrón Headless UI
 
-The dominant pattern in 2026: **unstyled, accessible component primitives** that you style yourself.
+El patrón dominante en 2026: **primitivas de componentes sin estilo y accesibles** que tú mismo estilizas.
 
-| Library | Framework Support | Notes |
+| Biblioteca | Soporte de Frameworks | Notas |
 |---------|-------------------|-------|
-| **Radix UI** | React only | 130M monthly downloads. Largest headless library. Update cadence slowed after WorkOS acquisition. |
-| **Base UI** | React | MUI-backed, dedicated full-time engineering. Growing alternative to Radix. |
-| **Ark UI** | React, Vue, Solid | XState-based state machines. Best cross-framework headless library. |
-| **Headless UI** | React, Vue | Tailwind Labs project. Focused on Tailwind integration. |
-| **React Aria** | React | Adobe's accessibility-first primitives. Most comprehensive a11y coverage. |
+| **Radix UI** | Solo React | 130M descargas mensuales. La biblioteca headless más grande. La cadencia de actualizaciones se ralentizó tras la adquisición por WorkOS. |
+| **Base UI** | React | Respaldada por MUI, ingeniería dedicada a tiempo completo. Alternativa creciente a Radix. |
+| **Ark UI** | React, Vue, Solid | Máquinas de estado basadas en XState. La mejor biblioteca headless cross-framework. |
+| **Headless UI** | React, Vue | Proyecto de Tailwind Labs. Enfocada en la integración con Tailwind. |
+| **React Aria** | React | Primitivas accessibility-first de Adobe. La cobertura de a11y más completa. |
 
 ### shadcn/ui
 
-- **75K GitHub stars** and growing. Not a component library - it is a collection of copy-paste components you own.
-- Now supports both Radix and Base UI as primitive layers (not locked into either).
-- Added a Visual Builder for generating components.
-- Spawned the "copy-paste UI" pattern that many other libraries now follow.
+- **75K estrellas en GitHub** y creciendo. No es una biblioteca de componentes: es una colección de componentes de copiar y pegar que tú posees.
+- Ahora soporta tanto Radix como Base UI como capas de primitivas (no está atado a ninguno).
+- Se agregó un Visual Builder para generar componentes.
+- Originó el patrón de "UI de copiar y pegar" que muchas otras bibliotecas ahora siguen.
 
-### Design Tokens (W3C Standard)
+### Design Tokens (Estándar W3C)
 
-The **Design Tokens Specification (2025.10)** reached its first stable version in October 2025:
+La **Design Tokens Specification (2025.10)** alcanzó su primera versión estable en octubre de 2025:
 
-- Vendor-neutral format for sharing design decisions across tools and platforms.
-- Supports theming, multi-brand, light/dark modes, accessibility variants.
-- Full support for Display P3, Oklch, and CSS Color Module 4 color spaces.
-- Cross-platform: one token file generates code for iOS, Android, web, and Flutter.
-- Adopted by Figma, Penpot, Sketch, Framer, Supernova, zeroheight, and others.
+- Formato agnóstico del proveedor para compartir decisiones de diseño entre herramientas y plataformas.
+- Soporta tematización, multi-marca, modos claro/oscuro, variantes de accesibilidad.
+- Soporte completo para espacios de color Display P3, Oklch y CSS Color Module 4.
+- Cross-platform: un archivo de tokens genera código para iOS, Android, web y Flutter.
+- Adoptado por Figma, Penpot, Sketch, Framer, Supernova, zeroheight y otros.
 
-### Common Pitfalls & Anti-patterns
+### Errores Comunes y Anti-patrones
 
-- **Premature design system creation.** Building a design system before you have enough product surface area means encoding assumptions that will be wrong. You need at least 3-5 distinct product surfaces using similar patterns before the abstractions become clear. Start with a shared component folder; formalize into a design system when patterns repeat across teams.
-- **Design system team becoming a gatekeeping bottleneck.** When every component change requires a PR to the design system repo, review by the design system team, and a release cycle, product teams slow to a crawl. Enable contribution from product teams with clear guidelines, automated testing, and a fast review process. The design system team should be an enabler, not a gatekeeper.
-- **Copy-paste component drift (shadcn pattern without governance).** The shadcn model of owning copied components is powerful, but without governance it leads to 15 different Button variants across teams, each drifting from the original. Establish a sync mechanism: periodic audits, a shared upstream, or automated checks that flag divergence from the canonical implementation.
-- **Headless component misuse — stripping accessibility behavior during custom styling.** Headless components like Radix, React Aria, and Ark UI provide keyboard handling, focus management, and ARIA attributes out of the box. When developers override or strip these behaviors during custom styling (removing event handlers, overriding roles, hiding focus indicators), the component becomes less accessible than a plain `<div>`. Preserve the headless component's behavior layer; only customize the visual layer.
-- **Component library dependency risk.** Building your entire product on a third-party component library creates a single point of failure. Libraries get acquired (Radix/WorkOS), abandoned, or change direction. Mitigate this with an abstraction layer (your own component API that wraps the library), so swapping the underlying implementation does not require rewriting every consumer.
+- **Creación prematura de sistema de diseño.** Construir un sistema de diseño antes de tener suficiente superficie de producto significa codificar suposiciones que estarán equivocadas. Necesitas al menos 3-5 superficies de producto distintas usando patrones similares antes de que las abstracciones se vuelvan claras. Comienza con una carpeta de componentes compartidos; formaliza en un sistema de diseño cuando los patrones se repitan entre equipos.
+- **El equipo del sistema de diseño convirtiéndose en un cuello de botella de bloqueo.** Cuando cada cambio de componente requiere un PR al repositorio del sistema de diseño, revisión por el equipo del sistema de diseño y un ciclo de lanzamiento, los equipos de producto se ralentizan enormemente. Habilita la contribución de los equipos de producto con guías claras, testing automatizado y un proceso de revisión rápido. El equipo del sistema de diseño debería ser un habilitador, no un gatekeeper.
+- **Deriva de componentes de copiar y pegar (patrón shadcn sin gobernanza).** El modelo de shadcn de poseer componentes copiados es poderoso, pero sin gobernanza lleva a 15 variantes diferentes de Button entre equipos, cada una desviándose del original. Establece un mecanismo de sincronización: auditorías periódicas, un upstream compartido o verificaciones automatizadas que señalen la divergencia de la implementación canónica.
+- **Mal uso de componentes headless: eliminando comportamiento de accesibilidad durante la estilización personalizada.** Los componentes headless como Radix, React Aria y Ark UI proporcionan manejo de teclado, gestión de foco y atributos ARIA de forma nativa. Cuando los desarrolladores sobrescriben o eliminan estos comportamientos durante la estilización personalizada (eliminando event handlers, sobrescribiendo roles, ocultando indicadores de foco), el componente se vuelve menos accesible que un simple `<div>`. Preserva la capa de comportamiento del componente headless; solo personaliza la capa visual.
+- **Riesgo de dependencia de biblioteca de componentes.** Construir todo tu producto sobre una biblioteca de componentes de terceros crea un punto único de fallo. Las bibliotecas se adquieren (Radix/WorkOS), se abandonan o cambian de dirección. Mitiga esto con una capa de abstracción (tu propia API de componentes que envuelve la biblioteca), para que intercambiar la implementación subyacente no requiera reescribir cada consumidor.
 
 ---
 
-## 11. API Patterns
+## 11. Patrones de API
 
-### The Multi-Protocol Reality
+### La Realidad Multi-Protocolo
 
-Most 2026 applications use a combination of API approaches:
+La mayoría de las aplicaciones en 2026 usan una combinación de enfoques de API:
 
-| Pattern | Best For | Adoption |
+| Patrón | Mejor Para | Adopción |
 |---------|----------|----------|
-| **REST** | Public APIs, webhooks, third-party integrations | Universal default |
-| **tRPC** | Internal APIs with TypeScript frontend/backend | 15% of job listings, growing fast |
-| **GraphQL** | BFF pattern, mobile/web with different data needs | Mature, stable adoption |
-| **gRPC** | Service-to-service, high-performance microservices | Backend-focused |
+| **REST** | APIs públicas, webhooks, integraciones de terceros | Estándar universal |
+| **tRPC** | APIs internas con frontend/backend en TypeScript | 15% de las ofertas de trabajo, creciendo rápido |
+| **GraphQL** | Patrón BFF, móvil/web con diferentes necesidades de datos | Maduro, adopción estable |
+| **gRPC** | Servicio a servicio, microservicios de alto rendimiento | Enfocado en backend |
 
-### Typical 2026 Architecture
+### Arquitectura Típica de 2026
 
-- **tRPC** for core application API (authenticated user-facing operations) - provides end-to-end type safety with zero code generation.
-- **REST** for external concerns (webhooks, OAuth callbacks, health checks, public data).
-- **GraphQL** as a BFF (Backend for Frontend) when mobile and web need fundamentally different data shapes.
+- **tRPC** para la API principal de la aplicación (operaciones autenticadas orientadas al usuario): proporciona type safety de extremo a extremo con cero generación de código.
+- **REST** para asuntos externos (webhooks, callbacks de OAuth, health checks, datos públicos).
+- **GraphQL** como BFF (Backend for Frontend) cuando móvil y web necesitan formas de datos fundamentalmente diferentes.
 
-### BFF (Backend for Frontend) Pattern
+### Patrón BFF (Backend for Frontend)
 
-- Acknowledges that mobile and web clients have different needs.
-- Mobile: small, distinct payloads (battery/data conservation).
-- Web: richer data loads, prefetching capabilities.
-- GraphQL excels here by letting each client request exactly what it needs.
+- Reconoce que los clientes móviles y web tienen necesidades diferentes.
+- Móvil: payloads pequeños y distintos (conservación de batería/datos).
+- Web: cargas de datos más ricas, capacidades de prefetching.
+- GraphQL sobresale aquí al permitir que cada cliente solicite exactamente lo que necesita.
 
-### Recommendation
+### Recomendación
 
-For most TypeScript full-stack applications: **tRPC for new projects**. For public APIs or multi-language consumers: REST. For complex multi-client scenarios: GraphQL as a BFF layer.
+Para la mayoría de las aplicaciones full-stack en TypeScript: **tRPC para proyectos nuevos**. Para APIs públicas o consumidores multi-lenguaje: REST. Para escenarios complejos con múltiples clientes: GraphQL como capa BFF.
 
-### Common Pitfalls & Anti-patterns
+### Errores Comunes y Anti-patrones
 
-- **GraphQL N+1 queries and query complexity attacks.** Without query depth limiting and dataloader patterns, a single GraphQL query can trigger hundreds of database queries (N+1 problem) or allow malicious clients to craft deeply nested queries that overwhelm the server. Implement query complexity analysis, depth limits, and dataloaders from day one — not after production incidents.
-- **tRPC leaking backend implementation details through the type boundary.** tRPC's end-to-end type safety is its strength, but it can also expose internal database schemas, error structures, and implementation details to the frontend if types are not deliberately curated. Define explicit input/output types for your procedures rather than passing raw Prisma/Drizzle types through to the client.
-- **Over-engineering the API layer.** Using GraphQL for a simple CRUD app with one client type adds schema definition, resolver boilerplate, code generation, and caching complexity that REST handles trivially. GraphQL pays off when multiple clients need different data shapes. For a single web frontend talking to a single backend, tRPC or REST is simpler and sufficient.
-- **Running too many API patterns simultaneously.** Having REST, GraphQL, tRPC, and WebSockets all serving the same frontend creates cognitive overhead for every developer. Each pattern has its own conventions, error handling, caching strategies, and debugging tools. Limit to two patterns maximum (e.g., tRPC for app API + REST for webhooks/external) and have clear rules for when to use each.
-- **REST mistakes: inconsistent naming, wrong status codes, chatty APIs.** Mixing `camelCase` and `snake_case`, returning 200 for errors, creating endpoints for every UI view (chatty API), and inconsistent pagination formats make REST APIs painful to consume. Follow a style guide (JSON:API, Google API Design Guide), use correct HTTP status codes, and design resource-oriented endpoints.
-
----
-
-## 12. Developer Experience
-
-### Linting & Formatting
-
-**Biome** is the rising challenger to ESLint + Prettier:
-
-- Single binary, one config file (`biome.json`), replaces ESLint + Prettier + their plugins.
-- **10-25x faster**: Linting 10K files in 0.8s (vs ESLint's 45.2s). Formatting 10K files in 0.3s (vs Prettier's 12.1s).
-- 423+ lint rules in v2.x, including type-aware linting.
-- Feature-complete for React/TypeScript projects.
-
-**ESLint v10** (February 2026):
-
-- Flat config (`eslint.config.js`) is the only supported format. `.eslintrc` is fully deprecated.
-- New language plugins API enables first-class support for non-JavaScript languages.
-- Stronger ecosystem of plugins remains its key advantage over Biome.
-
-**Recommendation**: Biome for new projects seeking simplicity and speed. ESLint for teams needing custom rules or niche plugin support.
-
-### Dev Servers & HMR
-
-- Vite's dev server with native ES modules provides sub-50ms HMR regardless of project size.
-- React Fast Refresh, Vue HMR, Svelte HMR all work seamlessly through Vite.
-- Turbopack achieves sub-10ms HMR within Next.js.
-
-### Package Management
-
-- **Bun** as package manager: fastest install times, built-in TypeScript execution.
-- **pnpm**: efficient disk usage via content-addressable storage, strict dependency management.
-- **npm**: universal default, still the most compatible.
-
-### Common Pitfalls & Anti-patterns
-
-- **Tooling churn fatigue.** Switching from ESLint to Biome, then to the next linter, while also migrating from Jest to Vitest and npm to pnpm to Bun — all in the same quarter — burns team energy on yak-shaving instead of shipping features. Evaluate switching costs against marginal gains. Migrate tools one at a time, only when the current tool is a measurable bottleneck.
-- **Over-linting.** When developers spend more time fighting the linter than writing code, the linter has become counterproductive. Rules that enforce arbitrary style preferences (no ternaries, max line length of 80, forced destructuring) generate noise without catching bugs. Keep lint rules focused on correctness and consistency; let the formatter handle style. Disable rules the team consistently overrides.
-- **HMR false confidence.** Code that works perfectly with Hot Module Replacement can break on a full page refresh because HMR preserves module-level state, closures, and initialization order that a cold start does not. Periodically do full refreshes during development. CI should always test against fresh builds, not HMR-updated state.
-- **Phantom dependencies.** npm and Bun allow importing packages that are not in your `package.json` if they happen to be hoisted from a transitive dependency. This works until the transitive dependency updates or is removed, then your build breaks with no obvious cause. pnpm's strict mode catches this. If you use npm or Bun, audit imports against `package.json` periodically.
-- **Monorepo complexity adopted without understanding the trade-offs.** Monorepos (Turborepo, Nx, pnpm workspaces) solve real problems for multi-package organizations but introduce build orchestration complexity, CI cache management, and tooling requirements that small teams do not need. A monorepo for a team of 3 working on a single app is overhead without benefit. Start with a simple repo; adopt a monorepo when you have multiple packages with shared dependencies.
+- **Queries N+1 de GraphQL y ataques de complejidad de queries.** Sin limitación de profundidad de queries y patrones de dataloader, una sola query de GraphQL puede desencadenar cientos de consultas a la base de datos (problema N+1) o permitir que clientes maliciosos creen queries profundamente anidadas que sobrecarguen el servidor. Implementa análisis de complejidad de queries, límites de profundidad y dataloaders desde el primer día, no después de incidentes en producción.
+- **tRPC filtrando detalles de implementación del backend a través del límite de tipos.** La type safety de extremo a extremo de tRPC es su fortaleza, pero también puede exponer esquemas internos de base de datos, estructuras de error y detalles de implementación al frontend si los tipos no se curan deliberadamente. Define tipos de entrada/salida explícitos para tus procedures en lugar de pasar tipos crudos de Prisma/Drizzle al cliente.
+- **Sobre-ingeniería de la capa de API.** Usar GraphQL para una aplicación CRUD simple con un solo tipo de cliente agrega definición de esquemas, boilerplate de resolvers, generación de código y complejidad de caching que REST maneja trivialmente. GraphQL rinde frutos cuando múltiples clientes necesitan diferentes formas de datos. Para un solo frontend web hablando con un solo backend, tRPC o REST es más simple y suficiente.
+- **Ejecutar demasiados patrones de API simultáneamente.** Tener REST, GraphQL, tRPC y WebSockets todos sirviendo al mismo frontend crea sobrecarga cognitiva para cada desarrollador. Cada patrón tiene sus propias convenciones, manejo de errores, estrategias de caching y herramientas de depuración. Limita a dos patrones máximo (p. ej., tRPC para la API de la app + REST para webhooks/externo) y ten reglas claras sobre cuándo usar cada uno.
+- **Errores de REST: nombrado inconsistente, códigos de estado incorrectos, APIs charlatanas.** Mezclar `camelCase` y `snake_case`, devolver 200 para errores, crear endpoints para cada vista de la UI (API charlatana) y formatos de paginación inconsistentes hacen que las APIs REST sean dolorosas de consumir. Sigue una guía de estilo (JSON:API, Google API Design Guide), usa códigos de estado HTTP correctos y diseña endpoints orientados a recursos.
 
 ---
 
-## Cross-Cutting Principles (Framework-Agnostic)
+## 12. Experiencia del Desarrollador
 
-1. **Ship less JavaScript**: Every byte of JS has a cost. Use server rendering, code splitting, and tree-shaking aggressively.
-2. **Type everything**: TypeScript is no longer optional for professional work.
-3. **Separate server state from client state**: Use dedicated tools for each (TanStack Query + Zustand/Pinia/signals).
-4. **Test in layers**: Fast unit tests for logic, component tests for behavior, minimal E2E for critical paths.
-5. **Accessibility from day one**: It is cheaper to build accessible than to retrofit. Automate what you can, manually test the rest.
-6. **Use the platform**: Native CSS features (nesting, container queries, `:has()`) reduce dependency on tooling.
-7. **Embrace server-first**: Server Components, streaming SSR, and edge rendering are the direction of the industry.
-8. **Design systems scale teams**: Headless primitives + design tokens + copy-paste components (shadcn pattern) is the winning formula.
-9. **Compilers over conventions**: React Compiler, Svelte's compiler, Vue Vapor - let the tool optimize rather than the developer.
-10. **Progressive enhancement**: Build for the baseline, enhance for capability. Works for both performance and accessibility.
+### Linting y Formateo
 
-### Meta Anti-patterns
+**Biome** es el retador emergente de ESLint + Prettier:
 
-- **Resume-driven development.** Choosing technologies because they look good on a resume rather than because they solve the project's actual problems leads to over-engineered, hard-to-maintain systems. The team that ships a well-built React app beats the team that struggles with a bleeding-edge stack they chose for career signaling. Optimize for the project, not your LinkedIn profile.
-- **Complexity budget.** Every tool, library, abstraction, and pattern has a cost: learning curve, maintenance burden, upgrade friction, and cognitive overhead. Treat complexity as a finite budget. Adding GraphQL, a design system, a monorepo, and micro-frontends to a new project spends the entire budget before the first feature ships. Each addition must justify its cost against the alternative of not adding it.
-- **The rewrite trap.** Full rewrites consistently underdeliver and overrun. The existing codebase encodes years of edge cases, bug fixes, and domain knowledge that the rewrite team will rediscover the hard way. Prefer incremental migration (strangler fig pattern): replace one module, route, or layer at a time while keeping the existing system running. Rewrites are justified only when the existing system cannot be incrementally changed (e.g., dead framework, no tests, no original authors).
-- **Ignoring team skill level.** The best tool is the one the team can use effectively. Adopting Rust-based tooling, functional programming patterns, or advanced TypeScript generics when the team lacks experience in those areas produces worse outcomes than using simpler tools the team already knows. Invest in training before adopting unfamiliar technology, or choose technology that matches current team capabilities.
+- Un solo binario, un archivo de configuración (`biome.json`), reemplaza ESLint + Prettier + sus plugins.
+- **10-25x más rápido**: Linting de 10K archivos en 0.8s (vs 45.2s de ESLint). Formateo de 10K archivos en 0.3s (vs 12.1s de Prettier).
+- 423+ reglas de lint en v2.x, incluyendo linting type-aware.
+- Funcionalidad completa para proyectos React/TypeScript.
+
+**ESLint v10** (febrero de 2026):
+
+- Flat config (`eslint.config.js`) es el único formato soportado. `.eslintrc` está completamente deprecado.
+- La nueva API de language plugins permite soporte de primera clase para lenguajes no-JavaScript.
+- El ecosistema más fuerte de plugins sigue siendo su ventaja clave sobre Biome.
+
+**Recomendación**: Biome para proyectos nuevos que buscan simplicidad y velocidad. ESLint para equipos que necesitan reglas personalizadas o soporte de plugins de nicho.
+
+### Dev Servers y HMR
+
+- El dev server de Vite con ES modules nativos proporciona HMR en menos de 50ms independientemente del tamaño del proyecto.
+- React Fast Refresh, Vue HMR, Svelte HMR funcionan perfectamente a través de Vite.
+- Turbopack logra HMR en menos de 10ms dentro de Next.js.
+
+### Gestión de Paquetes
+
+- **Bun** como gestor de paquetes: los tiempos de instalación más rápidos, ejecución integrada de TypeScript.
+- **pnpm**: uso eficiente del disco mediante content-addressable storage, gestión estricta de dependencias.
+- **npm**: estándar universal, aún el más compatible.
+
+### Errores Comunes y Anti-patrones
+
+- **Fatiga por cambio constante de herramientas.** Cambiar de ESLint a Biome, luego al siguiente linter, mientras también se migra de Jest a Vitest y de npm a pnpm a Bun, todo en el mismo trimestre, quema la energía del equipo en yak-shaving en lugar de entregar funcionalidades. Evalúa los costos de cambio frente a las ganancias marginales. Migra herramientas de una en una, solo cuando la herramienta actual es un cuello de botella medible.
+- **Sobre-linting.** Cuando los desarrolladores pasan más tiempo luchando contra el linter que escribiendo código, el linter se ha vuelto contraproducente. Las reglas que imponen preferencias de estilo arbitrarias (sin ternarios, longitud máxima de línea de 80, destructuring forzado) generan ruido sin detectar bugs. Mantén las reglas de lint enfocadas en corrección y consistencia; deja que el formateador maneje el estilo. Desactiva las reglas que el equipo sobrescribe consistentemente.
+- **Falsa confianza del HMR.** El código que funciona perfectamente con Hot Module Replacement puede romperse en un refresh completo de página porque HMR preserva el estado a nivel de módulo, closures y el orden de inicialización que un arranque en frío no preserva. Haz refreshes completos periódicamente durante el desarrollo. El CI siempre debería testear contra builds frescos, no contra estado actualizado por HMR.
+- **Dependencias fantasma.** npm y Bun permiten importar paquetes que no están en tu `package.json` si resultan estar hoisted desde una dependencia transitiva. Esto funciona hasta que la dependencia transitiva se actualiza o se elimina, y entonces tu build se rompe sin causa obvia. El modo estricto de pnpm detecta esto. Si usas npm o Bun, audita las importaciones contra `package.json` periódicamente.
+- **Complejidad de monorepo adoptada sin entender los compromisos.** Los monorepos (Turborepo, Nx, pnpm workspaces) resuelven problemas reales para organizaciones multi-paquete, pero introducen complejidad de orquestación de builds, gestión de caché de CI y requisitos de herramientas que los equipos pequeños no necesitan. Un monorepo para un equipo de 3 trabajando en una sola aplicación es sobrecarga sin beneficio. Comienza con un repositorio simple; adopta un monorepo cuando tengas múltiples paquetes con dependencias compartidas.
+
+---
+
+## Principios Transversales (Agnósticos del Framework)
+
+1. **Envía menos JavaScript**: Cada byte de JS tiene un costo. Usa server rendering, code splitting y tree-shaking agresivamente.
+2. **Tipifica todo**: TypeScript ya no es opcional para el trabajo profesional.
+3. **Separa server state de client state**: Usa herramientas dedicadas para cada uno (TanStack Query + Zustand/Pinia/signals).
+4. **Testea en capas**: Tests unitarios rápidos para lógica, tests de componentes para comportamiento, E2E mínimo para rutas críticas.
+5. **Accesibilidad desde el primer día**: Es más barato construir accesible que adaptar después. Automatiza lo que puedas, testea manualmente el resto.
+6. **Usa la plataforma**: Las características nativas de CSS (nesting, container queries, `:has()`) reducen la dependencia de herramientas.
+7. **Abraza lo server-first**: Server Components, streaming SSR y edge rendering son la dirección de la industria.
+8. **Los sistemas de diseño escalan equipos**: Primitivas headless + design tokens + componentes de copiar y pegar (patrón shadcn) es la fórmula ganadora.
+9. **Compiladores sobre convenciones**: React Compiler, el compilador de Svelte, Vue Vapor: deja que la herramienta optimice en lugar del desarrollador.
+10. **Progressive enhancement**: Construye para la línea base, mejora por capacidad. Funciona tanto para rendimiento como para accesibilidad.
+
+### Meta Anti-patrones
+
+- **Desarrollo impulsado por el currículum.** Elegir tecnologías porque quedan bien en el currículum en lugar de porque resuelven los problemas reales del proyecto lleva a sistemas sobre-ingenierizados y difíciles de mantener. El equipo que entrega una aplicación React bien construida supera al equipo que lucha con un stack de última generación que eligieron por señalización profesional. Optimiza para el proyecto, no para tu perfil de LinkedIn.
+- **Presupuesto de complejidad.** Cada herramienta, biblioteca, abstracción y patrón tiene un costo: curva de aprendizaje, carga de mantenimiento, fricción de actualizaciones y sobrecarga cognitiva. Trata la complejidad como un presupuesto finito. Agregar GraphQL, un sistema de diseño, un monorepo y micro-frontends a un nuevo proyecto gasta todo el presupuesto antes de que se entregue la primera funcionalidad. Cada adición debe justificar su costo frente a la alternativa de no agregarla.
+- **La trampa de la reescritura.** Las reescrituras completas consistentemente entregan menos de lo prometido y se exceden en plazo. El codebase existente codifica años de casos extremos, correcciones de bugs y conocimiento del dominio que el equipo de reescritura redescubrirá por las malas. Prefiere la migración incremental (patrón strangler fig): reemplaza un módulo, ruta o capa a la vez mientras mantienes el sistema existente funcionando. Las reescrituras solo se justifican cuando el sistema existente no puede cambiarse incrementalmente (p. ej., framework muerto, sin tests, sin autores originales).
+- **Ignorar el nivel de habilidad del equipo.** La mejor herramienta es la que el equipo puede usar efectivamente. Adoptar herramientas basadas en Rust, patrones de programación funcional o generics avanzados de TypeScript cuando el equipo carece de experiencia en esas áreas produce peores resultados que usar herramientas más simples que el equipo ya conoce. Invierte en capacitación antes de adoptar tecnología desconocida, o elige tecnología que coincida con las capacidades actuales del equipo.
