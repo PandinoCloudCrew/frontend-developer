@@ -327,18 +327,72 @@ Las actividades 🔴 (Avanzadas) pueden tener instrucciones menos granulares por
 ### Cuándo incluir mockup
 - La actividad produce un **resultado visual en el navegador** (HTML, CSS, componente renderizado)
 - El mockup ayuda al estudiante a saber **si va por buen camino**
+- **Toda actividad visual necesita mockup** — sin excepción. Si el estudiante construye algo que se ve en pantalla, debe poder comparar su resultado con una referencia
 
 ### Cuándo NO incluir mockup
 - La actividad es de **código puro** (TypeScript, JavaScript, tests)
 - La actividad es de **configuración** (instalar herramientas, configurar linter)
 - La actividad es de **auditoría** (revisar accesibilidad, revisar rendimiento)
+- La actividad es de **documentación** (clasificar componentes, escribir decisiones)
 
-### Estilo del mockup
-- Debe mostrar **exactamente lo que el estudiante obtendrá** siguiendo los pasos
-- Si la actividad es HTML sin CSS → mockup con browser defaults (serif font, links azules, sin layout)
-- Si la actividad incluye CSS → mockup con el CSS simple que se pide, no un diseño refinado
-- Incluir la **barra del navegador** con la URL `file:///` para que se vea como una captura real
-- No usar tipografía de diseño (Space Grotesk, etc.) a menos que la actividad la pida explícitamente
+### Mockups por etapa
+
+| Etapa | Mockups necesarios | Estilo |
+|-------|-------------------|--------|
+| **1 — Fundamentos** | HTML sin CSS, formulario nativo, dashboard Grid | Browser defaults (serif, sin estilos). Barra del navegador con `file:///` |
+| **2 — Componentes** | Componente Angular, biblioteca de 3 niveles, Tabs | Angular + Tailwind CSS (spartan/ui). Resultado de `ng serve` |
+| **3 — Estado** | 4 estados de data fetching, lista filtrable, wizard | Angular + Tailwind. Mostrar cada estado (loading, error, success, empty) |
+| **4 — Usabilidad** | Type scale, paleta de color, dashboard responsivo (3 viewports), skeletons | Tailwind con design tokens. Mostrar 3 anchos para responsive |
+| **5 — Rendimiento** | Lighthouse score, lazy loading waterfall | Captura de DevTools / Lighthouse (no diseño, herramientas reales) |
+| **6 — Seguridad** | 4 estados de error, flujo de auth | Angular + Tailwind |
+| **7-8** | Generalmente no necesitan | Son etapas de código, testing, y arquitectura |
+
+### Librería de UI estandarizada
+
+Para que los mockups sean **reproducibles** por el estudiante, la guía estandariza una stack de UI:
+
+- **Angular CDK** — comportamiento headless (a11y, overlay, drag-drop, virtual scroll)
+- **Tailwind CSS v4** — utility-first styling con design tokens vía `@theme`
+- **spartan/ui** — componentes copy-paste para Angular, construidos sobre CDK + Tailwind. Equivalente Angular de shadcn/ui
+
+Esta stack permite que:
+1. Los mockups de Pencil usen los mismos tokens de Tailwind (colores, espaciado, tipografía)
+2. El estudiante use spartan/ui para obtener componentes que se ven igual al mockup
+3. Los mockups y la implementación converjan visualmente
+
+**Introducción de la stack:**
+- **Etapa 1**: HTML y CSS puros (sin framework, sin Tailwind)
+- **Etapa 2 (actividad 2.0)**: Se introduce Angular + Tailwind CSS
+- **Etapa 2 (actividad 2.2)**: Se introduce spartan/ui para la biblioteca de componentes
+- **Etapa 4+**: Se usa la stack completa (CDK + Tailwind + spartan/ui)
+
+### Estilo del mockup por etapa
+
+**Etapa 1 (HTML/CSS puro):**
+- Browser defaults: serif font, links azules, inputs con borde gris
+- Barra del navegador con URL `file:///`
+- Sin tipografía de diseño, sin colores de marca
+
+**Etapas 2-4 (Angular + Tailwind + spartan/ui):**
+- Diseño limpio basado en Tailwind defaults
+- Componentes de spartan/ui (botones, inputs, tabs, cards)
+- Colores neutros de Tailwind (slate, zinc) + un accent color
+- El mockup debe ser **reproducible** usando las clases de Tailwind que se indican en la actividad
+
+**Etapas 5-6 (herramientas + estados):**
+- Para Lighthouse/DevTools: capturas de las herramientas reales, no diseños
+- Para estados de UI: mismo estilo que etapas 2-4
+
+### Reglas de diseño para mockups en Pencil
+
+Cuando diseñes mockups en Pencil para etapas 2+:
+- Usar la style guide de Tailwind (`get_style_guide` con tags de webapp)
+- Colores: `slate-50` para fondos, `slate-900` para texto, `slate-200` para bordes, un accent color
+- Tipografía: Inter (sans-serif), mismos tamaños que Tailwind defaults (14px base, 12px small, 18px lg)
+- Bordes redondeados: `4px` (Tailwind `rounded`), no sharp corners
+- Espaciado: múltiplos de 4px (4, 8, 12, 16, 24, 32) — coincide con Tailwind spacing scale
+- Inputs: borde `slate-300`, padding 8px 12px, border-radius 4px
+- Botones: fondo `slate-900` texto blanco para primary, borde `slate-300` para secondary
 
 ---
 

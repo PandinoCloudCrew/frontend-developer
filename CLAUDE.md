@@ -15,6 +15,7 @@ Guía para desarrolladores frontend: 8 etapas progresivas, 3 niveles (🟢 Esenc
 - **Actividades**: Cada actividad es un archivo separado en `actividades/`. Debe tener: Antes de empezar, Práctica paso a paso (instrucciones ejecutables sin ambigüedad), Qué puede salir mal (2-4 errores reales), Resultado esperado, Criterios de aceptación (binarios, verificables)
 - **Lecturas**: 50-300 líneas, un solo tema, incluir anti-patterns
 - **Angular**: Usar Angular 19+ (standalone, signals, `@if`/`@for`, `input()`/`output()`). No usar APIs legacy (`@Input`, `NgModule`, `*ngIf`, `*ngFor`)
+- **UI Stack**: Angular CDK (headless) + Tailwind CSS v4 (styling) + spartan/ui (componentes copy-paste). Se introduce desde Etapa 2
 - **Mockups**: Solo para resultados visuales. Deben mostrar exactamente lo que el estudiante obtendrá, no diseños refinados
 - **Anti-patterns**: Siempre cubrir el camino negativo — cómo las cosas fallan, no solo cómo funcionan
 - **Pilares de diseño**: La guía usa 7 pilares (Usabilidad, Resiliencia, Rendimiento, Seguridad, Accesibilidad, Mantenibilidad, Observabilidad). Cada actividad debe indicar qué pilares ejercita. Referencia: `guide/stage-1-foundations/lecturas/00-pilares-de-diseno.md`
