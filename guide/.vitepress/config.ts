@@ -408,6 +408,10 @@ export default defineConfig({
             { text: 'Optimistic updates y retry', link: '/stage-6-security-and-resilience/lecturas/05-optimistic-updates-y-retry' },
             { text: 'Anti-patterns de seguridad', link: '/stage-6-security-and-resilience/lecturas/06-anti-patterns-de-seguridad' },
             { text: 'Seguridad avanzada', link: '/stage-6-security-and-resilience/lecturas/07-seguridad-avanzada-frontend' },
+            { text: 'OIDC (OpenID Connect)', link: '/stage-6-security-and-resilience/lecturas/08-oidc' },
+            { text: 'RBAC en frontend', link: '/stage-6-security-and-resilience/lecturas/09-rbac-en-frontend' },
+            { text: 'Resiliencia en navegador', link: '/stage-6-security-and-resilience/lecturas/10-resiliencia-en-navegador' },
+            { text: 'Protección canal y payload', link: '/stage-6-security-and-resilience/lecturas/11-proteccion-canal-y-payload' },
           ],
         },
         {
@@ -516,6 +520,7 @@ export default defineConfig({
             { text: 'Patrones de API', link: '/stage-8-architecture-at-scale/lecturas/04-patrones-de-api' },
             { text: 'Meta-frameworks', link: '/stage-8-architecture-at-scale/lecturas/05-meta-frameworks-y-renderizado' },
             { text: 'Micro-frontends', link: '/stage-8-architecture-at-scale/lecturas/06-micro-frontends' },
+            { text: 'Almacenamiento en navegador', link: '/stage-8-architecture-at-scale/lecturas/07-almacenamiento-en-navegador' },
           ],
         },
         {

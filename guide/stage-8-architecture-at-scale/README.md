@@ -165,6 +165,7 @@
 | [04-patrones-de-api.md](./lecturas/04-patrones-de-api.md) | Patrones de API: tRPC, Zod, type safety end-to-end |
 | [05-meta-frameworks-y-renderizado.md](./lecturas/05-meta-frameworks-y-renderizado.md) | Meta-frameworks, SSR/SSG/ISR, build tools |
 | [06-micro-frontends.md](./lecturas/06-micro-frontends.md) | Micro-frontends: cuándo sí, cuándo no, implementación, trade-offs |
+| [07-almacenamiento-en-navegador.md](./lecturas/07-almacenamiento-en-navegador.md) | Almacenamiento: localStorage, IndexedDB, Cache API, OPFS, SQLite en browser, quotas |
 
 ## Material de Angular
 

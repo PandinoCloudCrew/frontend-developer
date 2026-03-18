@@ -155,6 +155,10 @@
 | [05-optimistic-updates-y-retry.md](./lecturas/05-optimistic-updates-y-retry.md) | Optimistic updates, rollback, retry con exponential backoff |
 | [06-anti-patterns-de-seguridad.md](./lecturas/06-anti-patterns-de-seguridad.md) | Anti-patterns de seguridad: secretos en bundle, eval, localStorage para tokens |
 | [07-seguridad-avanzada-frontend.md](./lecturas/07-seguridad-avanzada-frontend.md) | Seguridad avanzada: MFA, protección de datos, sanitización de input, supply chain, principios de diseño seguro |
+| [08-oidc.md](./lecturas/08-oidc.md) | OpenID Connect: OIDC vs OAuth, flujo para SPAs, ID/Access/Refresh tokens, claims, discovery, `angular-auth-oidc-client` |
+| [09-rbac-en-frontend.md](./lecturas/09-rbac-en-frontend.md) | RBAC: roles y permisos en UI, guards, directivas, "frontend RBAC es UX no seguridad", patrón admin panel |
+| [10-resiliencia-en-navegador.md](./lecturas/10-resiliencia-en-navegador.md) | Resiliencia: Service Workers, offline-first, caching strategies, offline queue, `@angular/pwa`, sync de conflictos |
+| [11-proteccion-canal-y-payload.md](./lecturas/11-proteccion-canal-y-payload.md) | Protección del canal: TLS/HSTS, SRI, Web Crypto API, request signing, certificate transparency |
 
 ### Material de Angular
 
