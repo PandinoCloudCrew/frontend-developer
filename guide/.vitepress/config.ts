@@ -4,6 +4,7 @@ export default defineConfig({
   title: 'Guía Frontend',
   description: 'Guía práctica para desarrolladores frontend — principios, Angular, y buenas prácticas',
   lang: 'es',
+  base: '/frontend-developer/',
 
   // Dark theme by default
   appearance: 'dark',
