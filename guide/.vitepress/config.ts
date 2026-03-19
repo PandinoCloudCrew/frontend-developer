@@ -198,22 +198,6 @@ export default defineConfig({
             { text: 'API de componentes Angular', link: '/stage-2-component-architecture/angular/02-api-de-componentes-angular' },
           ],
         },
-        {
-          text: '⚛️ React',
-          collapsed: true,
-          items: [
-            { text: 'Setup React', link: '/stage-2-component-architecture/react/00-setup-react' },
-            { text: 'Componentes en React', link: '/stage-2-component-architecture/react/01-componentes-en-react' },
-            { text: 'API de componentes', link: '/stage-2-component-architecture/react/02-api-de-componentes-react' },
-          ],
-        },
-        {
-          text: '💚 Vue',
-          collapsed: true,
-          items: [
-            { text: 'Contenido Vue', link: '/stage-2-component-architecture/vue/' },
-          ],
-        },
         { text: '← Etapa 1', link: '/stage-1-foundations/' },
         { text: 'Siguiente: Etapa 3 →', link: '/stage-3-state-and-data/' },
       ],
@@ -275,24 +259,6 @@ export default defineConfig({
             { text: 'Router y URL state', link: '/stage-3-state-and-data/angular/05-router-y-url-state' },
           ],
         },
-        {
-          text: '⚛️ React',
-          collapsed: true,
-          items: [
-            { text: 'Hooks y estado', link: '/stage-3-state-and-data/react/01-hooks-y-estado' },
-            { text: 'Context y providers', link: '/stage-3-state-and-data/react/02-context-y-providers' },
-            { text: 'Data fetching', link: '/stage-3-state-and-data/react/03-data-fetching-react' },
-            { text: 'Formularios', link: '/stage-3-state-and-data/react/04-formularios-react' },
-            { text: 'React Router', link: '/stage-3-state-and-data/react/05-react-router' },
-          ],
-        },
-        {
-          text: '💚 Vue',
-          collapsed: true,
-          items: [
-            { text: 'Contenido Vue', link: '/stage-3-state-and-data/vue/' },
-          ],
-        },
         { text: '← Etapa 2', link: '/stage-2-component-architecture/' },
         { text: 'Siguiente: Etapa 4 →', link: '/stage-4-usability-and-design/' },
       ],
@@ -351,20 +317,6 @@ export default defineConfig({
             { text: 'Angular Material y CDK', link: '/stage-4-usability-and-design/angular/01-angular-material-y-cdk' },
           ],
         },
-        {
-          text: '⚛️ React',
-          collapsed: true,
-          items: [
-            { text: 'UI Libraries React', link: '/stage-4-usability-and-design/react/01-ui-libraries-react' },
-          ],
-        },
-        {
-          text: '💚 Vue',
-          collapsed: true,
-          items: [
-            { text: 'Contenido Vue', link: '/stage-4-usability-and-design/vue/' },
-          ],
-        },
         { text: '← Etapa 3', link: '/stage-3-state-and-data/' },
         { text: 'Siguiente: Etapa 5 →', link: '/stage-5-performance/' },
       ],
@@ -417,20 +369,6 @@ export default defineConfig({
           collapsed: true,
           items: [
             { text: 'Rendimiento en Angular', link: '/stage-5-performance/angular/01-rendimiento-en-angular' },
-          ],
-        },
-        {
-          text: '⚛️ React',
-          collapsed: true,
-          items: [
-            { text: 'Rendimiento en React', link: '/stage-5-performance/react/01-rendimiento-en-react' },
-          ],
-        },
-        {
-          text: '💚 Vue',
-          collapsed: true,
-          items: [
-            { text: 'Contenido Vue', link: '/stage-5-performance/vue/' },
           ],
         },
         { text: '← Etapa 4', link: '/stage-4-usability-and-design/' },
@@ -496,20 +434,6 @@ export default defineConfig({
             { text: 'Seguridad en Angular', link: '/stage-6-security-and-resilience/angular/01-seguridad-en-angular' },
           ],
         },
-        {
-          text: '⚛️ React',
-          collapsed: true,
-          items: [
-            { text: 'Seguridad en React', link: '/stage-6-security-and-resilience/react/01-seguridad-en-react' },
-          ],
-        },
-        {
-          text: '💚 Vue',
-          collapsed: true,
-          items: [
-            { text: 'Contenido Vue', link: '/stage-6-security-and-resilience/vue/' },
-          ],
-        },
         { text: '← Etapa 5', link: '/stage-5-performance/' },
         { text: 'Siguiente: Etapa 7 →', link: '/stage-7-testing-and-quality/' },
       ],
@@ -561,20 +485,6 @@ export default defineConfig({
           collapsed: true,
           items: [
             { text: 'Testing en Angular', link: '/stage-7-testing-and-quality/angular/01-testing-en-angular' },
-          ],
-        },
-        {
-          text: '⚛️ React',
-          collapsed: true,
-          items: [
-            { text: 'Testing en React', link: '/stage-7-testing-and-quality/react/01-testing-en-react' },
-          ],
-        },
-        {
-          text: '💚 Vue',
-          collapsed: true,
-          items: [
-            { text: 'Contenido Vue', link: '/stage-7-testing-and-quality/vue/' },
           ],
         },
         { text: '← Etapa 6', link: '/stage-6-security-and-resilience/' },
@@ -632,20 +542,6 @@ export default defineConfig({
           collapsed: true,
           items: [
             { text: 'Arquitectura Angular', link: '/stage-8-architecture-at-scale/angular/01-arquitectura-angular' },
-          ],
-        },
-        {
-          text: '⚛️ React',
-          collapsed: true,
-          items: [
-            { text: 'Arquitectura React', link: '/stage-8-architecture-at-scale/react/01-arquitectura-react' },
-          ],
-        },
-        {
-          text: '💚 Vue',
-          collapsed: true,
-          items: [
-            { text: 'Contenido Vue', link: '/stage-8-architecture-at-scale/vue/' },
           ],
         },
         { text: '← Etapa 7', link: '/stage-7-testing-and-quality/' },
