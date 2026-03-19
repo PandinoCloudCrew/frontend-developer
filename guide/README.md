@@ -154,11 +154,8 @@ Ve etapa por etapa, completando al menos todas las actividades 🟢 antes de ava
 ### Para profesionales con experiencia
 Salta a la etapa que necesites. Cada etapa es autocontenida con sus propias lecturas.
 
-### Frameworks: Angular y React
+### Framework: Angular
 
-Cada actividad con código muestra **tabs** con implementaciones en Angular y React. El estudiante ve ambas versiones lado a lado y sigue la que corresponda a su framework. Los principios y conceptos son los mismos — solo cambia la implementación.
+Esta edición de la guía incluye implementación específica para **Angular**. Cada etapa (a partir de la 2) tiene un directorio `angular/` con material que enseña cómo aplicar los conceptos del stage usando Angular (standalone components, Signals, Reactive Forms, `@defer`, CDK, etc.).
 
-- **Angular**: standalone components, Signals, Reactive Forms, `@defer`, CDK (Angular 19+)
-- **React**: functional components, hooks, TanStack Query, React Hook Form, Suspense (React 19+)
-
-Cada etapa también tiene lecturas de referencia específicas por framework en los directorios `angular/` y `react/`.
+Los principios se enseñan primero de forma agnóstica. El material de Angular los implementa. El soporte para React, Vue y Svelte puede agregarse en el futuro siguiendo la misma estructura (`react/`, `vue/`, `svelte/`).

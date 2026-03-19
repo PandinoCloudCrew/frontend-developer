@@ -1,15 +1,10 @@
 import { defineConfig } from 'vitepress'
-import { escapeCodeBlocksPlugin } from './escape-code-blocks'
 
 export default defineConfig({
   title: 'Guía Frontend',
   description: 'Guía práctica para desarrolladores frontend — principios, Angular, y buenas prácticas',
   lang: 'es',
   base: '/frontend-developer/',
-
-  vite: {
-    plugins: [escapeCodeBlocksPlugin()],
-  },
 
   // Dark theme by default
   appearance: 'dark',
@@ -22,11 +17,7 @@ export default defineConfig({
     }],
   ],
 
-  srcExclude: [
-    '**/MOCKUPS-PENDIENTES.md',
-    '**/LINEAMIENTOS.md',
-    '**/FRAMEWORK-CONTENT-PLAN.md',
-  ],
+  srcExclude: ['**/MOCKUPS-PENDIENTES.md', '**/LINEAMIENTOS.md'],
   ignoreDeadLinks: true,
 
   // Map README.md files to index.html for proper directory routing
