@@ -94,22 +94,7 @@ app/
       route.ts            ← API route: /api/users
 ```
 
-```
-// app/products/page.tsx — Server Component by default
-async function ProductsPage() {
-  const products = await fetch('https://api.example.com/products').then(r => r.json());
-
-  return (
-    <ul>
-      {products.map((p: Product) => (
-        <li key={p.id}>{p.name} — ${p.price}</li>
-      ))}
-    </ul>
-  );
-}
-
-export default ProductsPage;
-```
+<<< @/snippets/react/s8-01-arquitectura-react-01.tsx
 
 **Features de Next.js:**
 - **File-based routing:** los archivos en `app/` se convierten en rutas automaticamente.
@@ -121,25 +106,7 @@ export default ProductsPage;
 
 Remix (ahora integrado en React Router v7) se enfoca en web standards y progressive enhancement:
 
-```
-// app/routes/products.tsx
-import type { LoaderFunctionArgs } from 'react-router';
-
-export async function loader({ request }: LoaderFunctionArgs) {
-  const products = await fetchProducts();
-  return { products };
-}
-
-export default function Products({ loaderData }: { loaderData: { products: Product[] } }) {
-  return (
-    <ul>
-      {loaderData.products.map(p => (
-        <li key={p.id}>{p.name}</li>
-      ))}
-    </ul>
-  );
-}
-```
+<<< @/snippets/react/s8-01-arquitectura-react-02.tsx
 
 ### Cuando usar cada opcion
 
@@ -157,30 +124,7 @@ En Angular, Analog cumple el rol de Next.js: file-based routing, API routes, SSR
 
 `React.lazy` + `Suspense` dividen el bundle por ruta. Cada pagina se descarga solo cuando el usuario navega a ella:
 
-```
-import { lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router';
-
-const Products = lazy(() => import('./features/products/pages/ProductList'));
-const ProductDetail = lazy(() => import('./features/products/pages/ProductDetail'));
-const Checkout = lazy(() => import('./features/checkout/pages/Checkout'));
-const Admin = lazy(() => import('./features/admin/pages/AdminDashboard'));
-
-function AppRoutes() {
-  return (
-    <BrowserRouter>
-      <Suspense fallback={<div>Cargando...</div>}>
-        <Routes>
-          <Route path="/products" element={<Products />} />
-          <Route path="/products/:id" element={<ProductDetail />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/admin" element={<Admin />} />
-        </Routes>
-      </Suspense>
-    </BrowserRouter>
-  );
-}
-```
+<<< @/snippets/react/s8-01-arquitectura-react-03.tsx
 
 Esto es equivalente a `loadChildren` en Angular Router: cada `lazy()` crea un chunk separado que solo se descarga cuando el usuario navega a esa ruta.
 
@@ -201,44 +145,11 @@ En aplicaciones grandes, no todo el estado se maneja igual. La recomendacion act
 
 ### TanStack Query para server state
 
-```
-import { useQuery } from '@tanstack/react-query';
-
-function ProductList() {
-  const { data: products, isLoading, error } = useQuery({
-    queryKey: ['products'],
-    queryFn: () => fetch('/api/products').then(r => r.json()),
-  });
-
-  if (isLoading) return <Spinner />;
-  if (error) return <ErrorMessage error={error} />;
-
-  return products.map((p: Product) => <ProductCard key={p.id} product={p} />);
-}
-```
+<<< @/snippets/react/s8-01-arquitectura-react-04.tsx
 
 ### Zustand para client state
 
-```
-import { create } from 'zustand';
-
-interface UIStore {
-  sidebarOpen: boolean;
-  toggleSidebar: () => void;
-}
-
-const useUIStore = create<UIStore>((set) => ({
-  sidebarOpen: false,
-  toggleSidebar: () => set((state) => ({ sidebarOpen: !state.sidebarOpen })),
-}));
-
-// Usage in any component
-function Sidebar() {
-  const isOpen = useUIStore((state) => state.sidebarOpen);
-  if (!isOpen) return null;
-  return <nav>...</nav>;
-}
-```
+<<< @/snippets/react/s8-01-arquitectura-react-05.tsx
 
 En Angular, el equivalente es: signals + services para client state (similar a Zustand), `httpResource` o RxJS para server state (similar a TanStack Query), y router params para URL state.
 

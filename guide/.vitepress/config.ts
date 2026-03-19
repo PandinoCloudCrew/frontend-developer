@@ -26,9 +26,6 @@ export default defineConfig({
     '**/MOCKUPS-PENDIENTES.md',
     '**/LINEAMIENTOS.md',
     '**/FRAMEWORK-CONTENT-PLAN.md',
-    // React files temporarily excluded — JSX in code blocks breaks Vue SFC compiler
-    // TODO: fix with pre-build escaping script or VitePress upgrade
-    '**/react/*.md',
   ],
   ignoreDeadLinks: true,
 

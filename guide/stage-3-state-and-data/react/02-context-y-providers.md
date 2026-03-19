@@ -19,27 +19,7 @@
 
 Context es el mecanismo de React para compartir valores entre componentes sin pasarlos por props en cada nivel.
 
-```
-import { createContext, useContext, useState } from 'react';
-
-// 1. Crear el contexto con tipo
-interface AuthContextType {
-  user: User | null;
-  login: (email: string, password: string) => Promise<void>;
-  logout: () => void;
-}
-
-const AuthContext = createContext<AuthContextType | null>(null);
-
-// 2. Hook personalizado para consumir (con type safety)
-function useAuth() {
-  const ctx = useContext(AuthContext);
-  if (!ctx) {
-    throw new Error('useAuth debe usarse dentro de <AuthProvider>');
-  }
-  return ctx;
-}
-```
+<<< @/snippets/react/s3-02-context-y-providers-01.tsx
 
 El `throw` dentro de `useAuth` garantiza que nunca obtengas `null` y evita tener que verificar en cada componente consumidor.
 
@@ -51,63 +31,9 @@ En Angular usas `@Injectable` + `inject()` para dependency injection. En React u
 
 El Provider es un componente que envuelve parte del árbol y hace disponible un valor a todos sus hijos:
 
-```
-function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
+<<< @/snippets/react/s3-02-context-y-providers-02.tsx
 
-  async function login(email: string, password: string) {
-    const res = await fetch('/api/auth/login', {
-      method: 'POST',
-      body: JSON.stringify({ email, password }),
-      headers: { 'Content-Type': 'application/json' },
-    });
-    const data = await res.json();
-    setUser(data);
-  }
-
-  function logout() {
-    setUser(null);
-  }
-
-  return (
-    <AuthContext.Provider value={{ user, login, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
-}
-```
-
-```
-// En main.tsx o App.tsx — envuelve la app
-function App() {
-  return (
-    <AuthProvider>
-      <Header />
-      <main>
-        <RouterProvider router={router} />
-      </main>
-    </AuthProvider>
-  );
-}
-
-// Cualquier componente descendiente puede consumir
-function Header() {
-  const { user, logout } = useAuth();
-
-  return (
-    <header>
-      {user ? (
-        <>
-          <span>Hola, {user.name}</span>
-          <button onClick={logout}>Cerrar sesión</button>
-        </>
-      ) : (
-        <a href="/login">Iniciar sesión</a>
-      )}
-    </header>
-  );
-}
-```
+<<< @/snippets/react/s3-02-context-y-providers-03.tsx
 
 ---
 
@@ -195,7 +121,7 @@ const value = useMemo(() => ({ user, login, logout }), [user, login, logout]);
 <AuthContext.Provider value={value}>
 ```
 
-- **Context anidado excesivo.** `<ThemeProvider><AuthProvider><CartProvider><I18nProvider>` crea "provider hell". Agrupa providers relacionados o usa Zustand para reducir el anidamiento.
+- **Context anidado excesivo.** `<ThemeProvider><AuthProvider><CartProvider>&lt;I18nProvider>` crea "provider hell". Agrupa providers relacionados o usa Zustand para reducir el anidamiento.
 - **Usar Context para estado del servidor.** Los datos de API tienen su propio lifecycle (loading, error, cache, refetch). TanStack Query maneja todo esto; Context no.
 
 ---

@@ -20,38 +20,7 @@
 
 Las props definen el contrato público de un componente. Un buen diseño de props hace que el componente sea predecible y fácil de usar.
 
-```
-interface ButtonProps {
-  /** Contenido del botón */
-  children: React.ReactNode;
-  /** Variante visual */
-  variant?: 'primary' | 'secondary' | 'ghost';
-  /** Tamaño */
-  size?: 'sm' | 'md' | 'lg';
-  /** Deshabilitado */
-  disabled?: boolean;
-  /** Handler de click */
-  onClick?: () => void;
-}
-
-function Button({
-  children,
-  variant = 'primary',
-  size = 'md',
-  disabled = false,
-  onClick,
-}: ButtonProps) {
-  return (
-    <button
-      className={`btn btn-${variant} btn-${size}`}
-      disabled={disabled}
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  );
-}
-```
+<<< @/snippets/react/s2-02-api-de-componentes-react-01.tsx
 
 - **Union types para variantes.** `'primary' | 'secondary'` es mejor que `string` --- restringe los valores válidos.
 - **Valores por defecto en el destructuring.** Hacen que las props opcionales sean predecibles sin necesitar documentación extra.
@@ -65,44 +34,9 @@ En Angular usas `input<'primary' | 'secondary'>('primary')`. En React usas TypeS
 
 Cuando un componente wrappea un elemento nativo, los consumidores necesitan acceder al elemento DOM subyacente. `forwardRef` lo hace posible:
 
-```
-import { forwardRef } from 'react';
+<<< @/snippets/react/s2-02-api-de-componentes-react-02.tsx
 
-interface InputProps {
-  label: string;
-  error?: string;
-}
-
-const Input = forwardRef<HTMLInputElement, InputProps>(
-  function Input({ label, error, ...rest }, ref) {
-    return (
-      <div>
-        <label>{label}</label>
-        <input ref={ref} {...rest} />
-        {error && <span className="error">{error}</span>}
-      </div>
-    );
-  }
-);
-```
-
-```
-// El consumidor puede hacer focus programáticamente
-import { useRef } from 'react';
-
-function SearchForm() {
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  return (
-    <form>
-      <Input ref={inputRef} label="Buscar" />
-      <button type="button" onClick={() => inputRef.current?.focus()}>
-        Enfocar
-      </button>
-    </form>
-  );
-}
-```
+<<< @/snippets/react/s2-02-api-de-componentes-react-03.tsx
 
 En Angular usas `viewChild` para acceder a elementos del template. En React usas `ref` + `forwardRef`.
 
@@ -112,43 +46,13 @@ En Angular usas `viewChild` para acceder a elementos del template. En React usas
 
 ### Controlled: React controla el valor
 
-```
-import { useState } from 'react';
-
-function ControlledInput() {
-  const [value, setValue] = useState('');
-
-  return (
-    <input
-      value={value}
-      onChange={e => setValue(e.target.value)}
-    />
-  );
-}
-```
+<<< @/snippets/react/s2-02-api-de-componentes-react-04.tsx
 
 El valor siempre refleja el state de React. Cada keystroke dispara `onChange` → `setValue` → re-render.
 
 ### Uncontrolled: el DOM controla el valor
 
-```
-import { useRef } from 'react';
-
-function UncontrolledInput() {
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  function handleSubmit() {
-    console.log(inputRef.current?.value);
-  }
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <input ref={inputRef} defaultValue="" />
-      <button type="submit">Enviar</button>
-    </form>
-  );
-}
-```
+<<< @/snippets/react/s2-02-api-de-componentes-react-05.tsx
 
 El DOM mantiene el valor. React solo lo lee cuando lo necesita.
 
@@ -165,82 +69,17 @@ El DOM mantiene el valor. React solo lo lee cuando lo necesita.
 
 ### Simple: contenido libre
 
-```
-function Card({ children }: { children: React.ReactNode }) {
-  return <div className="card">{children}</div>;
-}
-```
+<<< @/snippets/react/s2-02-api-de-componentes-react-06.tsx
 
 ### Render function: lógica del hijo decidida por el padre
 
-```
-interface ListProps<T> {
-  items: T[];
-  renderItem: (item: T) => React.ReactNode;
-}
+<<< @/snippets/react/s2-02-api-de-componentes-react-07.tsx
 
-function List<T extends { id: string }>({ items, renderItem }: ListProps<T>) {
-  return (
-    <ul>
-      {items.map(item => (
-        <li key={item.id}>{renderItem(item)}</li>
-      ))}
-    </ul>
-  );
-}
-```
-
-```
-<List
-  items={products}
-  renderItem={product => (
-    <span>{product.name} --- ${product.price}</span>
-  )}
-/>
-```
+<<< @/snippets/react/s2-02-api-de-componentes-react-08.tsx
 
 ### Compound: componentes que funcionan juntos
 
-```
-import { createContext, useContext, useState } from 'react';
-
-const TabsContext = createContext<{
-  activeTab: string;
-  setActiveTab: (tab: string) => void;
-} | null>(null);
-
-function Tabs({ defaultTab, children }: { defaultTab: string; children: React.ReactNode }) {
-  const [activeTab, setActiveTab] = useState(defaultTab);
-  return (
-    <TabsContext.Provider value={{ activeTab, setActiveTab }}>
-      {children}
-    </TabsContext.Provider>
-  );
-}
-
-function TabList({ children }: { children: React.ReactNode }) {
-  return <div role="tablist">{children}</div>;
-}
-
-function Tab({ value, children }: { value: string; children: React.ReactNode }) {
-  const ctx = useContext(TabsContext)!;
-  return (
-    <button
-      role="tab"
-      aria-selected={ctx.activeTab === value}
-      onClick={() => ctx.setActiveTab(value)}
-    >
-      {children}
-    </button>
-  );
-}
-
-function TabPanel({ value, children }: { value: string; children: React.ReactNode }) {
-  const ctx = useContext(TabsContext)!;
-  if (ctx.activeTab !== value) return null;
-  return <div role="tabpanel">{children}</div>;
-}
-```
+<<< @/snippets/react/s2-02-api-de-componentes-react-09.tsx
 
 ---
 
@@ -248,19 +87,7 @@ function TabPanel({ value, children }: { value: string; children: React.ReactNod
 
 Para componentes que wrappean elementos nativos, pasa todas las props HTML al elemento subyacente:
 
-```
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary';
-}
-
-function Button({ variant = 'primary', children, ...rest }: ButtonProps) {
-  return (
-    <button className={`btn btn-${variant}`} {...rest}>
-      {children}
-    </button>
-  );
-}
-```
+<<< @/snippets/react/s2-02-api-de-componentes-react-10.tsx
 
 ```
 // El consumidor puede pasar cualquier atributo HTML nativo
@@ -269,7 +96,7 @@ function Button({ variant = 'primary', children, ...rest }: ButtonProps) {
 </Button>
 ```
 
-`extends React.ButtonHTMLAttributes<HTMLButtonElement>` hereda todos los tipos de un `<button>` nativo.
+`extends React.ButtonHTMLAttributes&lt;HTMLButtonElement>` hereda todos los tipos de un `<button>` nativo.
 
 ---
 

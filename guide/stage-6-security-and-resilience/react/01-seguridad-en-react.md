@@ -23,13 +23,7 @@
 
 React escapa automáticamente todas las expresiones JSX `{value}` antes de insertarlas en el DOM. Si un usuario ingresa `<script>alert('xss')</script>`, React lo renderiza como texto plano, no como HTML ejecutable.
 
-```
-function Comment({ text }: { text: string }) {
-  // SAFE — React escapes the value automatically
-  return <p>{text}</p>;
-  // If text = "<script>alert('xss')</script>", renders as visible text
-}
-```
+<<< @/snippets/react/s6-01-seguridad-en-react-01.tsx
 
 Esto es el equivalente de la sanitización automática de templates en Angular. En ambos frameworks, la protección XSS viene activada por defecto.
 
@@ -39,26 +33,11 @@ Esto es el equivalente de la sanitización automática de templates en Angular. 
 
 Cuando necesitas renderizar HTML real (contenido de un CMS, rich text), React requiere que uses `dangerouslySetInnerHTML`. El nombre largo es intencional: te obliga a pensar antes de usarlo.
 
-```
-import DOMPurify from 'dompurify';
-
-function CmsContent({ rawHtml }: { rawHtml: string }) {
-  // ALWAYS sanitize with DOMPurify before rendering
-  const cleanHtml = DOMPurify.sanitize(rawHtml);
-
-  return <div dangerouslySetInnerHTML={{ __html: cleanHtml }} />;
-}
-```
+<<< @/snippets/react/s6-01-seguridad-en-react-02.tsx
 
 **Nunca** pases contenido de usuario directamente sin sanitizar:
 
-```
-// DANGER — XSS vulnerability
-<div dangerouslySetInnerHTML={{ __html: userInput }} />
-
-// SAFE — sanitized first
-<div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(userInput) }} />
-```
+<<< @/snippets/react/s6-01-seguridad-en-react-03.tsx
 
 En Angular, el equivalente es `[innerHTML]` con `bypassSecurityTrustHtml`. Angular sanitiza automáticamente `[innerHTML]`, pero si usas `bypassSecurityTrustHtml` sin DOMPurify, tienes el mismo riesgo.
 

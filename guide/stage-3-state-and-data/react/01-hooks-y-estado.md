@@ -20,22 +20,7 @@
 
 `useState` declara una variable de estado en un componente funcional:
 
-```
-import { useState } from 'react';
-
-function Counter() {
-  const [count, setCount] = useState(0);
-
-  return (
-    <div>
-      <p>Contador: {count}</p>
-      <button onClick={() => setCount(count + 1)}>+1</button>
-      <button onClick={() => setCount(prev => Math.max(0, prev - 1))}>-1</button>
-      <button onClick={() => setCount(0)}>Reset</button>
-    </div>
-  );
-}
-```
+<<< @/snippets/react/s3-01-hooks-y-estado-01.tsx
 
 - `setCount(5)` reemplaza el valor (como `signal.set(5)` en Angular).
 - `setCount(prev => prev + 1)` calcula el nuevo valor a partir del anterior (como `signal.update()`).
@@ -61,44 +46,7 @@ const [data, setData] = useState(() =>
 
 Cuando el estado tiene múltiples campos que cambian juntos, `useReducer` es más claro que múltiples `useState`:
 
-```
-import { useReducer } from 'react';
-
-interface CartState {
-  items: CartItem[];
-  discount: number;
-}
-
-type CartAction =
-  | { type: 'add'; item: CartItem }
-  | { type: 'remove'; id: string }
-  | { type: 'applyDiscount'; percent: number }
-  | { type: 'clear' };
-
-function cartReducer(state: CartState, action: CartAction): CartState {
-  switch (action.type) {
-    case 'add':
-      return { ...state, items: [...state.items, action.item] };
-    case 'remove':
-      return { ...state, items: state.items.filter(i => i.id !== action.id) };
-    case 'applyDiscount':
-      return { ...state, discount: action.percent };
-    case 'clear':
-      return { items: [], discount: 0 };
-  }
-}
-
-function Cart() {
-  const [state, dispatch] = useReducer(cartReducer, { items: [], discount: 0 });
-
-  return (
-    <div>
-      <p>Items: {state.items.length}</p>
-      <button onClick={() => dispatch({ type: 'clear' })}>Vaciar</button>
-    </div>
-  );
-}
-```
+<<< @/snippets/react/s3-01-hooks-y-estado-02.tsx
 
 **Cuándo usar `useReducer` en vez de `useState`:**
 - El estado tiene 3+ campos relacionados.
@@ -111,43 +59,13 @@ function Cart() {
 
 ### `useMemo`: memorizar un valor calculado
 
-```
-import { useMemo } from 'react';
-
-function CartSummary({ items }: { items: CartItem[] }) {
-  const total = useMemo(
-    () => items.reduce((sum, item) => sum + item.price * item.qty, 0),
-    [items] // solo recalcula cuando items cambia
-  );
-
-  return <p>Total: ${total.toFixed(2)}</p>;
-}
-```
+<<< @/snippets/react/s3-01-hooks-y-estado-03.tsx
 
 `useMemo` es el equivalente de `computed()` en Angular: un valor derivado que se recalcula solo cuando sus dependencias cambian.
 
 ### `useCallback`: memorizar una función
 
-```
-import { useCallback } from 'react';
-
-function ProductList({ products, onSelect }: Props) {
-  const handleSelect = useCallback(
-    (id: string) => {
-      onSelect(id);
-    },
-    [onSelect]
-  );
-
-  return (
-    <ul>
-      {products.map(p => (
-        <ProductItem key={p.id} product={p} onSelect={handleSelect} />
-      ))}
-    </ul>
-  );
-}
-```
+<<< @/snippets/react/s3-01-hooks-y-estado-04.tsx
 
 `useCallback` memoriza la función para que no se recree en cada render. Solo es útil cuando pasas la función como prop a un componente memorizado con `React.memo`.
 
@@ -159,36 +77,9 @@ function ProductList({ products, onSelect }: Props) {
 
 Los custom hooks extraen lógica reutilizable de los componentes. Nombra siempre con `useXxx`:
 
-```
-import { useState, useEffect } from 'react';
+<<< @/snippets/react/s3-01-hooks-y-estado-05.tsx
 
-function useLocalStorage<T>(key: string, initialValue: T) {
-  const [value, setValue] = useState<T>(() => {
-    const stored = localStorage.getItem(key);
-    return stored ? JSON.parse(stored) : initialValue;
-  });
-
-  useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(value));
-  }, [key, value]);
-
-  return [value, setValue] as const;
-}
-```
-
-```
-// Uso
-function Settings() {
-  const [theme, setTheme] = useLocalStorage('theme', 'light');
-
-  return (
-    <select value={theme} onChange={e => setTheme(e.target.value)}>
-      <option value="light">Claro</option>
-      <option value="dark">Oscuro</option>
-    </select>
-  );
-}
-```
+<<< @/snippets/react/s3-01-hooks-y-estado-06.tsx
 
 En Angular extraes lógica a servicios con `@Injectable`. En React extraes lógica a custom hooks.
 

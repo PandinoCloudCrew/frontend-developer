@@ -155,7 +155,7 @@ La URL `https://myapp.com/products?q=teclado&sort=price` es compartible, bookmar
 
 ## Navegación
 
-### Declarativa con `<Link>` y `<NavLink>`
+### Declarativa con `&lt;Link>` y `&lt;NavLink>`
 
 ```
 import { Link, NavLink } from 'react-router';
@@ -296,7 +296,7 @@ Los loaders son útiles para pre-cargar datos durante la navegación. Son compar
 - `createBrowserRouter` + `RouterProvider` es la API moderna de React Router v7.
 - `useParams` lee parámetros de ruta (`/products/:id`). `useSearchParams` lee y escribe query params.
 - La URL es estado compartible y bookmarkable. Úsala para filtros, ordenamiento y paginación.
-- Protege rutas con un componente wrapper `<ProtectedRoute>` --- React Router no tiene guards built-in.
+- Protege rutas con un componente wrapper `&lt;ProtectedRoute>` --- React Router no tiene guards built-in.
 - Los loaders pre-cargan datos durante la navegación, similares a los resolvers de Angular.
 
 

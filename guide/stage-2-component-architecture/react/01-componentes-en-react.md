@@ -22,21 +22,7 @@
 
 Un componente React es una función que retorna JSX. No hay decoradores, no hay archivos separados para template y estilos.
 
-```
-interface UserCardProps {
-  name: string;
-  role: string;
-}
-
-function UserCard({ name, role }: UserCardProps) {
-  return (
-    <article className="card">
-      <h2>{name}</h2>
-      <p>{role}</p>
-    </article>
-  );
-}
-```
+<<< @/snippets/react/s2-01-componentes-en-react-01.tsx
 
 - **La función ES el componente.** No necesitas registrarlo, declararlo ni importarlo en un módulo.
 - **`className` en vez de `class`.** JSX usa `className` porque `class` es palabra reservada en JavaScript.
@@ -50,26 +36,7 @@ En Angular, un componente tiene decorador `@Component`, clase, template y estilo
 
 JSX parece HTML pero es JavaScript. Cada `<div>` se compila a una llamada de función.
 
-```
-function Example() {
-  const user = { name: 'Ana', age: 28 };
-
-  return (
-    <div>
-      {/* Expresiones */}
-      <p>Nombre: {user.name}</p>
-      <p>Edad: {user.age} años</p>
-      <p>Mayor de edad: {user.age >= 18 ? 'Sí' : 'No'}</p>
-
-      {/* Atributos dinámicos */}
-      <img src={`/avatars/${user.name.toLowerCase()}.jpg`} alt={user.name} />
-
-      {/* Estilos inline (objeto, no string) */}
-      <span style={{ color: 'green', fontWeight: 'bold' }}>Activo</span>
-    </div>
-  );
-}
-```
+<<< @/snippets/react/s2-01-componentes-en-react-02.tsx
 
 Diferencia clave con Angular: en Angular usas `{{ interpolation }}` (doble llave) y directivas. En React usas `{expression}` (llave simple) y JavaScript puro.
 
@@ -79,32 +46,13 @@ Diferencia clave con Angular: en Angular usas `{{ interpolation }}` (doble llave
 
 Las props se tipan con interfaces y se reciben por destructuring:
 
-```
-interface ProductCardProps {
-  name: string;
-  price: number;
-  onSale?: boolean; // opcional con ?
-}
+<<< @/snippets/react/s2-01-componentes-en-react-03.tsx
 
-function ProductCard({ name, price, onSale = false }: ProductCardProps) {
-  return (
-    <article>
-      <h3>{name}</h3>
-      <p>${price.toFixed(2)}</p>
-      {onSale && <span className="badge">En oferta</span>}
-    </article>
-  );
-}
-```
-
-```
-// Uso
-<ProductCard name="Teclado mecánico" price={89.99} onSale />
-```
+<<< @/snippets/react/s2-01-componentes-en-react-04.tsx
 
 - `onSale?: boolean` marca la prop como opcional.
 - `onSale = false` proporciona un valor por defecto en el destructuring.
-- `<ProductCard onSale />` equivale a `<ProductCard onSale={true} />`.
+- `&lt;ProductCard onSale />` equivale a `&lt;ProductCard onSale={true} />`.
 
 En Angular usas `input()` / `input.required()`. En React usas interfaces de TypeScript y destructuring.
 
@@ -114,65 +62,18 @@ En Angular usas `input()` / `input.required()`. En React usas interfaces de Type
 
 React no tiene directivas (`@if`, `v-if`). Usas operadores de JavaScript:
 
-```
-interface StatusProps {
-  status: 'loading' | 'error' | 'success';
-  data?: string[];
-  errorMessage?: string;
-}
-
-function StatusDisplay({ status, data, errorMessage }: StatusProps) {
-  // Ternario para if/else
-  if (status === 'loading') {
-    return <p>Cargando...</p>;
-  }
-
-  if (status === 'error') {
-    return <p className="error">{errorMessage}</p>;
-  }
-
-  // && para condicionales simples
-  return (
-    <div>
-      {data && data.length > 0 && (
-        <ul>
-          {data.map((item, i) => <li key={i}>{item}</li>)}
-        </ul>
-      )}
-      {data?.length === 0 && <p>Sin resultados</p>}
-    </div>
-  );
-}
-```
+<<< @/snippets/react/s2-01-componentes-en-react-05.tsx
 
 **Tres patrones:**
 1. `return` temprano para estados excluyentes.
-2. `{condition && <JSX />}` para mostrar/ocultar.
-3. `{condition ? <A /> : <B />}` para if/else inline.
+2. `{condition && &lt;JSX />}` para mostrar/ocultar.
+3. `{condition ? <A /> : &lt;B />}` para if/else inline.
 
 ---
 
 ## Listas con `.map()` y `key`
 
-```
-interface Product {
-  id: string;
-  name: string;
-  price: number;
-}
-
-function ProductList({ products }: { products: Product[] }) {
-  return (
-    <ul>
-      {products.map(product => (
-        <li key={product.id}>
-          {product.name} --- ${product.price.toFixed(2)}
-        </li>
-      ))}
-    </ul>
-  );
-}
-```
+<<< @/snippets/react/s2-01-componentes-en-react-06.tsx
 
 - **`key` es obligatorio.** React lo usa para identificar qué elementos cambiaron, se agregaron o se eliminaron. Sin `key`, React re-renderiza toda la lista.
 - **Usa IDs estables, no índices.** `key={product.id}` es correcto. `key={index}` causa bugs cuando la lista se reordena.
@@ -185,15 +86,7 @@ function ProductList({ products }: { products: Product[] }) {
 
 `children` es la prop especial que recibe el contenido entre las etiquetas de apertura y cierre:
 
-```
-interface CardProps {
-  children: React.ReactNode;
-}
-
-function Card({ children }: CardProps) {
-  return <div className="card">{children}</div>;
-}
-```
+<<< @/snippets/react/s2-01-componentes-en-react-07.tsx
 
 ```
 // Uso
@@ -213,37 +106,9 @@ function Card({ children }: CardProps) {
 
 React no tiene slots nombrados como Angular (`select="[dialog-title]"`). En su lugar, usas props:
 
-```
-interface DialogProps {
-  title: React.ReactNode;
-  actions: React.ReactNode;
-  children: React.ReactNode;
-}
+<<< @/snippets/react/s2-01-componentes-en-react-08.tsx
 
-function Dialog({ title, actions, children }: DialogProps) {
-  return (
-    <div className="dialog">
-      <header>{title}</header>
-      <main>{children}</main>
-      <footer>{actions}</footer>
-    </div>
-  );
-}
-```
-
-```
-<Dialog
-  title={<h2>Confirmar eliminación</h2>}
-  actions={
-    <>
-      <button onClick={cancel}>Cancelar</button>
-      <button onClick={confirm}>Eliminar</button>
-    </>
-  }
->
-  <p>¿Estás seguro de que quieres eliminar este elemento?</p>
-</Dialog>
-```
+<<< @/snippets/react/s2-01-componentes-en-react-09.tsx
 
 ---
 
