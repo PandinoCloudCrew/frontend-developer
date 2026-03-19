@@ -3,7 +3,10 @@
     "allow": [
       "Bash(git add:*)",
       "Bash(git reset:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(npm run:*)",
+      "Bash(npx vitepress:*)",
+      "Bash(git push:*)"
     ]
   }
 }

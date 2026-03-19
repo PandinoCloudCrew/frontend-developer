@@ -275,7 +275,7 @@ Crea un componente Angular y agrégale un input.
    ```
 4. En `perfil.component.html`, muestra el nombre:
    ```html
-   <h1>&#123;&#123; nombre() &#125;&#125;</h1>
+   <h1>{{ nombre() }}</h1>
    ```
 ```
 

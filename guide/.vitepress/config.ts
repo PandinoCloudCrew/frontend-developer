@@ -1,10 +1,15 @@
 import { defineConfig } from 'vitepress'
+import { escapeCodeBlocksPlugin } from './escape-code-blocks'
 
 export default defineConfig({
   title: 'Guía Frontend',
   description: 'Guía práctica para desarrolladores frontend — principios, Angular, y buenas prácticas',
   lang: 'es',
   base: '/frontend-developer/',
+
+  vite: {
+    plugins: [escapeCodeBlocksPlugin()],
+  },
 
   // Dark theme by default
   appearance: 'dark',
@@ -17,7 +22,14 @@ export default defineConfig({
     }],
   ],
 
-  srcExclude: ['**/MOCKUPS-PENDIENTES.md', '**/LINEAMIENTOS.md'],
+  srcExclude: [
+    '**/MOCKUPS-PENDIENTES.md',
+    '**/LINEAMIENTOS.md',
+    '**/FRAMEWORK-CONTENT-PLAN.md',
+    // React files temporarily excluded — JSX in code blocks breaks Vue SFC compiler
+    // TODO: fix with pre-build escaping script or VitePress upgrade
+    '**/react/*.md',
+  ],
   ignoreDeadLinks: true,
 
   // Map README.md files to index.html for proper directory routing
@@ -193,7 +205,9 @@ export default defineConfig({
           text: '⚛️ React',
           collapsed: true,
           items: [
-            { text: 'Contenido React', link: '/stage-2-component-architecture/react/' },
+            { text: 'Setup React', link: '/stage-2-component-architecture/react/00-setup-react' },
+            { text: 'Componentes en React', link: '/stage-2-component-architecture/react/01-componentes-en-react' },
+            { text: 'API de componentes', link: '/stage-2-component-architecture/react/02-api-de-componentes-react' },
           ],
         },
         {
@@ -268,7 +282,11 @@ export default defineConfig({
           text: '⚛️ React',
           collapsed: true,
           items: [
-            { text: 'Contenido React', link: '/stage-3-state-and-data/react/' },
+            { text: 'Hooks y estado', link: '/stage-3-state-and-data/react/01-hooks-y-estado' },
+            { text: 'Context y providers', link: '/stage-3-state-and-data/react/02-context-y-providers' },
+            { text: 'Data fetching', link: '/stage-3-state-and-data/react/03-data-fetching-react' },
+            { text: 'Formularios', link: '/stage-3-state-and-data/react/04-formularios-react' },
+            { text: 'React Router', link: '/stage-3-state-and-data/react/05-react-router' },
           ],
         },
         {
@@ -340,7 +358,7 @@ export default defineConfig({
           text: '⚛️ React',
           collapsed: true,
           items: [
-            { text: 'Contenido React', link: '/stage-4-usability-and-design/react/' },
+            { text: 'UI Libraries React', link: '/stage-4-usability-and-design/react/01-ui-libraries-react' },
           ],
         },
         {
@@ -408,7 +426,7 @@ export default defineConfig({
           text: '⚛️ React',
           collapsed: true,
           items: [
-            { text: 'Contenido React', link: '/stage-5-performance/react/' },
+            { text: 'Rendimiento en React', link: '/stage-5-performance/react/01-rendimiento-en-react' },
           ],
         },
         {
@@ -485,7 +503,7 @@ export default defineConfig({
           text: '⚛️ React',
           collapsed: true,
           items: [
-            { text: 'Contenido React', link: '/stage-6-security-and-resilience/react/' },
+            { text: 'Seguridad en React', link: '/stage-6-security-and-resilience/react/01-seguridad-en-react' },
           ],
         },
         {
@@ -552,7 +570,7 @@ export default defineConfig({
           text: '⚛️ React',
           collapsed: true,
           items: [
-            { text: 'Contenido React', link: '/stage-7-testing-and-quality/react/' },
+            { text: 'Testing en React', link: '/stage-7-testing-and-quality/react/01-testing-en-react' },
           ],
         },
         {
@@ -623,7 +641,7 @@ export default defineConfig({
           text: '⚛️ React',
           collapsed: true,
           items: [
-            { text: 'Contenido React', link: '/stage-8-architecture-at-scale/react/' },
+            { text: 'Arquitectura React', link: '/stage-8-architecture-at-scale/react/01-arquitectura-react' },
           ],
         },
         {
